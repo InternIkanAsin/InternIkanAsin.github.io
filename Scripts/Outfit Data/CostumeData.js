@@ -130,6 +130,6 @@ const outfitPositions = {
     Outer: { x: 362.5, y: 360.5 },
     Underwear: { x: 375, y: 623 },
     Socks: { x: 397.5, y: 648 },
-    Shoes: { x: 408, y: 792 }
+    Shoes: { x: 410, y: 792 }
 };
 export { costumeData, outfitPositions, outfitCustomSizes, outfitManualOffsets };
