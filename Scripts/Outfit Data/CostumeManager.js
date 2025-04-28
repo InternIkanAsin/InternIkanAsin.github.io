@@ -26,7 +26,7 @@ export class statTracker {
     setupStatPanel(scene) {
         scene.statPanel = scene.add.nineslice(75, 73, 'statPanel', '', 150, 150, 6, 6, 5, 5);
         scene.statText = scene.add.text(45, 30, 'Stat:', { fontFamily: 'pixelFont', fontSize: 32, fontStyle: 'lighter', color: '#000000' });
-        scene.currentStatText = scene.add.text(55, 70, '0', { fontFamily: 'pixelFont', fontSize: 64, fontStyle: 'lighter', color: '#000000' });
+        scene.currentStatText = scene.add.text(75, 90, '0', { fontFamily: 'pixelFont', fontSize: 64, fontStyle: 'lighter', color: '#000000' }).setOrigin(0.5);;
     }
     getStatPoints() {
         return statTracker.currentStat;

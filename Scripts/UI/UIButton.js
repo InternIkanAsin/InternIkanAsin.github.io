@@ -145,7 +145,7 @@ export class OutfitButton extends BaseButton{
         // === 1. DRESS OVERRIDE LOGIC ===
         if (buttonOutfitType === "Dress") {
             Object.keys(OutfitButton.selectedOutfits).forEach(type => {
-                if (type !== "Dress" && type !== "Shoes") {
+                if (type !== "Dress" && type !== "Shoes" && type!== "Socks") {
                     const entry = OutfitButton.selectedOutfits[type];
                     if (entry?.current) {
                         this.statTracker.setStat(entry.current.stat, false);

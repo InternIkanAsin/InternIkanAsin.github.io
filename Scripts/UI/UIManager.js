@@ -340,7 +340,7 @@ export class UIManager {
 
         const has = type => !!selected[type]?.current;
 
-        const isSet1 = has("Dress") && has("Shoes");
+        const isSet1 = has("Dress") && has("Shoes") && has("Socks");
         const isSet2 = has("Shirt") && has("Underwear") && has("Socks") && has("Shoes");
 
         return isSet1 || isSet2;
