@@ -12,7 +12,7 @@ export class AudioManager {
     }
 
     //masukkin audio asset ke sfx ato music
-    initializeSounds(){
+    initializeSounds() {
         const sound = this.scene.sound;
 
         //Music
@@ -28,7 +28,7 @@ export class AudioManager {
 
     playMusic(key, loop = true) {
         const music = this.music[key];
-       if (music) {
+        if (music) {
             console.log(`Playing music: ${key}`);
             music.play();
         } else {
@@ -44,12 +44,11 @@ export class AudioManager {
     }
 
     playSFX(key) {
-        console.log("HEYYY");
         const sound = this.sfx[key];
         if (sound) sound.play();
     }
 
-   fadeOutMusic(key, duration = 1000, onComplete = () => {}) {
+    fadeOutMusic(key, duration = 1000, onComplete = () => { }) {
         const music = this.music[key];
         if (!music || !music.isPlaying) return;
 

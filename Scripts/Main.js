@@ -3,17 +3,24 @@ import AssetLoader from './AssetLoader.js'
 
 //Tweening Utils Class
 import TweenUtils from './TweeningUtils.js'
+
 // UI Manager Class
 import { UIManager } from './UI/UIManager.js'
+
+// Mini Game Manager Class
+import { MiniGameManager } from './Minigame/MiniGameManager.js'
+
+// Dress Up Manager Class
+import { DressUpManager } from './Minigame/DressUpManager.js'
+
+// Make Up Manager Class
+import { MakeUpManager } from './Minigame/MakeUpManager.js'
 
 // OutfitButton Class
 import { OutfitButton } from './UI/UIButton.js'
 
 //DialogueManager Class
 import { DialogueManager } from './Dialogue System/DialogueManager.js'
-
-//DialogueData Class
-import { DialogueData } from './Dialogue System/DialogueData.js'
 
 //CutsceneSystem Class
 import { CutsceneSystem } from './Scene System/CutsceneSystem.js'
@@ -29,6 +36,8 @@ import { AudioManager } from './Audio System/AudioManager.js'
 
 //Particle System Class
 import { ParticleSystem } from './Particle System/ParticleSystem.js'
+
+//Loading font from game 
 function loadFont(name, url) {
     const newFont = new FontFace(name, `url(${url})`);
     newFont.load().then(function (loaded) {
@@ -38,6 +47,11 @@ function loadFont(name, url) {
         console.error(`Failed to load font "${name}":`, error);
     });
 }
+// Game State (Make Up or Dress Up)
+export const GameState = Object.freeze({
+    MAKEUP: 'MAKEUP',
+    DRESSUP: 'DRESSUP'
+});
 
 // Main Game Scene
 class Main extends Phaser.Scene {
@@ -57,32 +71,36 @@ class Main extends Phaser.Scene {
 
     create() {
         this.initializeSystems();
-        this.CutsceneSystem.initiateCutscene1();
-        this.DialogueManager.createDialogueUI();
-        //this.setupDressMiniGame();
+        this.state = GameState.MAKEUP;
+        //this.CutsceneSystem.initiateCutscene1();
+        //this.DialogueManager.createDialogueUI();
+        this.setUpMiniGame();
     }
 
     initializeSystems() {
         this.OutfitButton = OutfitButton;
-        this.UIManager = new UIManager(this, this.AudioManager);
-        this.SceneManager = new SceneManager(this);
         this.AudioManager.initializeSounds();
+        this.UIManager = new UIManager(this, this.AudioManager);
+        this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
+        this.DressUpManager = new DressUpManager(this, this.AudioManager);
+        this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
+        this.SceneManager = new SceneManager(this);
         this.cutsceneSystem = new CutsceneSystem(this);
         this.TweeningUtils = new TweenUtils(this);
         this.ParticleSystem = new ParticleSystem(this);
     }
+
     initializeDialogueSystem() {
         this.DialogueManager = new DialogueManager(this);
         this.DialogueManager.createDialogueUI();
     }
 
-    setupDressMiniGame() {
+    setUpMiniGame() {
         this.UIManager.setupScene(this);
-        this.UIManager.setupCostumeButtons(this);
-        this.UIManager.setupCategoryButtons(this);
-        this.UIManager.createContinueButton(this);
+        this.MakeUpManager.setupMakeUpButtons(this);
+        this.DressUpManager.setupCostumeButtons(this);
+        this.MiniGameManager.setUpGame(this);
     }
-
 
 }
 

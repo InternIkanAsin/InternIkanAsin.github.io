@@ -15,18 +15,19 @@ export class DialogueManager {
     createDialogueUI(scene) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.dialogueBox = this.scene.add.nineslice(360, 1150, 'statPanel', '', 720, 300, 6, 6, 5, 5).setDepth(10);
-        this.nameText = this.scene.add.text(30, 1025, 'Tristan', {
+        this.dialogueBox = this.scene.add.nineslice(360, 950, 'dialogueBox', '', 180, 70, 8, 8, 9, 14).setDepth(10).setScale(4);
+        this.dialogueNameBox = this.scene.add.nineslice(175, 825, 'dialogueNameBox', '', 70, 20, 5, 5, 5, 11).setDepth(10).setScale(4);
+        this.nameText = this.scene.add.text(170, 815, 'Tristan', {
             fontSize: '32px',
             fill: '#00000',
             fontFamily: 'pixelFont',
             wordWrap: { width: width - 120 }
-        }).setDepth(10);
-        this.dialogueText = this.scene.add.text(30, 1075, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
-            fontSize: '24px',
+        }).setDepth(10).setOrigin(0.5, 0.5);
+        this.dialogueText = this.scene.add.text(40, 860, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
+            fontSize: '28px',
             fill: '#00000',
             fontFamily: 'pixelFont',
-            wordWrap: { width: width - 120 }
+            wordWrap: { width: width - 40 }
         }).setDepth(10);
 
         this.hide();
@@ -38,6 +39,7 @@ export class DialogueManager {
         this.onDialogueComplete = onComplete;
 
         this.dialogueBox.setVisible(true);
+        this.dialogueNameBox.setVisible(true);
         this.nameText.setVisible(true);
         this.dialogueText.setVisible(true);
 
@@ -92,6 +94,7 @@ export class DialogueManager {
 
     hide() {
         this.dialogueBox.setVisible(false);
+        this.dialogueNameBox.setVisible(false);
         this.dialogueText.setVisible(false);
         this.nameText.setVisible(false);
         this.scene.input.off('pointerdown');
