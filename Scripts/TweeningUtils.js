@@ -1,120 +1,137 @@
-import { GameState } from './Main.js'
+import { GameState } from './Main.js';
+import { OutfitButton } from './UI/UIButton.js';
+import { outfitCustomSizes, outfitPositions, outfitManualOffsets } from './Outfit Data/CostumeData.js'; // Add this import
+import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
 
 export default class TweenUtils {
     constructor(scene) {
         this.scene = scene;
+        this.bodyScaleMakeupView = 1.9;    // Body scale for Makeup View (zoomed in)
+        this.bodyScaleDressUpView = 0.6;
     }
 
     transitionMiniGame() {
-        const { width, height } = this.scene.sys.game.config;
+        const actualPreviousState = this.scene.state;
 
-        //Change state of minigame
-        this.scene.state = this.scene.state === GameState.MAKEUP ? GameState.DRESSUP : GameState.MAKEUP;
-        console.log(this.scene.state);
 
-        this.setUpMiniGame(this.scene.state);
-        this.scene.MiniGameManager.updatePanelCategory(this.scene);
-    }
-
-    setUpMiniGame() {
-        if (this.scene.state === GameState.DRESSUP) {
-            //Zoom out the background and player
-            this.zoomOut();
-
-            //Change MiniGame Button text and icon 
-            this.scene.miniGameButton.setIconTexture('makeUpIcon');
-            this.scene.miniGameButton.setText('Make Up');
-        } else {
-            //Zoom in the background and player
-            this.zoomIn();
-
-            //Change MiniGame Button text and icon 
-            this.scene.miniGameButton.setIconTexture('dressIcon');
-            this.scene.miniGameButton.setText('Dress Up');
+        // 1. Stop any active coloring session if coming from MAKEUP
+        if (actualPreviousState === GameState.MAKEUP && this.scene.interactiveMakeupSystem?.isActive) {
+            this.scene.interactiveMakeupSystem.stopColoringSession(this.scene.interactiveMakeupSystem.activeMakeupType, true);
         }
 
+        // 2. Hide selected item header immediately
+        if (this.scene.selectedButtonHeader) {
+            this.scene.tweens.killTweensOf(this.scene.selectedButtonHeader);
+            this.scene.selectedButtonHeader.setAlpha(0);
+            // console.log("Header alpha forced to 0 by transitionMiniGame");
+        }
+
+        // 3. Hide and disable back button immediately
+        if (this.scene.MiniGameManager && this.scene.MiniGameManager.backButton) {
+            this.scene.tweens.killTweensOf(this.scene.MiniGameManager.backButton); // Kill position tweens
+            this.scene.MiniGameManager.backButton.setX(this.scene.scale.width / 2 * 2.3); // Move off-screen immediately
+            this.scene.MiniGameManager.backButton.disableInteractive();
+            // console.log("Back button moved off-screen and disabled by transitionMiniGame");
+        }
+
+
+        // 4. Toggle the game state
+        this.scene.state = (actualPreviousState === GameState.MAKEUP) ? GameState.DRESSUP : GameState.MAKEUP;
+        console.log(`[TweenUtils] Transitioning from ${actualPreviousState} to ${this.scene.state}`);
+
+        // 5. Perform the zoom animations for the new view
+        this.setUpMiniGame(this.scene.state, actualPreviousState); // Your orchestrator for zoomIn/zoomOut
+
+        // 6. Update the main mode toggle button text/icon
+        if (this.scene.state === GameState.DRESSUP) {
+            if (this.scene.miniGameButton) {
+                this.scene.miniGameButton.setIconTexture('makeUpIcon');
+                this.scene.miniGameButton.setText('Make Up');
+            }
+        } else { // GameState.MAKEUP
+            if (this.scene.miniGameButton) {
+                this.scene.miniGameButton.setIconTexture('dressIcon');
+                this.scene.miniGameButton.setText('Dress Up');
+            }
+        }
+
+        // 7. Update the side panel to show the correct CATEGORIES for the new state
+        // This will also handle tweening the sidePanel itself.
+        if (this.scene.MiniGameManager) {
+            this.scene.MiniGameManager.updatePanelCategory(this.scene);
+        }
     }
 
-    zoomIn() {
-        //Define center of X and Y
+
+
+    setUpMiniGame(newState, comingFromState) {
+        if (newState === GameState.DRESSUP) {
+            this.zoomOut(comingFromState);
+        } else {
+            this.zoomIn(comingFromState);
+        }
+    }
+
+    zoomIn(comingFromState = GameState.DRESSUP) {
         const centerX = this.scene.scale.width / 2;
         const centerY = this.scene.scale.height / 2;
 
-        //Zoom out the background and player
-        this.scene.tweens.add({
-            targets: [this.scene.background],
-            scale: 1.2,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        const targetBodyX = centerX * 1.05;
+        const targetBodyY = centerY * 2.9;
+        const targetBodyScale = this.bodyScaleMakeupView;
 
-        this.scene.tweens.add({
-            targets: [this.scene.body],
-            y: centerY * 2.6,
-            x: centerX * 1.05,
-            scale: 1.9,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        const targetFaceX = centerX * 1.01;
+        const targetFaceY = centerY / 1.21;
+        const targetFaceScale = 1.0;
 
-        this.scene.tweens.add({
-            targets: [this.scene.faceContainer],
-            y: centerY / 1.2,
-            x: centerX * 0.95,
-            scale: 1,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        const targetHairX = centerX * 1.04;
+        const targetHairY = centerY * 1.6;
+        const targetHairScale = 0.8;
 
-        this.scene.tweens.add({
-            targets: [this.scene.hair],
-            y: centerY * 1.47,
-            x: centerX,
-            scale: 0.8,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
+        this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
+        this.scene.tweens.add({ targets: [this.scene.hair], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
+
+        Object.values(OutfitButton.selectedOutfits).forEach(entry => {
+            const outfitButton = entry?.current;
+            if (outfitButton && outfitButton.displayedOutfit && outfitButton.displayedOutfit.active) {
+                const referenceBodyScaleForOffsets = this.bodyScaleDressUpView;
+
+                outfitButton.tweenToView(targetBodyX, targetBodyY, targetBodyScale, referenceBodyScaleForOffsets, 500, 'Sine.easeInOut');
+            }
+        });
     }
-    zoomOut() {
-        //Define center of X and Y
+
+    zoomOut(comingFromState = GameState.MAKEUP) {
         const centerX = this.scene.scale.width / 2;
         const centerY = this.scene.scale.height / 2;
 
-        //Zoom out the background and player
-        this.scene.tweens.add({
-            targets: [this.scene.background],
-            scale: 1.2,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        const targetBodyX = centerX / 1.1;
+        const targetBodyY = centerY / 0.9;
+        const targetBodyScale = this.bodyScaleDressUpView;
 
-        this.scene.tweens.add({
-            targets: [this.scene.body],
-            y: centerY / 0.9,
-            x: centerX / 1.1,
-            scale: 0.6,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        const targetFaceX = centerX / 1.112;
+        const targetFaceY = centerY / 2.17;
+        const targetFaceScale = 0.3;
 
-        this.scene.tweens.add({
-            targets: [this.scene.faceContainer],
-            y: centerY / 1.79,
-            x: centerX / 1.13,
-            scale: 0.3,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        const targetHairX = centerX / 1.1;
+        const targetHairY = centerY / 1.4;
+        const targetHairScale = 0.25;
 
-        this.scene.tweens.add({
-            targets: [this.scene.hair],
-            y: centerY / 1.31,
-            x: centerX / 1.1,
-            scale: 0.25,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        })
+        this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
+        this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
+        this.scene.tweens.add({ targets: [this.scene.hair], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
+
+        Object.values(OutfitButton.selectedOutfits).forEach(entry => {
+            const outfitButton = entry?.current;
+            if (outfitButton && outfitButton.displayedOutfit && outfitButton.displayedOutfit.active) {
+                const referenceBodyScaleForOffsets = this.bodyScaleDressUpView; // Offsets are always relative to DressUp view
+
+                outfitButton.tweenToView(targetBodyX, targetBodyY, targetBodyScale, referenceBodyScaleForOffsets, 500, 'Sine.easeInOut');
+            }
+        });
     }
+
     displaySideButtons() {
         this.scene.openButton.disableInteractive();
 
@@ -150,7 +167,7 @@ export default class TweenUtils {
             ease: 'Sine.easeInOut'
         });
 
-        // Tween the player and related elements
+
         const newPlayerX = this.scene.scale.width / 4.2;
         this.scene.tweens.add({
             targets: [this.scene.body],
@@ -183,8 +200,8 @@ export default class TweenUtils {
             ease: 'Sine.easeInOut'
         });
 
-        // Tween all selected outfits to follow the player
-        console.log(`displayCategoryButtons: player.y = ${this.scene.body.y}`); // Debug log
+
+        console.log(`displayCategoryButtons: player.y = ${this.scene.body.y}`);
         Object.values(this.scene.outfitButtons).flat().forEach(outfitButton => {
             outfitButton.tweenOutfit(newPlayerX, this.scene.body.y, 500, 'Sine.easeInOut');
         });
@@ -192,9 +209,6 @@ export default class TweenUtils {
 
     hideSideButtons() {
         return new Promise((resolve) => {
-
-            //this.scene.openButton.disableInteractive();
-
             const buttons = [this.scene.dressShirtButton, this.scene.outerButton, this.scene.underwearButton, this.scene.uniformButton, this.scene.socksButton, this.scene.shoesButton];
             buttons.forEach(button => {
                 if (button) this.scene.tweens.killTweensOf(button);
@@ -368,7 +382,7 @@ export default class TweenUtils {
                         alpha: 1,
                         duration: 300,
                         ease: 'Sine.easeInOut'
-                    })
+                    });
                 });
             }
         });
@@ -378,7 +392,6 @@ export default class TweenUtils {
             button.tweenOutfit(this.scene.body.x, newPlayerY, 500, 'Sine.easeInOut')
         );
     }
-
 
     async hideButtons(outfitType) {
         return new Promise((resolve) => {
@@ -489,86 +502,6 @@ export default class TweenUtils {
                     resolve();
                 });
             }, 300);
-        });
-    }
-
-    //Back Button Tweening
-    displayBackButton() {
-        this.scene.tweens.add({
-            targets: this.scene.backButton,
-            y: 500,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        });
-    }
-
-    hideBackButton() {
-        this.scene.backButton.disableInteractive();
-        this.scene.tweens.add({
-            targets: this.scene.backButton,
-            y: 0,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        });
-    }
-
-    //Display Panel Tweening
-    displayStatusPanel(isComplete) {
-        const scene = this.scene;
-
-        // Get correct objects
-        const statusMark = isComplete ? scene.checkMark : scene.xMark;
-        const statusText = isComplete ? scene.successStatusText : scene.failStatusText;
-
-        // Make visible
-        statusMark.setVisible(true);
-        statusText.setVisible(true);
-
-        // Set dynamic target Y values
-        const panelTargetY = 73;
-        const markTargetY = isComplete ? 60 : 73;
-        const textTargetY = 60;
-
-        // Slide down the panel with dynamic positioning
-        scene.tweens.add({
-            targets: scene.statusPanel,
-            y: panelTargetY,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        });
-
-        scene.tweens.add({
-            targets: statusMark,
-            y: markTargetY,
-            duration: 500,
-            ease: 'Sine.easeInOut'
-        });
-
-        scene.tweens.add({
-            targets: statusText,
-            y: textTargetY,
-            duration: 500,
-            ease: 'Sine.easeInOut',
-            onComplete: () => {
-                scene.time.delayedCall(1500, () => {
-                    if (!isComplete) {
-                        // Slide everything up again
-                        scene.tweens.add({
-                            targets: [scene.statusPanel, statusMark, statusText],
-                            y: -100,
-                            duration: 500,
-                            ease: 'Sine.easeInOut'
-                        });
-                    } else {
-                        // Transition to next cutscene
-                        scene.SceneManager.TransitionCutscene2(scene, () => {
-                            scene.UIManager.clearMinigameScene(scene);
-                            const statPoints = scene.statTracker.getStatPoints();
-                            scene.CutsceneSystem.initiateCutscene2(statPoints);
-                        });
-                    }
-                });
-            }
         });
     }
 

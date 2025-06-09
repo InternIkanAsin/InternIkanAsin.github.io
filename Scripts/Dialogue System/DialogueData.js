@@ -1,11 +1,12 @@
-export class DialogueData{
-	constructor(){
+export class DialogueData {
+	constructor(dialogueID) {
 		this.dialogueLines = [];
+		this.dialogueID = dialogueID;
 	}
 
-	addLine(speakerName, dialogue){
+	addLine(speakerName, dialogue) {
 		this.dialogueLines.push({
-			speakerName : speakerName,
+			speakerName: speakerName,
 			dialogue: dialogue
 		});
 	}

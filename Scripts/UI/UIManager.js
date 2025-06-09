@@ -1,8 +1,8 @@
-import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from './UIButton.js'; 
+import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from './UIButton.js';
 
 import { GameState } from '../Main.js';
 
-import { makeUpData, defaultMakeUpSkins } from '../Makeup Data/MakeUpData.js'; 
+import { makeUpData, defaultMakeUpSkins } from '../Makeup Data/MakeUpData.js';
 
 
 export class UIManager {
@@ -20,11 +20,20 @@ export class UIManager {
         // Setup background
         const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
-        scene.background = scene.add.image(centerX / 0.5, centerY, 'background').setScale(1.5);
+        scene.background = scene.add.image(centerX, centerY, 'background');
 
         // Setup character
-        scene.body = scene.add.image(centerX * 1.05, centerY * 2.6, 'player').setScale(1.9).setOrigin(0.5).setDepth(1);
-        scene.hair = scene.add.image(centerX, centerY * 1.47, 'hair').setScale(0.8).setOrigin(0.5).setDepth(3); // Keep as is from "after"
+        scene.body = scene.add.image(centerX * 1.05, centerY * 2.9, 'player').setScale(1.9).setOrigin(0.5).setDepth(1);
+        const defaultHairTextureKey = defaultMakeUpSkins['Hair']; // e.g., "hair"
+        if (!scene.textures.exists(defaultHairTextureKey)) {
+            console.error(`[UIManager] Default hair texture key "${defaultHairTextureKey}" NOT LOADED! Check AssetLoader.`);
+            // Fallback or error handling
+        }
+        scene.hair = scene.add.image(centerX * 1.04, centerY * 1.6, defaultHairTextureKey)
+            .setScale(0.8)      // Initial scale for hair
+            .setOrigin(0.5)
+            .setDepth(3);       // Hair depth
+        console.log(`[UIManager] scene.hair created with texture: ${scene.hair.texture.key}`);
 
         // Create initial facial feature GameObjects
         // These textures are the "visual defaults" when the game starts.
@@ -33,7 +42,7 @@ export class UIManager {
         scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55).setDepth(2);
         scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55).setDepth(2);
 
-        scene.faceContainer = scene.add.container(centerX * 0.95, centerY / 1.2, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2);
+        scene.faceContainer = scene.add.container(centerX * 1.01, centerY / 1.21, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2);
 
         // --- Initialize MakeUpButton's state for default makeup ---
         MakeUpButton.selectedMakeUp = {}; // CRITICAL: Initialize the static property
@@ -82,14 +91,11 @@ export class UIManager {
         registerInitialFacialFeature('Lips', 'LipNormalDefault', scene.lips);
         registerInitialFacialFeature('Eyebrows', 'EyebrowNormalDefault', scene.eyebrows);
         registerInitialFacialFeature('Eyelashes', 'EyelashesNormalDefault', scene.eyelashes);
+        registerInitialFacialFeature('Hair', defaultHairTextureKey, scene.hair);
 
         // console.log("Initial MakeUpButton.selectedMakeUp:", JSON.stringify(MakeUpButton.selectedMakeUp, null, 2)); // For debugging
     }
 
-
-    createBackButton(scene) {
-
-    }
     setupStatusPanel(scene) {
         scene.statusPanel = scene.add.nineslice(400, -100, 'statPanel', '', 505, 130, 6, 6, 5, 5);
 
@@ -110,71 +116,121 @@ export class UIManager {
         }).setVisible(false);
     }
 
-    clearMinigameScene(scene) {
-        // 1. Destroy outfit and UI containers
+    clearMinigameScene(scene) { // Accept scene as a parameter for clarity
+        console.log("[UIManager] Clearing Minigame Scene...");
+        // 1. Destroy OutfitButton instances and their displayed outfits
         if (scene.outfitButtons) {
-            Object.values(scene.outfitButtons).flat().forEach(button => {
-                button.displayedOutfit?.destroy();
-                button.container?.destroy();
+            Object.values(scene.outfitButtons).flat().forEach(buttonInstance => {
+                if (buttonInstance instanceof OutfitButton) { // Ensure it's the correct type
+                    buttonInstance.displayedOutfit?.destroy();
+                }
+                buttonInstance?.destroy(); // Destroy the button container itself
             });
             scene.outfitButtons = {};
         }
+        OutfitButton.selectedOutfits = {}; // Reset static selection
 
-        // 2. Destroy stat panel
-        scene.statPanel?.destroy();
-        scene.statText?.destroy();
+        // 1b. Destroy MakeUpButton instances (if they are not meant to persist across minigame sessions)
+        // Or if they are part of a RexUI panel that gets destroyed, they might be handled there.
+        // For now, let's assume MakeUpManager handles its own buttons if needed.
+        // MakeUpButton.selectedMakeUp = {}; // Reset static makeup selection (IMPORTANT)
+
+        // 2. Destroy stat panel elements
+        scene.statPanelContainer?.destroy(); // If you have this container
+        scene.statPanel?.destroy();          // Destroy individual parts if not in container
+        scene.heartIcon?.destroy();
         scene.currentStatText?.destroy();
 
-        // 3. Destroy category panels and buttons
-        scene.categoryButtonsPanel?.destroy();
-        scene.outfitButtonsTypePanel?.destroy();
-        scene.openButton?.destroy();
-        scene.continueButton?.destroy();
-        scene.backButton?.destroy();
 
-        // 4. Reset outfit selections
-        OutfitButton.selectedOutfits = {};
+        // 3. Destroy main UI buttons and panels created by MiniGameManager or UIManager
+        scene.miniGameButton?.destroy();
+        scene.removeAllButton?.destroy();
+        scene.tipsButton?.destroy();
+        scene.finishButton?.destroy();
 
-        // 5. Destroy background and player
+        // Destroy Side Panel and its contents (back button, category header are part of it or managed by MiniGameManager)
+        if (scene.MiniGameManager) {
+            scene.MiniGameManager.backButton?.destroy(); // Destroy the back button instance
+            scene.MiniGameManager.backButton = null;
+            scene.selectedButtonHeader?.destroy(); // Destroy the header container
+            scene.selectedButtonHeader = null;
+        }
+        //scene.sidePanel?.destroy(); // <<<< CRITICAL: Destroy the RexUI ScrollablePanel
+        //scene.sidePanel = null;
+        scene.sidePanel.setVisible(false);
+
+        // Destroy Tips Panel and Confirmation Panel if they exist
+        scene.tipsPanel?.destroy();
+        scene.tipsPanel = null;
+        scene.tipsTitleText?.destroy();
+        scene.closeButton?.destroy();
+
+
+        scene.confirmationPanelContainer?.destroy();
+        scene.incompleteOutfitPanelContainer?.destroy();
+        scene.darkOverlay?.destroy(); // The general dark overlay
+
+        // 4. Reset any specific selections (OutfitButton.selectedOutfits already done)
+        MakeUpButton.selectedMakeUp = {}; // Reset selected makeup
+
+        // 5. Destroy character and background
         scene.body?.destroy();
         scene.hair?.destroy();
         scene.faceContainer?.destroy();
         scene.background?.destroy();
+
         scene.AudioManager?.fadeOutMusic('minigameMusic', 500);
-
-        // 6. Destroy status message
-        scene.statusPanel?.destroy();
-
-        scene.xMark?.destroy();
-        scene.failStatusText?.destroy();
-
-        scene.checkMark?.destroy();
-        scene.successStatusText?.destroy();
+        console.log("[UIManager] Minigame Scene Cleared.");
     }
 
-    createContinueButton(scene, x, y) {
-
-        const button = new GeneralButton(scene, x, y, 'emptyButton', 'outfitButtonOutline', 'Lanjut →', () => {
-            if (this.scene.state === GameState.DRESSUP) {
-                if (this.canContinueToScene2()) {
-                    this.scene.TweeningUtils.displayStatusPanel(true);
-                    this.scene.AudioManager.playSFX('success');
-                    this.scene.ParticleSystem.emitParticle(scene, scene.emitter);
-                } else {
-                    this.scene.TweeningUtils.displayStatusPanel(false);
-                }
-            } else if (this.scene.state === GameState.MAKEUP) {
-                this.scene.TweeningUtils.transitionMiniGame();
-                this.scene.AudioManager.playSFX('success');
+    destroySidePanel(scene) {
+        // 1. Disable all child interactivity safely
+        if (scene.sidePanel) {
+            try {
+                scene.sidePanel.iterate(child => {
+                    if (child.disableInteractive) {
+                        child.disableInteractive();
+                    }
+                });
+                scene.sidePanel.removeAllListeners(); // Optional: remove sidePanel-specific events
+            } catch (e) {
+                console.warn("Failed to disable interactivity:", e);
             }
+        }
 
-        }, scene.AudioManager);
+        // 2. Destroy buttons
+        if (scene.buttons) {
+            Object.values(scene.buttons).flat().forEach(button => {
+                button?.clearMask?.(true);
+                button?.destroy?.();
+            });
+            scene.buttons = null;
+        }
 
-        button.container.setDepth(5);
-        scene.continueButton = button.container;
-        console.log(scene.continueButton.x);
-        console.log(scene.continueButton.y);
+        // 3. Destroy layout
+        this.buttonGrid?.destroy();
+        this.buttonGrid = null;
+
+        this.innerSizer?.destroy();
+        this.innerSizer = null;
+
+        // 4. Destroy panel and mask
+        scene.sidePanel?.destroy(true);
+        scene.sidePanel = null;
+
+        scene.sidePanelMaskGraphics?.destroy();
+        scene.sidePanelMaskGraphics = null;
+
+        // 5. Destroy header and back button
+        scene.selectedButtonHeader?.destroy();
+        scene.selectedButtonHeader = null;
+
+        this.backButton?.destroy();
+        this.backButton = null;
+
+        this.buttonList = null;
     }
+
 
     canContinueToScene2() {
         const selected = OutfitButton.selectedOutfits;

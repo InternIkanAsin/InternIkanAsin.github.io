@@ -12,6 +12,9 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyelinerButton = new CategoryButton(scene, audioManager, 0, 0, 'Eyeliner', null, 'categoryButton', 'categoryButtonHighlighted', 'eyelinerIcon', () => {
             scene.MakeUpManager.displayMakeUpButtons('Eyeliner', scene);
         }),
+        scene.eyeshadowButton = new CategoryButton(scene, audioManager, 0, 0, 'Eyeshadow', null, 'categoryButton', 'categoryButtonHighlighted', 'eyeshadowIcon', () => {
+            scene.MakeUpManager.displayMakeUpButtons('Eyeshadow', scene);
+        }),
         scene.lipstickButton = new CategoryButton(scene, audioManager, 0, 0, 'Lipstick', null, 'categoryButton', 'categoryButtonHighlighted', 'lipstickIcon', () => {
             scene.MakeUpManager.displayMakeUpButtons('Lips', scene);
         }),
@@ -20,6 +23,9 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         }),
         scene.blushButton = new CategoryButton(scene, audioManager, 0, 0, 'Blush', null, 'categoryButton', 'categoryButtonHighlighted', 'blushIcon', () => {
             scene.MakeUpManager.displayMakeUpButtons('Blush', scene);
+        }),
+         scene.stickerButton = new CategoryButton(scene, audioManager, 0, 0, 'Sticker', null, 'categoryButton', 'categoryButtonHighlighted', 'stickerIcon', () => {
+            scene.MakeUpManager.displayMakeUpButtons('Sticker', scene);
         }),
         scene.hairButton = new CategoryButton(scene, audioManager, 0, 0, 'Hair', null, 'categoryButton', 'categoryButtonHighlighted', 'hairIcon', () => {
             scene.MakeUpManager.displayMakeUpButtons('Hair', scene);

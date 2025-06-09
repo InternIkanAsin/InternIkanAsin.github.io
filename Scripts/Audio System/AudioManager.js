@@ -16,7 +16,7 @@ export class AudioManager {
         const sound = this.scene.sound;
 
         //Music
-        this.music['cutsceneMusic'] = sound.add('cutsceneMusic', { loop: true, volume: 0.7 });
+        this.music['cutsceneMusic'] = sound.add('cutsceneMusic', { loop: true, volume: 0 });
         this.music['minigameMusic'] = sound.add('minigameMusic', { loop: true, volume: 0 });
 
         //SFX
@@ -30,6 +30,7 @@ export class AudioManager {
         const music = this.music[key];
         if (music) {
             console.log(`Playing music: ${key}`);
+            console.log('Volume:', this.music[key].volume);
             music.play();
         } else {
             console.warn(`Music not found: ${key}`);
@@ -60,7 +61,10 @@ export class AudioManager {
             onComplete: () => {
                 music.stop(); // stop music once volume hits 0
                 onComplete(); // Call the onComplete callback (to trigger fade-in of next music)
-            }
+            },
+            onUpdate: () => {
+                music.setVolume(music.volume);
+            },
         });
     }
 
@@ -68,7 +72,6 @@ export class AudioManager {
         const music = this.music[key];
         if (!music) return;
 
-        music.setVolume(0);  // Start from 0 volume
         music.play({ loop: true });  // Play the music
 
         this.scene.tweens.add({

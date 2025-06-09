@@ -1,3 +1,10 @@
+//Preload loading asset
+import BootScene from './Loading scene/BootScene.js';
+
+//Loading logic
+import PreloaderScene from './Loading scene/PreloaderScene.js';
+
+
 //Asset Loader Class
 import AssetLoader from './AssetLoader.js'
 
@@ -9,6 +16,9 @@ import { UIManager } from './UI/UIManager.js'
 
 // Mini Game Manager Class
 import { MiniGameManager } from './Minigame/MiniGameManager.js'
+
+// Mini Game Manager Class
+import { TutorialManager } from './Minigame/TutorialManager.js'
 
 // Dress Up Manager Class
 import { DressUpManager } from './Minigame/DressUpManager.js'
@@ -37,6 +47,12 @@ import { AudioManager } from './Audio System/AudioManager.js'
 //Particle System Class
 import { ParticleSystem } from './Particle System/ParticleSystem.js'
 
+//interactive makeupsystem
+import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
+
+//Bachelor Manager Class
+import { BachelorManager } from './Bachelor/bachelorManager.js'
+
 //Loading font from game 
 function loadFont(name, url) {
     const newFont = new FontFace(name, `url(${url})`);
@@ -63,36 +79,34 @@ class Main extends Phaser.Scene {
         loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
 
         AssetLoader.loadAllAssets(this);
-        this.DialogueManager = new DialogueManager(this);
-        this.CutsceneSystem = new CutsceneSystem(this);
-        this.statTracker = new statTracker(this);
-        this.AudioManager = new AudioManager(this);
     }
 
     create() {
         this.initializeSystems();
         this.state = GameState.MAKEUP;
-        //this.CutsceneSystem.initiateCutscene1();
-        //this.DialogueManager.createDialogueUI();
-        this.setUpMiniGame();
+
+        //this.setUpMiniGame();
+        this.BachelorManager.setUpBachelorChoice();
     }
 
     initializeSystems() {
+        this.DialogueManager = new DialogueManager(this);
+        this.CutsceneSystem = new CutsceneSystem(this);
+        this.statTracker = new statTracker(this);
+        this.AudioManager = new AudioManager(this);
         this.OutfitButton = OutfitButton;
         this.AudioManager.initializeSounds();
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
         this.DressUpManager = new DressUpManager(this, this.AudioManager);
+        this.TutorialManager = new TutorialManager(this);
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
         this.cutsceneSystem = new CutsceneSystem(this);
         this.TweeningUtils = new TweenUtils(this);
         this.ParticleSystem = new ParticleSystem(this);
-    }
-
-    initializeDialogueSystem() {
-        this.DialogueManager = new DialogueManager(this);
-        this.DialogueManager.createDialogueUI();
+        this.interactiveMakeupSystem = new InteractiveMakeupSystem(this);
+        this.BachelorManager = new BachelorManager(this);
     }
 
     setUpMiniGame() {
@@ -109,10 +123,10 @@ const config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 720,
-        height: 1280,
+        width: 1920,
+        height: 1080,
     },
-    scene: Main
+    scene: [BootScene, PreloaderScene, Main]
 };
 
 const game = new Phaser.Game(config);

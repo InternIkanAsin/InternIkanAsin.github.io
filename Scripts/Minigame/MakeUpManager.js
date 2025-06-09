@@ -1,8 +1,11 @@
 //General Button Class
-import { GeneralButton, MakeUpButton } from '../UI/UIButton.js'
+import { MakeUpButton, ItemPanelButton } from '../UI/UIButton.js'
 
+import { InteractiveMakeupSystem } from '../Minigame/InteractiveMakeupSystem.js';
 // MakeUp Data
 import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
+
+import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
 export class MakeUpManager {
     constructor(scene, AudioManager) {
         this.scene = scene;
@@ -15,18 +18,12 @@ export class MakeUpManager {
     */
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
-
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon } = makeupItem;
-
-            
             if (textureButton && textureIcon) {
-                // Use the constructor signature from the "after" MakeUpButton
-                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
-
-                button.container.setSize(150, 200); // As per "after" version
-                button.container.setData('instance', button);
-
+                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, 'highlightTexture'); // Added highlightTextureKey
+                button.setSize(150, 200);
+                button.setData('instance', button);
                 if (!scene.makeUpButtons[makeUpType]) {
                     scene.makeUpButtons[makeUpType] = [];
                 }
@@ -39,98 +36,208 @@ export class MakeUpManager {
     * @method updateMakeUpButtons - Updates makeup buttons of make up Panel
     */
     updateMakeUpButtons(makeUpType) {
+        const scene = this.scene;
+        const itemButtonsForType = scene.makeUpButtons[makeUpType] || [];
+        let allButtonContainersForPanel = [];
 
-        // Get new buttons
-        this.buttons = this.scene.makeUpButtons[makeUpType];
-        this.scene.MiniGameManager.buttonList = this.buttons.map(b => b.container);
+        if (this.currentLepasButton && this.currentLepasButton.destroy) {
+            this.currentLepasButton.destroy();
+            this.currentLepasButton = null;
+        }
 
-        // Clear existing children from the grid
-        this.scene.MiniGameManager.buttonGrid.clear();
-        this.scene.MiniGameManager.innerSizer.clear();
+        // --- Create and Add "Lepas" Button ---
+        const lepasButton = new ItemPanelButton(
+            scene,
+            scene.AudioManager,
+            0, 0,                         // Position will be set by grid sizer
+            'button1',                    // Background texture (same as MakeUpButton)
+            'xMark',                      // Icon texture key for the 'X'
+            0.85,                         // Icon scale (matches MakeUpButton iconImage.scale)
+            -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
+            'Remove',                     // Text ("Lepas" or "Remove")
+            '22px',                       // Text size (matches MakeUpButton textLbl)
+            60,                           // Text Y offset (matches MakeUpButton textLbl.y)
+            () => { // Callback for "Lepas"
+                console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
+                if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeUpType) {
+                    scene.interactiveMakeupSystem.stopColoringSession(makeUpType, true);
+                }
+                const currentEntry = MakeUpButton.selectedMakeUp[makeUpType];
+                const currentEquipped = currentEntry?.current;
+                let helperButton = itemButtonsForType[0];
+                if (!helperButton && scene.makeUpButtons && Object.values(scene.makeUpButtons).flat().length > 0) {
+                    helperButton = Object.values(scene.makeUpButtons).flat()[0];
+                }
 
-        //Create a grid sized display for the buttons
-        this.scene.MiniGameManager.buttonGrid = this.scene.rexUI.add.gridSizer({
-            row: this.scene.MiniGameManager.buttonList.length,
+                if (helperButton && helperButton instanceof MakeUpButton) {
+                    // Destroy displayed makeup if it's an additive type
+                    if (currentEquipped && currentEquipped.displayedMakeUp) {
+                        const typeOfEquipped = currentEquipped.makeupType || makeUpType;
+                        if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(typeOfEquipped)) {
+                            if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
+                                currentEquipped.displayedMakeUp.destroy();
+                            }
+                        }
+                        if (currentEquipped instanceof MakeUpButton) {
+                            currentEquipped.displayedMakeUp = null;
+                        }
+                    }
+                    helperButton._equipDefaultMakeUp(makeUpType, currentEquipped || null);
+                } else {
+                    console.error(`[LepasButton] Could not find a MakeUpButton instance for unequip: ${makeUpType}`);
+                }
+                MakeUpButton.clearMakeupHighlightsForType(scene, makeUpType);
+
+            }
+
+        );
+
+        lepasButton.setSize(150, 200);
+        allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
+
+
+        // Add the actual makeup item buttons (their containers)
+
+        itemButtonsForType.forEach(buttonInstance => {
+            buttonInstance.setVisible(true);
+            allButtonContainersForPanel.push(buttonInstance);
+        });
+
+        scene.MiniGameManager.buttonList = allButtonContainersForPanel;
+
+        if (scene.MiniGameManager.buttonGrid) {
+            // The grid currently holds CATEGORY buttons.
+            // Category buttons are re-created by goBackMainPanel, so they can be destroyed here.
+            scene.MiniGameManager.buttonGrid.clear(true, true); // Destroy category buttons
+            scene.MiniGameManager.buttonGrid.destroy();          // Destroy the grid sizer itself
+            scene.MiniGameManager.buttonGrid = null;
+        }
+        if (scene.MiniGameManager.innerSizer) {
+            scene.MiniGameManager.innerSizer.clear(true);
+        }
+
+        scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
-            rowProportions: 1, // make columns flexible
+            row: scene.MiniGameManager.buttonList.length || 1,
             space: { column: 0, row: 20 },
             align: 'center',
         });
 
-        this.scene.MiniGameManager.innerSizer.add(this.scene.MiniGameManager.buttonGrid, 0, 'center', {}, true);
-        // Add new buttons to the grid
-        this.scene.MiniGameManager.buttonList.forEach((btn, index) => {
-            btn.setVisible(true);
-            this.scene.MiniGameManager.buttonGrid.add(btn, index, 0, 'center', 0, false);
+        scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
+
+        scene.MiniGameManager.buttonList.forEach((btnContainer, index) => {
+            btnContainer.setVisible(true);
+            scene.MiniGameManager.buttonGrid.add(btnContainer, 0, index, 'center', 0, false);
         });
 
-        // Relayout the panel to apply the new buttons
-        this.scene.sidePanel.layout();
+        scene.MiniGameManager.buttonGrid.layout();
+        scene.MiniGameManager.innerSizer.layout();
+        if (scene.sidePanel) {
+            scene.sidePanel.layout();
+            scene.sidePanel.setT(0);
+        }
     }
 
     displayMakeUpButtons(makeUpType, scene) {
-        scene.backButton.disableInteractive();
+        if (scene.miniGameButton) { // The main mode toggle button
+            scene.miniGameButton.disableInteractive();
+        }
+
+        if (scene.interactiveMakeupSystem?.isActive) {
+            scene.interactiveMakeupSystem.stopColoringSession(true); // force discard
+        }
+        if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
+            scene.MiniGameManager.backButton.disableInteractive();
+        } else {
+            console.error("scene.MiniGameManager.backButton not found in displayMakeUpButtons!");
+            // return; // Optionally stop if button is critical
+        }
 
         scene.tweens.add({
             targets: [scene.sidePanel],
-            x: this.scene.scale.width + 300,
+            x: scene.scale.width + 300, // Use 'scene.' for scene properties
             duration: 500,
             ease: 'Sine.easeInOut',
             onComplete: () => {
+                // Bring out back button
+                if (scene.MiniGameManager && scene.MiniGameManager.backButton && scene.MiniGameManager.backButton) {
+                    scene.tweens.add({
+                        targets: [scene.MiniGameManager.backButton], // Target its container
+                        x: scene.scale.width / 2 * 1.73,
+                        duration: 500,
+                        ease: 'Sine.easeInOut',
+                        onComplete: () => {
+                            // DO NOT set interactive here yet. Wait for all animations.
+                        }
+                    });
+                }
 
-                //Bring out back button
-                scene.tweens.add({
-                    targets: [scene.backButton],
-                    x: this.scene.scale.width / 2 * 1.73,
-                    duration: 500,
-                    ease: 'Sine.easeInOut'
-                })
-
-                //Update makeup buttons to replace current buttons with panel
+                // Update makeup buttons
                 scene.MakeUpManager.updateMakeUpButtons(makeUpType);
 
-                scene.selectedButtonText.setText(makeUpType.toString());
+                // ... (iconKey and text setting logic - this is fine) ...
+                let iconKey = 'blushIcon';
 
-                let iconKey = 'blushIcon'; //default
                 switch (makeUpType) {
                     case 'Lips': iconKey = 'lipstickIcon'; break;
                     case 'Eyebrows': iconKey = 'eyebrowsIcon'; break;
                     case 'Eyelashes': iconKey = 'eyelashesIcon'; break;
                     case 'Eyeliner': iconKey = 'eyelinerIcon'; break;
+                    case 'Eyeshadow': iconKey = 'eyeshadowIcon'; break;
                     case 'Pupil': iconKey = 'eyeColorIcon'; break;
                     case 'Blush': iconKey = 'blushIcon'; break;
                     case 'Hair': iconKey = 'hairIcon'; break;
-                    case 'Eyeshadow': iconKey = 'eyeshadowIcon'; break;
-                  
+                    case 'Sticker': iconKey = 'stickerIcon'; break; // Assuming you have 'stickerIcon' for the header
                     default:
-                        console.warn(`No specific header icon found for makeUpType: ${makeUpType}. Using default.`);
+                        console.warn(`No specific header icon found for makeUpType: ${makeUpType}. Using default '${iconKey}'.`);
                         break;
                 }
-                scene.selectedButtonIcon.setTexture(iconKey);
+                if (scene.selectedButtonIcon) scene.selectedButtonIcon.setTexture(iconKey);
+                if (scene.selectedButtonText) scene.selectedButtonText.setText(makeUpType.toString());
 
-                this.scene.MiniGameManager.updatePanelLayout(30, 100, 30)
+                if (scene.MiniGameManager) { // Check existence
+                    scene.MiniGameManager.updatePanelLayout(30, 100, 30);
+                }
 
                 scene.tweens.add({
                     targets: [scene.sidePanel],
-                    x: this.scene.scale.width / 2 * 1.8,
+                    x: scene.scale.width - 70,
                     duration: 500,
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
-                        scene.tweens.add({
-                            targets: [scene.selectedButtonHeader],
-                            alpha: 1,
-                            duration: 500,
-                            ease: 'Sine.easeInOut',
-                            onComplete: () => {
-                            scene.backButton.setInteractive(); 
+                        if (scene.selectedButtonHeader) {
+                            scene.selectedButtonHeader.setAlpha(0); // Ensure it's hidden before fade-in
+                            scene.tweens.killTweensOf(scene.selectedButtonHeader);
+                            scene.tweens.add({
+                                targets: [scene.selectedButtonHeader],
+                                alpha: 1,
+                                duration: 500,
+                                ease: 'Sine.easeInOut',
+                                onComplete: () => {
+                                    // NOW make the back button interactive
+                                    if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
+                                        scene.MiniGameManager.backButton.setInteractive();
+                                    }
+
+                                    if (scene.miniGameButton) {
+                                        scene.miniGameButton.setInteractive();
+                                    }
+                                }
+                            });
+                        } else {
+                            // If no header, still make button interactive after panel is in
+                            if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
+                                scene.MiniGameManager.backButton.setInteractive();
+                            }
+
+                            if (scene.miniGameButton) {
+                                scene.miniGameButton.setInteractive();
+                            }
                         }
-                        })
                     }
-                })
+                });
             }
-        })
-
-
+        });
     }
 
     /**
@@ -143,7 +250,7 @@ export class MakeUpManager {
 
         this.buttons = this.scene.makeUpButtons[makeUpType];
 
-        this.buttonList = this.buttons.map(b => b.container);
+        this.buttonList = this.buttons;
         this.buttonGrid = this.scene.rexUI.add.gridSizer({
             column: this.buttonList.length,
             row: 1,
@@ -164,7 +271,7 @@ export class MakeUpManager {
             y: 1010,
             width: 720,
             height: 250,
-            scrollMode: 1,
+            scrollMode: 0,
 
             scrollDetectionMode: 1,            // drag dideteksi berdasarkan mask area&#8203;:contentReference[oaicite:0]{index=0}
             scroller: {
@@ -208,7 +315,7 @@ export class MakeUpManager {
 
 
         Object.values(this.scene.makeUpButtons).flat().forEach(button => {
-            this.scene.sys.displayList.bringToTop(button.container);
+            this.scene.sys.displayList.bringToTop(button);
         });
 
         const maskGraphics = this.scene.add.graphics();
@@ -221,7 +328,7 @@ export class MakeUpManager {
         const mask = maskGraphics.createGeometryMask();
 
         Object.values(this.scene.makeUpButtons).flat().forEach(button => {
-            button.container.setMask(mask);
+            button.setMask(mask);
         });
 
         this.scene.makeUpPanelMaskGraphics = maskGraphics;
@@ -235,6 +342,9 @@ export class MakeUpManager {
      * Otherwise, the makeup for that type is cleared.
      */
     removeAllMakeup() {
+        if (this.scene.interactiveMakeupSystem?.isActive) {
+            this.scene.interactiveMakeupSystem.stopColoringSession(true); // force discard
+        }
         // console.log("Attempting to remove all makeup...");
         const scene = this.scene;
 
@@ -261,7 +371,7 @@ export class MakeUpManager {
                     // Since we are removing this custom item, its own displayedMakeUp (if additive) needs to be destroyed.
                     // The _equipDefaultMakeUp method called below will handle setting the new default.
                     if (buttonInstanceToCallHelper.displayedMakeUp) {
-                        if (makeupType !== 'Lips' && makeupType !== 'Eyebrows' && makeupType !== 'Eyelashes' && makeupType !== 'Pupil') {
+                        if (makeupType !== 'Lips' && makeupType !== 'Eyebrows' && makeupType !== 'Eyelashes' && makeupType !== 'Pupil' && makeupType !== 'Hair' && makeupType !== 'Sticker') {
                             if (typeof buttonInstanceToCallHelper.displayedMakeUp.destroy === 'function') {
                                 // console.log(`Destroying displayedMakeUp of button ${buttonInstanceToCallHelper.name} for ${makeupType}`);
                                 buttonInstanceToCallHelper.displayedMakeUp.destroy();
@@ -286,11 +396,11 @@ export class MakeUpManager {
                         continue; // Skip this type
                     }
                 }
-                
+
                 // If we decided we need to act (i.e., it wasn't already default or we found a button)
                 if (buttonInstanceToCallHelper) {
-                     // Call the instance method _equipDefaultMakeUp on the determined button instance.
-                     // It will handle setting the correct default texture and updating MakeUpButton.selectedMakeUp.
+                    // Call the instance method _equipDefaultMakeUp on the determined button instance.
+                    // It will handle setting the correct default texture and updating MakeUpButton.selectedMakeUp.
                     buttonInstanceToCallHelper._equipDefaultMakeUp(makeupType, currentEquippedItemInfo);
                 }
             }

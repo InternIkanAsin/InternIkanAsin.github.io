@@ -3,77 +3,73 @@ import { DialogueManager } from '../Dialogue System/DialogueManager.js';
 // DialogueData Class
 import { DialogueData } from '../Dialogue System/DialogueData.js';
 
+//Bachelor Dialogues Class
+import { bachelorDialoguesContainer, initializeBachelorDialogue } from '../Bachelor/bachelorDialogues.js';
 
 export class CutsceneSystem {
     constructor(scene) {
         this.scene = scene;
     }
 
-    initiateCutscene1() {
+    initiateCutscene1(bachelorChoice, bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
 
+        this.scene.backgroundCutscene1 = this.scene.add.image(width / 2, height / 2, 'bachelorBackground').setDepth(-1).setScale(3);
         // Fade in cutscene
-        this.cutscene1 = this.scene.add.image(width / 2 + 100, height / 2, 'cutscene1').setScale(0.5);
+        this.scene.add.existing(bachelorChoice);
+
+        bachelorChoice.x = width / 2;
+        bachelorChoice.y = height / 2 * 1.1;
+
+
         this.scene.cameras.main.fadeIn(3000);
         this.scene.AudioManager.playMusic('cutsceneMusic');
+        this.scene.AudioManager.fadeInMusic('cutsceneMusic');
         // Create and display dialogue after fade-in
         this.scene.cameras.main.once('camerafadeincomplete', () => {
-            this.dialogue1 = new DialogueData();
-            this.dialogue1.addLine("Azril", "pergi yok");
-            this.dialogue1.addLine("me", "KYAAA >///< kuy");
 
-            this.scene.DialogueManager.dialogueContainer["cutscene1"] = this.dialogue1.getDialogue();
-
-            this.scene.DialogueManager.showDialogue(this.scene.DialogueManager.dialogueContainer["cutscene1"], () => {
+            const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
+            this.scene.DialogueManager.showDialogue(bachelorDialogue, () => {
                 // Fade out when dialogue is done
                 this.scene.cameras.main.fadeOut(2000);
+                this.scene.SceneManager.TransitionCutscene1();
             });
         });
 
-       this.scene.SceneManager.TransitionCutscene1();
+
     }
 
-    initiateCutscene2(statPoints){
+    initiateCutscene2(bachelorChoice, bachelorName, datePlace, statPoints) {
         const { width, height } = this.scene.sys.game.config;
+
+        this.scene.backgroundCutscene2 = this.scene.add.image(width / 2, height / 2, 'theaterBackground').setDepth(-1);
         //Dialogue choices depending on your choice of outfit
-        if(statPoints < 4){
-            this.scene.AudioManager.fadeInMusic('cutsceneMusic', 1000);
-            this.dialogue2 = new DialogueData();
-            this.dialogue2.addLine("Azril", "defak what u wearin sis");
-            this.dialogue2.addLine("me", "KYAAA >///< gatau deh");
-
-        }else if(statPoints >= 5 && statPoints <= 6){
-            this.scene.AudioManager.fadeInMusic('cutsceneMusic', 1000);
-            this.dialogue2 = new DialogueData();
-            this.dialogue2.addLine("Azril", "oke la ya");
-            this.dialogue2.addLine("me", "KYAAA >///< apaan oke la?");
-
-        }else if(statPoints > 6){
-            this.scene.AudioManager.fadeInMusic('cutsceneMusic', 1000);
-            this.dialogue2 = new DialogueData();
-            this.dialogue2.addLine("Azril", "GYAAAATTT");
-            this.dialogue2.addLine("Azril", "nikah yok");
-            this.dialogue2.addLine("me", "KYAAA >///< ogah, keenan lbh baik utkku");
-
+        if (statPoints < 6) {
+            this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Sad');
+            this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After2'].getDialogue();
+        }
+        else if (statPoints >= 6) {
+            this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
+            this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After'].getDialogue();
         }
 
-        //Push dialogue to dialogue container after determining which dialogue obtained
-        this.scene.DialogueManager.dialogueContainer["cutscene2"] = this.dialogue2.getDialogue();
-
         //Start cutscene
-        this.cutscene2 = this.scene.add.image(width / 2 + 100, height / 2, 'cutscene2').setScale(0.5) .setDepth(0);
-        this.scene.cameras.main.fadeIn(3000);
+        this.scene.add.existing(bachelorChoice);
+        bachelorChoice.x = width / 2;
+        bachelorChoice.y = height / 2 * 1.1;
 
+        this.scene.cameras.main.fadeIn(3000);
+        this.scene.AudioManager.playMusic('cutsceneMusic');
 
         // Create and display dialogue after fade-in
         this.scene.cameras.main.once('camerafadeincomplete', () => {
-            this.scene.DialogueManager.showDialogue(this.scene.DialogueManager.dialogueContainer["cutscene2"], () => {
+            this.scene.DialogueManager.showDialogue(this.selectedDialogue, () => {
                 // Fade out when dialogue is done
-                this.scene.cameras.main.fadeOut(2000);
+                this.scene.MiniGameManager.createEndingPanel();
             });
         });
     }
 
-    
-    
+
+
 }

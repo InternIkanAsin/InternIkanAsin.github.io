@@ -1,7 +1,9 @@
-export class BaseButton {
+export class BaseButton extends Phaser.GameObjects.Container {
     constructor(scene, x, y, elements = []) {
+        super(scene, x, y, elements);
+        scene.add.existing(this);
         this.scene = scene;
-        this.container = scene.add.container(x, y, elements).setDepth(12);
+        this.setDepth(10)
     }
 
     addHoverEffect(target, AudioManager = null) {
