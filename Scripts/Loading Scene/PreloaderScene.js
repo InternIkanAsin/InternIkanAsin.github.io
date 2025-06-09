@@ -94,7 +94,7 @@ class PreloaderScene extends Phaser.Scene {
         });
 
         // --- 7. START LOADING ALL MAIN GAME ASSETS ---
-        AssetLoader.loadAllAssets(this);
+        AssetLoader.loadGame(this);
     }
 
     create() {

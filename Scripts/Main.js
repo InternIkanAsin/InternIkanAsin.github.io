@@ -78,7 +78,7 @@ class Main extends Phaser.Scene {
     preload() {
         loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
 
-        AssetLoader.loadAllAssets(this);
+        
     }
 
     create() {

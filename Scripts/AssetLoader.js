@@ -12,6 +12,35 @@ export default class AssetLoader {
     });
   }
 
+  static loadGame(scene){
+        AssetLoader.loadUIAssets(scene);
+        AssetLoader.loadAudioAssets(scene);
+        AssetLoader.loadCutsceneAssets(scene);
+}
+
+
+
+
+  static loadMiniGame(scene){
+      AssetLoader.loadRexUIPlugin(scene);
+      AssetLoader.loadSceneAssets(scene);
+      AssetLoader.loadBachelorAssets(scene);
+  }
+
+  static loadCutsceneAssets(scene)
+  {
+    scene.load.image('cutscene1', 'Asset/Cutscene/Hangout1_Azril2.jpg');
+    scene.load.image('cutscene2', 'Asset/Cutscene/Crush1_Azril1.jpg');
+  }
+
+  static loadDressUp(scene){
+      AssetLoader.loadOutfitAssets(scene);
+  }
+
+  static loadMakeUp(scene){
+      AssetLoader.loadMakeUpAssets(scene);
+  }
+
   static loadRexUIPlugin(scene) {
     scene.load.scenePlugin({
       key: 'rexuiplugin',
@@ -83,9 +112,8 @@ export default class AssetLoader {
     //Particle
     scene.load.image('lightParticle', 'Asset/UI/particle.png');
 
-    //Cutscene
-    scene.load.image('cutscene1', 'Asset/Cutscene/Hangout1_Azril2.jpg');
-    scene.load.image('cutscene2', 'Asset/Cutscene/Crush1_Azril1.jpg');
+    
+    
 
     //Backgrounds
     scene.load.image('theaterBackground', 'Asset/Cutscene/cutscene_bg.png');
