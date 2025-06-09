@@ -765,6 +765,7 @@ export class MakeUpButton extends BaseButton {
         super(scene, x, y, [buttonImg, highlightImg, iconImg, textLbl]);
         // --- 'this' is now available ---
 
+        this.setDepth(12)
         // Assign elements to instance properties
         this.button = buttonImg; // Keep a reference to the interactive element for disable/setInteractive
         this.highlightImage = highlightImg; // Already assigned above after super() was planned, now correct.
@@ -919,9 +920,9 @@ export class MakeUpButton extends BaseButton {
 
         if (!scene.faceContainer && !['Hair'].includes(makeupType)) { console.error("Scene's faceContainer not defined."); return; }
 
-        const colorableTypes = ['Lips', 'Blush', 'Eyeshadow', 'Eyeliner']; 
+        const colorableTypes = ['Lips', 'Blush', 'Eyeshadow', 'Eyeliner'];
 
-         // 1. If an interactive session for a DIFFERENT type is active, stop it.
+        // 1. If an interactive session for a DIFFERENT type is active, stop it.
         if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType !== makeupType) {
             scene.interactiveMakeupSystem.stopColoringSession(scene.interactiveMakeupSystem.activeMakeupType, true);
         }
@@ -932,75 +933,75 @@ export class MakeUpButton extends BaseButton {
 
         MakeUpButton.clearMakeupHighlightsForType(scene, makeupType);
 
-         if (colorableTypes.includes(makeupType)) {
-        // --- COLORABLE TYPE ---
-        if (currentGlobalEquippedInfo === this) { // Clicking the same button
-            if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeupType) {
-                // Coloring session for THIS button is active. User might want to cancel by clicking again.
-                console.log(`[MakeUpButton] Colorable ${name} clicked while its session is active. Stopping and reverting.`);
-                scene.interactiveMakeupSystem.stopColoringSession(makeupType, true); // This will revert to previous state
-                // Highlight was already cleared. If previous was default, no highlight. If previous was another item, its toggle will handle highlight.
-                return;
-            } else {
-                // This button was current, session NOT active (means it was completed). Click to unequip.
-                console.log(`[MakeUpButton] Unequipping completed colorable ${name}`);
-                if (makeupType === 'Lips') {
-                    // scene.lips is persistent. _equipDefaultMakeUp will set its texture.
-                    // The button's displayedMakeUp should be nulled.
-                } else if (this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {
-                    // For Blush/Eyeshadow/Eyeliner, this.displayedMakeUp was the image kept after coloring.
-                    this.displayedMakeUp.destroy();
+        if (colorableTypes.includes(makeupType)) {
+            // --- COLORABLE TYPE ---
+            if (currentGlobalEquippedInfo === this) { // Clicking the same button
+                if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeupType) {
+                    // Coloring session for THIS button is active. User might want to cancel by clicking again.
+                    console.log(`[MakeUpButton] Colorable ${name} clicked while its session is active. Stopping and reverting.`);
+                    scene.interactiveMakeupSystem.stopColoringSession(makeupType, true); // This will revert to previous state
+                    // Highlight was already cleared. If previous was default, no highlight. If previous was another item, its toggle will handle highlight.
+                    return;
+                } else {
+                    // This button was current, session NOT active (means it was completed). Click to unequip.
+                    console.log(`[MakeUpButton] Unequipping completed colorable ${name}`);
+                    if (makeupType === 'Lips') {
+                        // scene.lips is persistent. _equipDefaultMakeUp will set its texture.
+                        // The button's displayedMakeUp should be nulled.
+                    } else if (this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {
+                        // For Blush/Eyeshadow/Eyeliner, this.displayedMakeUp was the image kept after coloring.
+                        this.displayedMakeUp.destroy();
+                    }
+                    this.displayedMakeUp = null;
+                    this._equipDefaultMakeUp(makeupType, this); // Reverts to default
+                    return;
                 }
-                this.displayedMakeUp = null;
-                this._equipDefaultMakeUp(makeupType, this); // Reverts to default
-                return;
-            }
-        } else {
-            // Clicked a NEW colorable item, or switching from a different item.
-            // Any *previous* session (even for this type by another button) was stopped above.
-            // Clean up visual of previously selected item if it was an INSTANTLY APPLIED item of THIS makeupType.
-            if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp &&
-                !currentGlobalEquippedInfo.isDefault && // was not a default state object
-                (!(currentGlobalEquippedInfo instanceof MakeUpButton && colorableTypes.includes(currentGlobalEquippedInfo.makeupType))) // and was not a (potentially completed) colorable item
-            ) {
-                const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
-                if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(prevType)) { // If it was an additive INSTANT item
-                    if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
-                        currentGlobalEquippedInfo.displayedMakeUp.destroy();
+            } else {
+                // Clicked a NEW colorable item, or switching from a different item.
+                // Any *previous* session (even for this type by another button) was stopped above.
+                // Clean up visual of previously selected item if it was an INSTANTLY APPLIED item of THIS makeupType.
+                if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp &&
+                    !currentGlobalEquippedInfo.isDefault && // was not a default state object
+                    (!(currentGlobalEquippedInfo instanceof MakeUpButton && colorableTypes.includes(currentGlobalEquippedInfo.makeupType))) // and was not a (potentially completed) colorable item
+                ) {
+                    const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
+                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(prevType)) { // If it was an additive INSTANT item
+                        if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
+                            currentGlobalEquippedInfo.displayedMakeUp.destroy();
+                        }
+                    }
+                    if (currentGlobalEquippedInfo instanceof MakeUpButton) {
+                        currentGlobalEquippedInfo.displayedMakeUp = null;
                     }
                 }
-                if (currentGlobalEquippedInfo instanceof MakeUpButton) {
-                    currentGlobalEquippedInfo.displayedMakeUp = null;
+
+                if (scene.interactiveMakeupSystem) {
+                    scene.interactiveMakeupSystem.startColoringSession(makeupType, textureAnime, this);
+                    if (this.highlightImage) this.highlightImage.setVisible(true);
                 }
             }
-            
-            if (scene.interactiveMakeupSystem) {
-                scene.interactiveMakeupSystem.startColoringSession(makeupType, textureAnime, this);
-                if(this.highlightImage) this.highlightImage.setVisible(true);
+        } else {
+            // --- INSTANTLY APPLICABLE TYPE (Eyebrows, Eyelashes, Pupil, Hair, Sticker) ---
+            // (Your existing fully working logic for this block)
+            if (currentGlobalEquippedInfo === this) { /* ... toggle OFF ... */ this._equipDefaultMakeUp(makeupType, this); return; }
+            if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) { /* ... clear previous ... */ }
+            let newImage; const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+            switch (makeupType) {
+                case 'Eyebrows': scene.eyebrows.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyebrows; break;
+                case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
+                case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
+                // ... other instant cases ...
+                case 'Hair': if (scene.hair) { scene.hair.setTexture(this.textureAnime).setVisible(true); newImage = scene.hair; } break;
+                case 'Sticker': newImage = scene.add.image(pos.x, pos.y, this.textureAnime); if (scene.faceContainer) scene.faceContainer.add(newImage); break;
+                default: return;
             }
+            if (!newImage) { return; } this.displayedMakeUp = newImage;
+            // ... set scale, depth, update selectedMakeUp, set highlight ...
+            if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55); }
+            else if (makeupType === 'Hair') { this.displayedMakeUp.setScale(0.8); } else { this.displayedMakeUp.setScale(0.9); }
+            this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || (makeupType === 'Hair' ? 3 : 2.7));
+            MakeUpButton.selectedMakeUp[makeupType] = { previous: currentGlobalEquippedInfo, current: this };
+            if (this.highlightImage) this.highlightImage.setVisible(true);
         }
-    } else {
-        // --- INSTANTLY APPLICABLE TYPE (Eyebrows, Eyelashes, Pupil, Hair, Sticker) ---
-        // (Your existing fully working logic for this block)
-        if (currentGlobalEquippedInfo === this) { /* ... toggle OFF ... */ this._equipDefaultMakeUp(makeupType, this); return; }
-        if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) { /* ... clear previous ... */ }
-        let newImage; const pos = MakeUpPositions[makeupType] || {x:0,y:0};
-        switch(makeupType){
-            case 'Eyebrows': scene.eyebrows.setTexture(this.textureAnime).setVisible(true);newImage=scene.eyebrows;break;
-            case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
-            case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
-            // ... other instant cases ...
-            case 'Hair': if(scene.hair){scene.hair.setTexture(this.textureAnime).setVisible(true);newImage=scene.hair;}break;
-            case 'Sticker': newImage=scene.add.image(pos.x,pos.y,this.textureAnime);if(scene.faceContainer)scene.faceContainer.add(newImage);break;
-            default: return;
-        }
-        if(!newImage){return;} this.displayedMakeUp=newImage;
-        // ... set scale, depth, update selectedMakeUp, set highlight ...
-        if (['Pupil','Lips','Eyebrows','Eyelashes','Blush','Eyeliner','Sticker'].includes(makeupType)) {this.displayedMakeUp.setScale(0.55);}
-        else if (makeupType === 'Hair') {this.displayedMakeUp.setScale(0.8);} else {this.displayedMakeUp.setScale(0.9);}
-        this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType]||(makeupType==='Hair'?3:2.7));
-        MakeUpButton.selectedMakeUp[makeupType]={previous:currentGlobalEquippedInfo,current:this};
-        if(this.highlightImage)this.highlightImage.setVisible(true);
     }
-}
 }
