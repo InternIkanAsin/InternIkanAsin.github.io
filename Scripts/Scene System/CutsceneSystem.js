@@ -20,7 +20,7 @@ export class CutsceneSystem {
 
         bachelorChoice.x = width / 2;
         bachelorChoice.y = height / 2 * 1.1;
-
+        bachelorChoice.setVisible(true);
 
         this.scene.cameras.main.fadeIn(3000);
         this.scene.AudioManager.playMusic('cutsceneMusic');
@@ -39,24 +39,42 @@ export class CutsceneSystem {
 
     }
 
-    initiateCutscene2(bachelorChoice, bachelorName, datePlace, statPoints) {
+    initiateCutscene2(bachelorName, datePlace, statPoints) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.scene.backgroundCutscene2 = this.scene.add.image(width / 2, height / 2, 'theaterBackground').setDepth(-1);
-        //Dialogue choices depending on your choice of outfit
+
+        const bachelorData = this.scene.BachelorManager.initializeAndSelectBachelor(bachelorName);
+        const bachelorChoice = bachelorData.bachelorSprite;
+        const bachelorExpression = bachelorData.bachelorExpression;
+
+
+        this.scene.chosenBachelorExpression = bachelorExpression;
+
+        this.scene.backgroundCutscene2 = this.scene.add.image(width / 2, height / 2, 'theaterBackground').setDepth(-1).setVisible(true);
+
+        const originalWidth = this.scene.backgroundCutscene2.width;
+        const originalHeight = this.scene.backgroundCutscene2.height;
+
+
+        const newWidth = width * 1.5;
+        const newHeight = originalHeight
+
+        this.scene.backgroundCutscene2.setDisplaySize(newWidth, newHeight);
+
+        console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
+        // Dialogue choices depending on your choice of outfit
         if (statPoints < 6) {
             this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Sad');
             this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After2'].getDialogue();
-        }
-        else if (statPoints >= 6) {
+        } else if (statPoints >= 6) {
             this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
             this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After'].getDialogue();
         }
 
-        //Start cutscene
-        this.scene.add.existing(bachelorChoice);
+        // Start cutscene
         bachelorChoice.x = width / 2;
         bachelorChoice.y = height / 2 * 1.1;
+        bachelorChoice.setVisible(true);
 
         this.scene.cameras.main.fadeIn(3000);
         this.scene.AudioManager.playMusic('cutsceneMusic');
@@ -64,8 +82,9 @@ export class CutsceneSystem {
         // Create and display dialogue after fade-in
         this.scene.cameras.main.once('camerafadeincomplete', () => {
             this.scene.DialogueManager.showDialogue(this.selectedDialogue, () => {
-                // Fade out when dialogue is done
+                this.scene.darkOverlay.setVisible(true);
                 this.scene.MiniGameManager.createEndingPanel();
+                this.scene.TweeningUtils.openCurtains();
             });
         });
     }

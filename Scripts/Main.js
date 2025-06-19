@@ -1,9 +1,10 @@
 //Preload loading asset
-import BootScene from './Loading Scene/BootScene.js';
+import BootScene from './Loading scene/BootScene.js';
 
 //Loading logic
-import PreloaderScene from './Loading Scene/PreloaderScene.js';
+import PreloaderScene from './Loading scene/PreloaderScene.js';
 
+import UIButton from './UI/UIButton.js';
 
 //Asset Loader Class
 import AssetLoader from './AssetLoader.js'
@@ -75,18 +76,162 @@ class Main extends Phaser.Scene {
         super({ key: 'MainScene' });
     }
 
+    init(data) {
+        this.chosenBachelorName = data.bachelorName;
+        console.log(`MainScene: Memulai game dengan bachelor: ${this.chosenBachelorName}`);
+    }
+
     preload() {
         loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
+        loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 
-        
+        AssetLoader.loadRexUIPlugin(this);
+        //AssetLoader.loadAllAssets(this);
     }
 
     create() {
         this.initializeSystems();
         this.state = GameState.MAKEUP;
-
+        this.startGameFlow();
         //this.setUpMiniGame();
-        this.BachelorManager.setUpBachelorChoice();
+        //this.BachelorManager.setUpBachelorChoice();
+    }
+
+    createSelectionScreen() {
+        console.log("[Main.js] Creating Minigame Selection Screen.");
+        const scene = this;
+        const centerX = scene.scale.width / 2;
+        const centerY = scene.scale.height / 2;
+
+        scene.UIManager.setupScene(scene);
+        // First Curtain is closed
+        const drapeWidth = scene.scale.width / 2;
+        scene.leftDrape = scene.add.image(centerX / 2, centerY, 'leftDrape').setDepth(101); // Depth di atas tombol
+        scene.rightDrape = scene.add.image(scene.scale.width - (centerX / 2), centerY, 'rightDrape').setDepth(101); // Depth di atas tombol
+
+        scene.leftCurtain = scene.add.image(centerX / 4.8, centerY, 'leftCurtain').setDepth(102);
+        scene.rightCurtain = scene.add.image(scene.scale.width - (centerX / 4.8), centerY, 'rightCurtain').setDepth(102);
+
+        // fix button size and position
+        const buttonXOffset = 350;
+
+        this.createSelectionButtons();
+
+        // LANGKAH 3: Panggil animasi untuk MEMBUKA tirai setengah
+        scene.cameras.main.once('camerafadeincomplete', () => {
+            // Animasi openDrapesHalfway sekarang akan menggeser tirai dari tengah ke samping
+            this.TweeningUtils.openDrapesHalfway(1000);
+        });
+    }
+
+    createSelectionButtons() {
+        const scene = this;
+        const centerX = scene.scale.width / 2;
+        const centerY = scene.scale.height / 2;
+        const buttonXOffset = 350;
+        // Gunakan parameter yang lebih kecil untuk tombol, sesuai referensi teman Anda
+        this.dressUpButton = new UIButton(scene, scene.AudioManager, {
+            x: centerX - buttonXOffset,
+            y: centerY,
+            textureButton: 'buttonIcon',
+            buttonWidth: 75,
+            buttonHeight: 75,
+            textureIcon: 'dressButtonIcon',
+            iconYPosition: -10,
+            iconScale: 0.8,
+            callback: () => { this.transitionToMinigame(GameState.DRESSUP); },
+            buttonText: '',
+            buttonScale: 0.8,
+        }).setDepth(99); // Depth DI BAWAH tirai
+
+        if (this.dressUpFinished) this.dressUpTickMark = scene.add.image(centerX - buttonXOffset + 100, centerY * 1.1, 'tickMark').setDepth(100.1).setScale(0.7);
+        this.makeUpButton = new UIButton(scene, scene.AudioManager, {
+            x: centerX + buttonXOffset,
+            y: centerY,
+            textureButton: 'buttonIcon',
+            buttonWidth: 75,
+            buttonHeight: 75,
+            textureIcon: 'makeUpButtonIcon',
+            iconYPosition: -10,
+            iconScale: 0.8,
+            callback: () => { this.transitionToMinigame(GameState.MAKEUP); },
+            buttonText: '',
+            buttonScale: 0.8,
+        }).setDepth(99); // Depth DI BAWAH tirai
+
+        if (this.makeUpFinished) this.makeUpTickMark = scene.add.image(centerX + buttonXOffset + 100, centerY * 1.1, 'tickMark').setDepth(100.1).setScale(0.7);
+
+        this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
+            x: scene.scale.width / 2,
+            y: scene.scale.height - 100,
+            textureButton: 'readyButtonIcon',
+            buttonWidth: 600,
+            buttonHeight: 150,
+            textureIcon: '',
+            iconYPosition: 0,
+            iconScale: 1.5,
+            callback: () => { this.MiniGameManager.transitionMiniGame() },
+            buttonText: 'READY',
+            textSize: 60,
+            textYPosition: 0,
+            font: 'regularFont',
+            useNineSlice: true,
+            textColor: '#d6525f'
+        });
+
+    }
+
+
+    transitionToMinigame(gameState) {
+        // Make sure transition only happened once
+        if (this.dressUpButton) this.dressUpButton.disableInteractive();
+        if (this.makeUpButton) this.makeUpButton.disableInteractive();
+
+
+        this.state = gameState; // Set state game
+        console.log(`[Main.js] Transitioning to ${gameState} mode.`);
+
+        // Close curtain, while close setup minigame then open it again
+        this.TweeningUtils.closeDrapes(500, async () => {
+
+
+            // destroy selection screen
+            if (this.dressUpButton) this.dressUpButton.destroy();
+            if (this.makeUpButton) this.makeUpButton.destroy();
+            if (this.dressUpTickMark) this.dressUpTickMark.destroy();
+            if (this.makeUpTickMark) this.makeUpTickMark.destroy();
+            if (this.miniGameFinishButton) this.miniGameFinishButton.destroy();
+
+
+            this.dressUpButton = null;
+            this.makeUpButton = null;
+
+            if (gameState === GameState.DRESSUP) {
+                if (!this.dressUpLoaded) {
+                    await AssetLoader.loadDressUpAssets(this);
+                    this.dressUpLoaded = true;
+                }
+                this.TweeningUtils.zoomOut();
+            } else {
+                if (!this.makeUpLoaded) {
+                    await AssetLoader.loadMakeUpAssets(this);
+                    this.makeUpLoaded = true;
+                }
+                this.TweeningUtils.zoomIn();
+            }
+
+            AssetLoader.changeFilterMode(this);
+            // Setup UI minigame (panel kategori di samping, tombol finish, dll)
+            this.setUpMiniGame();
+
+            if (gameState === GameState.DRESSUP) {
+                this.DressUpManager.displayDressUpButtons('Dress', this);
+            } else {
+                this.MakeUpManager.displayMakeUpButtons('Blush', this);
+            }
+            // Buka tirai sepenuhnya
+            this.TweeningUtils.openDrapes(1000);
+        });
     }
 
     initializeSystems() {
@@ -102,29 +247,62 @@ class Main extends Phaser.Scene {
         this.TutorialManager = new TutorialManager(this);
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
-        this.cutsceneSystem = new CutsceneSystem(this);
         this.TweeningUtils = new TweenUtils(this);
         this.ParticleSystem = new ParticleSystem(this);
         this.interactiveMakeupSystem = new InteractiveMakeupSystem(this);
         this.BachelorManager = new BachelorManager(this);
     }
 
+    startGameFlow() {
+        this.makeUpFinished = false;
+        this.dressUpFinished = false;
+        // Minta BachelorManager untuk menyiapkan dan memilih bachelor yang ditentukan
+        const bachelorData = this.BachelorManager.initializeAndSelectBachelor(this.chosenBachelorName);
+
+        // Simpan referensi ke objek bachelor yang dikembalikan untuk digunakan di seluruh scene
+        this.chosenBachelor = bachelorData.bachelorSprite;
+        this.chosenBachelorExpression = bachelorData.bachelorExpression;
+
+        // Create a dark overlay if needed
+        this.darkOverlay = this.add.rectangle(
+            this.scale.width / 2,
+            this.scale.height / 2,
+            this.scale.width,
+            this.scale.height,
+            0x000000,
+            0.5
+        ).setDepth(100).setVisible(false);
+        // Buat UI dialog
+        this.DialogueManager.createDialogueUI();
+
+        // Mulai Cutscene 1 dengan data bachelor yang sudah siap
+        //this.MiniGameManager.transitionToCutscene();
+        this.CutsceneSystem.initiateCutscene1(this.chosenBachelor, this.chosenBachelorName, "Theater");
+    }
+
     setUpMiniGame() {
-        this.UIManager.setupScene(this);
+        //this.UIManager.setupScene(this);
         this.MakeUpManager.setupMakeUpButtons(this);
         this.DressUpManager.setupCostumeButtons(this);
         this.MiniGameManager.setUpGame(this);
+        //this.TutorialManager.startTutorial();
     }
 
+
+
 }
+const LANDSCAPE_WIDTH = 1920;
+const LANDSCAPE_HEIGHT = 1080;
+const PORTRAIT_WIDTH = 720;
+const PORTRAIT_HEIGHT = 1280;
 
 const config = {
     type: Phaser.AUTO,
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1920,
-        height: 1080,
+        width: LANDSCAPE_WIDTH,
+        height: LANDSCAPE_HEIGHT,
     },
     scene: [BootScene, PreloaderScene, Main]
 };

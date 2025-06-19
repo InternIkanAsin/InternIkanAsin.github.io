@@ -2,53 +2,140 @@
 import { CategoryButton } from '../UI/UIButton.js'
 
 export function createMakeUpCategoryButtons(scene, audioManager) {
-    return [
-        scene.eyebrowsButton = new CategoryButton(scene, audioManager, 0, 0, 'Eyebrows', null, 'categoryButton', 'categoryButtonHighlighted', 'eyebrowsIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Eyebrows', scene);
-        }),
-        scene.eyelashesButton = new CategoryButton(scene, audioManager, 0, 0, 'Eyelashes', null, 'categoryButton', 'categoryButtonHighlighted', 'eyelashesIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Eyelashes', scene);
-        }),
-        scene.eyelinerButton = new CategoryButton(scene, audioManager, 0, 0, 'Eyeliner', null, 'categoryButton', 'categoryButtonHighlighted', 'eyelinerIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Eyeliner', scene);
-        }),
-        scene.eyeshadowButton = new CategoryButton(scene, audioManager, 0, 0, 'Eyeshadow', null, 'categoryButton', 'categoryButtonHighlighted', 'eyeshadowIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Eyeshadow', scene);
-        }),
-        scene.lipstickButton = new CategoryButton(scene, audioManager, 0, 0, 'Lipstick', null, 'categoryButton', 'categoryButtonHighlighted', 'lipstickIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Lips', scene);
-        }),
-        scene.eyecolorButton = new CategoryButton(scene, audioManager, 0, 0, 'Eye Color', null, 'categoryButton', 'categoryButtonHighlighted', 'eyeColorIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Pupil', scene);
-        }),
-        scene.blushButton = new CategoryButton(scene, audioManager, 0, 0, 'Blush', null, 'categoryButton', 'categoryButtonHighlighted', 'blushIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Blush', scene);
-        }),
-         scene.stickerButton = new CategoryButton(scene, audioManager, 0, 0, 'Sticker', null, 'categoryButton', 'categoryButtonHighlighted', 'stickerIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Sticker', scene);
-        }),
-        scene.hairButton = new CategoryButton(scene, audioManager, 0, 0, 'Hair', null, 'categoryButton', 'categoryButtonHighlighted', 'hairIcon', () => {
-            scene.MakeUpManager.displayMakeUpButtons('Hair', scene);
-        })
+    const buttons = [
+        scene.eyebrowsButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 125,
+            'Eyebrows',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'eyebrowsIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Eyebrows', scene);
+            }
+        ),
+        scene.eyelashesButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 225,
+            'Eyelashes',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'eyelashesIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Eyelashes', scene);
+            }
+        ),
+        scene.eyelinerButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 325,
+            'Eyeliner',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'eyelinerIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Eyeliner', scene);
+            }
+        ),
+        scene.eyeshadowButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 425,
+            'Eyeshadow',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'eyeshadowIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Eyeshadow', scene);
+            }
+        ),
+        scene.lipstickButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 525,
+            'Lipstick',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'lipstickIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Lips', scene);
+            }
+        ),
+        scene.eyecolorButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 625,
+            'Eye Color',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'eyeColorIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Pupil', scene);
+            }
+        ),
+        scene.blushButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 725,
+            'Blush',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'blushIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Blush', scene);
+            }
+        ),
+        scene.stickerButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 825,
+            'Sticker',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'stickerIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Sticker', scene);
+            }
+        ),
+        scene.hairButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 925,
+            'Hair',
+            null,
+            'stitchedButtonIcon',
+            'categoryButtonHighlighted',
+            'hairIcon',
+            () => {
+                scene.MakeUpManager.displayMakeUpButtons('Hair', scene);
+            }
+        )
     ];
+
+    scene.makeUpCategoryButtons = buttons;
+
+    return buttons;
 }
 
+
 export function createDressUpCategoryButtons(scene, audioManager) {
-    return [
-        scene.dressButton = new CategoryButton(scene, audioManager, 0, 0, 'Dress', null, 'categoryButton', 'categoryButtonHighlighted', 'dressIcon', () => {
+    const buttons = [
+        scene.dressButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.25, 175, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Dress', scene);
         }),
-        scene.outerButton = new CategoryButton(scene, audioManager, 0, 0, 'Outer', null, 'categoryButton', 'categoryButtonHighlighted', 'outerIcon', () => {
+        scene.outerButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.25, 350, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'outerIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Outer', scene);
         }),
-        scene.underwearButton = new CategoryButton(scene, audioManager, 0, 0, 'Underwear', null, 'categoryButton', 'categoryButtonHighlighted', 'underwearIcon', () => {
+        scene.underwearButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.25, 525, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'underwearIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Underwear', scene);
         }),
-        scene.socksButton = new CategoryButton(scene, audioManager, 0, 0, 'Socks', null, 'categoryButton', 'categoryButtonHighlighted', 'socksIcon', () => {
+        scene.socksButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.25, 700, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'socksIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Socks', scene);
         }),
-        scene.shoesButton = new CategoryButton(scene, audioManager, 0, 0, 'Shoes', null, 'categoryButton', 'categoryButtonHighlighted', 'shoesIcon', () => {
+        scene.shoesButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.25, 875, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'shoesIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Shoes', scene);
-        })
+        }),
+
+        //scene.dressUpCategoryButtonsContainer = scene.add.container(0, 0, scene.dressButton, scene.outerButton, scene.underwearButton, scene.socksButton, scene.shoesButton)
     ];
+
+    scene.dressUpCategoryButtons = buttons;
+
+    return buttons
 }
+
+export function createDummyButtons(scene, audioManager) {
+    const buttons = [
+        scene.dummyButton = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton1 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton2 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton3 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+    ]
+
+
+    return buttons
+}
+

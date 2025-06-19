@@ -50,12 +50,12 @@ export class MakeUpManager {
             scene,
             scene.AudioManager,
             0, 0,                         // Position will be set by grid sizer
-            'button1',                    // Background texture (same as MakeUpButton)
+            'buttonIcon2',                    // Background texture (same as MakeUpButton)
             'xMark',                      // Icon texture key for the 'X'
-            0.85,                         // Icon scale (matches MakeUpButton iconImage.scale)
+            0.5,                         // Icon scale (matches MakeUpButton iconImage.scale)
             -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
             'Remove',                     // Text ("Lepas" or "Remove")
-            '22px',                       // Text size (matches MakeUpButton textLbl)
+            '30px',                       // Text size (matches MakeUpButton textLbl)
             60,                           // Text Y offset (matches MakeUpButton textLbl.y)
             () => { // Callback for "Lepas"
                 console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
@@ -103,15 +103,32 @@ export class MakeUpManager {
             allButtonContainersForPanel.push(buttonInstance);
         });
 
-        scene.MiniGameManager.buttonList = allButtonContainersForPanel;
-
         if (scene.MiniGameManager.buttonGrid) {
-            // The grid currently holds CATEGORY buttons.
-            // Category buttons are re-created by goBackMainPanel, so they can be destroyed here.
-            scene.MiniGameManager.buttonGrid.clear(true, true); // Destroy category buttons
-            scene.MiniGameManager.buttonGrid.destroy();          // Destroy the grid sizer itself
+            const children = scene.MiniGameManager.buttonGrid.getAllChildren();
+
+            children.forEach(childGameObject => {
+                // Kita periksa apakah child ini adalah instance OutfitButton yang persisten.
+                // Kita bisa menggunakan data yang kita set saat pembuatan tombol.
+                const instance = childGameObject.getData ? childGameObject.getData('instance') : null;
+
+                if (instance instanceof MakeUpButton) {
+                    // Jika ini adalah OutfitButton, kita hapus dari grid TANPA menghancurkannya.
+                    // Ini "menyelamatkan" tombol agar bisa dipakai lagi.
+                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false); // false = jangan hancurkan
+                }
+                // Jika bukan (misalnya, ini adalah tombol "Lepas"), kita tidak melakukan apa-apa.
+                // Tombol "Lepas" akan hancur bersama dengan grid di bawah ini.
+            });
+
+            // Setelah tombol-tombol persisten diselamatkan, baru kita hancurkan grid-nya.
+            // Ini juga akan menghancurkan anak-anak yang tersisa (yaitu tombol "Lepas" yang lama).
+            scene.MiniGameManager.buttonGrid.destroy();
             scene.MiniGameManager.buttonGrid = null;
         }
+
+        // Setelah pembersihan selesai, baru kita update buttonList dengan yang baru.
+        scene.MiniGameManager.buttonList = allButtonContainersForPanel;
+
         if (scene.MiniGameManager.innerSizer) {
             scene.MiniGameManager.innerSizer.clear(true);
         }
@@ -153,24 +170,13 @@ export class MakeUpManager {
             // return; // Optionally stop if button is critical
         }
 
+        const oldButtons = scene.MiniGameManager.buttonGrid ? scene.MiniGameManager.buttonGrid.getAllChildren() : [];
         scene.tweens.add({
-            targets: [scene.sidePanel],
-            x: scene.scale.width + 300, // Use 'scene.' for scene properties
-            duration: 500,
+            targets: oldButtons,
+            alpha: 0,
+            duration: 200,
             ease: 'Sine.easeInOut',
             onComplete: () => {
-                // Bring out back button
-                if (scene.MiniGameManager && scene.MiniGameManager.backButton && scene.MiniGameManager.backButton) {
-                    scene.tweens.add({
-                        targets: [scene.MiniGameManager.backButton], // Target its container
-                        x: scene.scale.width / 2 * 1.73,
-                        duration: 500,
-                        ease: 'Sine.easeInOut',
-                        onComplete: () => {
-                            // DO NOT set interactive here yet. Wait for all animations.
-                        }
-                    });
-                }
 
                 // Update makeup buttons
                 scene.MakeUpManager.updateMakeUpButtons(makeUpType);
@@ -198,42 +204,24 @@ export class MakeUpManager {
                 if (scene.MiniGameManager) { // Check existence
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
-
+                const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
+                newButtons.forEach(btn => btn.setAlpha(0));
                 scene.tweens.add({
-                    targets: [scene.sidePanel],
-                    x: scene.scale.width - 70,
-                    duration: 500,
+                    targets: newButtons,
+                    alpha: 1,
+                    duration: 200,
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
-                        if (scene.selectedButtonHeader) {
-                            scene.selectedButtonHeader.setAlpha(0); // Ensure it's hidden before fade-in
-                            scene.tweens.killTweensOf(scene.selectedButtonHeader);
-                            scene.tweens.add({
-                                targets: [scene.selectedButtonHeader],
-                                alpha: 1,
-                                duration: 500,
-                                ease: 'Sine.easeInOut',
-                                onComplete: () => {
-                                    // NOW make the back button interactive
-                                    if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
-                                        scene.MiniGameManager.backButton.setInteractive();
-                                    }
 
-                                    if (scene.miniGameButton) {
-                                        scene.miniGameButton.setInteractive();
-                                    }
-                                }
-                            });
-                        } else {
-                            // If no header, still make button interactive after panel is in
-                            if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
-                                scene.MiniGameManager.backButton.setInteractive();
-                            }
-
-                            if (scene.miniGameButton) {
-                                scene.miniGameButton.setInteractive();
-                            }
+                        // If no header, still make button interactive after panel is in
+                        if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
+                            scene.MiniGameManager.backButton.setInteractive();
                         }
+
+                        if (scene.miniGameButton) {
+                            scene.miniGameButton.setInteractive();
+                        }
+
                     }
                 });
             }

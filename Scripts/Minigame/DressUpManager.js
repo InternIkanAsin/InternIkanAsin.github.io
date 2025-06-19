@@ -40,7 +40,7 @@ export class DressUpManager {
         console.log("[DressUpManager] Removing all outfits...");
         const scene = this.scene;
 
-        if (!scene.OutfitButton || !scene.OutfitButton.selectedOutfits) {
+        if (!OutfitButton.selectedOutfits) {
             console.error("[DressUpManager] OutfitButton.selectedOutfits not found!");
             return;
         }
@@ -49,28 +49,22 @@ export class DressUpManager {
             return;
         }
 
-        const typesToRemove = Object.keys(scene.OutfitButton.selectedOutfits);
+        const typesToRemove = Object.keys(OutfitButton.selectedOutfits);
 
         typesToRemove.forEach(outfitType => {
-            const entry = scene.OutfitButton.selectedOutfits[outfitType];
-            const currentOutfitButton = entry?.current;
+            const entry = OutfitButton.selectedOutfits[outfitType];
+            const currentOutfitButton = entry?.current; // 'current' refers to button instance
 
             if (currentOutfitButton && currentOutfitButton instanceof OutfitButton) { // Check if it's an OutfitButton instance
                 // console.log(`Removing ${outfitType}: ${currentOutfitButton.name}`);
-
-                // 1. Destroy the displayed GameObject
                 if (currentOutfitButton.displayedOutfit && typeof currentOutfitButton.displayedOutfit.destroy === 'function') {
                     currentOutfitButton.displayedOutfit.destroy();
-                    currentOutfitButton.displayedOutfit = null; // Nullify on the button instance
+                    currentOutfitButton.displayedOutfit = null;
                 }
 
-                // 2. Update stats
-                if (typeof currentOutfitButton.stat === 'number') {
-                    scene.statTracker.setStat(currentOutfitButton.stat, false); // false for removing
-                }
             }
             // 3. Clear the entry in the selectedOutfits registry for this type
-            scene.OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfitButton || entry?.previous || null };
+            OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfitButton || entry?.previous || null };
         });
 
         // Optional: Play a sound
@@ -118,12 +112,12 @@ export class DressUpManager {
             scene,
             scene.AudioManager,
             0, 0,                         // Position will be set by grid sizer
-            'button1',                    // Background texture (e.g., same as OutfitButton's textureButton)
+            'buttonIcon2',                    // Background texture (same as MakeUpButton)
             'xMark',                      // Icon texture key for the 'X'
-            0.7,                          // Icon scale (to match OutfitButton's iconImg.scale)
-            -20,                          // Icon Y offset (to match OutfitButton's iconImg.y)
+            0.5,                         // Icon scale (matches MakeUpButton iconImage.scale)
+            -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
             'Remove',                     // Text ("Lepas" or "Remove")
-            '22px',                       // Text size (to match OutfitButton's textLabel.fontSize)
+            '30px',                       // Text size (matches MakeUpButton textLbl)
             70,                           // Text Y offset (to match OutfitButton's textLabel.y)
             () => { // Callback for "Lepas Outfit"
                 console.log(`[LepasButton] Clicked for Outfit Type: ${outfitType}`);
@@ -152,9 +146,7 @@ export class DressUpManager {
                         equippedButtonInstance.displayedOutfit.destroy();
                         equippedButtonInstance.displayedOutfit = null;
                     }
-                    if (typeof equippedButtonInstance.stat === 'number') {
-                        scene.statTracker.setStat(equippedButtonInstance.stat, false);
-                    }
+
                     OutfitButton.selectedOutfits[typeToUnequipActually] = { current: null, previous: equippedButtonInstance };
 
                     // Clear highlight for this specific button
@@ -181,20 +173,34 @@ export class DressUpManager {
             allButtonContainersForPanel.push(buttonInstance.container ? buttonInstance.container : buttonInstance);
         });
 
-        scene.MiniGameManager.buttonList.forEach(btn => {
-            if (btn && btn.destroy) {
-                btn.destroy(); // Properly destroy the button game object
-            }
-        })
+        if (scene.MiniGameManager.buttonGrid) {
+            const children = scene.MiniGameManager.buttonGrid.getAllChildren();
+
+            children.forEach(childGameObject => {
+                // Kita periksa apakah child ini adalah instance OutfitButton yang persisten.
+                // Kita bisa menggunakan data yang kita set saat pembuatan tombol.
+                const instance = childGameObject.getData ? childGameObject.getData('instance') : null;
+
+                if (instance instanceof OutfitButton) {
+                    // Jika ini adalah OutfitButton, kita hapus dari grid TANPA menghancurkannya.
+                    // Ini "menyelamatkan" tombol agar bisa dipakai lagi.
+                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false); // false = jangan hancurkan
+                }
+                // Jika bukan (misalnya, ini adalah tombol "Lepas"), kita tidak melakukan apa-apa.
+                // Tombol "Lepas" akan hancur bersama dengan grid di bawah ini.
+            });
+
+            // Setelah tombol-tombol persisten diselamatkan, baru kita hancurkan grid-nya.
+            // Ini juga akan menghancurkan anak-anak yang tersisa (yaitu tombol "Lepas" yang lama).
+            scene.MiniGameManager.buttonGrid.destroy();
+            scene.MiniGameManager.buttonGrid = null;
+        }
+
+        // Setelah pembersihan selesai, baru kita update buttonList dengan yang baru.
         scene.MiniGameManager.buttonList = allButtonContainersForPanel;
 
-
-        if (scene.MiniGameManager.buttonGrid) {
-            // The grid currently holds CATEGORY buttons.
-            // Category buttons are re-created by goBackMainPanel, so they can be destroyed here.
-            scene.MiniGameManager.buttonGrid.clear(true, true); // Destroy category buttons
-            scene.MiniGameManager.buttonGrid.destroy();          // Destroy the grid sizer itself
-            scene.MiniGameManager.buttonGrid = null;
+        if (scene.MiniGameManager.innerSizer) {
+            scene.MiniGameManager.innerSizer.clear(true);
         }
         if (scene.MiniGameManager.innerSizer) {
             scene.MiniGameManager.innerSizer.clear(true);
@@ -229,25 +235,19 @@ export class DressUpManager {
             scene.MiniGameManager.backButton.disableInteractive();
         }
 
+        const oldButtons = scene.MiniGameManager.buttonGrid ? scene.MiniGameManager.buttonGrid.getAllChildren() : [];
         scene.tweens.add({
-            targets: [scene.sidePanel],
-            x: scene.scale.width * 1.3,
-            duration: 500,
+            targets: oldButtons,
+            alpha: 0,
+            duration: 200,
             ease: 'Sine.easeInOut',
             onComplete: () => {
-                // 2. Bring out back button visual (target its container)
-                if (scene.MiniGameManager.backButton) {
-                    scene.tweens.add({
-                        targets: [scene.MiniGameManager.backButton],
-                        x: scene.scale.width / 2 * 1.73,
-                        duration: 500,
-                        ease: 'Sine.easeInOut'
-                        // Interactivity set at the very end
-                    });
-                }
 
                 // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
+
+                const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
+                newButtons.forEach(btn => btn.setAlpha(0));
 
                 // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
@@ -271,39 +271,13 @@ export class DressUpManager {
 
                 // 6. Tween the panel (now with new items) back into view
                 scene.tweens.add({
-                    targets: [scene.sidePanel],
-                    x: scene.scale.width - 70,
-                    duration: 500,
+                    targets: newButtons,
+                    alpha: 1,
+                    duration: 200,
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
-                        // 7. After panel is in view, fade in the header
-                        if (scene.selectedButtonHeader) {
-                            scene.tweens.add({
-                                targets: [scene.selectedButtonHeader],
-                                alpha: 1,
-                                duration: 500,
-                                ease: 'Sine.easeInOut',
-                                onComplete: () => {
-                                    //   MAKE BACK BUTTON INTERACTIVE 
-                                    if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
-                                        scene.MiniGameManager.backButton.setInteractive();
-
-                                    }
-                                    if (scene.miniGameButton) {
-                                        scene.miniGameButton.setInteractive();
-                                    }
-                                }
-                            });
-                        } else {
-                            // If no header, still make back button interactive once panel is in
-                            if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
-                                scene.MiniGameManager.backButton.setInteractive();
-
-                            }
-                            if (scene.miniGameButton) {
-                                scene.miniGameButton.setInteractive();
-                            }
-                        }
+                        if (scene.miniGameButton) scene.miniGameButton.setInteractive();
+                        if (scene.MiniGameManager.backButton) scene.MiniGameManager.backButton.setInteractive();
                     }
                 });
             }

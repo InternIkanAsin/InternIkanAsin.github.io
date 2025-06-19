@@ -1,20 +1,39 @@
 import { outfitCustomSizes, outfitManualOffsets } from "../Outfit Data/CostumeData.js";
 import { BaseButton } from "./BaseButton.js";
 import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
-
+import { GameState } from '../Main.js';
 export default class UIButton extends BaseButton {
-    constructor(scene, AudioManager, x, y, textureButton, buttonWidth, buttonHeight, textureIcon = null, textureYPosition, iconScale, callback, buttonText = null, textSize = null, textYPosition = null, iconOffset = null, textOffset = null) {
+    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, textureYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
 
-        // Create the button and icon using the scene
-        const button = scene.add.nineslice(0, 0, textureButton, '', buttonWidth, buttonHeight, 5, 5, 5, 5).setInteractive().setScale(2);
-        const icon = scene.add.image(0 + iconOffset, textureYPosition, textureIcon).setScale(iconScale);
-        const text = scene.add.text(0 + textOffset, textYPosition, buttonText, {
+        let button = null;
+        let icon = null;
+        if (useNineSlice) {
+            button = scene.add.nineslice(0, 0, textureButton, null, buttonWidth, buttonHeight, 50, 50, 40, 44)
+                .setInteractive()
+                .setScale(buttonScale);
+        } else {
+            button = scene.add.image(0, 0, textureButton)
+                .setInteractive()
+                .setScale(buttonScale);
+        }
+
+        if (textureIcon) {
+            icon = textureIcon !== null
+                ? scene.add.image(iconOffset, textureYPosition, textureIcon).setScale(iconScale)
+                : null;
+        }
+
+        const text = scene.add.text(textOffset, textYPosition, buttonText, {
             fontSize: textSize,
-            fontFamily: 'pixelFont',
-            color: '#000000'
+            fontFamily: font,
+            color: textColor
         }).setOrigin(0.5);
 
-        super(scene, x, y, [button, icon, text]);
+        const elements = [button];
+        if (textureIcon) elements.push(icon);
+        if (buttonText !== '') elements.push(text);
+
+        super(scene, x, y, elements);
 
         this.icon = icon;
         this.text = text;
@@ -22,8 +41,18 @@ export default class UIButton extends BaseButton {
 
         this.addHoverEffect(button, AudioManager);
         this.addClickEffect(button, AudioManager);
-        // Click event
-        button.on("pointerdown", callback);
+
+        button.on("pointerdown", () => {
+            const pressedTextureKey = textureButton + 'Pressed';
+            if (button.scene.textures.exists(pressedTextureKey)) button.setTexture(pressedTextureKey);
+            if (icon) icon.y += 5;
+        });
+
+        button.on("pointerup", () => {
+            button.setTexture(textureButton);
+            if (icon) icon.y -= 5;
+            if (callback) callback();
+        });
     }
 
     setIconTexture(newTextureKey) {
@@ -38,10 +67,12 @@ export default class UIButton extends BaseButton {
 
     disableInteractive() {
         this.button.disableInteractive();
+        this.button.setAlpha(0.7);
     }
 
     setInteractive() {
         this.button.setInteractive();
+        this.button.setAlpha(1);
     }
 }
 
@@ -49,21 +80,12 @@ export class ItemPanelButton extends BaseButton {
     constructor(scene, AudioManager, x, y, backgroundTextureKey, iconTextureKey, iconScale, iconYOffset,
         labelText, labelSize, labelYOffset, callback, highlightTextureKey = 'highlightTexture') {
 
-        // 1. Create background image (not nineslice)
         const buttonBg = scene.add.image(0, 0, backgroundTextureKey)
             .setInteractive()
-            .setDisplaySize(150, 200); // Match MakeUpButton/OutfitButton visual size
+            .setScale(0.8);
 
-        // 2. Create highlight image (optional, but good for consistency if other item buttons have it)
-        const highlightImg = scene.add.image(0, 0, highlightTextureKey)
-            .setDisplaySize(150, 200)
-            .setVisible(false)
-            .setDepth(-1); // Place it behind icon and text
-
-        // 3. Create Icon
         const iconImg = scene.add.image(0, iconYOffset, iconTextureKey).setScale(iconScale);
 
-        // 4. Create Text Label
         const textLbl = scene.add.text(0, labelYOffset, labelText, {
             fontSize: labelSize,
             fontFamily: 'pixelFont',
@@ -71,11 +93,10 @@ export class ItemPanelButton extends BaseButton {
         }).setOrigin(0.5, 0.5);
 
         // 5. Call super with all elements
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, textLbl]);
+        super(scene, x, y, [buttonBg, iconImg, textLbl]);
 
         // Store references and properties
         this.button = buttonBg; // The interactive element
-        this.highlightImage = highlightImg; // For potential future use or consistency
         this.icon = iconImg;
         this.text = textLbl;
         this.onClickCallback = callback;
@@ -170,8 +191,8 @@ export class GeneralButton extends BaseButton {
             textureKey,
             null,
             105, buttonHeight,
-            7, 7,
-            14, 16
+            20, 20,
+            16, 16
         ).setInteractive().setDepth(10).setScale(2);
 
         const buttonOutlineImage = scene.add.nineslice(
@@ -202,14 +223,13 @@ export class GeneralButton extends BaseButton {
 }
 
 export class CategoryButton extends BaseButton {
-    constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick) {
+    constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick, iconScale = 0.5, buttonScale = 0.6) {
         //Create button and icon using the scene
-        const button = scene.add.image(0, 0, textureButton).setInteractive().setScale(4.7);
+        const button = scene.add.image(0, 0, textureButton).setInteractive().setScale(scene.state === GameState.DRESSUP ? 0.6 : 0.4);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false); // Retained for potential explicit hover states if desired later
-        const icon = scene.add.image(0, 0, textureIcon).setScale(3.6);
-        const text = scene.add.text(0, 90, name, { fontFamily: 'pixelFont', fontSize: 32, fontStyle: 'lighter', color: '#000000' }).setOrigin(0.5);
+        const icon = scene.add.image(0, 0, textureIcon).setScale(scene.state === GameState.DRESSUP ? 0.5 : 0.3);
 
-        super(scene, x, y, [button, buttonHighlighted, icon, text]);
+        super(scene, x, y, [button, buttonHighlighted, icon]);
 
         // Store the original onClick callback and AudioManager
         this.onClickCallback = onClick;
@@ -393,9 +413,6 @@ export class LepasButton extends BaseButton {
                             equippedButtonInstance.displayedOutfit.destroy();
                             equippedButtonInstance.displayedOutfit = null;
                         }
-                        if (typeof equippedButtonInstance.stat === 'number') {
-                            scene.statTracker.setStat(equippedButtonInstance.stat, false);
-                        }
                         OutfitButton.selectedOutfits[activeType] = { current: null, previous: equippedButtonInstance };
                         if (equippedButtonInstance.highlightImage) {
                             equippedButtonInstance.highlightImage.setVisible(false);
@@ -434,19 +451,15 @@ export class LepasButton extends BaseButton {
 export class OutfitButton extends BaseButton {
     static selectedOutfits = {};
 
-    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, stat, statTracker, AudioManager, highlightTextureKey = 'highlightTexture') {
+    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager, highlightTextureKey = 'buttonIcon2Highlighted') {
 
         // --- Elements for the button UI itself ---
-        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setDisplaySize(150, 200);
+        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(0.8);
         const highlightImg = scene.add.image(0, 0, highlightTextureKey)
-            .setDisplaySize(150, 200)
             .setVisible(false)
-            .setDepth(-1); // Behind icon/text, above buttonBg
-        const iconImg = scene.add.image(0, -20, textureIcon).setScale(0.7);
-        const textLabel = scene.add.text(0, 70, name, { fontSize: '22px', fontFamily: 'pixelFont', color: '#000000' }).setOrigin(0.5, 0.5);
-        const statCont = OutfitButton.createStatContainer(scene, stat);
+        const iconImg = scene.add.image(0, 0, textureIcon).setScale(1.2);
 
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, textLabel, statCont]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg]);
 
         this.setDepth(12);
         // --- Initialize properties from your "before changes" version ---
@@ -455,8 +468,6 @@ export class OutfitButton extends BaseButton {
         // this.statText = statText; // Your "before" version had this, but "after" uses statContainer. Ensure consistency.
         // If statText is still used elsewhere, re-add it. For now, assuming statContainer is primary.
         this.AudioManager = AudioManager;
-        this.statTracker = statTracker;
-        this.stat = stat;
         this.name = name;
         this.outfitType = outfitType;
         this.outfitX = outfitX;         // <<<< KEPT FROM YOUR ORIGINAL - Base X for toggleOutfit
@@ -491,10 +502,7 @@ export class OutfitButton extends BaseButton {
         this.isDragging = false;
         const tapThreshold = 10;
 
-        buttonBg.on("pointerover", () => {
-            if (!this.isDragging) buttonBg.setAlpha(0.7); // Target buttonBg for alpha
-            this.AudioManager.playSFX('hoverButton');
-        });
+        this.addHoverEffect(buttonBg, AudioManager); // From BaseButton (handles hover alpha and sound)
         buttonBg.on("pointerout", () => {
             buttonBg.setAlpha(1); // Target buttonBg
             this.isDragging = false;
@@ -514,7 +522,6 @@ export class OutfitButton extends BaseButton {
             if (distance <= tapThreshold && !this.isDragging) {
                 // Pass the original outfitX, outfitY from constructor to toggleOutfit
                 this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType);
-                this.AudioManager.playSFX('buttonClick');
             }
             this.isDragging = false;
         });
@@ -579,164 +586,83 @@ export class OutfitButton extends BaseButton {
         return heartContainer;
     }
 
-    // THIS IS YOUR "BEFORE CHANGES" toggleOutfit, with HIGHLIGHT logic integrated
-    toggleOutfit(outfitX, outfitY, outfitType) { // Parameters outfitX, outfitY are from constructor/data
-        const { scene, textureAnime, stat, outfitType: buttonOutfitType } = this;
+
+    toggleOutfit() {
+        const { scene, textureAnime, stat, outfitType, name } = this;
         const depthValues = { "Socks": 1, "Shoes": 2, "Underwear": 3, "Shirt": 4, "Outer": 4.5, "Dress": 5 };
-        const existingEntry = OutfitButton.selectedOutfits[buttonOutfitType];
-        const currentOutfitOfThisType = existingEntry?.current;
+        const currentEntry = OutfitButton.selectedOutfits[outfitType];
+
+
+        const unequip = (type) => {
+            const equippedImage = OutfitButton.selectedOutfits[type];
+            const entry = OutfitButton.selectedOutfits[type];
+            // 'entry' 
+            const equippedButton = entry?.current;
+            if (equippedButton && equippedButton.displayedOutfit) {
+                equippedButton.displayedOutfit.destroy();
+                equippedButton.displayedOutfit = null;
+            }
+            OutfitButton.selectedOutfits[type] = { current: null, previous: equippedButton || entry?.previous || null };
+
+        };
 
         // --- Highlight Management ---
-        OutfitButton.clearHighlightsForType(scene, buttonOutfitType);
-        if (buttonOutfitType === "Dress") {
-            OutfitButton.clearHighlightsForType(scene, "Shirt");
-            OutfitButton.clearHighlightsForType(scene, "Underwear");
-        }
-        if (buttonOutfitType === "Shirt" || buttonOutfitType === "Underwear") {
-            OutfitButton.clearHighlightsForType(scene, "Dress");
-        }
-        // --- End Highlight Management ---
+        OutfitButton.clearAllOutfitHighlights(scene);
 
-        const isDressSelected = !!OutfitButton.selectedOutfits["Dress"]?.current;
-        let alreadyUnequipped = false; // Flag from your original logic
-
-        // === 1. DRESS OVERRIDE LOGIC (Your original logic) ===
-        if (buttonOutfitType === "Dress") {
-            Object.keys(OutfitButton.selectedOutfits).forEach(type => {
-                if (type !== "Dress" && type !== "Shoes") {
-                    const entry = OutfitButton.selectedOutfits[type];
-                    if (entry?.current) {
-                        this.statTracker.setStat(entry.current.stat, false);
-                        alreadyUnequipped = true; // Mark that something was unequipped by override
-                        if (entry.current.displayedOutfit) entry.current.displayedOutfit.destroy();
-                        if (entry.current instanceof OutfitButton) { // Clean instance
-                            entry.current.displayedOutfit = null;
-                            entry.current.highlightImage.setVisible(false); // Clear highlight of overridden item
-                        }
-                        OutfitButton.selectedOutfits[type] = { current: null, previous: entry.current };
-                    }
-                }
-            });
+        // --- Override ---
+        if (outfitType === "Dress") {
+            unequip("Shirt");
+            unequip("Underwear");
         }
-        // === 2. NON-DRESS OVERRIDES DRESS (Your original logic) ===
-        if (buttonOutfitType !== "Dress" && buttonOutfitType !== "Shoes" && isDressSelected) {
-            const dressEntry = OutfitButton.selectedOutfits["Dress"];
-            if (dressEntry?.current) {
-                this.statTracker.setStat(dressEntry.current.stat, false);
-                alreadyUnequipped = true;
-                if (dressEntry.current.displayedOutfit) dressEntry.current.displayedOutfit.destroy();
-                if (dressEntry.current instanceof OutfitButton) { // Clean instance
-                    dressEntry.current.displayedOutfit = null;
-                    dressEntry.current.highlightImage.setVisible(false); // Clear highlight of overridden dress
-                }
-                OutfitButton.selectedOutfits["Dress"] = { current: null, previous: dressEntry.current };
-            }
+        if (outfitType === "Shirt" || outfitType === "Underwear" || outfitType === "Outer") {
+            unequip("Dress");
         }
 
-        // === 3. REMOVE CURRENT SAME-TYPE OUTFIT (Your original combined logic) ===
-        // This handles both clicking the same button again OR clicking a different button of the same type
-        if (currentOutfitOfThisType) { // If any outfit of this type was selected
-            if (currentOutfitOfThisType.displayedOutfit) {
-                currentOutfitOfThisType.displayedOutfit.destroy();
-            }
-            if (typeof currentOutfitOfThisType.stat === 'number') {
-                this.statTracker.setStat(currentOutfitOfThisType.stat, false);
-            }
-            if (currentOutfitOfThisType instanceof OutfitButton) { // Clean the instance
-                currentOutfitOfThisType.displayedOutfit = null;
-                currentOutfitOfThisType.highlightImage.setVisible(false); // Turn off its highlight
-            }
-            OutfitButton.selectedOutfits[buttonOutfitType] = { current: null, previous: currentOutfitOfThisType };
-
-            if (currentOutfitOfThisType === this) { // If we just unequipped THIS button by clicking it again
-                return; // Stop here, nothing new to equip
-            }
-        }
-        // If this.displayedOutfit still exists (e.g. from a state not covered by currentOutfitOfThisType logic, or if it wasn't currentOutfitOfThisType), clear it.
-        // This is a safeguard.
-        if (this.displayedOutfit && this.displayedOutfit.active) {
-            this.displayedOutfit.destroy();
-            this.displayedOutfit = null;
-        }
-
-
-        // === 4. EQUIP NEW OUTFIT ('this' button) ===
-        const manualOffset = outfitManualOffsets[textureAnime] || { x: 0, y: 0 };
-        const finalX = this.outfitX + manualOffset.x; // Use this.outfitX from constructor
-        const finalY = this.outfitY + manualOffset.y; // Use this.outfitY from constructor
-
-        const image = scene.add.image(finalX, finalY, textureAnime);
-
-        if (this.usesCustomSize) { // Check instance property
-            image.setDisplaySize(this.dressUpViewDisplayWidth, this.dressUpViewDisplayHeight);
-            this.baseScaleXAfterCustomSize = image.scaleX; // Capture scale after setDisplaySize
-            this.baseScaleYAfterCustomSize = image.scaleY;
-        } else {
-            image.setScale(this.dressUpViewScale); // Use instance property
-        }
-
-        this.displayedOutfit = image;
-        this.displayedOutfit.setDepth(depthValues[buttonOutfitType] || 1);
-
-        this.statTracker.setStat(stat, true);
-
-        OutfitButton.selectedOutfits[buttonOutfitType] = {
-            previous: currentOutfitOfThisType, // What was there before (could be null or another button)
-            current: this
-        };
-        this.highlightImage.setVisible(true); // Show highlight for this new selection
-
-        // Update original offsetX/Y for the simple tweenOutfit method
-        this.offsetX = finalX - scene.body.x;
-        this.offsetY = finalY - scene.body.y;
-
-        // Update offsets for tweenToView (DressUp view specific)
-        // CRITICAL: Ensure scene.body.x/y/scale are in the DRESSUP VIEW state when this is called
-        this.offsetXInDressUpView = this.baseWorldOutfitX - scene.body.x;
-        this.offsetYInDressUpView = this.baseWorldOutfitY - scene.body.y;
-    }
-
-    // Your original tweenOutfit for simple positional changes
-    tweenOutfit(playerX, playerY, duration, ease) {
-        if (this.displayedOutfit && this.displayedOutfit.active) {
-            const newX = playerX + this.offsetX; // Uses the simple offsetX/Y
-            const newY = playerY + this.offsetY;
-            this.scene.tweens.add({
-                targets: this.displayedOutfit,
-                x: newX,
-                y: newY,
-                duration: duration,
-                ease: ease
-            });
-        }
-    }
-
-    // New method for complex zoom transitions
-    tweenToView(targetBodyX, targetBodyY, targetBodyScale, referenceBodyScaleForOffsets, duration, ease) {
-        if (!this.displayedOutfit || !this.displayedOutfit.active) {
+        // --- check if ithe same item double clicked ---
+        if (currentEntry && currentEntry.current === this) {
+            unequip(outfitType);
             return;
         }
-        const scaleChangeFactor = targetBodyScale / referenceBodyScaleForOffsets;
-        const targetOutfitX = targetBodyX + (this.offsetXInDressUpView * scaleChangeFactor);
-        const targetOutfitY = targetBodyY + (this.offsetYInDressUpView * scaleChangeFactor);
 
-        const tweenProps = {
-            x: targetOutfitX,
-            y: targetOutfitY,
-            duration: duration,
-            ease: ease,
-            onStart: () => { if (this.displayedOutfit) this.displayedOutfit.setVisible(true); }
-        };
+        // --- unequip old item with same tyoe ---
+        unequip(outfitType);
+
+        // --- Equip item  ---
+        const manualOffset = outfitManualOffsets[textureAnime] || { x: 0, y: 0 };
+        const finalX = this.outfitX + manualOffset.x;
+        const finalY = this.outfitY + manualOffset.y;
+
+        const newOutfitImage = scene.add.image(finalX, finalY, textureAnime);
+        newOutfitImage.setDepth(depthValues[outfitType] || 1);
+
+        this.displayedOutfit = newOutfitImage;
+
+        // metadata 
+        newOutfitImage.setData('buttonName', name);
+        newOutfitImage.setData('stat', stat);
+        newOutfitImage.setData('baseWorldOutfitX', this.baseWorldOutfitX);
+        newOutfitImage.setData('baseWorldOutfitY', this.baseWorldOutfitY);
+        newOutfitImage.setData('usesCustomSize', this.usesCustomSize);
 
         if (this.usesCustomSize) {
-            tweenProps.scaleX = this.baseScaleXAfterCustomSize * scaleChangeFactor;
-            tweenProps.scaleY = this.baseScaleYAfterCustomSize * scaleChangeFactor;
+            newOutfitImage.setDisplaySize(this.dressUpViewDisplayWidth, this.dressUpViewDisplayHeight);
+            newOutfitImage.setData('baseScaleX', newOutfitImage.scaleX);
+            newOutfitImage.setData('baseScaleY', newOutfitImage.scaleY);
         } else {
-            tweenProps.scaleX = this.dressUpViewScale * scaleChangeFactor;
-            tweenProps.scaleY = this.dressUpViewScale * scaleChangeFactor;
+            newOutfitImage.setScale(this.dressUpViewScale);
+            newOutfitImage.setData('baseScaleX', this.dressUpViewScale);
+            newOutfitImage.setData('baseScaleY', this.dressUpViewScale);
         }
-        this.scene.tweens.add({ targets: this.displayedOutfit, ...tweenProps });
+
+        // save refference image
+        OutfitButton.selectedOutfits[outfitType] = {
+            current: this,
+            previous: currentEntry?.current || currentEntry?.previous || null
+        };
+
+        this.highlightImage.setVisible(true);
     }
+
 }
 
 export class MakeUpButton extends BaseButton {
@@ -747,27 +673,23 @@ export class MakeUpButton extends BaseButton {
     };
 
     constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager,
-        highlightTextureKey = 'highlightTexture') { // Added highlightTextureKey
+        highlightTextureKey = 'buttonIcon2Highlighted') { // Added highlightTextureKey
 
         // --- Create UI elements for the button itself ---
-        const buttonImg = scene.add.image(0, 0, textureButton).setInteractive().setDisplaySize(150, 200);
+        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(0.8);
         const highlightImg = scene.add.image(0, 0, highlightTextureKey)
-            .setDisplaySize(150, 200) // Match button image size
             .setVisible(false)
-            .setDepth(-1); // Behind icon/text, above buttonImg background
-        const iconImg = scene.add.image(0, -15, textureIcon).setScale(0.85);
-        const textLbl = scene.add.text(0, 60, name, {
-            fontSize: '22px', fontFamily: 'pixelFont', color: '#000000'
-        }).setOrigin(0.5, 0.5);
+            .setDepth(-1)    // Behind icon/text, above buttonBg
+            .setScale(0.8);
+        const iconImg = scene.add.image(0, 0, textureIcon).setScale(1.2);
         // --- End Create UI elements ---
 
         // --- Call super() ---
-        super(scene, x, y, [buttonImg, highlightImg, iconImg, textLbl]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg]);
         // --- 'this' is now available ---
-
-        this.setDepth(12)
+        this.setDepth(12);
         // Assign elements to instance properties
-        this.button = buttonImg; // Keep a reference to the interactive element for disable/setInteractive
+        this.button = buttonBg; // Keep a reference to the interactive element for disable/setInteractive
         this.highlightImage = highlightImg; // Already assigned above after super() was planned, now correct.
 
         // Initialize other instance properties
@@ -782,20 +704,20 @@ export class MakeUpButton extends BaseButton {
         this.isDragging = false;
         const tapThreshold = 10;
 
-        this.addHoverEffect(buttonImg, AudioManager); // From BaseButton (handles hover alpha and sound)
+        this.addHoverEffect(buttonBg, AudioManager); // From BaseButton (handles hover alpha and sound)
 
         // Custom click handling (for tap vs drag, and sound on SUCCESSFUL tap)
-        buttonImg.on("pointerdown", (pointer) => {
-            buttonImg.setAlpha(0.5); // Visual press feedback
+        buttonBg.on("pointerdown", (pointer) => {
+            buttonBg.setAlpha(0.5); // Visual press feedback
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
             // No sound here, will be played on pointerup if it's a valid tap
         });
 
-        buttonImg.on("pointerup", (pointer) => {
-            buttonImg.setAlpha(1); // Reset visual press feedback
-            if (!buttonImg.input || !buttonImg.active) {
+        buttonBg.on("pointerup", (pointer) => {
+            buttonBg.setAlpha(1); // Reset visual press feedback
+            if (!buttonBg.input || !buttonBg.active) {
                 this.isDragging = false;
                 return;
             }
@@ -810,15 +732,15 @@ export class MakeUpButton extends BaseButton {
             this.isDragging = false;
         });
 
-        buttonImg.on("pointerout", () => {
-            if (buttonImg.input && buttonImg.input.isDown) {
-                buttonImg.setAlpha(1); // Reset if pointer dragged out while pressed
+        buttonBg.on("pointerout", () => {
+            if (buttonBg.input && buttonBg.input.isDown) {
+                buttonBg.setAlpha(1); // Reset if pointer dragged out while pressed
             }
             this.isDragging = false;
         });
 
-        buttonImg.on("pointermove", (pointer) => {
-            if (buttonImg.input && buttonImg.input.isDown) {
+        buttonBg.on("pointermove", (pointer) => {
+            if (buttonBg.input && buttonBg.input.isDown) {
                 const dx = Math.abs(pointer.x - this.pointerDownPos.x);
                 const dy = Math.abs(pointer.y - this.pointerDownPos.y);
                 if (Math.sqrt(dx * dx + dy * dy) > tapThreshold) {
@@ -867,25 +789,39 @@ export class MakeUpButton extends BaseButton {
                 }
             }
 
+
+
             const position = MakeUpPositions[makeupTypeToRevert] || { x: 0, y: 0 };
             let imageToUpdate;
             let isCoreType = false; // Changed from isCoreOrHair to be more specific
 
-            switch (makeupTypeToRevert) {
-                case 'Lips': imageToUpdate = scene.lips; isCoreType = true; break;
-                case 'Eyebrows': imageToUpdate = scene.eyebrows; isCoreType = true; break;
-                case 'Eyelashes': imageToUpdate = scene.eyelashes; isCoreType = true; break;
-                case 'Pupil': imageToUpdate = scene.pupils; isCoreType = true; break;
-                case 'Hair': imageToUpdate = scene.hair; isCoreType = true; break;
-                // Sticker default: if defined in defaultMakeUpSkins, it's an additive image.
-                // If not defined, this function won't apply anything new, selectedMakeUp[type].current becomes null.
-                default:
-                    imageToUpdate = scene.add.image(position.x, position.y, defaultTextureKey);
-                    if (scene.faceContainer && !imageToUpdate.parentContainer) {
-                        scene.faceContainer.add(imageToUpdate);
-                    }
-                    break;
+            if (makeupTypeToRevert === 'Hair') {
+                const defaultHairTextures = defaultMakeUpSkins['Hair'];
+                scene.hairBack.setTexture(defaultHairTextures.back).setVisible(true);
+                scene.hairFront.setTexture(defaultHairTextures.front).setVisible(true);
+                imageToUpdate = [scene.hairBack, scene.hairFront]; // save as arrray
+                isCoreType = true;
             }
+            else {
+
+                switch (makeupTypeToRevert) {
+                    case 'Lips': imageToUpdate = scene.lips; isCoreType = true; break;
+                    case 'Eyebrows': imageToUpdate = scene.eyebrows; isCoreType = true; break;
+                    case 'Eyelashes': imageToUpdate = scene.eyelashes; isCoreType = true; break;
+                    case 'Pupil': imageToUpdate = scene.pupils; isCoreType = true; break;
+                    //case 'Hair': imageToUpdate = scene.hair; isCoreType = true; break;
+                    // Sticker default: if defined in defaultMakeUpSkins, it's an additive image.
+                    // If not defined, this function won't apply anything new, selectedMakeUp[type].current becomes null.
+                    default:
+                        imageToUpdate = scene.add.image(position.x, position.y, defaultTextureKey);
+                        if (scene.faceContainer && !imageToUpdate.parentContainer) {
+                            scene.faceContainer.add(imageToUpdate);
+                        }
+                        break;
+                }
+
+            }
+
 
             if (!imageToUpdate) { console.error(`Could not get/create image for default ${makeupTypeToRevert}`); return; }
 
@@ -957,23 +893,30 @@ export class MakeUpButton extends BaseButton {
                     return;
                 }
             } else {
-                // Clicked a NEW colorable item, or switching from a different item.
-                // Any *previous* session (even for this type by another button) was stopped above.
-                // Clean up visual of previously selected item if it was an INSTANTLY APPLIED item of THIS makeupType.
-                if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp &&
-                    !currentGlobalEquippedInfo.isDefault && // was not a default state object
-                    (!(currentGlobalEquippedInfo instanceof MakeUpButton && colorableTypes.includes(currentGlobalEquippedInfo.makeupType))) // and was not a (potentially completed) colorable item
-                ) {
+                if (scene.interactiveMakeupSystem?.isActive) {
+                    scene.interactiveMakeupSystem.stopColoringSession(scene.interactiveMakeupSystem.activeMakeupType, true);
+                }
+
+
+                if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) {
+                    console.log(`[MakeUpButton] Switching from '${currentGlobalEquippedInfo.name}' to '${this.name}'.`);
+
                     const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
-                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(prevType)) { // If it was an additive INSTANT item
+
+
+                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(prevType)) {
                         if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
+                            console.log(`[MakeUpButton] Destroying previous additive/colorable makeup: ${currentGlobalEquippedInfo.name}`);
                             currentGlobalEquippedInfo.displayedMakeUp.destroy();
                         }
                     }
+
+
                     if (currentGlobalEquippedInfo instanceof MakeUpButton) {
                         currentGlobalEquippedInfo.displayedMakeUp = null;
                     }
                 }
+
 
                 if (scene.interactiveMakeupSystem) {
                     scene.interactiveMakeupSystem.startColoringSession(makeupType, textureAnime, this);
@@ -983,23 +926,74 @@ export class MakeUpButton extends BaseButton {
         } else {
             // --- INSTANTLY APPLICABLE TYPE (Eyebrows, Eyelashes, Pupil, Hair, Sticker) ---
             // (Your existing fully working logic for this block)
-            if (currentGlobalEquippedInfo === this) { /* ... toggle OFF ... */ this._equipDefaultMakeUp(makeupType, this); return; }
-            if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) { /* ... clear previous ... */ }
-            let newImage; const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
-            switch (makeupType) {
-                case 'Eyebrows': scene.eyebrows.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyebrows; break;
-                case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
-                case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
-                // ... other instant cases ...
-                case 'Hair': if (scene.hair) { scene.hair.setTexture(this.textureAnime).setVisible(true); newImage = scene.hair; } break;
-                case 'Sticker': newImage = scene.add.image(pos.x, pos.y, this.textureAnime); if (scene.faceContainer) scene.faceContainer.add(newImage); break;
-                default: return;
+            if (currentGlobalEquippedInfo === this) {
+                if (makeupType === 'Sticker' && this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {
+                    this.displayedMakeUp.destroy();
+                    this.displayedMakeUp = null;
+                } this._equipDefaultMakeUp(makeupType, this); return;
             }
-            if (!newImage) { return; } this.displayedMakeUp = newImage;
+            if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) {
+                const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
+
+                // Hanya hancurkan jika itu adalah tipe aditif (bukan bagian inti wajah)
+                if (prevType === 'Sticker' || prevType === 'Blush' || prevType === 'Eyeshadow' || prevType === 'Eyeliner') {
+                    if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
+                        console.log(`[MakeUpButton] Destroying previous ${prevType}: ${currentGlobalEquippedInfo.name}`);
+                        currentGlobalEquippedInfo.displayedMakeUp.destroy();
+                    }
+                }
+                // Bersihkan referensi pada instance tombol lama
+                if (currentGlobalEquippedInfo instanceof MakeUpButton) {
+                    currentGlobalEquippedInfo.displayedMakeUp = null;
+                }
+            }
+            // =======================================================================
+
+            if (colorableTypes.includes(makeupType)) {
+                // Logika untuk item yang bisa diwarnai (coloring)
+                if (scene.interactiveMakeupSystem) {
+                    scene.interactiveMakeupSystem.startColoringSession(makeupType, textureAnime, this);
+                    if (this.highlightImage) this.highlightImage.setVisible(true);
+                }
+            }
+
+            let newImage; const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+
+            if (makeupType === 'Hair') {
+                const hairTextures = this.textureAnime; // object { front: '...', back: '...' }
+                scene.hairBack.setTexture(hairTextures.back).setVisible(true);
+                scene.hairFront.setTexture(hairTextures.front).setVisible(true);
+
+                // Save the reffferences of the two game objects
+                this.displayedMakeUp = [scene.hairBack, scene.hairFront];
+            }
+
+            else {
+
+                switch (makeupType) {
+                    case 'Eyebrows': scene.eyebrows.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyebrows; break;
+                    case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
+                    case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
+                    // ... other instant cases ...
+                    case 'Hair': if (scene.hair) { scene.hair.setTexture(this.textureAnime).setVisible(true); newImage = scene.hair; } break;
+                    case 'Sticker': newImage = scene.add.image(pos.x, pos.y, this.textureAnime); if (scene.faceContainer) scene.faceContainer.add(newImage); break;
+                    default: return;
+                }
+                if (!newImage) { return; }
+                this.displayedMakeUp = newImage;
+            }
+
             // ... set scale, depth, update selectedMakeUp, set highlight ...
-            if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55); }
-            else if (makeupType === 'Hair') { this.displayedMakeUp.setScale(0.8); } else { this.displayedMakeUp.setScale(0.9); }
-            this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || (makeupType === 'Hair' ? 3 : 2.7));
+            if (makeupType === 'Hair') {
+                this.displayedMakeUp.forEach(img => img.setScale(0.8));
+
+            } else {
+
+                if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55); }
+                else { this.displayedMakeUp.setScale(0.9); }
+                this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
+            }
+
             MakeUpButton.selectedMakeUp[makeupType] = { previous: currentGlobalEquippedInfo, current: this };
             if (this.highlightImage) this.highlightImage.setVisible(true);
         }

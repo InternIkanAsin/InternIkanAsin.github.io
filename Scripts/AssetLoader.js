@@ -1,46 +1,51 @@
 export default class AssetLoader {
   static loadAllAssets(scene) {
-    AssetLoader.loadRexUIPlugin(scene);
-    AssetLoader.loadUIAssets(scene);
-    AssetLoader.loadSceneAssets(scene);
+    AssetLoader.loadRexUIPlugin(scene); //x
+    AssetLoader.loadUIAssets(scene); //x
+    AssetLoader.loadSceneAssets(scene); //x
     AssetLoader.loadOutfitAssets(scene);
-    AssetLoader.loadAudioAssets(scene);
+    AssetLoader.loadAudioAssets(scene); //x
     AssetLoader.loadMakeUpAssets(scene);
-    AssetLoader.loadBachelorAssets(scene);
+    AssetLoader.loadBachelorAssets(scene); //x
     scene.load.once('complete', () => {
       AssetLoader.changeFilterMode(scene);
     });
   }
-
-  static loadGame(scene){
-        AssetLoader.loadUIAssets(scene);
-        AssetLoader.loadAudioAssets(scene);
-        AssetLoader.loadCutsceneAssets(scene);
-}
-
-
-
-
-  static loadMiniGame(scene){
-      AssetLoader.loadRexUIPlugin(scene);
-      AssetLoader.loadSceneAssets(scene);
-      AssetLoader.loadBachelorAssets(scene);
+  static loadGame(scene) {
+    AssetLoader.loadUIAssets(scene);
+    AssetLoader.loadAudioAssets(scene);
+    AssetLoader.loadCutsceneAssets(scene);
+    AssetLoader.changeFilterMode(scene);
   }
 
-  static loadCutsceneAssets(scene)
-  {
+  static loadMiniGame(scene) {
+    AssetLoader.loadRexUIPlugin(scene);
+    AssetLoader.loadSceneAssets(scene);
+    AssetLoader.loadBachelorAssets(scene);
+  }
+
+  static loadDressUpAssets(scene) {
+    // Load all assets for outfits
+    return new Promise((resolve) => {
+      scene.load.once('complete', resolve);
+      AssetLoader.loadOutfitAssets(scene);
+      scene.load.start();
+    });
+  }
+
+  static loadMakeUpAssets(scene) {
+    // Load all assets for outfits
+    return new Promise((resolve) => {
+      scene.load.once('complete', resolve);
+      AssetLoader.loadMakeupAssets(scene);
+      scene.load.start();
+    });
+  }
+  static loadCutsceneAssets(scene) {
     scene.load.image('cutscene1', 'Asset/Cutscene/Hangout1_Azril2.jpg');
     scene.load.image('cutscene2', 'Asset/Cutscene/Crush1_Azril1.jpg');
+    scene.load.image('bachelorBackground', 'Asset/Cutscene/bg_placeholder.jpg');
   }
-
-  static loadDressUp(scene){
-      AssetLoader.loadOutfitAssets(scene);
-  }
-
-  static loadMakeUp(scene){
-      AssetLoader.loadMakeUpAssets(scene);
-  }
-
   static loadRexUIPlugin(scene) {
     scene.load.scenePlugin({
       key: 'rexuiplugin',
@@ -53,21 +58,15 @@ export default class AssetLoader {
       true);
   }
   static loadUIAssets(scene) {
+    scene.load.image('theaterBackground', 'Asset/Cutscene/cutscene_bg.png');
     scene.load.image('categoryButtonsPanel', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_1.png');
     scene.load.image('outfitButton', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_2.png');
     scene.load.image('outfitButtonOutline', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_2_Outline.png');
-    scene.load.image('dressIcon', 'Asset/UI/Cisini_UI_DressUp_Dress_Icon.png');
-    scene.load.image('outerIcon', 'Asset/UI/Cisini_UI_DressUp_Outer_Icon.png');
-    scene.load.image('underwearIcon', 'Asset/UI/Cisini_UI_DressUp_Underwear_Icon.png');
-    scene.load.image('uniformIcon', 'Asset/UI/Cisini_UI_DressUp_Uniform_Icon.png');
-    scene.load.image('socksIcon', 'Asset/UI/Cisini_UI_DressUp_Socks_Icon.png');
-    scene.load.image('shoesIcon', 'Asset/UI/Cisini_UI_DressUp_Shoes_Icon.png');
     scene.load.image('openIcon', 'Asset/UI/Cisini_UI_DressUp_ScrollButton_UP_Icon.png');
     scene.load.image('makeUpIcon', 'Asset/UI/Cisini_UI_DressUp_makeup_Icon.png');
-    scene.load.image('sidePanel', 'Asset/UI/Cisini_UI_Buy_Background.png');
     scene.load.image('tipsPanel', 'Asset/UI/cisini_ui_notif box.png');
-    scene.load.image('dialogueBox', 'Asset/UI/kotak dialog.png');
-    scene.load.image('dialogueNameBox', 'Asset/UI/kotak nama.png');
+    scene.load.image('dialogueBox', 'Asset/UI/Text_Box.png');
+    scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
     scene.load.image('bubbleTextBoxTop', 'Asset/UI/balon_kata_atas.png');
     scene.load.image('bubbleTextBoxBottom', 'Asset/UI/balon_kata_bawah.png');
     scene.load.image('bubbleTextBoxLeft', 'Asset/UI/balon_kata.png');
@@ -82,10 +81,8 @@ export default class AssetLoader {
     scene.load.image('backButton', 'Asset/UI/Cisini_UI_DressUp_BackButton_Icon.png');
     scene.load.image('redButton', 'Asset/UI/Button_Merah.png');
     scene.load.image('redButton', 'Asset/UI/Button_Merah.png');
-    scene.load.image('categoryButtonHighlighted', 'Asset/UI/Square_Line_Highlighted.png');
     scene.load.image('headerPanel', 'Asset/UI/Cisini_UI_menutab_up_areaSlice.png');
     scene.load.image('checkMark', 'Asset/UI/tanda_ceklis.png');
-    scene.load.image('xMark', 'Asset/UI/tanda_silang.png');
     scene.load.image('xMarkWhite', 'Asset/UI/UI_button No.png');
     scene.load.image('finishChecklist', 'Asset/UI/ceklis_reversewarna.png');
     scene.load.image('selectionBox', 'Asset/UI/action_box.png');
@@ -94,10 +91,50 @@ export default class AssetLoader {
     scene.load.image('heartIcon', 'Asset/UI/ikon_hati.png');
     scene.load.image('heartIcon2', 'Asset/UI/hati_merah.png');
     scene.load.image('brokenHeartIcon', 'Asset/UI/Hati_Hitam.png');
-    scene.load.image('highlightTexture', 'Asset/UI/Square_Line_Highlighted.png');
     scene.load.image('endingHeader', 'Asset/UI/banner_shop_2.png');
     scene.load.image('scoreBox', 'Asset/UI/bar_search.png');
+    scene.load.image('button1', 'Asset/UI/Cisini_UI_DressUp_Menu_DressInventory_2.png');
 
+    //New Assets
+    scene.load.image('buttonIcon', 'Asset/UI/Button_Released.png');
+    scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');
+
+    scene.load.image('dressButtonIcon', 'Asset/UI/Wardrobe_Icon.png');
+    scene.load.image('makeUpButtonIcon', 'Asset/UI/Makeup_Icon.png');
+    scene.load.image('dressButtonIcon2', 'Asset/UI/Wardrobe_Icon_Plain.png');
+    scene.load.image('makeUpButtonIcon2', 'Asset/UI/Makeup_Two_Icon.png');
+
+    scene.load.image('backButtonIcon', 'Asset/UI/Back_Button_Released.png');
+    scene.load.image('backButtonIconPressed', 'Asset/UI/Back_Button_Pressed.png');
+
+    scene.load.image('stitchedButtonIcon', 'Asset/UI/Stitched_Button.png');
+
+    scene.load.image('removeDressIcon', 'Asset/UI/Undress_All_Icon.png');
+    scene.load.image('removeMakeUpIcon', 'Asset/UI/Remove_All_MakeUp_Icon.png');
+
+    scene.load.image('readyButtonIcon', 'Asset/UI/Tombol_Ready_Released.png');
+    scene.load.image('readyButtonIconPressed', 'Asset/UI/Tombol_Ready_Pressed.png');
+
+    scene.load.image('readyButtonIconPressed', 'Asset/UI/Tombol_Ready_Pressed.png');
+    scene.load.image('leftDrape', 'Asset/UI/Curtains_Released_Left.png');
+    scene.load.image('rightDrape', 'Asset/UI/Curtains_Released_Right.png');
+    scene.load.image('leftCurtain', 'Asset/UI/Curtain_Tied_Left.png');
+    scene.load.image('rightCurtain', 'Asset/UI/Curtain_Tied_Right.png');
+
+    scene.load.image('sidePanel', 'Asset/UI/Panel.png');
+    scene.load.image('sidePanelLine', 'Asset/UI/Panel_Line.png');
+
+    scene.load.image('dressIcon', 'Asset/UI/Dress_Icon.png');
+    scene.load.image('outerIcon', 'Asset/UI/Coat_Icon.png');
+    scene.load.image('underwearIcon', 'Asset/UI/Pants_Icon.png');
+    scene.load.image('socksIcon', 'Asset/UI/Socks_Icon.png');
+    scene.load.image('shoesIcon', 'Asset/UI/Shoes_Icon.png');
+
+    scene.load.image('buttonIcon2', 'Asset/UI/Button_Icon.png');
+    scene.load.image('buttonIcon2Highlighted', 'Asset/UI/Button_Icon_Highlighted.png');
+
+    scene.load.image('xMark', 'Asset/UI/Cross.png');
+    scene.load.image('tickMark', 'Asset/UI/Checkmark.png');
   }
 
   static loadSceneAssets(scene) {
@@ -105,19 +142,13 @@ export default class AssetLoader {
     scene.load.image('background', 'Asset/Background/Cisini_UI_DressUp_Background.png');
 
     //Player
+    scene.load.image('hair', 'Asset/Outfit/Hairs_upscaled/hair_01_black_F_out.png');
+    scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
     scene.load.image('player', 'Asset/Character/t_basebody_mc_anime_portrait.png');
-    scene.load.image('expression', 'Asset/Character/Normal.png');
-
-
-    //Particle
-    scene.load.image('lightParticle', 'Asset/UI/particle.png');
-
-    
-    
-
-    //Backgrounds
-    scene.load.image('theaterBackground', 'Asset/Cutscene/cutscene_bg.png');
-    scene.load.image('bachelorBackground', 'Asset/Cutscene/bg_placeholder.jpg');
+    scene.load.image('LipNormalDefault', "Asset/makeup/MakeupAnime/lips/normal/mc_lips default_normal.png");
+    scene.load.image('EyebrowNormalDefault', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb default_normal.png");
+    scene.load.image('PupilNormalBlue', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil blue_normal.png");
+    scene.load.image('EyelashesNormalDefault', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
 
   }
 
@@ -261,9 +292,7 @@ export default class AssetLoader {
     scene.load.image('outer14', 'Asset/Outfit/Jaket/jaket_sport.png');
     scene.load.image('outer15', 'Asset/Outfit/Jaket/jaket_sweater.png');
 
-    //Icon Textures
-    //Outfit Buttons
-    scene.load.image('button1', 'Asset/UI/Cisini_UI_DressUp_Menu_DressInventory_2.png');
+
 
     //Dress
     scene.load.image('dress1Icon', 'Asset/ikon/Terusan/terusan17.png');
@@ -365,23 +394,20 @@ export default class AssetLoader {
 
   }
 
-  static loadMakeUpAssets(scene) {
+  static loadMakeupAssets(scene) {
     //Icon texture
-    scene.load.image('eyebrowsIcon', "Asset/UI/icon_eyebrow.png");
-    scene.load.image('blushIcon', "Asset/UI/icon_blush.png");
-    scene.load.image('eyelashesIcon', "Asset/UI/icon_eyelashes.png");
-    scene.load.image('eyelinerIcon', "Asset/UI/icon_eyeliner.png");
-    scene.load.image('eyeshadowIcon', "Asset/UI/icon_eyeshadow.png");
-    scene.load.image('lipstickIcon', "Asset/UI/icon_lipstick.png");
-    scene.load.image('stickerIcon', "Asset/UI/icon_stiker_wajah.png");
-    scene.load.image('eyeColorIcon', "Asset/UI/icon_warna_mata.png");
-    scene.load.image('hairIcon', "Asset/UI/Cisini_UI_DressUp_Hair_Icon.png");
+    scene.load.image('eyebrowsIcon', "Asset/UI/Eyebrow_Icon.png");
+    scene.load.image('blushIcon', "Asset/UI/Blush_Icon.png");
+    scene.load.image('eyelashesIcon', "Asset/UI/Eyelash_Icon.png");
+    scene.load.image('eyelinerIcon', "Asset/UI/Eyeliner_Icon.png");
+    scene.load.image('eyeshadowIcon', "Asset/UI/Eyeshadow_Icon.png");
+    scene.load.image('lipstickIcon', "Asset/UI/Lipstick_Icon.png");
+    scene.load.image('stickerIcon', "Asset/UI/Sticker_Icon.png");
+    scene.load.image('eyeColorIcon', "Asset/UI/Eye_Color_Icon.png");
+    scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
 
     //hair
-    scene.load.image('hair', 'Asset/Outfit/Hairs_upscaled/hair_01_black_F_out.png');
-
-
     scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
     scene.load.image('01blondeB', "Asset/Outfit/Hairs_upscaled/hair_01_blonde_B_out.png");
     scene.load.image('01blondeF', "Asset/Outfit/Hairs_upscaled/hair_01_blonde_F_out.png");
@@ -437,7 +463,7 @@ export default class AssetLoader {
     scene.load.image('07blackF', "Asset/Outfit/Hairs_upscaled/hair_07_black_F_out.png");
     scene.load.image('07blondeB', "Asset/Outfit/Hairs_upscaled/hair_07_blonde_B_out.png");
 
-    scene.load.image('07blondeF', "Asset/Outfit/Hairs_upscaled/hair_07_blonde_B_out.png");
+    scene.load.image('07blondeF', "Asset/Outfit/Hairs_upscaled/hair_07_blonde_F_out.png");
     scene.load.image('07brownB', "Asset/Outfit/Hairs_upscaled/hair_07_brown_B_out.png");
     scene.load.image('07brownF', "Asset/Outfit/Hairs_upscaled/hair_07_brown_F_out.png");
     scene.load.image('07pinkB', "Asset/Outfit/Hairs_upscaled/hair_07_pink_B_out.png");
@@ -493,7 +519,6 @@ export default class AssetLoader {
 
     //eyebrow
     //normal
-    scene.load.image('EyebrowNormalDefault', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb default_normal.png");
     scene.load.image('eyebrownormal1', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 1_normal.png");
     scene.load.image('eyebrownormal2', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 2_normal.png");
     scene.load.image('eyebrownormal3', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 3_normal.png");
@@ -536,7 +561,6 @@ export default class AssetLoader {
     //lip
 
     //normal
-    scene.load.image('LipNormalDefault', "Asset/makeup/MakeupAnime/lips/normal/mc_lips default_normal.png");
     scene.load.image('lipnormalbrown', "Asset/makeup/MakeupAnime/lips/normal/mc_lips brown_normal.png");
     scene.load.image('lipnormalcherry', "Asset/makeup/MakeupAnime/lips/normal/mc_lips cherry_normal.png");
     scene.load.image('lipnormalorange', "Asset/makeup/MakeupAnime/lips/normal/mc_lips orange_normal.png");
@@ -547,7 +571,6 @@ export default class AssetLoader {
     //pupil
     //normal
     scene.load.image('pupilnormalblack', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil black_normal.png");
-    scene.load.image('PupilNormalBlue', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil blue_normal.png");
     scene.load.image('pupilnormaldragon', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil dragon_normal.png");
     scene.load.image('pupilnormalfairy', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil fairy_normal.png");
     scene.load.image('pupilnormalgreen', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil green_normal.png");
@@ -654,6 +677,53 @@ export default class AssetLoader {
     scene.load.image('pupilredIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil red.png");
     scene.load.image('pupilyellowIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil yellow.png");
 
+    //hair
+    scene.load.image('01blackIcon', "Asset/ikon/Rambut/hair_01_black.png");
+    scene.load.image('01blondeIcon', "Asset/ikon/Rambut/hair_01_blonde.png");
+    scene.load.image('01brownIcon', "Asset/ikon/Rambut/hair_01_brown.png");
+    scene.load.image('01pinkIcon', "Asset/ikon/Rambut/hair_01_pink.png");
+    scene.load.image('02blackIcon', "Asset/ikon/Rambut/hair_02_black.png");
+    scene.load.image('02blondeIcon', "Asset/ikon/Rambut/hair_02_blonde.png");
+    scene.load.image('02brownIcon', "Asset/ikon/Rambut/hair_02_brown.png");
+    scene.load.image('02pinkIcon', "Asset/ikon/Rambut/hair_02_pink.png");
+    scene.load.image('03blackIcon', "Asset/ikon/Rambut/hair_03_black.png");
+    scene.load.image('03blondeIcon', "Asset/ikon/Rambut/hair_03_blonde.png");
+    scene.load.image('03brownIcon', "Asset/ikon/Rambut/hair_03_brown.png");
+    scene.load.image('03pinkIcon', "Asset/ikon/Rambut/hair_03_pink.png");
+    scene.load.image('04blackIcon', "Asset/ikon/Rambut/hair_04_black.png");
+    scene.load.image('04blondeIcon', "Asset/ikon/Rambut/hair_04_blonde.png");
+    scene.load.image('04brownIcon', "Asset/ikon/Rambut/hair_04_brown.png");
+    scene.load.image('04pinkIcon', "Asset/ikon/Rambut/hair_04_pink.png");
+    scene.load.image('05blackIcon', "Asset/ikon/Rambut/hair_05_black.png");
+    scene.load.image('05blondeIcon', "Asset/ikon/Rambut/hair_05_blonde.png");
+    scene.load.image('05brownIcon', "Asset/ikon/Rambut/hair_05_brown.png");
+    scene.load.image('05pinkIcon', "Asset/ikon/Rambut/hair_05_pink.png");
+    scene.load.image('06blackIcon', "Asset/ikon/Rambut/hair_06_black.png");
+    scene.load.image('06blondeIcon', "Asset/ikon/Rambut/hair_06_blonde.png");
+    scene.load.image('06brownIcon', "Asset/ikon/Rambut/hair_06_brown.png");
+    scene.load.image('06pinkIcon', "Asset/ikon/Rambut/hair_06_pink.png");
+    scene.load.image('07blackIcon', "Asset/ikon/Rambut/hair_07_black.png");
+    scene.load.image('07blondeIcon', "Asset/ikon/Rambut/hair_07_blonde.png");
+    scene.load.image('07brownIcon', "Asset/ikon/Rambut/hair_07_brown.png");
+    scene.load.image('07pinkIcon', "Asset/ikon/Rambut/hair_07_pink.png");
+    scene.load.image('08blackIcon', "Asset/ikon/Rambut/hair_08_black.png");
+    scene.load.image('08blondeIcon', "Asset/ikon/Rambut/hair_08_blonde.png");
+    scene.load.image('08brownIcon', "Asset/ikon/Rambut/hair_08_brown.png");
+    scene.load.image('08pinkIcon', "Asset/ikon/Rambut/hair_08_pink.png");
+    scene.load.image('09blackIcon', "Asset/ikon/Rambut/hair_09_black.png");
+    scene.load.image('09blondeIcon', "Asset/ikon/Rambut/hair_09_blonde.png");
+    scene.load.image('09brownIcon', "Asset/ikon/Rambut/hair_09_brown.png");
+    scene.load.image('09pinkIcon', "Asset/ikon/Rambut/hair_09_pink.png");
+    scene.load.image('10blackIcon', "Asset/ikon/Rambut/hair_10_black.png");
+    scene.load.image('10blondeIcon', "Asset/ikon/Rambut/hair_10_blonde.png");
+    scene.load.image('10brownIcon', "Asset/ikon/Rambut/hair_10_brown.png");
+    scene.load.image('10violetBIcon', "Asset/ikon/Rambut/hair_10_violet.png");
+    scene.load.image('11blackIcon', "Asset/ikon/Rambut/hair_11_black.png");
+    scene.load.image('11blondeBIcon', "Asset/ikon/Rambut/hair_11_blonde.png");
+    scene.load.image('11brownBIcon', "Asset/ikon/Rambut/hair_11_brown.png");
+    scene.load.image('11pinkBIcon', "Asset/ikon/Rambut/hair_11_pink.png");
+
+
     //sticker
     //blushing love
     scene.load.image('stickerblushpinkIcon', "Asset/makeup/MakeupIcon/sticker/blushing love/mc_sticker manik pink_blush love.png");
@@ -744,7 +814,6 @@ export default class AssetLoader {
     scene.textures.get('hairIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('openIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('statPanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('sidePanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('tipsPanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('emptyButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('emptyButton2').setFilter(Phaser.Textures.FilterMode.NEAREST);
@@ -755,7 +824,6 @@ export default class AssetLoader {
     scene.textures.get('redButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('xMarkWhite').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('categoryButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('categoryButtonHighlighted').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('dialogueBox').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('dialogueNameBox').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('selectionBox').setFilter(Phaser.Textures.FilterMode.NEAREST);
@@ -773,6 +841,7 @@ export default class AssetLoader {
     scene.textures.get('endingHeader').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('background').setFilter(Phaser.Textures.FilterMode.LINEAR);
     scene.textures.get('background').setFilter(Phaser.Textures.FilterMode.LINEAR);
+    scene.textures.get('sidePanelLine').setFilter(Phaser.Textures.FilterMode.LINEAR);
 
     // Add filters for outfit icons if desired
     scene.textures.get('dress1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);

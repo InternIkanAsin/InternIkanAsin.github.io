@@ -33,7 +33,7 @@ export class TutorialManager {
     initiatePart1() {
         this.highlightUI(this.scene.statPanelContainer);
 
-        this.createTutorialTextBox(this.scene.scale.width / 2, this.scene.scale.height / 2 / 2.9, 'Top', 'Total points from the outfits you have equipped', () => { this.initiatePart2() });
+        this.createTutorialTextBox(this.scene.scale.width / 4, this.scene.scale.height / 2 / 5, 'Left', 'Total points from the outfits you have equipped', () => { this.initiatePart2() });
     }
 
     initiatePart2() {
@@ -43,7 +43,7 @@ export class TutorialManager {
         this.scene.tutorialPartContainer?.destroy();
 
         this.highlightUI(this.scene.sidePanel);
-        this.createTutorialTextBox(this.scene.scale.width / 2.3, this.scene.scale.height / 2, 'Right', 'You can choose which makeup to use to enhance your appearance', () => { this.initiatePart3() });
+        this.createTutorialTextBox(this.scene.scale.width / 1.3, this.scene.scale.height / 2, 'Right', 'You can choose which makeup to use to enhance your appearance', () => { this.initiatePart3() });
 
     }
 
@@ -54,7 +54,7 @@ export class TutorialManager {
         this.scene.tutorialPartContainer?.destroy();
 
         this.highlightUI(this.scene.miniGameButton);
-        this.createTutorialTextBox(this.scene.scale.width / 2.1, this.scene.scale.height / 3.9, 'Left', 'Choose Dress Up to choose your outfit', () => { this.initiatePart4() });
+        this.createTutorialTextBox(this.scene.scale.width / 5, this.scene.scale.height / 3.9, 'Left', 'Choose Dress Up to choose your outfit', () => { this.initiatePart4() });
 
     }
 
@@ -65,7 +65,7 @@ export class TutorialManager {
         this.scene.tutorialPartContainer?.destroy();
 
         this.highlightUI(this.scene.removeAllButton);
-        this.createTutorialTextBox(this.scene.scale.width / 2.1, this.scene.scale.height / 2.4, 'Left', 'Choose Remove all to remove all of your current outfit', () => { this.initiatePart5() });
+        this.createTutorialTextBox(this.scene.scale.width / 5, this.scene.scale.height / 2.4, 'Left', 'Choose Remove all to remove all of your current outfit', () => { this.initiatePart5() });
 
     }
 
@@ -76,7 +76,7 @@ export class TutorialManager {
         this.scene.tutorialPartContainer?.destroy();
 
         this.highlightUI(this.scene.tipsButton);
-        this.createTutorialTextBox(this.scene.scale.width / 2.1, this.scene.scale.height / 1.75, 'Left', 'Choose Tips to see the outfit theme that must be used', () => { this.initiatePart6() });
+        this.createTutorialTextBox(this.scene.scale.width / 5, this.scene.scale.height / 1.75, 'Left', 'Choose Tips to see the outfit theme that must be used', () => { this.initiatePart6() });
 
     }
 
@@ -87,7 +87,7 @@ export class TutorialManager {
         this.scene.tutorialPartContainer?.destroy();
 
         this.highlightUI(this.scene.finishButton);
-        this.createTutorialTextBox(this.scene.scale.width / 2, this.scene.scale.height / 1.23, 'Bottom', 'If you are satisfied with your outfit, click "Finish"', () => { this.finishTutorial() });
+        this.createTutorialTextBox(this.scene.scale.width / 2, this.scene.scale.height / 1.3, 'Bottom', 'If you are satisfied with your outfit, click "Finish"', () => { this.finishTutorial() });
 
     }
 
@@ -128,7 +128,7 @@ export class TutorialManager {
             fill: '#00000',
             fontFamily: 'pixelFont',
             align: 'center',
-            wordWrap: { width: this.scene.scale.width - 340 }
+            wordWrap: { width: /*this.scene.scale.width -*/ 340 }
         }).setDepth(102).setOrigin(0.5, 0.5);
 
         //Tutorial Continue  Button

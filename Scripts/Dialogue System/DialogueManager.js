@@ -15,19 +15,20 @@ export class DialogueManager {
     createDialogueUI(scene) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.dialogueBox = this.scene.add.nineslice(width / 2, 950, 'dialogueBox', '', width / 4, 70, 8, 8, 9, 14).setDepth(10).setScale(4);
-        this.dialogueNameBox = this.scene.add.nineslice(175, 825, 'dialogueNameBox', '', 70, 20, 5, 5, 5, 11).setDepth(10).setScale(4);
-        this.nameText = this.scene.add.text(170, 815, 'Tristan', {
-            fontSize: '32px',
-            fill: '#00000',
-            fontFamily: 'pixelFont',
-            wordWrap: { width: width - 120 }
+        this.dialogueBox = this.scene.add.nineslice(width / 2, height / 1.32, 'dialogueBox', '', 1200, 300, 128, 128, 64, 68).setDepth(10);
+        this.dialogueNameBox = this.scene.add.nineslice(width / 3.3, height / 1.65, 'dialogueNameBox', '', 450, 120, 120, 120, 64, 72).setDepth(10).setScale(0.8);
+        this.nameText = this.scene.add.text(width / 3.3, height / 1.66, 'Tristan', {
+            fontSize: '54px',
+            fill: '#60292b',
+            fontFamily: 'regularFont',
+            fontStyle: 'bold',
+            wordWrap: { width: width - 200 }
         }).setDepth(10).setOrigin(0.5, 0.5);
-        this.dialogueText = this.scene.add.text(40, 860, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
+        this.dialogueText = this.scene.add.text(width / 4.7, height / 1.5, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
             fontSize: '36px',
-            fill: '#00000',
-            fontFamily: 'pixelFont',
-            wordWrap: { width: width - 70 }
+            fill: '#60292b',
+            fontFamily: 'regularFont',
+            wordWrap: { width: width - width / 2.4 }
         }).setDepth(10);
 
         this.hide();

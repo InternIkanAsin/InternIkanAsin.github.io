@@ -1,179 +1,175 @@
 import { MakeUp } from './MakeUp.js';
 const makeUpData = [
     //Default
-    new MakeUp('Default Lips', 'Lips', 'LipNormalDefault'), 
-    new MakeUp('Default Eyebrows', 'Eyebrows', 'EyebrowNormalDefault'), 
+    new MakeUp('Default Lips', 'Lips', 'LipNormalDefault'),
+    new MakeUp('Default Eyebrows', 'Eyebrows', 'EyebrowNormalDefault'),
     new MakeUp('Default Eyelashes', 'Eyelashes', 'EyelashesNormalDefault'),
     // Blush Data
-    new MakeUp('Blush 1', 'Blush', 'blushanime', 'button1', 'blushanimeIcon'),
-    new MakeUp('Blush 2', 'Blush', 'blushfever', 'button1', 'blushfeverIcon'),
-    new MakeUp('Blush 3', 'Blush', 'blushfrackles', 'button1', 'blushfracklesIcon'),
-    new MakeUp('Blush 4', 'Blush', 'blushlove', 'button1', 'blushloveIcon'),
-    new MakeUp('Blush 5', 'Blush', 'blushorange', 'button1', 'blushorangeIcon'),
-    new MakeUp('Blush 6', 'Blush', 'blushpink', 'button1', 'blushpinkIcon'),
-    new MakeUp('Blush 7', 'Blush', 'blushnose', 'button1', 'blushnoseIcon'),
-    new MakeUp('Blush 8', 'Blush', 'blushround', 'button1', 'blushroundIcon'),
+    new MakeUp('Blush 1', 'Blush', 'blushanime', 'buttonIcon2', 'blushanimeIcon'),
+    new MakeUp('Blush 2', 'Blush', 'blushfever', 'buttonIcon2', 'blushfeverIcon'),
+    new MakeUp('Blush 3', 'Blush', 'blushfrackles', 'buttonIcon2', 'blushfracklesIcon'),
+    new MakeUp('Blush 4', 'Blush', 'blushlove', 'buttonIcon2', 'blushloveIcon'),
+    new MakeUp('Blush 5', 'Blush', 'blushorange', 'buttonIcon2', 'blushorangeIcon'),
+    new MakeUp('Blush 6', 'Blush', 'blushpink', 'buttonIcon2', 'blushpinkIcon'),
+    new MakeUp('Blush 7', 'Blush', 'blushnose', 'buttonIcon2', 'blushnoseIcon'),
+    new MakeUp('Blush 8', 'Blush', 'blushround', 'buttonIcon2', 'blushroundIcon'),
 
     // Eyebrows Data
-    new MakeUp('Eyebrows 1', 'Eyebrows', 'eyebrownormal1', 'button1', 'eyebrow1Icon'),
-    new MakeUp('Eyebrows 2', 'Eyebrows', 'eyebrownormal2', 'button1', 'eyebrow2Icon'),
-    new MakeUp('Eyebrows 3', 'Eyebrows', 'eyebrownormal3', 'button1', 'eyebrow3Icon'),
-    new MakeUp('Eyebrows 4', 'Eyebrows', 'eyebrownormal4', 'button1', 'eyebrow4Icon'),
-    new MakeUp('Eyebrows 5', 'Eyebrows', 'eyebrownormal5', 'button1', 'eyebrow5Icon'),
+    new MakeUp('Eyebrows 1', 'Eyebrows', 'eyebrownormal1', 'buttonIcon2', 'eyebrow1Icon'),
+    new MakeUp('Eyebrows 2', 'Eyebrows', 'eyebrownormal2', 'buttonIcon2', 'eyebrow2Icon'),
+    new MakeUp('Eyebrows 3', 'Eyebrows', 'eyebrownormal3', 'buttonIcon2', 'eyebrow3Icon'),
+    new MakeUp('Eyebrows 4', 'Eyebrows', 'eyebrownormal4', 'buttonIcon2', 'eyebrow4Icon'),
+    new MakeUp('Eyebrows 5', 'Eyebrows', 'eyebrownormal5', 'buttonIcon2', 'eyebrow5Icon'),
 
     // Eyelashes Data
-    new MakeUp('Eyelashes1', 'Eyelashes', 'eyelashesnormal1', 'button1', 'eyelashes1Icon'),
-    new MakeUp('Eyelashes2', 'Eyelashes', 'eyelashesnormal2', 'button1', 'eyelashes2Icon'),
-    new MakeUp('Eyelashes3', 'Eyelashes', 'eyelashesnormal3', 'button1', 'eyelashes3Icon'),
-    new MakeUp('Eyelashes4', 'Eyelashes', 'eyelashesnormal4', 'button1', 'eyelashes4Icon'),
-    new MakeUp('Eyelashes5', 'Eyelashes', 'eyelashesnormal5', 'button1', 'eyelashes5Icon'),
+    new MakeUp('Eyelashes1', 'Eyelashes', 'eyelashesnormal1', 'buttonIcon2', 'eyelashes1Icon'),
+    new MakeUp('Eyelashes2', 'Eyelashes', 'eyelashesnormal2', 'buttonIcon2', 'eyelashes2Icon'),
+    new MakeUp('Eyelashes3', 'Eyelashes', 'eyelashesnormal3', 'buttonIcon2', 'eyelashes3Icon'),
+    new MakeUp('Eyelashes4', 'Eyelashes', 'eyelashesnormal4', 'buttonIcon2', 'eyelashes4Icon'),
+    new MakeUp('Eyelashes5', 'Eyelashes', 'eyelashesnormal5', 'buttonIcon2', 'eyelashes5Icon'),
 
 
-    new MakeUp('Eyeliner1', 'Eyeliner', 'eyelinernormal1', 'button1', 'eyeliner1Icon'),
-    new MakeUp('Eyeliner2', 'Eyeliner', 'eyelinernormal2', 'button1', 'eyeliner2Icon'),
-    new MakeUp('Eyeliner3', 'Eyeliner', 'eyelinernormal3', 'button1', 'eyeliner3Icon'),
-    new MakeUp('Eyeliner4', 'Eyeliner', 'eyelinernormal4', 'button1', 'eyeliner4Icon'),
-    new MakeUp('Eyeliner5', 'Eyeliner', 'eyelinernormal5', 'button1', 'eyeliner5Icon'),
+    new MakeUp('Eyeliner1', 'Eyeliner', 'eyelinernormal1', 'buttonIcon2', 'eyeliner1Icon'),
+    new MakeUp('Eyeliner2', 'Eyeliner', 'eyelinernormal2', 'buttonIcon2', 'eyeliner2Icon'),
+    new MakeUp('Eyeliner3', 'Eyeliner', 'eyelinernormal3', 'buttonIcon2', 'eyeliner3Icon'),
+    new MakeUp('Eyeliner4', 'Eyeliner', 'eyelinernormal4', 'buttonIcon2', 'eyeliner4Icon'),
+    new MakeUp('Eyeliner5', 'Eyeliner', 'eyelinernormal5', 'buttonIcon2', 'eyeliner5Icon'),
     // Eyeshadow Data
-    new MakeUp('EyeShadowBrown', 'Eyeshadow', 'eyeshadownormalbrown', 'button1', 'eyeshadowbrownIcon'),
-    new MakeUp('EyeShadowDragon', 'Eyeshadow', 'eyeshadownormaldragon', 'button1', 'eyeshadowdragonIcon'),
-    new MakeUp('EyeShadowFairy', 'Eyeshadow', 'eyeshadownormalfairy', 'button1', 'eyeshadowfairyIcon'),
-    new MakeUp('EyeShadowGold', 'Eyeshadow', 'eyeshadownormalgold', 'button1', 'eyeshadowgoldIcon'),
-    new MakeUp('EyeShadowGreen', 'Eyeshadow', 'eyeshadownormalgreen', 'button1', 'eyeshadowgreenIcon'),
-    new MakeUp('EyeShadowOrange', 'Eyeshadow', 'eyeshadownormalorange', 'button1', 'eyeshadoworangeIcon'),
-    new MakeUp('EyeShadowPeach', 'Eyeshadow', 'eyeshadownormalpeach', 'button1', 'eyeshadowpeachIcon'),
-    new MakeUp('EyeShadowPink', 'Eyeshadow', 'eyeshadownormalpink', 'button1', 'eyeshadowpinkIcon'),
-    new MakeUp('EyeShadowPurple', 'Eyeshadow', 'eyeshadownormalpurple', 'button1', 'eyeshadowpurpleIcon'),
+    new MakeUp('EyeShadowBrown', 'Eyeshadow', 'eyeshadownormalbrown', 'buttonIcon2', 'eyeshadowbrownIcon'),
+    new MakeUp('EyeShadowDragon', 'Eyeshadow', 'eyeshadownormaldragon', 'buttonIcon2', 'eyeshadowdragonIcon'),
+    new MakeUp('EyeShadowFairy', 'Eyeshadow', 'eyeshadownormalfairy', 'buttonIcon2', 'eyeshadowfairyIcon'),
+    new MakeUp('EyeShadowGold', 'Eyeshadow', 'eyeshadownormalgold', 'buttonIcon2', 'eyeshadowgoldIcon'),
+    new MakeUp('EyeShadowGreen', 'Eyeshadow', 'eyeshadownormalgreen', 'buttonIcon2', 'eyeshadowgreenIcon'),
+    new MakeUp('EyeShadowOrange', 'Eyeshadow', 'eyeshadownormalorange', 'buttonIcon2', 'eyeshadoworangeIcon'),
+    new MakeUp('EyeShadowPeach', 'Eyeshadow', 'eyeshadownormalpeach', 'buttonIcon2', 'eyeshadowpeachIcon'),
+    new MakeUp('EyeShadowPink', 'Eyeshadow', 'eyeshadownormalpink', 'buttonIcon2', 'eyeshadowpinkIcon'),
+    new MakeUp('EyeShadowPurple', 'Eyeshadow', 'eyeshadownormalpurple', 'buttonIcon2', 'eyeshadowpurpleIcon'),
 
     // Lips Data
-    new MakeUp('LipsBrown', 'Lips', 'lipnormalbrown', 'button1', 'lipsbrownIcon'),
-    new MakeUp('LipsCherry', 'Lips', 'lipnormalcherry', 'button1', 'lipspinkIcon'),
-    new MakeUp('LipsOrange', 'Lips', 'lipnormalorange', 'button1', 'lipsredIcon'),
-    new MakeUp('LipsPink', 'Lips', 'lipnormalpink', 'button1', 'lipswineIcon'),
-    new MakeUp('LipsRed', 'Lips', 'lipnormalred', 'button1', 'lipscherryIcon'),
-    new MakeUp('LipsWine', 'Lips', 'lipnormalwine', 'button1', 'lipsorangeIcon'),
+    new MakeUp('LipsBrown', 'Lips', 'lipnormalbrown', 'buttonIcon2', 'lipsbrownIcon'),
+    new MakeUp('LipsCherry', 'Lips', 'lipnormalcherry', 'buttonIcon2', 'lipspinkIcon'),
+    new MakeUp('LipsOrange', 'Lips', 'lipnormalorange', 'buttonIcon2', 'lipsredIcon'),
+    new MakeUp('LipsPink', 'Lips', 'lipnormalpink', 'buttonIcon2', 'lipswineIcon'),
+    new MakeUp('LipsRed', 'Lips', 'lipnormalred', 'buttonIcon2', 'lipscherryIcon'),
+    new MakeUp('LipsWine', 'Lips', 'lipnormalwine', 'buttonIcon2', 'lipsorangeIcon'),
 
     // Pupil Data
-    new MakeUp('PupilBlue', 'Pupil', 'PupilNormalBlue', 'button1', 'pupilblueIcon'),
-    new MakeUp('PupilBlack', 'Pupil', 'pupilnormalblack', 'button1', 'pupilblackIcon'),
-    new MakeUp('PupilDragon', 'Pupil', 'pupilnormaldragon', 'button1', 'pupildragonIcon'),
-    new MakeUp('PupilFairy', 'Pupil', 'pupilnormalfairy', 'button1', 'pupilfairyIcon'),
-    new MakeUp('PupilGreen', 'Pupil', 'pupilnormalgreen', 'button1', 'pupilgreenIcon'),
-    new MakeUp('PupilMagical', 'Pupil', 'pupilnormalmagical', 'button1', 'pupilmagicIcon'),
-    new MakeUp('PupilPink', 'Pupil', 'pupilnormalpink', 'button1', 'pupilpinkIcon'),
-    new MakeUp('PupilRed', 'Pupil', 'pupilnormalred', 'button1', 'pupilredIcon'),
-    new MakeUp('PupilYellow', 'Pupil', 'pupilnormalyellow', 'button1', 'pupilyellowIcon'),
+    new MakeUp('PupilBlue', 'Pupil', 'PupilNormalBlue', 'buttonIcon2', 'pupilblueIcon'),
+    new MakeUp('PupilBlack', 'Pupil', 'pupilnormalblack', 'buttonIcon2', 'pupilblackIcon'),
+    new MakeUp('PupilDragon', 'Pupil', 'pupilnormaldragon', 'buttonIcon2', 'pupildragonIcon'),
+    new MakeUp('PupilFairy', 'Pupil', 'pupilnormalfairy', 'buttonIcon2', 'pupilfairyIcon'),
+    new MakeUp('PupilGreen', 'Pupil', 'pupilnormalgreen', 'buttonIcon2', 'pupilgreenIcon'),
+    new MakeUp('PupilMagical', 'Pupil', 'pupilnormalmagical', 'buttonIcon2', 'pupilmagicIcon'),
+    new MakeUp('PupilPink', 'Pupil', 'pupilnormalpink', 'buttonIcon2', 'pupilpinkIcon'),
+    new MakeUp('PupilRed', 'Pupil', 'pupilnormalred', 'buttonIcon2', 'pupilredIcon'),
+    new MakeUp('PupilYellow', 'Pupil', 'pupilnormalyellow', 'buttonIcon2', 'pupilyellowIcon'),
 
     // Sticker Data
-    new MakeUp('StickerBlushPink', 'Sticker', 'stickerblushpink', 'button1', 'stickerblushpinkIcon'),
-    new MakeUp('StickerBlushPurple', 'Sticker', 'stickerblushpurple', 'button1', 'stickerblushpurpleIcon'),
-    new MakeUp('StickerBlushRed', 'Sticker', 'stickerblushred', 'button1', 'stickerblushredIcon'),
-    new MakeUp('StickerBlushYellow', 'Sticker', 'stickerblushyellow', 'button1', 'stickerblushyellowIcon'),
-    new MakeUp('StickerDiamond', 'Sticker', 'stickerdiamond', 'button1', 'stickerdiamondIcon'),
-    new MakeUp('StickerLove', 'Sticker', 'stickerlove', 'button1', 'stickerloveIcon'),
-    new MakeUp('StickermoonlightcrownBlue', 'Sticker', 'stickermoonlightcrownblue', 'button1', 'stickermoonlightcrownblueIcon'),
-    new MakeUp('StickermoonlightcrownPurple', 'Sticker', 'stickermoonlightcrownpurple', 'button1', 'stickermoonlightcrownpurpleIcon'),
-    new MakeUp('StickermoonlightcrownRed', 'Sticker', 'stickermoonlightcrownred', 'button1', 'stickermoonlightcrownredIcon'),
-    new MakeUp('StickermoonlightcrownWhite', 'Sticker', 'stickermoonlightcrownwhite', 'button1', 'stickermoonlightcrownwhiteIcon'),
-    new MakeUp('StickermoonlightcrownYellow', 'Sticker', 'stickermoonlightcrownyellow', 'button1', 'stickermoonlightcrownyellowIcon'),
-    new MakeUp('StickerprincessTears', 'Sticker', 'stickerprincesstears', 'button1', 'stickerprincesstearsIcon'),
-    new MakeUp('StickerstarBlue', 'Sticker', 'stickerstarblue', 'button1', 'stickerstarblueIcon'),
-    new MakeUp('StickerstarPink', 'Sticker', 'stickerstarpink', 'button1', 'stickerstarpinkIcon'),
-    new MakeUp('StickerstarPurple', 'Sticker', 'stickerstarpurple', 'button1', 'stickerstarpurpleIcon'),
-    new MakeUp('StickerstarRed', 'Sticker', 'stickerstarred', 'button1', 'stickerstarredIcon'),
-    new MakeUp('StickerstarYellow', 'Sticker', 'stickerstaryellow', 'button1', 'stickerstaryellowIcons'),
+    new MakeUp('StickerBlushPink', 'Sticker', 'stickerblushpink', 'buttonIcon2', 'stickerblushpinkIcon'),
+    new MakeUp('StickerBlushPurple', 'Sticker', 'stickerblushpurple', 'buttonIcon2', 'stickerblushpurpleIcon'),
+    new MakeUp('StickerBlushRed', 'Sticker', 'stickerblushred', 'buttonIcon2', 'stickerblushredIcon'),
+    new MakeUp('StickerBlushYellow', 'Sticker', 'stickerblushyellow', 'buttonIcon2', 'stickerblushyellowIcon'),
+    new MakeUp('StickerDiamond', 'Sticker', 'stickerdiamond', 'buttonIcon2', 'stickerdiamondIcon'),
+    new MakeUp('StickerLove', 'Sticker', 'stickerlove', 'buttonIcon2', 'stickerloveIcon'),
+    new MakeUp('StickermoonlightcrownBlue', 'Sticker', 'stickermoonlightcrownblue', 'buttonIcon2', 'stickermoonlightcrownblueIcon'),
+    new MakeUp('StickermoonlightcrownPurple', 'Sticker', 'stickermoonlightcrownpurple', 'buttonIcon2', 'stickermoonlightcrownpurpleIcon'),
+    new MakeUp('StickermoonlightcrownRed', 'Sticker', 'stickermoonlightcrownred', 'buttonIcon2', 'stickermoonlightcrownredIcon'),
+    new MakeUp('StickermoonlightcrownWhite', 'Sticker', 'stickermoonlightcrownwhite', 'buttonIcon2', 'stickermoonlightcrownwhiteIcon'),
+    new MakeUp('StickermoonlightcrownYellow', 'Sticker', 'stickermoonlightcrownyellow', 'buttonIcon2', 'stickermoonlightcrownyellowIcon'),
+    new MakeUp('StickerprincessTears', 'Sticker', 'stickerprincesstears', 'buttonIcon2', 'stickerprincesstearsIcon'),
+    new MakeUp('StickerstarBlue', 'Sticker', 'stickerstarblue', 'buttonIcon2', 'stickerstarblueIcon'),
+    new MakeUp('StickerstarPink', 'Sticker', 'stickerstarpink', 'buttonIcon2', 'stickerstarpinkIcon'),
+    new MakeUp('StickerstarPurple', 'Sticker', 'stickerstarpurple', 'buttonIcon2', 'stickerstarpurpleIcon'),
+    new MakeUp('StickerstarRed', 'Sticker', 'stickerstarred', 'buttonIcon2', 'stickerstarredIcon'),
+    new MakeUp('StickerstarYellow', 'Sticker', 'stickerstaryellow', 'buttonIcon2', 'stickerstaryellowIcons'),
 
     //hair data
-     //new MakeUp('Default Black Hair', 'Hair', 'hair'),
-     new MakeUp('01BlackB', 'Hair', '01blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('01BlondeB', 'Hair', '01blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('01BlondeF', 'Hair', '01blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('01BrownB', 'Hair', '01brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('01BrownF', 'Hair', '01brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('01PinkB', 'Hair', '01pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('01PinkF', 'Hair', '01pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02BlackB', 'Hair', '02blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02BlackF', 'Hair', '02blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02BlondeB', 'Hair', '02blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02BlondeF', 'Hair', '02blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02BrownB', 'Hair', '02brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02BrownF', 'Hair', '02brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02PinkB', 'Hair', '02pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('02PinkF', 'Hair', '02pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03BlackB', 'Hair', '03blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03BlackF', 'Hair', '03blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03BlondeB', 'Hair', '03blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03BlondeF', 'Hair', '03blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03BrownB', 'Hair', '03brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03BrownF', 'Hair', '03brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03PinkB', 'Hair', '03pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('03PinkF', 'Hair', '03pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04BlackB', 'Hair', '04blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04BlackF', 'Hair', '04blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04BlondeB', 'Hair', '04blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04BlondeF', 'Hair', '04blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04BrownB', 'Hair', '04brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04BrownF', 'Hair', '04brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04PinkB', 'Hair', '04pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('04PinkF', 'Hair', '04pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05BlackB', 'Hair', '05blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05BlackF', 'Hair', '05blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05BlondeB', 'Hair', '05blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05BlondeF', 'Hair', '05blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05BrownB', 'Hair', '05brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05BrownF', 'Hair', '05brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05PinkB', 'Hair', '05pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('05PinkF', 'Hair', '05pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06BlackB', 'Hair', '06blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06BlackF', 'Hair', '06blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06BlondeB', 'Hair', '06blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06BlondeF', 'Hair', '06blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06BrownB', 'Hair', '06brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06BrownF', 'Hair', '06brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06PinkB', 'Hair', '06pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('06PinkF', 'Hair', '06pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07BlackB', 'Hair', '07blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07BlackF', 'Hair', '07blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07BlondeB', 'Hair', '07blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07BlondeF', 'Hair', '07blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07BrownB', 'Hair', '07brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07BrownF', 'Hair', '07brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07PinkB', 'Hair', '07pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('07PinkF', 'Hair', '07pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08BlackB', 'Hair', '08blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08BlackF', 'Hair', '08blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08BlondeB', 'Hair', '08blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08BlondeF', 'Hair', '08blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08BrownB', 'Hair', '08brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08BrownF', 'Hair', '08brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08PinkB', 'Hair', '08pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('08PinkF', 'Hair', '08pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09BlackB', 'Hair', '09blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09BlackF', 'Hair', '09blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09BlondeB', 'Hair', '09blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09BlondeF', 'Hair', '09blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09BrownB', 'Hair', '09brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09BrownF', 'Hair', '09brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09PinkB', 'Hair', '09pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('09PinkF', 'Hair', '09pinkF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10BlackB', 'Hair', '10blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10BlackF', 'Hair', '10blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10BlondeB', 'Hair', '10blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10BlondeF', 'Hair', '10blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10BrownB', 'Hair', '10brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10BrownF', 'Hair', '10brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10VioletB', 'Hair', '10violetB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('10VioletF', 'Hair', '10violetF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11BlackB', 'Hair', '11blackB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11BlackF', 'Hair', '11blackF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11BlondeB', 'Hair', '11blondeB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11BlondeF', 'Hair', '11blondeF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11BrownB', 'Hair', '11brownB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11BrownF', 'Hair', '11brownF', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11PinkB', 'Hair', '11pinkB', 'button1', 'pupilyellowIcon'),
-     new MakeUp('11PinkF', 'Hair', '11pinkF', 'button1', 'pupilyellowIcon'),
+    //new MakeUp('Default Black Hair', 'Hair', 'hair'),
+    new MakeUp('01Blonde', 'Hair', { front: '01blondeF', back: '01blondeB' }, 'buttonIcon2', '01blondeIcon'),
 
-    
+    new MakeUp('01Brown', 'Hair', { front: '01brownF', back: '01brownB' }, 'buttonIcon2', '01brownIcon'),
+
+    new MakeUp('01Pink', 'Hair', { front: '01pinkF', back: '01pinkB' }, 'buttonIcon2', '01pinkIcon'),
+
+    new MakeUp('02Black', 'Hair', { front: '02blackF', back: '02blackB' }, 'buttonIcon2', '02blackIcon'),
+
+    new MakeUp('02Blonde', 'Hair', { front: '02blondeF', back: '02blondeB' }, 'buttonIcon2', '02blondeIcon'),
+
+    new MakeUp('02Brown', 'Hair', { front: '02brownF', back: '02brownB' }, 'buttonIcon2', '02brownIcon'),
+
+    new MakeUp('02Pink', 'Hair', { front: '02pinkF', back: '02pinkB' }, 'buttonIcon2', '02pinkIcon'),
+
+    new MakeUp('03Black', 'Hair', { front: '03blackF', back: '03blackB' }, 'buttonIcon2', '03blackIcon'),
+
+    new MakeUp('03Blonde', 'Hair', { front: '03blondeF', back: '03blondeB' }, 'buttonIcon2', '03blondeIcon'),
+
+    new MakeUp('03Brown', 'Hair', { front: '03brownF', back: '03brownB' }, 'buttonIcon2', '03brownIcon'),
+
+    new MakeUp('03Pink', 'Hair', { front: '03pinkF', back: '03pinkB' }, 'buttonIcon2', '03pinkIcon'),
+
+    new MakeUp('04Black', 'Hair', { front: '04blackF', back: '04blackB' }, 'buttonIcon2', '04blackIcon'),
+
+    new MakeUp('04Blonde', 'Hair', { front: '04blondeF', back: '04blondeB' }, 'buttonIcon2', '04blondeIcon'),
+
+    new MakeUp('04Brown', 'Hair', { front: '04brownF', back: '04brownB' }, 'buttonIcon2', '04brownIcon'),
+
+    new MakeUp('04Pink', 'Hair', { front: '04pinkF', back: '04pinkB' }, 'buttonIcon2', '04pinkIcon'),
+
+    new MakeUp('05Black', 'Hair', { front: '05blackF', back: '05blackB' }, 'buttonIcon2', '05blackIcon'),
+
+    new MakeUp('05Blonde', 'Hair', { front: '05blondeF', back: '05blondeB' }, 'buttonIcon2', '05blondeIcon'),
+
+    new MakeUp('05Brown', 'Hair', { front: '05brownF', back: '05brownB' }, 'buttonIcon2', '05brownIcon'),
+
+    new MakeUp('05Pink', 'Hair', { front: '05pinkF', back: '05pinkB' }, 'buttonIcon2', '05pinkIcon'),
+
+    new MakeUp('06Black', 'Hair', { front: '06blackF', back: '06blackB' }, 'buttonIcon2', '06blackIcon'),
+
+    new MakeUp('06Blonde', 'Hair', { front: '06blondeF', back: '06blondeB' }, 'buttonIcon2', '06blondeIcon'),
+
+    new MakeUp('06Brown', 'Hair', { front: '06brownF', back: '06brownB' }, 'buttonIcon2', '06brownIcon'),
+
+    new MakeUp('06Pink', 'Hair', { front: '06pinkF', back: '06pinkB' }, 'buttonIcon2', '06pinkIcon'),
+
+    new MakeUp('07Black', 'Hair', { front: '07blackF', back: '07blackB' }, 'buttonIcon2', '07blackIcon'),
+
+    new MakeUp('07Blonde', 'Hair', { front: '07blondeF', back: '07blondeB' }, 'buttonIcon2', '07blondeIcon'),
+
+    new MakeUp('07Brown', 'Hair', { front: '07brownF', back: '07brownB' }, 'buttonIcon2', '07brownIcon'),
+
+    new MakeUp('07Pink', 'Hair', { front: '07pinkF', back: '07pinkB' }, 'buttonIcon2', '07pinkIcon'),
+
+    new MakeUp('08Black', 'Hair', { front: '08blackF', back: '08blackB' }, 'buttonIcon2', '08blackIcon'),
+
+    new MakeUp('08Blonde', 'Hair', { front: '08blondeF', back: '08blondeB' }, 'buttonIcon2', '08blondeIcon'),
+
+    new MakeUp('08Brown', 'Hair', { front: '08brownF', back: '08brownB' }, 'buttonIcon2', '08brownIcon'),
+
+    new MakeUp('08Pink', 'Hair', { front: '08pinkF', back: '08pinkB' }, 'buttonIcon2', '08pinkIcon'),
+
+    new MakeUp('09Black', 'Hair', { front: '09blackF', back: '09blackB' }, 'buttonIcon2', '09blackIcon'),
+
+    new MakeUp('09Blonde', 'Hair', { front: '09blondeF', back: '09blondeB' }, 'buttonIcon2', '09blondeIcon'),
+
+    new MakeUp('09Brown', 'Hair', { front: '09brownF', back: '09brownB' }, 'buttonIcon2', '09brownIcon'),
+
+    new MakeUp('09Pink', 'Hair', { front: '09pinkF', back: '09pinkB' }, 'buttonIcon2', '09pinkIcon'),
+
+    new MakeUp('10Black', 'Hair', { front: '10blackF', back: '10blackB' }, 'buttonIcon2', '10blackIcon'),
+
+    new MakeUp('10Blonde', 'Hair', { front: '10blondeF', back: '10blondeB' }, 'buttonIcon2', '10blondeIcon'),
+
+    new MakeUp('10Brown', 'Hair', { front: '10brownF', back: '10brownB' }, 'buttonIcon2', '10brownIcon'),
+
+    new MakeUp('10Violet', 'Hair', { front: '10violetF', back: '10violetB' }, 'buttonIcon2', '10violetBIcon'),
+
+    new MakeUp('11Black', 'Hair', { front: '11blackF', back: '11blackB' }, 'buttonIcon2', '11blackIcon'),
+
+    new MakeUp('11Blonde', 'Hair', { front: '11blondeF', back: '11blondeB' }, 'buttonIcon2', '11blondeBIcon'),
+
+    new MakeUp('11Brown', 'Hair', { front: '11brownF', back: '11brownB' }, 'buttonIcon2', '11brownBIcon'),
+
+    new MakeUp('11Pink', 'Hair', { front: '11pinkF', back: '11pinkB' }, 'buttonIcon2', '11pinkBIcon'),
 
 ]
 
@@ -182,7 +178,7 @@ export const defaultMakeUpSkins = {
     'Eyebrows': 'EyebrowNormalDefault',
     'Eyelashes': 'EyelashesNormalDefault',
     'Pupil': 'PupilNormalBlue',
-    'Hair': "hair"
+    'Hair': { front: 'hair', back: '01blackB' }
 };
 
 const MakeUpPositions = {
@@ -193,8 +189,8 @@ const MakeUpPositions = {
     Lips: { x: 0, y: 0 },
     Pupil: { x: 0, y: 0 },
     Sticker: { x: 0, y: 0 },
-    Blush: {x: 0, y: 0},
-   
+    Blush: { x: 0, y: 0 },
+
 }
 
 export { makeUpData, MakeUpPositions }

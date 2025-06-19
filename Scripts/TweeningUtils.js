@@ -2,7 +2,6 @@ import { GameState } from './Main.js';
 import { OutfitButton } from './UI/UIButton.js';
 import { outfitCustomSizes, outfitPositions, outfitManualOffsets } from './Outfit Data/CostumeData.js'; // Add this import
 import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
-
 export default class TweenUtils {
     constructor(scene) {
         this.scene = scene;
@@ -10,6 +9,153 @@ export default class TweenUtils {
         this.bodyScaleDressUpView = 0.6;
     }
 
+    closeDrapes(duration = 500, onComplete = null) {
+        const scene = this.scene;
+        if (!scene.leftDrape || !scene.rightDrape) {
+            console.error("Drapes not found on scene!");
+            if (onComplete) onComplete();
+            return;
+        }
+
+        const centerX = scene.scale.width / 2;
+        scene.tweens.add({
+            targets: scene.leftDrape,
+            x: centerX / 2,
+            duration: duration,
+            ease: 'Power2'
+        });
+
+        scene.tweens.add({
+            targets: scene.rightDrape,
+            x: scene.scale.width - (centerX / 2),
+            duration: duration,
+            ease: 'Power2',
+            onComplete: () => {
+                if (onComplete) {
+                    onComplete();
+                }
+            }
+        });
+
+        scene.tweens.add({
+            targets: scene.leftCurtain,
+            x: centerX / 4.8,
+            duration: duration,
+            ease: 'Power2',
+        });
+        scene.tweens.add({
+            targets: scene.rightCurtain,
+            x: scene.scale.width - (centerX / 4.8),
+            duration: duration,
+            ease: 'Power2',
+        });
+    }
+
+    transitionBackToSelection() {
+        const scene = this.scene;
+        console.log("[TweenUtils] Transitioning back to selection screen.");
+
+
+        scene.state = GameState.MAKEUP;
+
+
+        this.zoomOut();
+
+        this.closeDrapes(500, () => {
+
+            scene.MiniGameManager.clearMinigameUI();
+
+            scene.createSelectionButtons();
+
+
+            this.openDrapesHalfway(1000);
+
+        });
+    }
+
+    openDrapes(duration = 1000, onComplete = null) {
+        const scene = this.scene;
+        if (!scene.leftDrape || !scene.rightDrape) {
+            console.error("Drapes not found on scene!");
+            if (onComplete) onComplete();
+            return;
+        }
+
+        const outsideLeftX = -scene.leftDrape.width / 2;
+        const outsideRightX = scene.scale.width + scene.rightDrape.width / 2;
+
+        scene.tweens.add({
+            targets: scene.leftDrape,
+            x: outsideLeftX,
+            duration: duration,
+            ease: 'Power',
+            onComplete: () => {
+
+            }
+        });
+        scene.tweens.add({
+            targets: scene.rightDrape,
+            x: outsideRightX,
+            duration: duration,
+            ease: 'Power',
+            onComplete: () => {
+                if (onComplete) {
+                    onComplete();
+                }
+            }
+        });
+        scene.tweens.add({
+            targets: scene.leftCurtain,
+            x: outsideLeftX,
+            duration: duration,
+            ease: 'Power2',
+        });
+        scene.tweens.add({
+            targets: scene.rightCurtain,
+            x: outsideRightX,
+            duration: duration,
+            ease: 'Power2',
+        });
+    }
+
+    openDrapesHalfway(duration = 1000) {
+        const scene = this.scene;
+        if (!scene.leftDrape || !scene.rightDrape) { return; }
+
+
+        const targetLeftX = (scene.scale.width * 0.25) - (scene.leftDrape.width);
+        const targetRightX = (scene.scale.width * 0.75) + (scene.rightDrape.width);
+
+        scene.tweens.add({
+            targets: scene.leftDrape,
+            x: targetLeftX, // move from middle sideways
+            duration: duration,
+            ease: 'Power2'
+        });
+        scene.tweens.add({
+            targets: scene.rightDrape,
+            x: targetRightX, // move from middle sideways
+            duration: duration,
+            ease: 'Power2'
+        });
+    }
+
+    openCurtains(duration = 1000) {
+        const scene = this.scene;
+        const centerX = scene.scale.width / 2;
+        scene.tweens.add({
+            targets: scene.leftCurtain,
+            x: centerX / 4.8,
+            duration: duration,
+            ease: 'Power2',
+        });
+        scene.tweens.add({
+            targets: scene.rightCurtain,
+            x: scene.scale.width - (centerX / 4.8),
+            duration: duration,
+            ease: 'Power2',
+        });
+    }
     transitionMiniGame() {
         const actualPreviousState = this.scene.state;
 
@@ -44,15 +190,11 @@ export default class TweenUtils {
 
         // 6. Update the main mode toggle button text/icon
         if (this.scene.state === GameState.DRESSUP) {
-            if (this.scene.miniGameButton) {
-                this.scene.miniGameButton.setIconTexture('makeUpIcon');
-                this.scene.miniGameButton.setText('Make Up');
-            }
+            this.scene.panelHeaderText?.setText("Dress Up");
+            this.scene.panelHeaderText?.setTexture('dressButtonIcon2');
         } else { // GameState.MAKEUP
-            if (this.scene.miniGameButton) {
-                this.scene.miniGameButton.setIconTexture('dressIcon');
-                this.scene.miniGameButton.setText('Dress Up');
-            }
+            this.scene.panelHeaderText?.setText("Make Up");
+            this.scene.panelHeaderText?.setTexture('makeUpButtonIcon2');
         }
 
         // 7. Update the side panel to show the correct CATEGORIES for the new state
@@ -70,6 +212,45 @@ export default class TweenUtils {
         } else {
             this.zoomIn(comingFromState);
         }
+    }
+
+    tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, referenceBodyScale, duration, ease) {
+        if (!outfitImage || !outfitImage.active) return;
+
+
+        const baseWorldX = outfitImage.getData('baseWorldOutfitX');
+        const baseWorldY = outfitImage.getData('baseWorldOutfitY');
+        const usesCustomSize = outfitImage.getData('usesCustomSize');
+        const baseScaleX = outfitImage.getData('baseScaleX');
+        const baseScaleY = outfitImage.getData('baseScaleY');
+
+
+        const scaleChangeFactor = targetBodyScale / referenceBodyScale;
+
+
+        const initialBodyX = this.scene.scale.width / 2 / 1.1;
+        const initialBodyY = this.scene.scale.height / 2 / 0.9;
+
+        const offsetXInDressUpView = baseWorldX - initialBodyX;
+        const offsetYInDressUpView = baseWorldY - initialBodyY;
+
+        const targetOutfitX = targetBodyX + (offsetXInDressUpView * scaleChangeFactor);
+        const targetOutfitY = targetBodyY + (offsetYInDressUpView * scaleChangeFactor);
+
+        const targetScaleX = baseScaleX * scaleChangeFactor;
+        const targetScaleY = baseScaleY * scaleChangeFactor;
+
+
+        this.scene.tweens.add({
+            targets: outfitImage,
+            x: targetOutfitX,
+            y: targetOutfitY,
+            scaleX: targetScaleX,
+            scaleY: targetScaleY,
+            duration: duration,
+            ease: ease,
+            onStart: () => { if (outfitImage) outfitImage.setVisible(true); }
+        });
     }
 
     zoomIn(comingFromState = GameState.DRESSUP) {
@@ -90,14 +271,15 @@ export default class TweenUtils {
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
         this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
-        this.scene.tweens.add({ targets: [this.scene.hair], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
+        this.scene.tweens.add({ targets: [this.scene.hairBack, this.scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
+
 
         Object.values(OutfitButton.selectedOutfits).forEach(entry => {
-            const outfitButton = entry?.current;
-            if (outfitButton && outfitButton.displayedOutfit && outfitButton.displayedOutfit.active) {
-                const referenceBodyScaleForOffsets = this.bodyScaleDressUpView;
+            const equippedButton = entry?.current;
 
-                outfitButton.tweenToView(targetBodyX, targetBodyY, targetBodyScale, referenceBodyScaleForOffsets, 500, 'Sine.easeInOut');
+            if (equippedButton && equippedButton.displayedOutfit && equippedButton.displayedOutfit.active) {
+
+                this.tweenOutfitImage(equippedButton.displayedOutfit, targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, 500, 'Sine.easeInOut');
             }
         });
     }
@@ -115,19 +297,20 @@ export default class TweenUtils {
         const targetFaceScale = 0.3;
 
         const targetHairX = centerX / 1.1;
-        const targetHairY = centerY / 1.4;
+        const targetHairY = centerY / 1.41;
         const targetHairScale = 0.25;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
         this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
-        this.scene.tweens.add({ targets: [this.scene.hair], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
+        this.scene.tweens.add({ targets: [this.scene.hairBack, this.scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
+
 
         Object.values(OutfitButton.selectedOutfits).forEach(entry => {
-            const outfitButton = entry?.current;
-            if (outfitButton && outfitButton.displayedOutfit && outfitButton.displayedOutfit.active) {
-                const referenceBodyScaleForOffsets = this.bodyScaleDressUpView; // Offsets are always relative to DressUp view
+            const equippedButton = entry?.current;
 
-                outfitButton.tweenToView(targetBodyX, targetBodyY, targetBodyScale, referenceBodyScaleForOffsets, 500, 'Sine.easeInOut');
+            if (equippedButton && equippedButton.displayedOutfit && equippedButton.displayedOutfit.active) {
+
+                this.tweenOutfitImage(equippedButton.displayedOutfit, targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, 500, 'Sine.easeInOut');
             }
         });
     }
@@ -186,7 +369,7 @@ export default class TweenUtils {
         });
 
         this.scene.tweens.add({
-            targets: [this.scene.hair],
+            targets: [this.scene.hairBack, this.scene.hairFront],
             x: this.scene.scale.width / 4.33,
             duration: 500,
             repeat: 0,
@@ -258,7 +441,7 @@ export default class TweenUtils {
                             ease: 'Sine.easeInOut'
                         });
                         this.scene.tweens.add({
-                            targets: [this.scene.hair],
+                            targets: [this.scene.hairBack, this.scene.hairFront],
                             x: this.scene.scale.width / 2.02,
                             duration: 500,
                             repeat: 0,

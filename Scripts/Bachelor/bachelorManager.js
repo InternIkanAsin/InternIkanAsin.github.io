@@ -3,6 +3,65 @@ import UIButton, { GeneralButton } from '../UI/UIButton.js'
 export class BachelorManager {
     constructor(scene) {
         this.scene = scene;
+        this.bachelorChoices = {};
+        this.bachelorExpressions = {};
+    }
+
+    initializeAndSelectBachelor(chosenBachelorName) {
+        // Logika pembuatan bachelor dipindahkan dari Main.js ke sini
+        const centerX = this.scene.scale.width / 2;
+        const centerY = this.scene.scale.height / 2;
+
+        // Azril
+        const azrilFullbody = this.scene.add.image(0, 0, 'azrilFullbody').setScale(2);
+        const AzrilExpression = this.scene.add.image(0, 0, 'AzrilNeutral').setScale(2).setDepth(2);
+        this.bachelorChoices['Azril'] = this.scene.add.container(centerX, centerY * 1.1, [azrilFullbody, AzrilExpression]).setVisible(false);
+        this.bachelorExpressions['Azril'] = AzrilExpression;
+
+        // Angga
+        const anggaFullbody = this.scene.add.image(0, 0, 'anggaFullbody').setScale(2);
+        const AnggaExpression = this.scene.add.image(0, 0, 'AnggaNeutral').setScale(2);
+        this.bachelorChoices['Angga'] = this.scene.add.container(centerX, centerY * 1.1, [anggaFullbody, AnggaExpression]).setVisible(false);
+        this.bachelorExpressions['Angga'] = AnggaExpression;
+
+        // Reza
+        const rezaFullbody = this.scene.add.image(0, 0, 'rezaFullbody').setScale(2);
+        const RezaExpression = this.scene.add.image(0, 0, 'RezaNeutral').setScale(2);
+        this.bachelorChoices['Reza'] = this.scene.add.container(centerX, centerY * 1.1, [rezaFullbody, RezaExpression]).setVisible(false);
+        this.bachelorExpressions['Reza'] = RezaExpression;
+
+        // Indra
+        const indraFullbody = this.scene.add.image(0, 0, 'indraFullbody').setScale(2);
+        const IndraExpression = this.scene.add.image(0, 0, 'IndraNeutral').setScale(2);
+        this.bachelorChoices['Indra'] = this.scene.add.container(centerX, centerY * 1.1, [indraFullbody, IndraExpression]).setVisible(false);
+        this.bachelorExpressions['Indra'] = IndraExpression;
+
+        // Keenan
+        const keenanFullbody = this.scene.add.image(0, 0, 'keenanFullbody').setScale(2);
+        const KeenanExpression = this.scene.add.image(0, 0, 'KeenanNeutral').setScale(2);
+        this.bachelorChoices['Keenan'] = this.scene.add.container(centerX, centerY * 1.1, [keenanFullbody, KeenanExpression]).setVisible(false);
+        this.bachelorExpressions['Keenan'] = KeenanExpression;
+        
+        // Sekarang, pilih dan aktifkan bachelor yang sesuai
+        const chosenContainer = this.bachelorChoices[chosenBachelorName];
+        const chosenExpression = this.bachelorExpressions[chosenBachelorName];
+
+        if (chosenContainer) {
+            chosenContainer.setVisible(true);
+        } else {
+            console.error(`Bachelor dengan nama "${chosenBachelorName}" tidak ditemukan di BachelorManager!`);
+            // Fallback jika terjadi error
+            this.bachelorChoices['Azril'].setVisible(true);
+            return {
+                bachelorSprite: this.bachelorChoices['Azril'],
+                bachelorExpression: this.bachelorExpressions['Azril']
+            };
+        }
+
+        return {
+            bachelorSprite: chosenContainer,
+            bachelorExpression: chosenExpression
+        };
     }
 
     setUpBachelorChoice() {
