@@ -1,8 +1,8 @@
 //Preload loading asset
-import BootScene from './Loading scene/BootScene.js';
+import BootScene from './Loading Scene/BootScene.js';
 
 //Loading logic
-import PreloaderScene from './Loading scene/PreloaderScene.js';
+import PreloaderScene from './Loading Scene/PreloaderScene.js';
 
 import UIButton from './UI/UIButton.js';
 
