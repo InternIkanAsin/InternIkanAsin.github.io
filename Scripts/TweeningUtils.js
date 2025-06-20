@@ -73,7 +73,7 @@ export default class TweenUtils {
         });
     }
 
-    openDrapes(duration = 1000, onComplete = null) {
+    openDrapes(duration = 500, onComplete = null) {
         const scene = this.scene;
         if (!scene.leftDrape || !scene.rightDrape) {
             console.error("Drapes not found on scene!");
@@ -88,7 +88,7 @@ export default class TweenUtils {
             targets: scene.leftDrape,
             x: outsideLeftX,
             duration: duration,
-            ease: 'Power',
+            ease: 'Power2',
             onComplete: () => {
 
             }
@@ -97,7 +97,7 @@ export default class TweenUtils {
             targets: scene.rightDrape,
             x: outsideRightX,
             duration: duration,
-            ease: 'Power',
+            ease: 'Power2',
             onComplete: () => {
                 if (onComplete) {
                     onComplete();
@@ -190,11 +190,11 @@ export default class TweenUtils {
 
         // 6. Update the main mode toggle button text/icon
         if (this.scene.state === GameState.DRESSUP) {
-            this.scene.panelHeaderText?.setText("Dress Up");
-            this.scene.panelHeaderText?.setTexture('dressButtonIcon2');
+            this.scene.sidePanelHeaderText?.setText("Dress Up");
+            this.scene.sidePanelHeaderText?.setTexture('dressButtonIcon2');
         } else { // GameState.MAKEUP
-            this.scene.panelHeaderText?.setText("Make Up");
-            this.scene.panelHeaderText?.setTexture('makeUpButtonIcon2');
+            this.scene.sidePanelHeaderText?.setText("Make Up");
+            this.scene.sidePanelHeaderText?.setTexture('makeUpButtonIcon2');
         }
 
         // 7. Update the side panel to show the correct CATEGORIES for the new state
@@ -261,12 +261,12 @@ export default class TweenUtils {
         const targetBodyY = centerY * 2.9;
         const targetBodyScale = this.bodyScaleMakeupView;
 
-        const targetFaceX = centerX * 1.01;
+        const targetFaceX = centerX * 1.011;
         const targetFaceY = centerY / 1.21;
         const targetFaceScale = 1.0;
 
         const targetHairX = centerX * 1.04;
-        const targetHairY = centerY * 1.6;
+        const targetHairY = centerY * 1.58;
         const targetHairScale = 0.8;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
@@ -292,12 +292,12 @@ export default class TweenUtils {
         const targetBodyY = centerY / 0.9;
         const targetBodyScale = this.bodyScaleDressUpView;
 
-        const targetFaceX = centerX / 1.112;
-        const targetFaceY = centerY / 2.17;
+        const targetFaceX = centerX / 1.115;
+        const targetFaceY = centerY / 2.19;
         const targetFaceScale = 0.3;
 
-        const targetHairX = centerX / 1.1;
-        const targetHairY = centerY / 1.41;
+        const targetHairX = centerX / 1.105;
+        const targetHairY = centerY / 1.44;
         const targetHairScale = 0.25;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });

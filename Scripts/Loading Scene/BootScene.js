@@ -14,25 +14,25 @@ class BootScene extends Phaser.Scene {
             Angga: {
                 fullbodyKey: 'anggaFullbody_preload',
                 expressionKey: 'anggaExpression_neutral_preload',
-                fullbodyPath: 'Asset/Character/ekspresi/angga/Angga_casual.png', 
+                fullbodyPath: 'Asset/Character/ekspresi/angga/Angga_casual.png',
                 expressionPath: 'Asset/Character/ekspresi/angga/Angga_netral.png '
             },
             Reza: {
                 fullbodyKey: 'rezaFullbody_preload',
                 expressionKey: 'rezaExpression_neutral_preload',
-                fullbodyPath: 'Asset/Character/ekspresi/reza/Reza_portrait_casual.png', 
+                fullbodyPath: 'Asset/Character/ekspresi/reza/Reza_portrait_casual.png',
                 expressionPath: 'Asset/Character/ekspresi/reza/Reza_expression_normal.png'
             },
             Indra: {
                 fullbodyKey: 'indraFullbody_preload',
                 expressionKey: 'indraExpression_neutral_preload',
-                fullbodyPath: 'Asset/Character/ekspresi/indra/Indra_portrait_casual.png', 
+                fullbodyPath: 'Asset/Character/ekspresi/indra/Indra_portrait_casual.png',
                 expressionPath: 'Asset/Character/ekspresi/indra/Indra_expression_Normal.png'
             },
             Keenan: {
                 fullbodyKey: 'keenanFullbody_preload',
                 expressionKey: 'keenanExpression_neutral_preload',
-                fullbodyPath: 'Asset/Character/ekspresi/keenan/Keenan_portrait_casual.png', 
+                fullbodyPath: 'Asset/Character/ekspresi/keenan/Keenan_portrait_casual.png',
                 expressionPath: 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png'
             }
 
@@ -57,7 +57,7 @@ class BootScene extends Phaser.Scene {
             currentIndex = randomIndex; // Store the random index for potential future use
             this.registry.set('currentBachelorIndex', currentIndex);
         } else {
-            this.registry.set('gameRestarted', false); // Reset the flag for next time
+
             currentIndex = this.registry.get('currentBachelorIndex');
         }
 
@@ -74,17 +74,29 @@ class BootScene extends Phaser.Scene {
     }
 
     create() {
+        console.log("BootScene: Create");
 
-        console.log("BootScene: Create - Starting PreloaderScene.");
+        const gameRestarted = this.registry.get('gameRestarted');
+        console.log("Game Restarted?", gameRestarted);
+
+        if (gameRestarted) {
+            this.scene.start('MainScene', { bachelorName: this.chosenBachelorName });
+            this.registry.set('gameRestarted', false); // Reset the flag for next time
+            return;
+        }
+
+        // Normal flow for first-time load
+        console.log("BootScene: Starting PreloaderScene.");
         this.scene.start('PreloaderScene', {
             bachelorName: this.chosenBachelorName,
             bachelorAssets: {
                 fullbodyKey: this.chosenBachelorAssetsForPreloader.fullbodyKey,
                 expressionKey: this.chosenBachelorAssetsForPreloader.expressionKey,
-                bachelorName: this.chosenBachelorAssetsForPreloader.name // Pass the name too, might be useful
+                bachelorName: this.chosenBachelorAssetsForPreloader.name
             }
         });
     }
+
 }
 
 

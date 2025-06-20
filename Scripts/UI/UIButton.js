@@ -175,10 +175,10 @@ export class ItemPanelButton extends BaseButton {
 export class GeneralButton extends BaseButton {
     constructor(scene, x, y, textureKey, textureKeyOutline = null, label, onClick, AudioManager) {
 
-        const buttonText = scene.add.text(0, 0, label, {
+        const buttonText = scene.add.text(0, 10, label, {
             fontSize: '35px',
-            fontFamily: 'pixelFont',
-            color: '#000000'
+            fontFamily: 'regularFont',
+            color: '#d6525f'
         }).setOrigin(0.5);
 
         // Calculate button size based on text width
@@ -187,13 +187,13 @@ export class GeneralButton extends BaseButton {
         const buttonHeight = 37;
 
         const buttonImage = scene.add.nineslice(
-            0, 0,
+            0, 10,
             textureKey,
             null,
-            105, buttonHeight,
-            20, 20,
-            16, 16
-        ).setInteractive().setDepth(10).setScale(2);
+            600, 200,
+            50, 50,
+            40, 44
+        ).setInteractive().setDepth(10).setScale(0.3);
 
         const buttonOutlineImage = scene.add.nineslice(
             0, 0,
@@ -451,12 +451,12 @@ export class LepasButton extends BaseButton {
 export class OutfitButton extends BaseButton {
     static selectedOutfits = {};
 
-    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager, highlightTextureKey = 'buttonIcon2Highlighted') {
+    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager,) {
 
         // --- Elements for the button UI itself ---
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(0.8);
-        const highlightImg = scene.add.image(0, 0, highlightTextureKey)
-            .setVisible(false)
+        const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
+            .setVisible(false).setScale(0.8);
         const iconImg = scene.add.image(0, 0, textureIcon).setScale(1.2);
 
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
@@ -537,11 +537,11 @@ export class OutfitButton extends BaseButton {
     }
 
     disableInteractive() {
-        if (this.button) this.button.disableInteractive();
+        this.button.disableInteractive();
     }
 
     setInteractive() {
-        if (this.button) this.button.setInteractive();
+        this.button.setInteractive();
     }
 
     static clearHighlightsForType(scene, outfitType) {
@@ -589,7 +589,7 @@ export class OutfitButton extends BaseButton {
 
     toggleOutfit() {
         const { scene, textureAnime, stat, outfitType, name } = this;
-        const depthValues = { "Socks": 1, "Shoes": 2, "Underwear": 3, "Shirt": 4, "Outer": 4.5, "Dress": 5 };
+        const depthValues = { "Socks": 1, "Shoes": 2, "Underwear": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
         const currentEntry = OutfitButton.selectedOutfits[outfitType];
 
 
@@ -672,12 +672,11 @@ export class MakeUpButton extends BaseButton {
         "Eyebrows": 2.4, "Eyelashes": 2.5, "Lips": 2.6, "Sticker": 2.7
     };
 
-    constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager,
-        highlightTextureKey = 'buttonIcon2Highlighted') { // Added highlightTextureKey
+    constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager) { // Added highlightTextureKey
 
         // --- Create UI elements for the button itself ---
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(0.8);
-        const highlightImg = scene.add.image(0, 0, highlightTextureKey)
+        const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false)
             .setDepth(-1)    // Behind icon/text, above buttonBg
             .setScale(0.8);

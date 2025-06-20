@@ -107,6 +107,24 @@ export class DressUpManager {
         // For the "Lepas" button logic when outfitType is "Dress" (showing Dress+Shirt):
         const lepasButtonCallbackType = (outfitType === "Dress" || outfitType === "DressShirt") ? "DressShirt" : outfitType;
 
+
+        if (scene.sidePanelHeaderText) {
+            scene.tweens.add({
+                targets: scene.sidePanelHeaderText,
+                alpha: 0,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                onComplete: () => {
+                    scene.sidePanelHeaderText.setText(outfitType.toString());
+                    scene.tweens.add({
+                        targets: scene.sidePanelHeaderText,
+                        alpha: 1,
+                        duration: 200,
+                        ease: 'Sine.easeInOut'
+                    })
+                }
+            });
+        }
         // --- Create and Add "Lepas" Button for Outfits ---
         const lepasOutfitButton = new ItemPanelButton(
             scene,
@@ -235,6 +253,23 @@ export class DressUpManager {
             scene.MiniGameManager.backButton.disableInteractive();
         }
 
+        if (scene.sidePanelHeaderText) {
+            scene.tweens.add({
+                targets: scene.sidePanelHeaderText,
+                alpha: 0,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                onComplete: () => {
+                    scene.sidePanelHeaderText.setText(outfitType.toString());
+                    scene.tweens.add({
+                        targets: scene.sidePanelHeaderText,
+                        alpha: 1,
+                        duration: 200,
+                        ease: 'Sine.easeInOut'
+                    })
+                }
+            });
+        }
         const oldButtons = scene.MiniGameManager.buttonGrid ? scene.MiniGameManager.buttonGrid.getAllChildren() : [];
         scene.tweens.add({
             targets: oldButtons,

@@ -34,9 +34,9 @@ export class InteractiveMakeupSystem {
 
         //cursor for coloring session
         this.customCursor = scene.add.graphics({ fillStyle: { color: 0xffffff, alpha: 0.5 } }) // Semi-transparent white
-        .fillCircle(this.brushRadius, this.brushRadius, this.brushRadius)
-        .setVisible(false)
-        .setDepth(1000); // Ensure it's on top of other UI
+            .fillCircle(this.brushRadius, this.brushRadius, this.brushRadius)
+            .setVisible(false)
+            .setDepth(1000); // Ensure it's on top of other UI
         // Store initial radius for easy resizing
         this.customCursorRadius = this.brushRadius;
     }
@@ -68,41 +68,41 @@ export class InteractiveMakeupSystem {
         this.isComplete = false; // Reset completion status for new session
 
         // Store the state before this coloring session began for this makeupType
-       
+
 
         // 1. Get position and scale for this makeup type
         const position = MakeUpPositions[makeupType] || { x: 0, y: 0 };
         let scale = 0.55; // Default for most makeup
-        
+
         // --- Outline Graphics ---
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
         this.activeOutlineGraphics = this.scene.add.graphics();
         if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeOutlineGraphics);
 
-       
+
 
         // 2. Create the full makeup image (this will be masked)
         // It should be added to the faceContainer
-       if (makeupType === 'Lips') {
-        // **LIPS ARE SPECIAL: We keep scene.lips visible with its current texture.**
-        // **The coloring will happen on a TEMPORARY image placed on top.**
-        this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey) // Temporary image with NEW color
-            .setScale(scale)
-            .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001) // Ensure it's just above scene.lips
-            .setVisible(true);
-        if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
-        else { /* error */ this.isActive = false; return; }
-        // scene.lips remains as is for now.
-    } else { // For Blush, Eyeshadow, Eyeliner (Additive colorable types)
-        this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-            .setScale(scale)
-            .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.1)
-            .setVisible(true);
-        if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
-        else { /* error */ this.isActive = false; return; }
-    }
-        
-        
+        if (makeupType === 'Lips') {
+            // **LIPS ARE SPECIAL: We keep scene.lips visible with its current texture.**
+            // **The coloring will happen on a TEMPORARY image placed on top.**
+            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey) // Temporary image with NEW color
+                .setScale(scale)
+                .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001) // Ensure it's just above scene.lips
+                .setVisible(true);
+            if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
+            else { /* error */ this.isActive = false; return; }
+            // scene.lips remains as is for now.
+        } else { // For Blush, Eyeshadow, Eyeliner (Additive colorable types)
+            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
+                .setScale(scale)
+                .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.1)
+                .setVisible(true);
+            if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
+            else { /* error */ this.isActive = false; return; }
+        }
+
+
         const sourceTexture = this.scene.textures.get(textureKey);
         if (!sourceTexture || !sourceTexture.getSourceImage()) { /* ... error handling ... */ this.isActive = false; return; }
         const originalTextureWidth = sourceTexture.getSourceImage().width;
@@ -110,26 +110,26 @@ export class InteractiveMakeupSystem {
 
         // Generate outline based on the now setup activeMakeupImage
         if (this.activeOutlineGraphics && this.activeMakeupImage) {
-             this.generateAndDrawOutline(
+            this.generateAndDrawOutline(
                 this.activeOutlineGraphics, sourceTexture,
                 originalTextureWidth, originalTextureHeight,
                 this.activeMakeupImage.x, // Use the actual x,y of the image within its container
                 this.activeMakeupImage.y,
                 this.activeMakeupImage.scaleX, // Use its actual current scale
-                this.activeMakeupImage.depth - 0.01 // Outline just below
+                10000
             );
         }
         // 3. Create the RenderTexture (drawingLayer) for the mask
         // Position and size it to match the activeMakeupImage
-        
+
         const bounds = this.activeMakeupImage.getBounds(); // Get bounds AFTER scaling
         this.drawingLayer = this.scene.make.renderTexture({
             x: bounds.x, // Use bounds.x and bounds.y which are world coordinates of top-left
             y: bounds.y,
-            width: originalTextureWidth,  
+            width: originalTextureWidth,
             height: originalTextureHeight,
             add: false // Don't add to display list directly
-        }, false).setOrigin(0,0); // RenderTexture origin is top-left
+        }, false).setOrigin(0, 0); // RenderTexture origin is top-left
 
         // 4. Create the brush graphics
         if (!this.brushImage) { // Create brush only once
@@ -158,7 +158,7 @@ export class InteractiveMakeupSystem {
             previous: this.stateBeforeColoring[makeupType]
         };
         // The itemButtonInstance's displayedMakeUp should be our activeMakeupImage
-        if(itemButtonInstance instanceof MakeUpButton){
+        if (itemButtonInstance instanceof MakeUpButton) {
             itemButtonInstance.displayedMakeUp = this.activeMakeupImage;
         }
     }
@@ -167,10 +167,9 @@ export class InteractiveMakeupSystem {
         graphics.clear(); // Clear previous outline
         graphics.setPosition(centerX, centerY); // Graphics object origin is 0,0; position it at makeup center
         graphics.setScale(scale);      // Scale the graphics object itself
-        graphics.setDepth(depth);
+        graphics.setDepth(1000000);
         graphics.lineStyle(2 / scale, 0xffffff, 0.8); // Line style (thickness, color, alpha)
-                                                            // Thickness adjusted by inverse scale to appear constant
-
+        // Thickness adjusted by inverse scale to appear constant
         // Get pixel data from the Phaser Texture
         // This requires drawing the texture to a temporary canvas to access pixels,
         // similar to calculateTargetPixels, but we only need it once for the outline.
@@ -178,7 +177,7 @@ export class InteractiveMakeupSystem {
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = textureWidth;
         tempCanvas.height = textureHeight;
-        const tempCtx = tempCanvas.getContext('2d', {willReadFrequently: true});
+        const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
         if (!tempCtx) { console.error("Failed to get context for outline generation."); return; }
         tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
         const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
@@ -222,13 +221,13 @@ export class InteractiveMakeupSystem {
                         // So, adjust x,y to be relative to the center of the texture.
                         const drawX = x - textureWidth / 2;
                         const drawY = y - textureHeight / 2;
-                        graphics.fillRect(drawX - dotSize/2, drawY - dotSize/2, dotSize, dotSize);
+                        graphics.fillRect(drawX - dotSize / 2, drawY - dotSize / 2, dotSize, dotSize);
                         // graphics.fillCircle(drawX, drawY, dotSize / 2); // Alternative: circles
                     }
                 }
             }
         }
-         // Optional: Add a subtle tween to the outline
+        // Optional: Add a subtle tween to the outline
         this.scene.tweens.add({
             targets: graphics,
             alpha: 0.4,
@@ -265,23 +264,23 @@ export class InteractiveMakeupSystem {
     }
 
     drawOnMask(pointer) {
-    if (!this.drawingLayer || !this.brushImage || this.isComplete) return;
+        if (!this.drawingLayer || !this.brushImage || this.isComplete) return;
 
-    const localX = pointer.x - this.drawingLayer.x;
-    const localY = pointer.y - this.drawingLayer.y;
+        const localX = pointer.x - this.drawingLayer.x;
+        const localY = pointer.y - this.drawingLayer.y;
 
-    this.drawingLayer.draw(this.brushImage, localX - this.brushRadius, localY - this.brushRadius);
-}
+        this.drawingLayer.draw(this.brushImage, localX - this.brushRadius, localY - this.brushRadius);
+    }
 
 
     calculateTargetPixels(textureKey, imageWidth, imageHeight) {
-        
+
         console.log(`[InteractiveMakeup] Calculating target pixels for: ${textureKey}`);
         try {
             const texture = this.scene.textures.get(textureKey);
             if (!texture || texture.key === '__MISSING') {
-                 console.error(`[InteractiveMakeup] Target texture not found: ${textureKey}`);
-                 this.totalTargetPixels = 0; this.targetPixelData = null; return;
+                console.error(`[InteractiveMakeup] Target texture not found: ${textureKey}`);
+                this.totalTargetPixels = 0; this.targetPixelData = null; return;
             }
             const source = texture.getSourceImage();
             const width = source.width; // Use source image original dimensions for pixel data
@@ -289,7 +288,7 @@ export class InteractiveMakeupSystem {
 
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = width; tempCanvas.height = height;
-            const tempCtx = tempCanvas.getContext('2d',{willReadFrequently:true}); //willReadFrequently might improve performance for repeated getImageData
+            const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true }); //willReadFrequently might improve performance for repeated getImageData
             if (!tempCtx) { console.error("[InteractiveMakeup] Could not create temp canvas context."); this.totalTargetPixels = 0; this.targetPixelData = null; return; }
 
             tempCtx.drawImage(source, 0, 0, width, height);
@@ -301,13 +300,13 @@ export class InteractiveMakeupSystem {
             }
             console.log(`[InteractiveMakeup] Total target pixels for '${textureKey}': ${this.totalTargetPixels}`);
         } catch (error) {
-             console.error("[InteractiveMakeup] Error calculating target pixels:", error);
-             this.totalTargetPixels = 0; this.targetPixelData = null;
+            console.error("[InteractiveMakeup] Error calculating target pixels:", error);
+            this.totalTargetPixels = 0; this.targetPixelData = null;
         }
     }
 
     checkCompletion() {
-        
+
         if (this.isComplete || this.checkingCompletion || this.totalTargetPixels === 0 || !this.targetPixelData || !this.drawingLayer) {
             return;
         }
@@ -325,7 +324,7 @@ export class InteractiveMakeupSystem {
 
                 const snapCanvas = document.createElement('canvas');
                 snapCanvas.width = rtWidth; snapCanvas.height = rtHeight;
-                const snapCtx = snapCanvas.getContext('2d', {willReadFrequently:true});
+                const snapCtx = snapCanvas.getContext('2d', { willReadFrequently: true });
                 if (!snapCtx) { console.error("[InteractiveMakeup] Could not create snapshot canvas context."); this.checkingCompletion = false; return; }
 
                 const scale = this.activeMakeupImage.scaleX; // diasumsikan uniform
@@ -336,7 +335,7 @@ export class InteractiveMakeupSystem {
                     0, 0, rtWidth / scale, rtHeight / scale
                 );
                 const snapshotData = snapCtx.getImageData(0, 0, rtWidth, rtHeight).data;
-                
+
                 // We need to compare the scaled snapshot to the original targetPixelData.
                 // This requires scaling down the snapshot or scaling up the targetPixelData for accurate comparison,
                 // or more simply, ensuring calculateTargetPixels uses the *displayed size* if that's what drawingLayer matches.
@@ -375,20 +374,20 @@ export class InteractiveMakeupSystem {
 
 
                 const percentage = this.totalTargetPixels > 0 ? (revealedPixels / this.totalTargetPixels) * 100 : 0;
-                
+
                 console.log(`[InteractiveMakeup] Completion for ${this.activeMakeupType} (${this.activeTextureKey}): ${percentage.toFixed(2)}% (${revealedPixels}/${this.totalTargetPixels})`)
                 if (percentage >= this.completionThreshold) {
                     this.finalizeSession(true, "threshold"); // Finalize and apply
                 } else if (percentage >= this.autoCompleteThreshold) {
                     if (!this.isComplete) {
                         console.log(percentage);
-                       this.autoFillAndFinalize();
+                        this.autoFillAndFinalize();
                     }
                 }
                 this.checkingCompletion = false; // Reset flag
             } catch (error) {
-                 console.error("[InteractiveMakeup] Error during snapshot processing:", error);
-                 this.checkingCompletion = false;
+                console.error("[InteractiveMakeup] Error during snapshot processing:", error);
+                this.checkingCompletion = false;
             }
         });
     }
@@ -401,7 +400,7 @@ export class InteractiveMakeupSystem {
         this.drawingLayer.draw(this.activeMakeupImage, 0, 0, 1, 0xffffff); // Draw with full alpha, white color
         // Or, more directly if activeMakeupImage is the source texture
         // this.drawingLayer.drawFrame(this.activeTextureKey, 0, 0, 0);
-        
+
         this.finalizeSession(true, "auto-completed");
     }
 
@@ -462,7 +461,7 @@ export class InteractiveMakeupSystem {
             // Discarding or not completed: Destroy the temporary image used for coloring.
             // For Lips, imageFromThisSession was temporary. scene.lips was untouched during coloring.
             if (imageFromThisSession && imageFromThisSession !== this.scene.lips) { // Don't destroy scene.lips
-                 console.log(`[InteractiveMakeup] Discarding: Destroying temp image for ${typeEffectivelyStopping}`);
+                console.log(`[InteractiveMakeup] Discarding: Destroying temp image for ${typeEffectivelyStopping}`);
                 imageFromThisSession.destroy();
             }
             this.revertToPreviousState(typeEffectivelyStopping);
@@ -479,16 +478,16 @@ export class InteractiveMakeupSystem {
         if (!makeupType) return;
         console.log(`[InteractiveMakeup] Reverting ${makeupType}.`);
         const previousStateStored = this.stateBeforeColoring[makeupType];
-        
+
         let buttonForHelperCall = this.scene.makeUpButtons[makeupType]?.[0] || Object.values(this.scene.makeUpButtons || {}).flat()[0];
-        if (!buttonForHelperCall) {  return; }
-        
+        if (!buttonForHelperCall) { return; }
+
         // If the active session was for Lips, scene.lips was being directly manipulated.
         // We need to restore its texture based on previousStateInfo.
         // For other types (Blush, Eyeshadow), their activeMakeupImage was temporary and already handled/destroyed by stopColoringSession.
-        
+
         if (makeupType === 'Lips') {
-            if (!this.scene.lips || !this.scene.lips.active) {  return; }
+            if (!this.scene.lips || !this.scene.lips.active) { return; }
             const targetTexture = (previousStateStored && previousStateStored.textureKey) ? previousStateStored.textureKey : defaultMakeUpSkins['Lips'];
             this.scene.lips.setTexture(targetTexture).setScale(0.55).setVisible(true).clearMask(); // Ensure mask is cleared
 
@@ -501,7 +500,7 @@ export class InteractiveMakeupSystem {
                 if (buttonForHelperCall) buttonForHelperCall._equipDefaultMakeUp('Lips', null);
             }
         } else { // Other colorable types (Blush, Eyeshadow, Eyeliner)
-            if (!buttonForHelperCall) { /* ... */ MakeUpButton.selectedMakeUp[makeupType] = { current: null, previous: null}; return; }
+            if (!buttonForHelperCall) { /* ... */ MakeUpButton.selectedMakeUp[makeupType] = { current: null, previous: null }; return; }
             if (previousStateStored && previousStateStored.buttonInstance) {
                 previousStateStored.buttonInstance.toggleMakeUp(); // Re-select previous (will be instant if non-colorable)
             } else {
@@ -512,15 +511,15 @@ export class InteractiveMakeupSystem {
     }
 
     updateCustomCursorPosition(pointer) {
-    if (this.isActive && !this.isComplete && this.customCursor.visible) {
-        this.customCursor.x = pointer.worldX - this.brushRadius; // Adjust for circle's internal origin
-        this.customCursor.y = pointer.worldY - this.brushRadius;
-    } else if (this.customCursor.visible) {
-        // If session ended but somehow listener still active, hide cursor
-        this.customCursor.setVisible(false);
-        this.scene.input.setDefaultCursor('default');
+        if (this.isActive && !this.isComplete && this.customCursor.visible) {
+            this.customCursor.x = pointer.worldX - this.brushRadius; // Adjust for circle's internal origin
+            this.customCursor.y = pointer.worldY - this.brushRadius;
+        } else if (this.customCursor.visible) {
+            // If session ended but somehow listener still active, hide cursor
+            this.customCursor.setVisible(false);
+            this.scene.input.setDefaultCursor('default');
+        }
     }
-}
 
     cleanupInputAndVisuals() {
         this.scene.input.off('pointerdown', this.boundOnPointerDown);
@@ -529,11 +528,11 @@ export class InteractiveMakeupSystem {
         this.scene.input.off('pointerupoutside', this.boundOnPointerUp);
         if (this.customCursor) this.customCursor.setVisible(false); // If you have custom cursor
         this.scene.input.setDefaultCursor('default');
-    
+
         if (this.drawingLayer) { this.drawingLayer.destroy(); this.drawingLayer = null; }
         if (this.activeOutlineGraphics) { this.scene.tweens.killTweensOf(this.activeOutlineGraphics); this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
     }
-    
+
     resetSessionState() {
         this.isActive = false; this.activeMakeupType = null; this.activeTextureKey = null;
         this.targetPixelData = null; this.totalTargetPixels = 0;
@@ -544,7 +543,7 @@ export class InteractiveMakeupSystem {
     cleanupSessionObjects(keepTemporaryActiveImage, makeupTypeCleaned) {
         // Input listeners and outline are always cleaned
         this.cleanupInputAndVisuals();
-        
+
         if (this.activeMakeupImage) {
             // For Lips, activeMakeupImage IS scene.lips, so we NEVER destroy it here.
             // Its texture is managed by finalizeSession or revertToPreviousState.
@@ -561,7 +560,7 @@ export class InteractiveMakeupSystem {
         this.resetSessionState();
         console.log("[InteractiveMakeup] Session objects cleaned.");
     }
-    
+
     cleanupAfterSession(wasAppliedAndKept) {
 
         this.customCursor.setVisible(false); // Turn off custom cursor (coloring cursor)
@@ -573,7 +572,7 @@ export class InteractiveMakeupSystem {
         this.scene.input.off('pointerupoutside', this.boundOnPointerUp);
 
 
-         if (this.activeOutlineGraphics) {
+        if (this.activeOutlineGraphics) {
             this.scene.tweens.killTweensOf(this.activeOutlineGraphics); // Stop pulsing
             this.activeOutlineGraphics.destroy();
             this.activeOutlineGraphics = null;

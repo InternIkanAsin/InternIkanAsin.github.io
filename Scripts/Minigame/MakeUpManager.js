@@ -95,7 +95,23 @@ export class MakeUpManager {
         lepasButton.setSize(150, 200);
         allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
 
-
+        if (scene.sidePanelHeaderText) {
+            scene.tweens.add({
+                targets: scene.sidePanelHeaderText,
+                alpha: 0,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                onComplete: () => {
+                    scene.sidePanelHeaderText.setText(makeUpType.toString());
+                    scene.tweens.add({
+                        targets: scene.sidePanelHeaderText,
+                        alpha: 1,
+                        duration: 200,
+                        ease: 'Sine.easeInOut'
+                    })
+                }
+            });
+        }
         // Add the actual makeup item buttons (their containers)
 
         itemButtonsForType.forEach(buttonInstance => {
@@ -168,6 +184,23 @@ export class MakeUpManager {
         } else {
             console.error("scene.MiniGameManager.backButton not found in displayMakeUpButtons!");
             // return; // Optionally stop if button is critical
+        }
+        if (scene.sidePanelHeaderText) {
+            scene.tweens.add({
+                targets: scene.sidePanelHeaderText,
+                alpha: 0,
+                duration: 200,
+                ease: 'Sine.easeInOut',
+                onComplete: () => {
+                    scene.sidePanelHeaderText.setText(makeUpType.toString());
+                    scene.tweens.add({
+                        targets: scene.sidePanelHeaderText,
+                        alpha: 1,
+                        duration: 200,
+                        ease: 'Sine.easeInOut'
+                    })
+                }
+            });
         }
 
         const oldButtons = scene.MiniGameManager.buttonGrid ? scene.MiniGameManager.buttonGrid.getAllChildren() : [];

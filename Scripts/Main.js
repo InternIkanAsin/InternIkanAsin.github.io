@@ -271,7 +271,7 @@ class Main extends Phaser.Scene {
             this.scale.height,
             0x000000,
             0.5
-        ).setDepth(100).setVisible(false);
+        ).setDepth(150).setVisible(false);
         // Buat UI dialog
         this.DialogueManager.createDialogueUI();
 

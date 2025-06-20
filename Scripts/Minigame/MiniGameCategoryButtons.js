@@ -127,6 +127,16 @@ export function createDressUpCategoryButtons(scene, audioManager) {
     return buttons
 }
 
+export function disableDressUpMakeUpCategoryButtons(scene) {
+    scene.dressUpCategoryButtons?.forEach(buttons => buttons.disableInteractive())
+    scene.makeUpCategoryButtons?.forEach(buttons => buttons.disableInteractive())
+}
+
+export function enableDressUpMakeUpCategoryButtons(scene) {
+    scene.dressUpCategoryButtons?.forEach(buttons => buttons.setInteractive())
+    scene.makeUpCategoryButtons?.forEach(buttons => buttons.setInteractive())
+}
+
 export function createDummyButtons(scene, audioManager) {
     const buttons = [
         scene.dummyButton = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
