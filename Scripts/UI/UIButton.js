@@ -614,7 +614,7 @@ export class OutfitButton extends BaseButton {
             unequip("Shirt");
             unequip("Underwear");
         }
-        if (outfitType === "Shirt" || outfitType === "Underwear" || outfitType === "Outer") {
+        if (outfitType === "Shirt" || outfitType === "Underwear" ) {
             unequip("Dress");
         }
 
