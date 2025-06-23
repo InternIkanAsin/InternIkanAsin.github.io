@@ -77,7 +77,7 @@ export class InteractiveMakeupSystem {
         // --- Outline Graphics ---
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
         this.activeOutlineGraphics = this.scene.add.graphics();
-        if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeOutlineGraphics);
+        
 
 
 
@@ -111,12 +111,12 @@ export class InteractiveMakeupSystem {
         // Generate outline based on the now setup activeMakeupImage
         if (this.activeOutlineGraphics && this.activeMakeupImage) {
             this.generateAndDrawOutline(
-                this.activeOutlineGraphics, sourceTexture,
-                originalTextureWidth, originalTextureHeight,
-                this.activeMakeupImage.x, // Use the actual x,y of the image within its container
-                this.activeMakeupImage.y,
-                this.activeMakeupImage.scaleX, // Use its actual current scale
-                10000
+                this.activeOutlineGraphics, 
+                sourceTexture,
+                originalTextureWidth, 
+                originalTextureHeight,
+                this.activeMakeupImage.scale, 
+                10000 
             );
         }
         // 3. Create the RenderTexture (drawingLayer) for the mask
@@ -163,12 +163,18 @@ export class InteractiveMakeupSystem {
         }
     }
 
-    generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, centerX, centerY, scale, depth) {
+    generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, scale, depth) {
         graphics.clear(); // Clear previous outline
-        graphics.setPosition(centerX, centerY); // Graphics object origin is 0,0; position it at makeup center
-        graphics.setScale(scale);      // Scale the graphics object itself
-        graphics.setDepth(1000000);
-        graphics.lineStyle(2 / scale, 0xffffff, 0.8); // Line style (thickness, color, alpha)
+        const worldPos = { x: 0, y: 0 };
+        this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
+        graphics.setPosition(worldPos.x, worldPos.y);  // Graphics object origin is 0,0; position it at makeup center
+        
+        // Position and scale in global scene
+        graphics.setPosition(worldPos.x, worldPos.y); 
+        const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
+        graphics.setScale(finalScale); // Scale the graphics object itself
+        graphics.setDepth(depth);
+        graphics.lineStyle(2 / finalScale, 0xffffff, 0.8); // Line style (thickness, color, alpha)
         // Thickness adjusted by inverse scale to appear constant
         // Get pixel data from the Phaser Texture
         // This requires drawing the texture to a temporary canvas to access pixels,
