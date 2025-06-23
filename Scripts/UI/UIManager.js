@@ -48,7 +48,7 @@ export class UIManager {
         scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55).setDepth(2);
 
         scene.faceContainer = scene.add.container(centerX / 1.115, centerY / 2.19, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
-
+        
         // --- Initialize MakeUpButton's state for default makeup ---
         MakeUpButton.selectedMakeUp = {}; // CRITICAL: Initialize the static property
 

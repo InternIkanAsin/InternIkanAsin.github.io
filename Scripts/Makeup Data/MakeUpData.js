@@ -81,7 +81,7 @@ const makeUpData = [
     new MakeUp('StickerstarPink', 'Sticker', 'stickerstarpink', 'buttonIcon2', 'stickerstarpinkIcon'),
     new MakeUp('StickerstarPurple', 'Sticker', 'stickerstarpurple', 'buttonIcon2', 'stickerstarpurpleIcon'),
     new MakeUp('StickerstarRed', 'Sticker', 'stickerstarred', 'buttonIcon2', 'stickerstarredIcon'),
-    new MakeUp('StickerstarYellow', 'Sticker', 'stickerstaryellow', 'buttonIcon2', 'stickerstaryellowIcons'),
+    new MakeUp('StickerstarYellow', 'Sticker', 'stickerstaryellow', 'buttonIcon2', 'stickerstaryellowIcon'),
 
     //hair data
     //new MakeUp('Default Black Hair', 'Hair', 'hair'),
