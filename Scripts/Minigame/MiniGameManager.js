@@ -10,6 +10,8 @@ import { costumeData } from '../Outfit Data/CostumeData.js'
 //Game State Class
 import { GameState } from '../Main.js';
 
+import { layout } from '../ScreenOrientationUtils.js';
+
 //Bachelor outfit preferences / traits 
 import { traitsMap } from '../Outfit Data/CostumeTraits.js'
 export class MiniGameManager {
@@ -70,8 +72,8 @@ export class MiniGameManager {
         }).setDepth(99); // Depth DI BAWAH tirai
 
         scene.finishButton = new UIButton(scene, this.AudioManager, {
-            x: this.scene.scale.width / 2,
-            y: this.scene.scale.height - 100,
+            x: layout.finishButton.x, 
+            y: layout.finishButton.y, 
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
@@ -553,15 +555,15 @@ export class MiniGameManager {
 
         // Create the scrollable panel to display the buttons
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({
-            x: this.scene.scale.width - 70,
-            y: centerY,
-            width: 500,
-            height: 1000,
+            x: layout.sidePanel.x,
+            y: layout.sidePanel.y,
+            width: layout.sidePanel.width || 500, 
+            height: layout.sidePanel.height || 1000,
             scrollMode: 0,
 
-            scrollDetectionMode: 1,            // drag dideteksi berdasarkan mask area&#8203;:contentReference[oaicite:0]{index=0}
+            scrollDetectionMode: 1,            
             scroller: {
-                pointerOutRelease: false,      // jangan lepaskan kontrol saat pointer keluar area panel&#8203;:contentReference[oaicite:1]{index=1}
+                pointerOutRelease: false,      
                 rectBoundsInteractive: false
             },
 

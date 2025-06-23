@@ -4,6 +4,8 @@ import { GameState } from '../Main.js';
 
 import { makeUpData, defaultMakeUpSkins } from '../Makeup Data/MakeUpData.js';
 
+import { layout } from '../ScreenOrientationUtils.js';
+
 
 export class UIManager {
     constructor(scene, AudioManager) {
@@ -19,11 +21,14 @@ export class UIManager {
     setupScene(scene) {
         // Setup background
         const centerX = scene.cameras.main.centerX;
-        const centerY = scene.scale.height / 2;
-        scene.background = scene.add.image(centerX * 1.2, centerY, 'background');
+        const centerY = scene.cameras.main.centerY;
+        scene.background = scene.add.image(centerX, centerY, 'background');
 
         // Setup character
-        scene.body = scene.add.image(centerX / 1.1, centerY / 0.9, 'player').setScale(0.6).setOrigin(0.5).setDepth(1);
+        scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
+        .setScale(layout.character.scale)
+        .setOrigin(0.5)
+        .setDepth(1);
 
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
 

@@ -301,10 +301,22 @@ const config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: PORTRAIT_WIDTH,
-        height: PORTRAIT_HEIGHT,
+        width: LANDSCAPE_WIDTH,
+        height: LANDSCAPE_HEIGHT,
     },
     scene: [BootScene, PreloaderScene, Main]
 };
+
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isMobile) {
+    // Untuk mobile, kita paksa mode portrait
+    config.scale.width = PORTRAIT_WIDTH;
+    config.scale.height = PORTRAIT_HEIGHT;
+} else {
+    // Untuk desktop, kita gunakan landscape
+    config.scale.width = LANDSCAPE_WIDTH;
+    config.scale.height = LANDSCAPE_HEIGHT;
+}
 
 const game = new Phaser.Game(config);

@@ -2,11 +2,12 @@ import { GameState } from './Main.js';
 import { OutfitButton } from './UI/UIButton.js';
 import { outfitCustomSizes, outfitPositions, outfitManualOffsets } from './Outfit Data/CostumeData.js'; // Add this import
 import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
+import { layout } from './ScreenOrientationUtils.js';
 export default class TweenUtils {
     constructor(scene) {
         this.scene = scene;
-        this.bodyScaleMakeupView = 1.9;    // Body scale for Makeup View (zoomed in)
-        this.bodyScaleDressUpView = 0.6;
+         this.bodyScaleMakeupView = layout.character.zoomInScale;
+        this.bodyScaleDressUpView = layout.character.scale;
     }
 
     closeDrapes(duration = 500, onComplete = null) {
@@ -264,17 +265,17 @@ export default class TweenUtils {
         const centerX = this.scene.scale.width / 2;
         const centerY = this.scene.scale.height / 2;
 
-        const targetBodyX = centerX * 1.05;
-        const targetBodyY = centerY * 2.9;
+        const targetBodyX = layout.character.zoomInX;
+        const targetBodyY = layout.character.zoomInY;
         const targetBodyScale = this.bodyScaleMakeupView;
 
-        const targetFaceX = centerX * 1.011;
-        const targetFaceY = centerY / 1.21;
-        const targetFaceScale = 1.0;
+        const targetFaceX = layout.face.zoomInFaceX;
+        const targetFaceY = layout.face.zoomInFaceY;
+        const targetFaceScale = layout.face.zoomInTargetFaceScale;
 
-        const targetHairX = centerX * 1.04;
-        const targetHairY = centerY * 1.58;
-        const targetHairScale = 0.8;
+        const targetHairX = layout.hair.zoomInHairX;
+        const targetHairY = layout.hair.zoomInHairY;
+        const targetHairScale = layout.hair.zoomInTargetHairScale;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
         this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
@@ -295,17 +296,17 @@ export default class TweenUtils {
         const centerX = this.scene.scale.width / 2;
         const centerY = this.scene.scale.height / 2;
 
-        const targetBodyX = centerX / 1.1;
-        const targetBodyY = centerY / 0.9;
+        const targetBodyX = layout.character.x;
+        const targetBodyY = layout.character.y;
         const targetBodyScale = this.bodyScaleDressUpView;
 
-        const targetFaceX = centerX / 1.115;
-        const targetFaceY = centerY / 2.19;
-        const targetFaceScale = 0.3;
+        const targetFaceX = layout.face.zoomOutFaceX;
+        const targetFaceY = layout.face.zoomOutFaceY;
+        const targetFaceScale = layout.face.zoomOutTargetFaceScale;
 
-        const targetHairX = centerX / 1.105;
-        const targetHairY = centerY / 1.44;
-        const targetHairScale = 0.25;
+        const targetHairX = layout.face.zoomOutHairX;
+        const targetHairY = layout.face.zoomOutHairX;
+        const targetHairScale = layout.face.zoomOutHairScale;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
         this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
