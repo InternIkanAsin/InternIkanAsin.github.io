@@ -301,8 +301,8 @@ const config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: LANDSCAPE_WIDTH,
-        height: LANDSCAPE_HEIGHT,
+        width: PORTRAIT_WIDTH,
+        height: PORTRAIT_HEIGHT,
     },
     scene: [BootScene, PreloaderScene, Main]
 };
