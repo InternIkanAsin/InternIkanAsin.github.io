@@ -37,14 +37,15 @@ export class MiniGameManager {
             buttonScale: 0.22,
         }).setDepth(99); // Depth DI BAWAH tirai
 
+        const removeAllButtonIcon = scene.state === GameState.DRESSUP ? 'removeDressIcon' : 'removeMakeUpIcon';
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
             x: 70,
             y: 500,
             textureButton: 'stitchedButtonIcon',
             buttonWidth: 75,
             buttonHeight: 75,
-            textureIcon: 'removeDressIcon',
-            iconYPosition: -10,
+            textureIcon: removeAllButtonIcon,
+            iconYPosition: -30,
             iconScale: 0.7,
             callback: () => {
                 if (scene.state === GameState.MAKEUP) {
@@ -551,7 +552,7 @@ export class MiniGameManager {
             },
 
             space: {
-                left: 45,
+                left: 60,
                 right: 10,
                 top: 105,
                 bottom: 30,
@@ -576,7 +577,7 @@ export class MiniGameManager {
             fontFamily: 'regularFont',
             wordWrap: { width: this.scene.scale.width - 120 }
         }).setDepth(10).setOrigin(0.5, 0.5);
-        this.scene.sidePanelIcon = this.scene.add.image(this.scene.scale.width - 55, centerY / 5.1, panelIcon).setDepth(10).setScale(0.4);
+        this.scene.sidePanelIcon = this.scene.add.image(this.scene.scale.width - 35, centerY / 5.1, panelIcon).setDepth(10).setScale(0.4);
         this.scene.sidePanelLine = this.scene.add.image(this.scene.scale.width - 70, centerY / 3.9, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(440, 5);
 
         this.scene.sidePanel
