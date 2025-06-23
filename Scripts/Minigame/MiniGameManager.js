@@ -37,13 +37,15 @@ export class MiniGameManager {
             buttonScale: 0.22,
         }).setDepth(99); // Depth DI BAWAH tirai
 
+        const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
+
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
             x: 70,
             y: 500,
             textureButton: 'stitchedButtonIcon',
             buttonWidth: 75,
             buttonHeight: 75,
-            textureIcon: 'removeDressIcon',
+            textureIcon: removeAllIconKey,
             iconYPosition: -10,
             iconScale: 0.7,
             callback: () => {
