@@ -77,6 +77,14 @@ export class MiniGameManager {
             iconYPosition: 0,
             iconScale: 1.5,
             callback: () => {
+                if (this.scene.interactiveMakeupSystem && this.scene.interactiveMakeupSystem.isActive) {
+                    console.log("[FinishButton] Coloring session active. Stopping and discarding changes.");
+                    
+                    this.scene.interactiveMakeupSystem.stopColoringSession(
+                        this.scene.interactiveMakeupSystem.activeMakeupType, 
+                        true // forceDiscard: true
+                    );
+                }
        
                 if (this.scene.state === GameState.DRESSUP) {
                     if (this.canContinueToScene2()) {

@@ -55,6 +55,13 @@ export default class TweenUtils {
         const scene = this.scene;
         console.log("[TweenUtils] Transitioning back to selection screen.");
 
+        if (scene.interactiveMakeupSystem && scene.interactiveMakeupSystem.isActive) {
+            console.log("[Back Transition] Coloring session active. Stopping and discarding.");
+            scene.interactiveMakeupSystem.stopColoringSession(
+                scene.interactiveMakeupSystem.activeMakeupType,
+                true // force discard
+            );
+        }
 
         scene.state = GameState.MAKEUP;
 
