@@ -162,7 +162,7 @@ export class MiniGameManager {
             this.activeConfirmationPanel.destroy();
         }
 
-
+        this.disableInteraction();
         this.activeConfirmationPanel = this.createConfirmationPanel();
 
 
@@ -204,15 +204,20 @@ export class MiniGameManager {
         // Always do this
         darkOverlay.setVisible(true);
 
-        const buttonsToDisable = [finishButton, tipsButton, removeAllButton, backToSelectionButton];
-        buttonsToDisable.forEach(btn => btn?.disableInteractive());
+        const buttonsToDisable = [finishButton, tipsButton, removeAllButton, backToSelectionButton].filter(btn => btn);
+    
+        if (buttonsToDisable.length > 0) {
+            this.disableInteraction(buttonsToDisable);
+        }
 
         const isDressUp = state === GameState.DRESSUP;
+
+        
 
         // Case: outfit not complete
         if (isDressUp && !this.canContinueToScene2()) {
             const incompleteContainer = this.createIncompletePanel();
-            return incompleteContainer.setDepth(102).setScale(0);
+            return incompleteContainer.setDepth(151).setScale(0);
         }
 
         // Case: confirmation panel
@@ -220,29 +225,29 @@ export class MiniGameManager {
             ? 'Are you sure about the outfit you chose?'
             : 'Are you sure about the make up you chose?';
 
-        const panel = this.scene.add.nineslice(0, 0, 'tipsPanel', '', 230, 130, 12, 12, 12, 9)
+        const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 230, 130, 12, 12, 12, 9)
             .setDepth(101).setScale(3);
 
         const text = this.scene.add.text(0, -20, questionText, {
             fontSize: '32px',
-            fontFamily: 'pixelFont',
-            color: '#000000',
+            fontFamily: 'regularFont',
+            color: '#d6525f',
             align: 'center',
             lineSpacing: 10
-        }).setOrigin(0.5).setDepth(102);
+        }).setOrigin(0.5).setDepth(151);
 
-        const yesButton = new GeneralButton(this.scene, 120, 80, 'emptyButton2', null, 'YES',
-            () => this.finishMiniGame(state), this.scene.AudioManager).setDepth(102);
+        const yesButton = new GeneralButton(this.scene, 120, 80, 'readyButtonIcon', null, 'YES',
+            () => this.finishMiniGame(state), this.scene.AudioManager).setDepth(151);
 
-        const noButton = new GeneralButton(this.scene, -120, 80, 'emptyButton2', null, 'NO',
-            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(102);
+        const noButton = new GeneralButton(this.scene, -120, 80, 'readyButtonIcon', null, 'NO',
+            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(151);
 
         const closeButton = new UIButton(this.scene, this.AudioManager, 310, -170,
             'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
-            () => this.closeConfirmationPanel()).setDepth(102);
+            () => this.closeConfirmationPanel()).setDepth(151);
 
         const container = this.scene.add.container(centerX, centerY, [panel, text, yesButton, noButton, closeButton]);
-        return container.setDepth(102).setScale(0);
+        return container.setDepth(151).setScale(0);
     }
 
     createIncompletePanel(panelText = null) {
@@ -251,24 +256,27 @@ export class MiniGameManager {
 
         this.scene.darkOverlay.setVisible(true);
 
-        const buttonsToDisable = [this.scene.makeUpButton, this.scene.dressUpButton];
-        buttonsToDisable.forEach(btn => btn?.disableInteractive());
+       const buttonsToDisable = [this.scene.makeUpButton, this.scene.dressUpButton].filter(btn => btn);
+        if (buttonsToDisable.length > 0) {
+            
+            buttonsToDisable.forEach(btn => btn.disableInteractive());
+        }
         const textContent = panelText || 'Your outfit is not complete!';
         const text = this.scene.add.text(0, -20, textContent, {
             fontSize: '40px',
-            fontFamily: 'pixelFont',
-            color: '#000000',
+            fontFamily: 'regularFont',
+            color: '#d6525f',
             align: 'center',
             wordWrap: { width: 600 }
-        }).setOrigin(0.5).setDepth(102);
+        }).setOrigin(0.5).setDepth(151);
 
         const panelWidth = Phaser.Math.Clamp(text.width + 40, 200, 300); // Add padding for aesthetics
         const panelHeight = 100;
-        const panel = this.scene.add.nineslice(0, 0, 'tipsPanel', '', panelWidth, panelHeight, 15, 15, 15, 12)
+        const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', panelWidth, panelHeight, 15, 15, 15, 12)
             .setDepth(101).setScale(3);
 
-        const okButton = new GeneralButton(this.scene, 0, 60, 'emptyButton2', null, 'OK',
-            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(102);
+        const okButton = new GeneralButton(this.scene, 0, 60, 'readyButtonIcon', null, 'OK',
+            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(151);
 
         // Position close button at top-right of panel
         const scaledWidth = panelWidth * 0.5 * 3;  // half width * scale
@@ -278,10 +286,10 @@ export class MiniGameManager {
             scaledWidth - 20, // 20px inset from right edge
             -scaledHeight + 20, // 20px inset from top edge
             'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
-            () => this.closeConfirmationPanel()).setDepth(102);
+            () => this.closeConfirmationPanel()).setDepth(151);
 
         const container = this.scene.add.container(centerX, centerY, [panel, text, okButton, closeButton]);
-        return container.setDepth(102).setScale(0);
+        return container.setDepth(1000).setScale(0);
     }
 
     createEndingConfirmationPanel() {
@@ -289,33 +297,33 @@ export class MiniGameManager {
         const centerY = this.scene.scale.height / 2;
 
         this.scene.darkOverlay.setVisible(true);
-
+        this.disableInteraction()
         const buttonsToDisable = [this.scene.makeUpButton, this.scene.dressUpButton];
         buttonsToDisable.forEach(btn => btn?.disableInteractive());
-        const panel = this.scene.add.nineslice(0, 0, 'tipsPanel', '', 230, 130, 12, 12, 12, 9)
+        const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 230, 130, 12, 12, 12, 9)
             .setDepth(101).setScale(3);
 
         const text = this.scene.add.text(0, -20, 'Are you sure about the make up and outfit you chose?', {
             fontSize: '32px',
-            fontFamily: 'pixelFont',
-            color: '#000000',
+            fontFamily: 'regularFont',
+            color: '#d6525f',
             align: 'center',
             wordWrap: { width: 500 },
             lineSpacing: 10
-        }).setOrigin(0.5).setDepth(102);
+        }).setOrigin(0.5).setDepth(151);
 
-        const yesButton = new GeneralButton(this.scene, 120, 100, 'emptyButton2', null, 'YES',
-            () => this.transitionToCutscene(), this.scene.AudioManager).setDepth(102);
+        const yesButton = new GeneralButton(this.scene, 120, 100, 'readyButtonIcon', null, 'YES',
+            () => this.transitionToCutscene(), this.scene.AudioManager).setDepth(151);
 
-        const noButton = new GeneralButton(this.scene, -120, 100, 'emptyButton2', null, 'NO',
-            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(102);
+        const noButton = new GeneralButton(this.scene, -120, 100, 'readyButtonIcon', null, 'NO',
+            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(151);
 
         const closeButton = new UIButton(this.scene, this.AudioManager, 310, -170,
             'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
-            () => this.closeConfirmationPanel()).setDepth(102);
+            () => this.closeConfirmationPanel()).setDepth(151);
         const container = this.scene.add.container(centerX, centerY, [panel, text, yesButton, noButton, closeButton]);
 
-        return container.setDepth(102).setScale(0);
+        return container.setDepth(151).setScale(0);
     }
     finishMiniGame(gameState) {
         this.closeConfirmationPanel();
@@ -400,9 +408,14 @@ export class MiniGameManager {
 
     //Disables interaction with all buttons while tip panel is open
     disableInteraction(buttons) {
+        if (Array.isArray(buttons)) { 
         buttons.forEach(button => {
-            button.disableInteractive();
+            
+            if (button && typeof button.disableInteractive === 'function') {
+                button.disableInteractive();
+            }
         });
+    }
 
 
         this.inputBlocker = this.scene.add.rectangle(
@@ -437,7 +450,7 @@ export class MiniGameManager {
             250,
             25,
             5, 5, 5, 5
-        ).setScale(2.5).setDepth(102);
+        ).setScale(2.5).setDepth(151);
         const outfitLabel1 = this.scene.rexUI.add.label({
             background: outfitTitle1,
 
@@ -459,7 +472,7 @@ export class MiniGameManager {
                 top: 10,
                 bottom: 10
             }
-        }).setDepth(102);
+        }).setDepth(151);
 
         this.outfitButtonStatGrid.add(outfitLabel1, index, 0, 'left', { top: 60 }, true);
     }
@@ -480,7 +493,7 @@ export class MiniGameManager {
                 wordWrap: { width: width - 120 }
             }).setOrigin(0.5, 0.5);
 
-            const outfitStatContainer = this.scene.add.container(0, -100, [outfitIcon, outfitStatText]).setDepth(102);
+            const outfitStatContainer = this.scene.add.container(0, -100, [outfitIcon, outfitStatText]).setDepth(151);
             if (!this.scene.outfitStats[outfitType]) {
                 this.scene.outfitStats[outfitType] = [];
             }
@@ -596,7 +609,7 @@ export class MiniGameManager {
             fontFamily: 'regularFont',
             wordWrap: { width: this.scene.scale.width - 120 }
         }).setDepth(10).setOrigin(0.5, 0.5);
-        this.scene.sidePanelIcon = this.scene.add.image(this.scene.scale.width - 35, centerY / 5.1, panelIcon).setDepth(10).setScale(0.4);
+        this.scene.sidePanelIcon = this.scene.add.image(this.scene.scale.width - 35, centerY / 5.1, 'panelIcon').setDepth(10).setScale(0.4);
         this.scene.sidePanelLine = this.scene.add.image(this.scene.scale.width - 70, centerY / 3.9, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(440, 5);
 
         this.scene.sidePanel
@@ -849,18 +862,18 @@ export class MiniGameManager {
             fill: '#ffffff',
             fontFamily: 'pixelFont',
             wordWrap: { width: this.scene.scale.width - 120 }
-        }).setDepth(102).setOrigin(0.5, 0.5);
+        }).setDepth(151).setOrigin(0.5, 0.5);
 
         const scoreHeader = this.scene.add.text(0, -90, 'Score', {
             fontSize: '72px',
             fill: '#000000',
             fontFamily: 'pixelFont',
             wordWrap: { width: this.scene.scale.width - 120 }
-        }).setDepth(102).setOrigin(0.5, 0.5);
+        }).setDepth(151).setOrigin(0.5, 0.5);
 
-        const heart1Icon = this.scene.add.image(0, 0, heartTexture).setDepth(102).setScale(4.1);
-        const heart2Icon = this.scene.add.image(-100, 0, heartTexture).setDepth(102).setScale(4.1);
-        const heart3Icon = this.scene.add.image(100, 0, heartTexture).setDepth(102).setScale(4.1);
+        const heart1Icon = this.scene.add.image(0, 0, heartTexture).setDepth(151).setScale(4.1);
+        const heart2Icon = this.scene.add.image(-100, 0, heartTexture).setDepth(151).setScale(4.1);
+        const heart3Icon = this.scene.add.image(100, 0, heartTexture).setDepth(151).setScale(4.1);
 
         const heartsContainer = this.scene.add.container(0, 0, [heart2Icon, heart1Icon, heart3Icon]).setDepth(101).setY(-20);
 
@@ -882,16 +895,16 @@ export class MiniGameManager {
             fill: scoreTextColor,
             fontFamily: 'pixelFont',
             wordWrap: { width: this.scene.scale.width - 120 }
-        }).setDepth(102).setOrigin(0.5, 0.5);
+        }).setDepth(151).setOrigin(0.5, 0.5);
 
         scoreText.setText(this.scene.statTracker.getStatPoints().toString());
         const scoreContainer = this.scene.add.container(0, 90, [scoreBox, scoreText]).setDepth(101);
 
         const nextLevelButton = new GeneralButton(this.scene, -150, 190, 'emptyButton', null, 'Next Level', () => {
             this.restartGame();
-        }, this.scene.AudioManager).setDepth(102);
+        }, this.scene.AudioManager).setDepth(151);
 
-        const restartButton = new GeneralButton(this.scene, 150, 190, 'emptyButton', null, 'Restart', () => { this.restartGame(true); }, this.scene.AudioManager).setDepth(102);
+        const restartButton = new GeneralButton(this.scene, 150, 190, 'emptyButton', null, 'Restart', () => { this.restartGame(true); }, this.scene.AudioManager).setDepth(151);
 
         this.endingPanelContainer = this.scene.add.container(centerX, centerY, [
             endingPanel,
