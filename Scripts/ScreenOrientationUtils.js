@@ -57,8 +57,8 @@ const PORTRAIT = {
     HEIGHT: 1280,
     // character position
     character: {
-        x: 1080 / 2, 
-        y: 1920 / 2, 
+        x: 720 / 2, 
+        y: 1280 / 2, 
         scale: 0.8,
         zoomInx:  1, 
         zoomInY: 1920 * 1.5,
