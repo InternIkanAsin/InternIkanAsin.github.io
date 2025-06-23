@@ -191,30 +191,45 @@ export class DressUpManager {
             allButtonContainersForPanel.push(buttonInstance.container ? buttonInstance.container : buttonInstance);
         });
 
+         itemButtonsForType.forEach(buttonInstance => {
+            // 'buttonInstance' is instance of OutfitButton
+            const type = buttonInstance.outfitType;
+            const currentSelectedButton = OutfitButton.selectedOutfits[type]?.current;
+
+            // Check if the current button is selected button
+            if (currentSelectedButton && currentSelectedButton === buttonInstance) {
+                // if yes, highlight
+                if (buttonInstance.highlightImage) {
+                    buttonInstance.highlightImage.setVisible(true);
+                }
+            } else {
+                // if not, disable highlight
+                if (buttonInstance.highlightImage) {
+                    buttonInstance.highlightImage.setVisible(false);
+                }
+            }
+        });
+
         if (scene.MiniGameManager.buttonGrid) {
             const children = scene.MiniGameManager.buttonGrid.getAllChildren();
 
             children.forEach(childGameObject => {
-                // Kita periksa apakah child ini adalah instance OutfitButton yang persisten.
-                // Kita bisa menggunakan data yang kita set saat pembuatan tombol.
+                
                 const instance = childGameObject.getData ? childGameObject.getData('instance') : null;
 
                 if (instance instanceof OutfitButton) {
-                    // Jika ini adalah OutfitButton, kita hapus dari grid TANPA menghancurkannya.
-                    // Ini "menyelamatkan" tombol agar bisa dipakai lagi.
-                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false); // false = jangan hancurkan
+                    
+                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false); 
                 }
-                // Jika bukan (misalnya, ini adalah tombol "Lepas"), kita tidak melakukan apa-apa.
-                // Tombol "Lepas" akan hancur bersama dengan grid di bawah ini.
+               
             });
 
-            // Setelah tombol-tombol persisten diselamatkan, baru kita hancurkan grid-nya.
-            // Ini juga akan menghancurkan anak-anak yang tersisa (yaitu tombol "Lepas" yang lama).
+            
             scene.MiniGameManager.buttonGrid.destroy();
             scene.MiniGameManager.buttonGrid = null;
         }
 
-        // Setelah pembersihan selesai, baru kita update buttonList dengan yang baru.
+       
         scene.MiniGameManager.buttonList = allButtonContainersForPanel;
 
         if (scene.MiniGameManager.innerSizer) {
