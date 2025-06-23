@@ -847,6 +847,9 @@ export class MakeUpButton extends BaseButton {
             MakeUpButton.selectedMakeUp[makeupTypeToRevert] = { current: null, previous: previousEquippedItemInfo };
             MakeUpButton.clearMakeupHighlightsForType(this.scene, makeupTypeToRevert); // Ensure highlight is off
         }
+        if (this.scene.faceContainer) {
+            this.scene.faceContainer.sort('depth');
+        }
     }
 
     toggleMakeUp() {
@@ -991,6 +994,9 @@ export class MakeUpButton extends BaseButton {
                 if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55); }
                 else { this.displayedMakeUp.setScale(0.9); }
                 this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
+            }
+            if (scene.faceContainer) {
+                scene.faceContainer.sort('depth');
             }
 
             MakeUpButton.selectedMakeUp[makeupType] = { previous: currentGlobalEquippedInfo, current: this };

@@ -440,6 +440,10 @@ export class InteractiveMakeupSystem {
                 // For Blush/Eyeshadow/Eyeliner, imageThatWasColored IS the one we keep.
                 // Its mask was cleared. The button already points to it.
             }
+
+            if (this.scene.faceContainer) {
+                this.scene.faceContainer.sort('depth');
+            }
             console.log(`[InteractiveMakeup] ${typeFinalizing} applied.`);
         } else {
             this.revertToPreviousState(typeFinalizing); // This will destroy imageThatWasColored if it's temporary
