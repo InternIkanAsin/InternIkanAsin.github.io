@@ -1,3 +1,4 @@
+import { layout } from '../ScreenOrientationUtils.js';
 export class DialogueManager {
     constructor(scene) {
         this.scene = scene;
@@ -15,7 +16,7 @@ export class DialogueManager {
     createDialogueUI(scene) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.dialogueBox = this.scene.add.nineslice(width / 2, height / 1.32, 'dialogueBox', '', 1200, 300, 128, 128, 64, 68).setDepth(10);
+        this.dialogueBox = this.scene.add.nineslice(layout.dialogueBox.x, layout.dialogueBox.y, 'dialogueBox', '', layout.dialogueBox.width, layout.dialogueBox.height, 128, 128, 64, 68).setDepth(10);
         this.dialogueNameBox = this.scene.add.nineslice(width / 3.3, height / 1.65, 'dialogueNameBox', '', 450, 120, 120, 120, 64, 72).setDepth(10).setScale(0.8);
         this.nameText = this.scene.add.text(width / 3.3, height / 1.66, 'Tristan', {
             fontSize: '54px',
@@ -24,11 +25,11 @@ export class DialogueManager {
             fontStyle: 'bold',
             wordWrap: { width: width - 200 }
         }).setDepth(10).setOrigin(0.5, 0.5);
-        this.dialogueText = this.scene.add.text(width / 4.7, height / 1.5, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
-            fontSize: '36px',
+        this.dialogueText = this.scene.add.text(layout.dialogueText.x, layout.dialogueText.y, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
+            fontSize: layout.dialogueText.fontSize,
             fill: '#60292b',
             fontFamily: 'regularFont',
-            wordWrap: { width: width - width / 2.4 }
+            wordWrap: { width: layout.dialogueText.wordWrap }
         }).setDepth(10);
 
         this.hide();

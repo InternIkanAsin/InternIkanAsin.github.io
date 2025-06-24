@@ -1,6 +1,11 @@
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+// const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 const isPortrait = isMobile;
 
+const LANDSCAPE_WIDTH = 1920;
+const LANDSCAPE_HEIGHT = 1080;
+const LANDSCAPE_CENTERX = LANDSCAPE_WIDTH / 2;
+const LANDSCAPE_CENTERY = LANDSCAPE_HEIGHT / 2;
 const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
@@ -12,11 +17,11 @@ const LANDSCAPE = {
         zoomInX: 960 * 1.05,
         zoomInY: 540 * 2.9,
         zoomInScale: 1.9,
-        
-        
+
+
     },
 
-    face:{
+    face: {
 
         zoomInFaceX: 1920 / 2 * 1.011,
         zoomInFaceY: 1080 / 2 / 1.21,
@@ -28,7 +33,7 @@ const LANDSCAPE = {
 
     },
 
-    Hair:{
+    Hair: {
 
         zoomInHairX: 1920 / 2 * 1.04,
         zoomInHairY: 1080 / 2 * 1.58,
@@ -37,7 +42,7 @@ const LANDSCAPE = {
         zoomOutHairX: 1920 / 2 / 1.105,
         zoomOutHairY: 1080 / 2 / 1.44,
         zoomOutHairScale: 0.25,
-        
+
     },
     // Side Panel
     sidePanel: {
@@ -49,12 +54,25 @@ const LANDSCAPE = {
         x: 1920 / 2,
         y: 1080 - 100
     },
-    
-};
 
+    //Dialogue System
+    dialogueBox: {
+        x: LANDSCAPE_CENTERX,
+        y: LANDSCAPE_HEIGHT * 1.32,
+        width: 1200,
+        height: 300
+    }
+
+};
+const PORTRAIT_WIDTH = 720;
+const PORTRAIT_HEIGHT = 1280;
+const PORTRAIT_CENTERX = PORTRAIT_WIDTH / 2;
+const PORTRAIT_CENTERY = PORTRAIT_HEIGHT / 2;
 const PORTRAIT = {
-    WIDTH: 720,
-    HEIGHT: 1280,
+    PORTRAIT_WIDTH,
+    PORTRAIT_HEIGHT,
+    PORTRAIT_CENTERX,
+    PORTRAIT_CENTERY,
     // character position
     character: {
         x: 720 / 2 / 1.1,
@@ -63,11 +81,11 @@ const PORTRAIT = {
         zoomInX: 720 / 2 * 1.05,
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
-        
-        
+
+
     },
     //Face
-    face:{
+    face: {
 
         zoomInFaceX: 720 / 2 * 0.95,
         zoomInFaceY: 1280 / 2 / 1.2,
@@ -79,7 +97,7 @@ const PORTRAIT = {
 
     },
     //Hair
-    Hair:{
+    Hair: {
 
         zoomInHairX: 720 / 2,
         zoomInHairY: 1280 / 2 * 1.47,
@@ -88,7 +106,7 @@ const PORTRAIT = {
         zoomOutHairX: 720 / 2 / 1.1,
         zoomOutHairY: 1280 / 2 / 1.31,
         zoomOutHairScale: 0.25,
-        
+
     },
     // Side Panel
     sidePanel: {
@@ -100,13 +118,26 @@ const PORTRAIT = {
         x: 1920 / 2,
         y: 1080 - 100
     },
-    
+    //Dialogue System
+    dialogueBox: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_CENTERY * 1.4,
+        width: 680,
+        height: 250
+    },
+    dialogueText: {
+        x: PORTRAIT_WIDTH / 13,
+        y: PORTRAIT_CENTERY * 1.3,
+        fontSize: 32,
+        wordWrap: PORTRAIT_WIDTH - 120
+    }
+
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
 export const orientation = { isPortrait, isMobile };
 
 console.log(
-    `%c[LayoutManager] Initialized.`, 
+    `%c[LayoutManager] Initialized.`,
     'color: #4CAF50; font-weight: bold;'
 );
 
