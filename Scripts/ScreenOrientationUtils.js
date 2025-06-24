@@ -86,7 +86,25 @@ const LANDSCAPE = {
     // Side Panel
     sidePanel: {
         x: 1920 - 70,
-        y: 1080 / 2
+        y: 1080 / 2,
+        left: 45,
+        right: 10,
+        top: 105,
+        bottom: 30,
+        panel: 30
+    },
+    sidePanelLine: {
+        x: LANDSCAPE_WIDTH - 70,
+        y: LANDSCAPE_CENTERY / 3.9,
+    },
+    sidePanelIcon: {
+        x: LANDSCAPE_WIDTH - 55,
+        y: LANDSCAPE_CENTERY / 5.1
+    },
+    sidePanelHeaderText: {
+        x: LANDSCAPE_WIDTH - 180,
+        y: 110,
+        fontSize: 32
     },
     // Finish Button
     finishButton: {
@@ -117,6 +135,17 @@ const LANDSCAPE = {
     removeAllButton: {
         x: 70,
         y: 500,
+    },
+
+    itemPanelButton: {
+        iconScale: 0.5,
+        buttonScale: 0.8,
+        textYPosition: 70
+    },
+
+    categoryButton: {
+        iconScale: 0.5,
+        buttonScale: 0.6
     }
 };
 const PORTRAIT_WIDTH = 720;
@@ -206,13 +235,31 @@ const PORTRAIT = {
     },
     // Side Panel
     sidePanel: {
-        x: 1920 - 70,
-        y: 1080 / 2
+        x: PORTRAIT_WIDTH + 50,
+        y: PORTRAIT_CENTERY,
+        left: 0,
+        right: 65,
+        top: 105,
+        bottom: 30,
+        panel: 30
+    },
+    sidePanelLine: {
+        x: PORTRAIT_WIDTH + 30,
+        y: PORTRAIT_CENTERY / 2.7,
+    },
+    sidePanelIcon: {
+        x: PORTRAIT_WIDTH - 20,
+        y: PORTRAIT_CENTERY / 3.2
+    },
+    sidePanelHeaderText: {
+        x: PORTRAIT_WIDTH - 110,
+        y: 200,
+        fontSize: 32
     },
     // Finish Button
     finishButton: {
-        x: 1920 / 2,
-        y: 1080 - 100
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT - 80
     },
     //Dialogue System
     dialogueBox: {
@@ -238,33 +285,90 @@ const PORTRAIT = {
         y: 250,
     },
 
+    //Category Buttons
     dressUpCategoryButtons: {
         dressButton: {
-            x: 60,
+            x: 55,
             y: 425
         },
         outerButton: {
-            x: 60,
-            y: 600
+            x: 55,
+            y: 575
         },
         underwearButton: {
-            x: 60,
-            y: 775
+            x: 55,
+            y: 725
         },
         socksButton: {
-            x: 60,
-            y: 950
+            x: 55,
+            y: 875
         },
         shoesButton: {
-            x: 60,
-            y: 1125
+            x: 55,
+            y: 1025
         },
     },
 
-    readyButton: {
+    makeUpCategoryButtons: {
+        eyebrowsButton: {
+            x: 45,
+            y: 400
+        },
+        eyelashesButton: {
+            x: 45,
+            y: 500
+        },
+        eyelinerButton: {
+            x: 45,
+            y: 600
+        },
+        eyeshadowButton: {
+            x: 45,
+            y: 700
+        },
+        lipstickButton: {
+            x: 45,
+            y: 800
+        },
+        eyecolorButton: {
+            x: 45,
+            y: 900
+        },
+        blushButton: {
+            x: 45,
+            y: 1000
+        },
+        stickerButton: {
+            x: 45,
+            y: 1100
+        },
+        hairButton: {
+            x: 45,
+            y: 1200
+        },
+    },
+    outfitButton: {
+        iconScale: 1,
+        highlightImg: 0.6,
+        buttonScale: 0.6
+    },
 
+    makeUpButton: {
+        iconScale: 1,
+        highlightImg: 0.6,
+        buttonScale: 0.6
+    },
+
+    itemPanelButton: {
+        iconScale: 0.4,
+        buttonScale: 0.6,
+        textYPosition: 60
+    },
+
+    categoryButton: {
+        iconScale: 0.4,
+        buttonScale: 0.5,
     }
-
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
 export const orientation = { isPortrait, isMobile };

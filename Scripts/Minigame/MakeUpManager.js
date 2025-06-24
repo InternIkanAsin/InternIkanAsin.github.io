@@ -52,11 +52,9 @@ export class MakeUpManager {
             0, 0,                         // Position will be set by grid sizer
             'buttonIcon2',                    // Background texture (same as MakeUpButton)
             'xMark',                      // Icon texture key for the 'X'
-            0.5,                         // Icon scale (matches MakeUpButton iconImage.scale)
             -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
             'Remove',                     // Text ("Lepas" or "Remove")
             '30px',                       // Text size (matches MakeUpButton textLbl)
-            60,                           // Text Y offset (matches MakeUpButton textLbl.y)
             () => { // Callback for "Lepas"
                 console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
                 if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeUpType) {

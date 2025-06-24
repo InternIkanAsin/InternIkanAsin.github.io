@@ -131,12 +131,10 @@ export class DressUpManager {
             scene.AudioManager,
             0, 0,                         // Position will be set by grid sizer
             'buttonIcon2',                    // Background texture (same as MakeUpButton)
-            'xMark',                      // Icon texture key for the 'X'
-            0.5,                         // Icon scale (matches MakeUpButton iconImage.scale)
+            'xMark',                      // Icon texture key for the 'X'                      
             -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
             'Remove',                     // Text ("Lepas" or "Remove")
             '30px',                       // Text size (matches MakeUpButton textLbl)
-            70,                           // Text Y offset (to match OutfitButton's textLabel.y)
             () => { // Callback for "Lepas Outfit"
                 console.log(`[LepasButton] Clicked for Outfit Type: ${outfitType}`);
 
@@ -191,7 +189,7 @@ export class DressUpManager {
             allButtonContainersForPanel.push(buttonInstance.container ? buttonInstance.container : buttonInstance);
         });
 
-         itemButtonsForType.forEach(buttonInstance => {
+        itemButtonsForType.forEach(buttonInstance => {
             // 'buttonInstance' is instance of OutfitButton
             const type = buttonInstance.outfitType;
             const currentSelectedButton = OutfitButton.selectedOutfits[type]?.current;
@@ -214,22 +212,22 @@ export class DressUpManager {
             const children = scene.MiniGameManager.buttonGrid.getAllChildren();
 
             children.forEach(childGameObject => {
-                
+
                 const instance = childGameObject.getData ? childGameObject.getData('instance') : null;
 
                 if (instance instanceof OutfitButton) {
-                    
-                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false); 
+
+                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false);
                 }
-               
+
             });
 
-            
+
             scene.MiniGameManager.buttonGrid.destroy();
             scene.MiniGameManager.buttonGrid = null;
         }
 
-       
+
         scene.MiniGameManager.buttonList = allButtonContainersForPanel;
 
         if (scene.MiniGameManager.innerSizer) {

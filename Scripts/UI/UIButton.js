@@ -1,6 +1,7 @@
 import { outfitCustomSizes, outfitManualOffsets } from "../Outfit Data/CostumeData.js";
 import { BaseButton } from "./BaseButton.js";
 import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
+import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
 export default class UIButton extends BaseButton {
     constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, textureYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
@@ -77,16 +78,16 @@ export default class UIButton extends BaseButton {
 }
 
 export class ItemPanelButton extends BaseButton {
-    constructor(scene, AudioManager, x, y, backgroundTextureKey, iconTextureKey, iconScale, iconYOffset,
-        labelText, labelSize, labelYOffset, callback, highlightTextureKey = 'highlightTexture') {
+    constructor(scene, AudioManager, x, y, backgroundTextureKey, iconTextureKey, iconYOffset,
+        labelText, labelSize, callback) {
 
         const buttonBg = scene.add.image(0, 0, backgroundTextureKey)
             .setInteractive()
-            .setScale(0.8);
+            .setScale(layout.itemPanelButton.buttonScale);
 
-        const iconImg = scene.add.image(0, iconYOffset, iconTextureKey).setScale(iconScale);
+        const iconImg = scene.add.image(0, iconYOffset, iconTextureKey).setScale(layout.itemPanelButton.iconScale);
 
-        const textLbl = scene.add.text(0, labelYOffset, labelText, {
+        const textLbl = scene.add.text(0, layout.itemPanelButton.textYPosition, labelText, {
             fontSize: labelSize,
             fontFamily: 'pixelFont',
             color: '#000000'
@@ -223,11 +224,11 @@ export class GeneralButton extends BaseButton {
 }
 
 export class CategoryButton extends BaseButton {
-    constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick, iconScale = 0.5, buttonScale = 0.6) {
+    constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick) {
         //Create button and icon using the scene
-        const button = scene.add.image(0, 0, textureButton).setInteractive().setScale(scene.state === GameState.DRESSUP ? 0.6 : 0.4);
+        const button = scene.add.image(0, 0, textureButton).setInteractive().setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.4);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false); // Retained for potential explicit hover states if desired later
-        const icon = scene.add.image(0, 0, textureIcon).setScale(scene.state === GameState.DRESSUP ? 0.5 : 0.3);
+        const icon = scene.add.image(0, 0, textureIcon).setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.3);
 
         super(scene, x, y, [button, buttonHighlighted, icon]);
 
@@ -451,13 +452,13 @@ export class LepasButton extends BaseButton {
 export class OutfitButton extends BaseButton {
     static selectedOutfits = {};
 
-    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager,) {
+    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager) {
 
         // --- Elements for the button UI itself ---
-        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(0.8);
+        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
-            .setVisible(false).setScale(0.8);
-        const iconImg = scene.add.image(0, 0, textureIcon).setScale(1.2);
+            .setVisible(false).setScale(layout.outfitButton.highlightImg);
+        const iconImg = scene.add.image(0, 0, textureIcon).setScale(layout.outfitButton.iconScale);
 
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
 
@@ -614,7 +615,7 @@ export class OutfitButton extends BaseButton {
             unequip("Shirt");
             unequip("Underwear");
         }
-        if (outfitType === "Shirt" || outfitType === "Underwear" ) {
+        if (outfitType === "Shirt" || outfitType === "Underwear") {
             unequip("Dress");
         }
 
@@ -675,12 +676,12 @@ export class MakeUpButton extends BaseButton {
     constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager) { // Added highlightTextureKey
 
         // --- Create UI elements for the button itself ---
-        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(0.8);
+        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.makeUpButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false)
             .setDepth(-1)    // Behind icon/text, above buttonBg
-            .setScale(0.8);
-        const iconImg = scene.add.image(0, 0, textureIcon).setScale(1.2);
+            .setScale(layout.makeUpButton.highlightImg);
+        const iconImg = scene.add.image(0, 0, textureIcon).setScale(layout.makeUpButton.iconScale);
         // --- End Create UI elements ---
 
         // --- Call super() ---

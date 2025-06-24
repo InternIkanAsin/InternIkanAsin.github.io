@@ -22,13 +22,16 @@ export class UIManager {
         // Setup background
         const centerX = scene.cameras.main.centerX;
         const centerY = scene.cameras.main.centerY;
-        scene.background = scene.add.image(centerX, centerY, 'background');
+
+        let isMobile = true;
+        const bgScale = isMobile ? 1.2 : 1
+        scene.background = scene.add.image(centerX, centerY, 'background').setScale(bgScale);
 
         // Setup character
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
-        .setScale(layout.character.scale)
-        .setOrigin(0.5)
-        .setDepth(1);
+            .setScale(layout.character.scale)
+            .setOrigin(0.5)
+            .setDepth(1);
 
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
 
@@ -53,7 +56,7 @@ export class UIManager {
         scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55).setDepth(2);
 
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
-        
+
         // --- Initialize MakeUpButton's state for default makeup ---
         MakeUpButton.selectedMakeUp = {}; // CRITICAL: Initialize the static property
 

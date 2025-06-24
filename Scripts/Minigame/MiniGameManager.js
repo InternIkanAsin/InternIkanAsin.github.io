@@ -587,11 +587,11 @@ export class MiniGameManager {
             },
 
             space: {
-                left: 45,
-                right: 10,
-                top: 105,
-                bottom: 30,
-                panel: 30
+                left: layout.sidePanel.left,
+                right: layout.sidePanel.right,
+                top: layout.sidePanel.top,
+                bottom: layout.sidePanel.bottom,
+                panel: layout.sidePanel.panel
             }
         }).layout().setDepth(10);
 
@@ -605,15 +605,15 @@ export class MiniGameManager {
             headerText = 'Make Up'
             panelIcon = 'makeUpButtonIcon2'
         }
-        this.scene.sidePanelHeaderText = this.scene.add.text(this.scene.scale.width - 180, 110, headerText, {
-            fontSize: '48px',
+        this.scene.sidePanelHeaderText = this.scene.add.text(layout.sidePanelHeaderText.x, layout.sidePanelHeaderText.y, headerText, {
+            fontSize: layout.sidePanelHeaderText.fontSize,
             fontStyle: 'bold',
             fill: '#d6525f',
             fontFamily: 'regularFont',
             wordWrap: { width: this.scene.scale.width - 120 }
         }).setDepth(10).setOrigin(0.5, 0.5);
-        this.scene.sidePanelIcon = this.scene.add.image(this.scene.scale.width - 55, centerY / 5.1, panelIcon).setDepth(10).setScale(0.4);
-        this.scene.sidePanelLine = this.scene.add.image(this.scene.scale.width - 70, centerY / 3.9, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(440, 5);
+        this.scene.sidePanelIcon = this.scene.add.image(layout.sidePanelIcon.x, layout.sidePanelIcon.y, panelIcon).setDepth(10).setScale(0.4);
+        this.scene.sidePanelLine = this.scene.add.image(layout.sidePanelLine.x, layout.sidePanelLine.y, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(440, 5);
 
         this.scene.sidePanel
             .setChildrenInteractive({

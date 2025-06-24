@@ -3,7 +3,7 @@ import { CategoryButton } from '../UI/UIButton.js'
 import { layout } from '../ScreenOrientationUtils.js';
 export function createMakeUpCategoryButtons(scene, audioManager) {
     const buttons = [
-        scene.eyebrowsButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 125,
+        scene.eyebrowsButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyebrowsButton.x, layout.makeUpCategoryButtons.eyebrowsButton.y,
             'Eyebrows',
             null,
             'stitchedButtonIcon',
@@ -13,7 +13,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Eyebrows', scene);
             }
         ),
-        scene.eyelashesButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 225,
+        scene.eyelashesButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyelashesButton.x, layout.makeUpCategoryButtons.eyelashesButton.y,
             'Eyelashes',
             null,
             'stitchedButtonIcon',
@@ -23,7 +23,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Eyelashes', scene);
             }
         ),
-        scene.eyelinerButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 325,
+        scene.eyelinerButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyelinerButton.x, layout.makeUpCategoryButtons.eyelinerButton.y,
             'Eyeliner',
             null,
             'stitchedButtonIcon',
@@ -33,7 +33,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Eyeliner', scene);
             }
         ),
-        scene.eyeshadowButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 425,
+        scene.eyeshadowButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyeshadowButton.x, layout.makeUpCategoryButtons.eyeshadowButton.y,
             'Eyeshadow',
             null,
             'stitchedButtonIcon',
@@ -43,7 +43,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Eyeshadow', scene);
             }
         ),
-        scene.lipstickButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 525,
+        scene.lipstickButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.lipstickButton.x, layout.makeUpCategoryButtons.lipstickButton.y,
             'Lipstick',
             null,
             'stitchedButtonIcon',
@@ -53,7 +53,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Lips', scene);
             }
         ),
-        scene.eyecolorButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 625,
+        scene.eyecolorButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyecolorButton.x, layout.makeUpCategoryButtons.eyecolorButton.y,
             'Eye Color',
             null,
             'stitchedButtonIcon',
@@ -63,7 +63,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Pupil', scene);
             }
         ),
-        scene.blushButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 725,
+        scene.blushButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.blushButton.x, layout.makeUpCategoryButtons.blushButton.y,
             'Blush',
             null,
             'stitchedButtonIcon',
@@ -73,7 +73,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Blush', scene);
             }
         ),
-        scene.stickerButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 825,
+        scene.stickerButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.stickerButton.x, layout.makeUpCategoryButtons.stickerButton.y,
             'Sticker',
             null,
             'stitchedButtonIcon',
@@ -83,7 +83,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
                 scene.MakeUpManager.displayMakeUpButtons('Sticker', scene);
             }
         ),
-        scene.hairButton = new CategoryButton(scene, audioManager, scene.scale.width / 1.23, 925,
+        scene.hairButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.hairButton.x, layout.makeUpCategoryButtons.hairButton.y,
             'Hair',
             null,
             'stitchedButtonIcon',

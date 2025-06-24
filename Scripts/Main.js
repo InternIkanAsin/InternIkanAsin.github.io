@@ -112,16 +112,16 @@ class Main extends Phaser.Scene {
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
 
         scene.leftCurtain = scene.add.image(
-        layout.curtain.closed.leftX, 
-        centerY, 
-        layout.curtain.leftTexture 
-    ).setDepth(102);
+            layout.curtain.closed.leftX,
+            centerY,
+            layout.curtain.leftTexture
+        ).setDepth(102);
 
-    scene.rightCurtain = scene.add.image(
-        layout.curtain.closed.rightX, 
-        centerY, 
-        layout.curtain.rightTexture 
-    ).setDepth(102);
+        scene.rightCurtain = scene.add.image(
+            layout.curtain.closed.rightX,
+            centerY,
+            layout.curtain.rightTexture
+        ).setDepth(102);
 
         // fix button size and position
         const buttonXOffset = 350;
@@ -174,7 +174,7 @@ class Main extends Phaser.Scene {
 
         this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
             x: scene.scale.width / 2,
-            y: scene.scale.height - 100,
+            y: scene.scale.height - 80,
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
