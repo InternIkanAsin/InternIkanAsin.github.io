@@ -15,6 +15,43 @@ const LANDSCAPE = {
         
         
     },
+    //Tirai
+    drapes: {
+        
+        closed: {
+            leftX: (1920 / 2) / 2,
+            rightX: 1920 - ((1920 / 2) / 2)
+        },
+        
+        open: {
+            leftX: -500, 
+            rightX: 1920 + 500 
+        },
+        
+        halfway: {
+            leftX: (1920 * 0.25) - 600,
+            rightX: (1920 * 0.75) + 600
+        }
+    },
+
+    curtain: {
+        closed: {
+            leftX: (1920 / 2) / 4.8,
+            rightX: 1920 - ((1920 / 2) / 4.8)
+        },
+        
+        open: {
+            leftX: -500, 
+            rightX: 1920 + 500 
+        },
+        
+        halfway: {
+            leftX: (1920 * 0.25) - 600,
+            rightX: (1920 * 0.75) + 600
+        }
+
+
+    },
 
     face:{
 
@@ -66,6 +103,45 @@ const PORTRAIT = {
         
         
     },
+
+    //Tirai
+    drapes: {
+        
+        closed: {
+            leftX: -50 ,
+            rightX: 835
+        },
+        
+        open: {
+            leftX: -500, 
+            rightX: 720 + 500 
+        },
+        
+        halfway: {
+            leftX: (720 * 0.25) - 600,
+            rightX: (720 * 0.75) + 600
+        }
+    },
+
+    curtain: {
+        closed: {
+            leftX: (720 / 2) / 4.8,
+            rightX: 720 - ((720 / 2) / 4.8)
+        },
+        
+        open: {
+            leftX: -500, 
+            rightX: 720 + 500 
+        },
+        
+        halfway: {
+            leftX: (720 * 0.25) - 600,
+            rightX: (720 * 0.75) + 600
+        }
+
+
+    },
+
     //Face
     face:{
 

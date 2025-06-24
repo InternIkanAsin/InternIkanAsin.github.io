@@ -54,6 +54,8 @@ import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
 //Bachelor Manager Class
 import { BachelorManager } from './Bachelor/bachelorManager.js'
 
+import { layout } from './ScreenOrientationUtils.js';
+
 //Loading font from game 
 function loadFont(name, url) {
     const newFont = new FontFace(name, `url(${url})`);
@@ -106,11 +108,11 @@ class Main extends Phaser.Scene {
         scene.UIManager.setupScene(scene);
         // First Curtain is closed
         const drapeWidth = scene.scale.width / 2;
-        scene.leftDrape = scene.add.image(centerX / 2, centerY, 'leftDrape').setDepth(101); // Depth di atas tombol
-        scene.rightDrape = scene.add.image(scene.scale.width - (centerX / 2), centerY, 'rightDrape').setDepth(101); // Depth di atas tombol
+        scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
+        scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
 
-        scene.leftCurtain = scene.add.image(centerX / 4.8, centerY, 'leftCurtain').setDepth(102);
-        scene.rightCurtain = scene.add.image(scene.scale.width - (centerX / 4.8), centerY, 'rightCurtain').setDepth(102);
+        scene.leftCurtain = scene.add.image(layout.curtain.closed.leftX, centerY, 'leftCurtain').setDepth(102);
+        scene.rightCurtain = scene.add.image(layout.curtain.closed.rightX, centerY, 'rightCurtain').setDepth(102);
 
         // fix button size and position
         const buttonXOffset = 350;

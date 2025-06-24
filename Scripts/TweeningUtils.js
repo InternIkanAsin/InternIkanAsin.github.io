@@ -21,14 +21,14 @@ export default class TweenUtils {
         const centerX = scene.scale.width / 2;
         scene.tweens.add({
             targets: scene.leftDrape,
-            x: centerX / 2,
+            x: layout.drapes.closed.leftX,
             duration: duration,
             ease: 'Power2'
         });
 
         scene.tweens.add({
             targets: scene.rightDrape,
-            x: scene.scale.width - (centerX / 2),
+            x: layout.drapes.closed.rightX,
             duration: duration,
             ease: 'Power2',
             onComplete: () => {
@@ -40,13 +40,13 @@ export default class TweenUtils {
 
         scene.tweens.add({
             targets: scene.leftCurtain,
-            x: centerX / 4.8,
+            x: layout.curtain.closed.leftX,
             duration: duration,
             ease: 'Power2',
         });
         scene.tweens.add({
             targets: scene.rightCurtain,
-            x: scene.scale.width - (centerX / 4.8),
+            x: layout.curtain.closed.rightX,
             duration: duration,
             ease: 'Power2',
         });
@@ -89,12 +89,11 @@ export default class TweenUtils {
             return;
         }
 
-        const outsideLeftX = -scene.leftDrape.width / 2;
-        const outsideRightX = scene.scale.width + scene.rightDrape.width / 2;
+       
 
         scene.tweens.add({
             targets: scene.leftDrape,
-            x: outsideLeftX,
+              x: layout.drapes.open.leftX,
             duration: duration,
             ease: 'Power2',
             onComplete: () => {
@@ -103,7 +102,7 @@ export default class TweenUtils {
         });
         scene.tweens.add({
             targets: scene.rightDrape,
-            x: outsideRightX,
+            x: layout.drapes.open.rightX,
             duration: duration,
             ease: 'Power2',
             onComplete: () => {
@@ -114,13 +113,13 @@ export default class TweenUtils {
         });
         scene.tweens.add({
             targets: scene.leftCurtain,
-            x: outsideLeftX,
+              x: layout.curtain.open.leftX,
             duration: duration,
             ease: 'Power2',
         });
         scene.tweens.add({
             targets: scene.rightCurtain,
-            x: outsideRightX,
+            x: layout.curtain.open.rightX,
             duration: duration,
             ease: 'Power2',
         });
@@ -153,13 +152,13 @@ export default class TweenUtils {
         const centerX = scene.scale.width / 2;
         scene.tweens.add({
             targets: scene.leftCurtain,
-            x: centerX / 4.8,
+            x: layout.drapes.halfway.leftX,
             duration: duration,
             ease: 'Power2',
         });
         scene.tweens.add({
             targets: scene.rightCurtain,
-            x: scene.scale.width - (centerX / 4.8),
+            x: layout.drapes.halfway.rightX,
             duration: duration,
             ease: 'Power2',
         });
