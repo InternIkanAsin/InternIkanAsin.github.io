@@ -145,38 +145,51 @@ class Main extends Phaser.Scene {
         const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
         const buttonXOffset = 350;
-        // Gunakan parameter yang lebih kecil untuk tombol, sesuai referensi teman Anda
-        this.dressUpButton = new UIButton(scene, scene.AudioManager, {
-            x: centerX - buttonXOffset,
-            y: centerY,
-            textureButton: 'buttonIcon',
-            buttonWidth: 75,
-            buttonHeight: 75,
-            textureIcon: 'dressButtonIcon',
-            iconYPosition: -10,
-            iconScale: 0.8,
-            callback: () => { this.transitionToMinigame(GameState.DRESSUP); },
-            buttonText: '',
-            buttonScale: 0.8,
-        }).setDepth(99); // Depth DI BAWAH tirai
+         const btnLayout = layout.selectionButtons; // Ambil layout tombol untuk kemudahan akses
 
-        if (this.dressUpFinished) this.dressUpTickMark = scene.add.image(centerX - buttonXOffset + 100, centerY * 1.1, 'tickMark').setDepth(100.1).setScale(0.7);
-        this.makeUpButton = new UIButton(scene, scene.AudioManager, {
-            x: centerX + buttonXOffset,
-            y: centerY,
-            textureButton: 'buttonIcon',
-            buttonWidth: 75,
-            buttonHeight: 75,
-            textureIcon: 'makeUpButtonIcon',
-            iconYPosition: -10,
-            iconScale: 0.8,
-            callback: () => { this.transitionToMinigame(GameState.MAKEUP); },
-            buttonText: '',
-            buttonScale: 0.8,
-        }).setDepth(99); // Depth DI BAWAH tirai
+    this.dressUpButton = new UIButton(scene, scene.AudioManager, {
+        x: btnLayout.dressUpX,
+        y: btnLayout.y,
+        textureButton: 'buttonIcon',
+        buttonWidth: 75,
+        buttonHeight: 75,
+        textureIcon: 'dressButtonIcon',
+        iconYPosition: -10,
+        iconScale: 0.8,
+        callback: () => { this.transitionToMinigame(GameState.DRESSUP); },
+        buttonText: '',
+        buttonScale: btnLayout.scale, // Gunakan skala dari layout
+    }).setDepth(99);
 
-        if (this.makeUpFinished) this.makeUpTickMark = scene.add.image(centerX + buttonXOffset + 100, centerY * 1.1, 'tickMark').setDepth(100.1).setScale(0.7);
+    if (this.dressUpFinished) {
+        this.dressUpTickMark = scene.add.image(
+            btnLayout.dressUpX + btnLayout.tickMarkOffsetX, 
+            btnLayout.y + btnLayout.tickMarkOffsetY, 
+            'tickMark'
+        ).setDepth(100.1).setScale(0.7);
+    }
 
+    this.makeUpButton = new UIButton(scene, scene.AudioManager, {
+        x: btnLayout.makeUpX,
+        y: btnLayout.y,
+        textureButton: 'buttonIcon',
+        buttonWidth: 75,
+        buttonHeight: 75,
+        textureIcon: 'makeUpButtonIcon',
+        iconYPosition: -10,
+        iconScale: 0.8,
+        callback: () => { this.transitionToMinigame(GameState.MAKEUP); },
+        buttonText: '',
+        buttonScale: btnLayout.scale, // Gunakan skala dari layout
+    }).setDepth(99);
+
+    if (this.makeUpFinished) {
+        this.makeUpTickMark = scene.add.image(
+            btnLayout.makeUpX + btnLayout.tickMarkOffsetX, 
+            btnLayout.y + btnLayout.tickMarkOffsetY, 
+            'tickMark'
+        ).setDepth(100.1).setScale(0.7);
+    }
         this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
             x: scene.scale.width / 2,
             y: scene.scale.height - 100,

@@ -20,6 +20,19 @@ const LANDSCAPE = {
 
 
     },
+
+    //minigameburron
+    selectionButtons: {
+        
+        dressUpX: (1920 / 2) - 350,
+        makeUpX: (1920 / 2) + 350,
+        y: 1080 / 2,
+        scale: 0.8,
+        
+        tickMarkOffsetX: 100,
+        tickMarkOffsetY: 50 
+    },
+
     //Background minigame
     background: {
         displayHeight: null
@@ -144,6 +157,18 @@ const PORTRAIT = {
 
 
     },
+
+    //Minigame Buttons
+    selectionButtons: {
+        
+        dressUpX: (720 / 2) - 180, 
+        makeUpX: (720 / 2) + 180,
+        y: 1280 / 2, 
+        scale: 0.6, 
+        tickMarkOffsetX: 70,
+        tickMarkOffsetY: 40
+    },
+
     //backroundminigame
     background: {
         
