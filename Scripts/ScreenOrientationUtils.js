@@ -122,12 +122,12 @@ const LANDSCAPE = {
 
     Hair: {
 
-        zoomInHairX: 1920 / 2 * 1.04,
+        zoomInHairX: 1920 / 2 * 1.035,
         zoomInHairY: 1080 / 2 * 1.58,
-        zoomInTargetHairScale: 0.8,
+        zoomInTargetHairScale: 0.83,
 
-        zoomOutHairX: 1920 / 2 / 1.105,
-        zoomOutHairY: 1080 / 2 / 1.44,
+        zoomOutHairX: 1920 / 2 / 1.103,
+        zoomOutHairY: 1080 / 2 / 1.45,
         zoomOutHairScale: 0.25,
 
     },
@@ -152,7 +152,7 @@ const LANDSCAPE = {
     sidePanelHeaderText: {
         x: LANDSCAPE_WIDTH - 180,
         y: 110,
-        fontSize: 32
+        fontSize: 48
     },
     // Finish Button
     finishButton: {
@@ -163,7 +163,7 @@ const LANDSCAPE = {
     //Dialogue System
     dialogueBox: {
         x: LANDSCAPE_CENTERX,
-        y: LANDSCAPE_HEIGHT * 1.32,
+        y: LANDSCAPE_CENTERY * 1.5,
         width: 1200,
         height: 300
     },
@@ -194,7 +194,17 @@ const LANDSCAPE = {
     categoryButton: {
         iconScale: 0.5,
         buttonScale: 0.6
-    }
+    },
+    makeUpButton: {
+        iconScale: 1.2,
+        highlightImg: 0.8,
+        buttonScale: 0.8
+    },
+    outfitButton: {
+        iconScale: 1.2,
+        highlightImg: 0.8,
+        buttonScale: 0.8
+    },
     //Dressup Category
     dressUpCategoryButtons: {
         dressButton: { x: 1536, y: 175 },
@@ -202,6 +212,18 @@ const LANDSCAPE = {
         underwearButton: { x: 1536, y: 525 },
         socksButton: { x: 1536, y: 700 },
         shoesButton: { x: 1536, y: 875 }
+    },
+
+    makeUpCategoryButtons: {
+        eyebrowsButton: { x: LANDSCAPE_WIDTH / 1.23, y: 125 },
+        eyelashesButton: { x: LANDSCAPE_WIDTH / 1.23, y: 225 },
+        eyelinerButton: { x: LANDSCAPE_WIDTH / 1.23, y: 325 },
+        eyeshadowButton: { x: LANDSCAPE_WIDTH / 1.23, y: 425 },
+        lipstickButton: { x: LANDSCAPE_WIDTH / 1.23, y: 525 },
+        eyecolorButton: { x: LANDSCAPE_WIDTH / 1.23, y: 625 },
+        blushButton: { x: LANDSCAPE_WIDTH / 1.23, y: 725 },
+        stickerButton: { x: LANDSCAPE_WIDTH / 1.23, y: 825 },
+        hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
     },
 
 };
