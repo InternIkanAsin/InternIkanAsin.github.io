@@ -247,8 +247,8 @@ const PORTRAIT = {
     },
     // Finish Button
     finishButton: {
-        x: 1920 / 2,
-        y: 1080 - 100
+        x: 720 / 2,
+        y: 1280 - 100
     },
     //Dialogue System
     dialogueBox: {

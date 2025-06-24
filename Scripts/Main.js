@@ -191,8 +191,8 @@ class Main extends Phaser.Scene {
         ).setDepth(100.1).setScale(0.7);
     }
         this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
-            x: scene.scale.width / 2,
-            y: scene.scale.height - 100,
+            x: layout.finishButton.x,
+            y: layout.finishButton.y,
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
