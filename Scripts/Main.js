@@ -111,8 +111,17 @@ class Main extends Phaser.Scene {
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
 
-        scene.leftCurtain = scene.add.image(layout.curtain.closed.leftX, centerY, 'leftCurtain').setDepth(102);
-        scene.rightCurtain = scene.add.image(layout.curtain.closed.rightX, centerY, 'rightCurtain').setDepth(102);
+        scene.leftCurtain = scene.add.image(
+        layout.curtain.closed.leftX, 
+        centerY, 
+        layout.curtain.leftTexture 
+    ).setDepth(102);
+
+    scene.rightCurtain = scene.add.image(
+        layout.curtain.closed.rightX, 
+        centerY, 
+        layout.curtain.rightTexture 
+    ).setDepth(102);
 
         // fix button size and position
         const buttonXOffset = 350;

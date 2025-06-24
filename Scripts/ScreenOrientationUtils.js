@@ -35,6 +35,8 @@ const LANDSCAPE = {
     },
 
     curtain: {
+        leftTexture: 'leftCurtain',
+        rightTexture: 'rightCurtain',
         closed: {
             leftX: (1920 / 2) / 4.8,
             rightX: 1920 - ((1920 / 2) / 4.8)
@@ -124,6 +126,8 @@ const PORTRAIT = {
     },
 
     curtain: {
+        leftTexture: 'leftCurtainUntied',
+        rightTexture: 'rightCurtainUntied',
         closed: {
             leftX: (720 / 2) / 4.8,
             rightX: 720 - ((720 / 2) / 4.8)
