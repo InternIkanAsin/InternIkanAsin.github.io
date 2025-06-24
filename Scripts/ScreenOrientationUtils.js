@@ -35,7 +35,7 @@ const LANDSCAPE = {
         zoomInTargetHairScale: 0.8,
 
         zoomOutHairX: 1920 / 2 / 1.105,
-        zoomOurHairY: 1080 / 2 / 1.44,
+        zoomOutHairY: 1080 / 2 / 1.44,
         zoomOutHairScale: 0.25,
         
     },
@@ -57,27 +57,70 @@ const PORTRAIT = {
     HEIGHT: 1280,
     // character position
     character: {
-        x: 720 / 2, 
-        y: 1280 / 2, 
-        scale: 0.8,
-        zoomInx:  1, 
-        zoomInY: 1920 * 1.5,
-        zoomInScale: 2.2,
+        x: 720 / 2 / 1.1,
+        y: 1280 / 2 / 0.9,
+        scale: 0.6,
+        zoomInX: 720 / 2 * 1.05,
+        zoomInY: 1280 / 2 * 2.6,
+        zoomInScale: 1.9,
+        
+        
+    },
+    //Face
+    face:{
+
+        zoomInFaceX: 720 / 2 * 0.95,
+        zoomInFaceY: 1280 / 2 / 1.2,
+        zoomInTargetFaceScale: 1,
+
+        zoomOutFaceX: 720 / 2 / 1.13,
+        zoomOutFaceY: 1280 / 2 / 1.79,
+        zoomOutTargetFaceScale: 0.3,
+
+    },
+    //Hair
+    Hair:{
+
+        zoomInHairX: 720 / 2,
+        zoomInHairY: 1280 / 2 * 1.47,
+        zoomInTargetHairScale: 0.8,
+
+        zoomOutHairX: 720 / 2 / 1.1,
+        zoomOutHairY: 1280 / 2 / 1.31,
+        zoomOutHairScale: 0.25,
+        
     },
     // Side Panel
     sidePanel: {
-        
-        x: 1080 / 2,
-        y: 1920 - 350,
-        width: 1080, 
-        height: 700  
+        x: 1920 - 70,
+        y: 1080 / 2
     },
     // Finish Button
     finishButton: {
-        x: 1080 / 2,
-        y: 1920 - 100
+        x: 1920 / 2,
+        y: 1080 - 100
     },
     
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
 export const orientation = { isPortrait, isMobile };
+
+console.log(
+    `%c[LayoutManager] Initialized.`, 
+    'color: #4CAF50; font-weight: bold;'
+);
+
+if (isPortrait) {
+    console.log(
+        `%c>> Mode: PORTRAIT (Mobile Detected)`,
+        'color: #2196F3;'
+    );
+} else {
+    console.log(
+        `%c>> Mode: LANDSCAPE (Desktop Detected)`,
+        'color: #FFC107;'
+    );
+}
+
+// Anda juga bisa log objek layout yang aktif untuk debugging
+console.log('>> Active Layout Config:', layout);

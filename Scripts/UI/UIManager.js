@@ -34,13 +34,13 @@ export class UIManager {
 
 
         //Back hair
-        scene.hairBack = scene.add.image(centerX / 1.105, centerY / 1.45, defaultHairTextures.back)
+        scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back)
             .setScale(0.25)
             .setOrigin(0.5)
             .setDepth(0.9);
 
         // Front hair
-        scene.hairFront = scene.add.image(centerX / 1.105, centerY / 1.44, defaultHairTextures.front)
+        scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
             .setScale(0.25)
             .setOrigin(0.5)
             .setDepth(6);
@@ -52,7 +52,7 @@ export class UIManager {
         scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55).setDepth(2);
         scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55).setDepth(2);
 
-        scene.faceContainer = scene.add.container(centerX / 1.115, centerY / 2.19, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
+        scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
         
         // --- Initialize MakeUpButton's state for default makeup ---
         MakeUpButton.selectedMakeUp = {}; // CRITICAL: Initialize the static property

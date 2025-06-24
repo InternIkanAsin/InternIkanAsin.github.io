@@ -273,9 +273,9 @@ export default class TweenUtils {
         const targetFaceY = layout.face.zoomInFaceY;
         const targetFaceScale = layout.face.zoomInTargetFaceScale;
 
-        const targetHairX = layout.hair.zoomInHairX;
-        const targetHairY = layout.hair.zoomInHairY;
-        const targetHairScale = layout.hair.zoomInTargetHairScale;
+        const targetHairX = layout.Hair.zoomInHairX;
+        const targetHairY = layout.Hair.zoomInHairY;
+        const targetHairScale = layout.Hair.zoomInTargetHairScale;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
         this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
@@ -304,9 +304,9 @@ export default class TweenUtils {
         const targetFaceY = layout.face.zoomOutFaceY;
         const targetFaceScale = layout.face.zoomOutTargetFaceScale;
 
-        const targetHairX = layout.face.zoomOutHairX;
-        const targetHairY = layout.face.zoomOutHairX;
-        const targetHairScale = layout.face.zoomOutHairScale;
+        const targetHairX = layout.Hair.zoomOutHairX;
+        const targetHairY = layout.Hair.zoomOutHairY;
+        const targetHairScale = layout.Hair.zoomOutHairScale;
 
         this.scene.tweens.add({ targets: [this.scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: 500, ease: 'Sine.easeInOut' });
         this.scene.tweens.add({ targets: [this.scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: 500, ease: 'Sine.easeInOut' });
