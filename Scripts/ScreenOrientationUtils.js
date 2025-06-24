@@ -9,6 +9,36 @@ const LANDSCAPE_CENTERY = LANDSCAPE_HEIGHT / 2;
 const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
+
+    outfit: {
+        positions: {
+            Dress: { x: 872, y: 646.5 },
+            Shirt: { x: 872.5, y: 439 },
+            Outer: { x: 872.5, y: 479.5 },
+            Underwear: { x: 890, y: 740 },
+            Socks: { x: 911.5, y: 770 },
+            Shoes: { x: 922, y: 907 }
+        },
+        customSizes: {
+            dress18: { width: 944, height: 900 },
+            dress19: { width: 944, height: 900 },
+            dress20: { width: 944, height: 900 },
+            outer8: { width: 530, height: 565 }
+        },
+        manualOffsets: {
+            outer14: { x: 0, y: -40 },
+            underwear2: { x: 0, y: 0 },
+            underwear3: { x: 0, y: 0 },
+            underwear4: { x: -15, y: 20 },
+            underwear5: { x: -15, y: 20 },
+            underwear6: { x: -15, y: 20 },
+            underwear7: { x: -15, y: 20 },
+            underwear8: { x: -15, y: 20 },
+            underwear9: { x: -15, y: 20 },
+            underwear10: { x: -15, y: 20 }
+        }
+    },
+
     // character position
     character: {
         x: 1920 / 2 / 1.1,
@@ -136,6 +166,8 @@ const LANDSCAPE = {
         x: 70,
         y: 500,
     }
+
+    
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -156,6 +188,36 @@ const PORTRAIT = {
         zoomInScale: 1.9,
 
 
+    },
+
+     outfit: {
+        positions: {
+            Dress: { x: 327, y: 757.5 },
+            Shirt: { x: 327, y: 549 },
+            Outer: { x: 328.5, y: 590.5 },
+            Underwear: { x: 342, y: 853 },
+            Socks: { x: 365.5, y: 878 },
+            Shoes: { x: 378, y: 1022 }
+        },
+        
+        customSizes: {
+            dress18: { width: 944, height: 900 },
+            dress19: { width: 944, height: 900 },
+            dress20: { width: 944, height: 900 },
+            outer8: { width: 530, height: 565 }
+        },
+        manualOffsets: {
+            outer14: { x: 0, y: -40 },
+            underwear2: { x: 0, y: 0 },
+            underwear3: { x: 0, y: 0 },
+            underwear4: { x: -15, y: 20 },
+            underwear5: { x: -15, y: 20 },
+            underwear6: { x: -15, y: 20 },
+            underwear7: { x: -15, y: 20 },
+            underwear8: { x: -15, y: 20 },
+            underwear9: { x: -15, y: 20 },
+            underwear10: { x: -15, y: 20 }
+        }
     },
 
     //Minigame Buttons

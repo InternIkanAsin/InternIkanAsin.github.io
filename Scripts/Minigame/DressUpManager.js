@@ -1,8 +1,10 @@
 // Costume Data Class
-import { costumeData, outfitPositions } from '../Outfit Data/CostumeData.js'
+import { costumeData } from '../Outfit Data/CostumeData.js'
 
 // UI Buttons Class
 import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
+
+import { layout } from '../ScreenOrientationUtils.js';
 
 export class DressUpManager {
     constructor(scene, AudioManager) {
@@ -15,6 +17,7 @@ export class DressUpManager {
      */
     setupCostumeButtons(scene) {
         this.scene.outfitButtons = {};
+        const outfitPositions = layout.outfit.positions;
 
         // Add buttons to the panel
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, stat }) => {
