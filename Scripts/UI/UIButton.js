@@ -632,6 +632,7 @@ export class OutfitButton extends BaseButton {
         unequip(outfitType);
 
         // --- Equip item  ---
+        const outfitManualOffsets = layout.outfit.manualOffsets;
         const manualOffset = outfitManualOffsets[textureAnime] || { x: 0, y: 0 };
         const finalX = this.outfitX + manualOffset.x;
         const finalY = this.outfitY + manualOffset.y;
