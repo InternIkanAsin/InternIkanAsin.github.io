@@ -22,17 +22,17 @@ const LANDSCAPE = {
     },
     //Tirai
     drapes: {
-        
+
         closed: {
             leftX: (1920 / 2) / 2,
             rightX: 1920 - ((1920 / 2) / 2)
         },
-        
+
         open: {
-            leftX: -500, 
-            rightX: 1920 + 500 
+            leftX: -500,
+            rightX: 1920 + 500
         },
-        
+
         halfway: {
             leftX: (1920 * 0.25) - 600,
             rightX: (1920 * 0.75) + 600
@@ -44,12 +44,12 @@ const LANDSCAPE = {
             leftX: (1920 / 2) / 4.8,
             rightX: 1920 - ((1920 / 2) / 4.8)
         },
-        
+
         open: {
-            leftX: -500, 
-            rightX: 1920 + 500 
+            leftX: -500,
+            rightX: 1920 + 500
         },
-        
+
         halfway: {
             leftX: (1920 * 0.25) - 600,
             rightX: (1920 * 0.75) + 600
@@ -98,8 +98,24 @@ const LANDSCAPE = {
         y: LANDSCAPE_HEIGHT * 1.32,
         width: 1200,
         height: 300
-    }
+    },
 
+    dialogueText: {
+        x: LANDSCAPE_WIDTH / 4.7,
+        y: LANDSCAPE_HEIGHT / 1.5,
+        fontSize: 36,
+        wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 2.4)
+    },
+
+    backButton: {
+        x: LANDSCAPE_WIDTH * 0.08,
+        y: LANDSCAPE_HEIGHT * 0.1,
+    },
+
+    removeAllButton: {
+        x: 70,
+        y: 500,
+    }
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -124,17 +140,17 @@ const PORTRAIT = {
 
     //Tirai
     drapes: {
-        
+
         closed: {
-            leftX: -50 ,
+            leftX: -50,
             rightX: 835
         },
-        
+
         open: {
-            leftX: -500, 
-            rightX: 720 + 500 
+            leftX: -500,
+            rightX: 720 + 500
         },
-        
+
         halfway: {
             leftX: (720 * 0.25) - 600,
             rightX: (720 * 0.75) + 600
@@ -146,12 +162,12 @@ const PORTRAIT = {
             leftX: (720 / 2) / 4.8,
             rightX: 720 - ((720 / 2) / 4.8)
         },
-        
+
         open: {
-            leftX: -500, 
-            rightX: 720 + 500 
+            leftX: -500,
+            rightX: 720 + 500
         },
-        
+
         halfway: {
             leftX: (720 * 0.25) - 600,
             rightX: (720 * 0.75) + 600
@@ -206,6 +222,43 @@ const PORTRAIT = {
         y: PORTRAIT_CENTERY * 1.3,
         fontSize: 32,
         wordWrap: PORTRAIT_WIDTH - 120
+    },
+
+    backButton: {
+        x: PORTRAIT_WIDTH * 0.18,
+        y: PORTRAIT_HEIGHT * 0.06,
+    },
+
+    removeAllButton: {
+        x: 70,
+        y: 250,
+    },
+
+    dressUpCategoryButtons: {
+        dressButton: {
+            x: 60,
+            y: 425
+        },
+        outerButton: {
+            x: 60,
+            y: 600
+        },
+        underwearButton: {
+            x: 60,
+            y: 775
+        },
+        socksButton: {
+            x: 60,
+            y: 950
+        },
+        shoesButton: {
+            x: 60,
+            y: 1125
+        },
+    },
+
+    readyButton: {
+
     }
 
 };
