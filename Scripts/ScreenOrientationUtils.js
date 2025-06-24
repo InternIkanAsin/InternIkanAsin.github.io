@@ -165,8 +165,16 @@ const LANDSCAPE = {
     removeAllButton: {
         x: 70,
         y: 500,
-    }
+    },
 
+    //Dressup Category
+    dressUpCategoryButtons: {
+        dressButton:     { x: 1536, y: 175 },
+        outerButton:     { x: 1536, y: 350 },
+        underwearButton: { x: 1536, y: 525 },
+        socksButton:     { x: 1536, y: 700 },
+        shoesButton:     { x: 1536, y: 875 }
+    },
     
 };
 const PORTRAIT_WIDTH = 720;
