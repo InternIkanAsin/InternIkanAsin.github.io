@@ -26,8 +26,8 @@ export class MiniGameManager {
         this.categoryButtons = scene.state === GameState.DRESSUP ? createDressUpCategoryButtons(scene, scene.AudioManager) : createMakeUpCategoryButtons(scene, scene.AudioManager);
         //Create back button for panel
         this.backButton = new UIButton(scene, scene.AudioManager, {
-            x: scene.scale.width * 0.08,
-            y: scene.scale.height * 0.1,
+            x: layout.backButton.x,
+            y: layout.backButton.y,
             textureButton: 'backButtonIcon',
             buttonWidth: 75,
             buttonHeight: 75,
@@ -42,14 +42,14 @@ export class MiniGameManager {
         const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
 
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
-            x: 70,
-            y: 500,
+            x: layout.removeAllButton.x,
+            y: layout.removeAllButton.y,
             textureButton: 'stitchedButtonIcon',
             buttonWidth: 75,
             buttonHeight: 75,
             textureIcon: removeAllIconKey,
             iconYPosition: -10,
-            iconScale: 0.7,
+            iconScale: 0.6,
             callback: () => {
                 if (scene.state === GameState.MAKEUP) {
                     if (scene.MakeUpManager) {
@@ -67,13 +67,13 @@ export class MiniGameManager {
             },
             buttonText: 'Remove All',
             textSize: 24,
-            textYPosition: 65,
-            buttonScale: 0.8,
+            textYPosition: 60,
+            buttonScale: 0.7,
         }).setDepth(99); // Depth DI BAWAH tirai
 
         scene.finishButton = new UIButton(scene, this.AudioManager, {
-            x: layout.finishButton.x, 
-            y: layout.finishButton.y, 
+            x: layout.finishButton.x,
+            y: layout.finishButton.y,
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
@@ -90,15 +90,15 @@ export class MiniGameManager {
                         this.scene.interactiveMakeupSystem.activeMakeupType, true
                     );
                 }
-            
+
                 // Logika utama
                 if (this.scene.state === GameState.DRESSUP) {
                     if (this.canContinueToScene2()) {
-                        
+
                         this.showConfirmationPanel();
                     } else {
-                        
-                        
+
+
                         this.incompletePanel = this.createIncompletePanel();
                         this.scene.tweens.add({
                             targets: this.incompletePanel,
@@ -108,7 +108,7 @@ export class MiniGameManager {
                         });
                     }
                 } else {
-                    
+
                     this.showConfirmationPanel();
                 }
             },
@@ -353,9 +353,9 @@ export class MiniGameManager {
         const selected = OutfitButton.selectedOutfits;
 
         const has = type => !!(selected[type] && selected[type].current);
-        
+
         const isSet1 = has("Dress") && has("Shoes");
-        
+
         const isSet2 = has("Shirt") && has("Underwear") && has("Shoes");
 
         return isSet1 || isSet2;
@@ -557,13 +557,13 @@ export class MiniGameManager {
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({
             x: layout.sidePanel.x,
             y: layout.sidePanel.y,
-            width: layout.sidePanel.width || 500, 
+            width: layout.sidePanel.width || 500,
             height: layout.sidePanel.height || 1000,
             scrollMode: 0,
 
-            scrollDetectionMode: 1,            
+            scrollDetectionMode: 1,
             scroller: {
-                pointerOutRelease: false,      
+                pointerOutRelease: false,
                 rectBoundsInteractive: false
             },
 
