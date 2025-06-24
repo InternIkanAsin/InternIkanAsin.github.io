@@ -111,6 +111,11 @@ class Main extends Phaser.Scene {
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
 
+        if (layout.drapes.displayHeight) {
+            scene.leftDrape.setDisplaySize(scene.leftDrape.width, layout.drapes.displayHeight);
+            scene.rightDrape.setDisplaySize(scene.rightDrape.width, layout.drapes.displayHeight);
+        }
+
         scene.leftCurtain = scene.add.image(
             layout.curtain.closed.leftX,
             centerY,
@@ -140,10 +145,11 @@ class Main extends Phaser.Scene {
         const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
         const buttonXOffset = 350;
-        // Gunakan parameter yang lebih kecil untuk tombol, sesuai referensi teman Anda
+        const btnLayout = layout.selectionButtons; // Ambil layout tombol untuk kemudahan akses
+
         this.dressUpButton = new UIButton(scene, scene.AudioManager, {
-            x: centerX - buttonXOffset,
-            y: centerY,
+            x: btnLayout.dressUpX,
+            y: btnLayout.y,
             textureButton: 'buttonIcon',
             buttonWidth: 75,
             buttonHeight: 75,
@@ -152,13 +158,20 @@ class Main extends Phaser.Scene {
             iconScale: 0.8,
             callback: () => { this.transitionToMinigame(GameState.DRESSUP); },
             buttonText: '',
-            buttonScale: 0.8,
-        }).setDepth(99); // Depth DI BAWAH tirai
+            buttonScale: btnLayout.scale, // Gunakan skala dari layout
+        }).setDepth(99);
 
-        if (this.dressUpFinished) this.dressUpTickMark = scene.add.image(centerX - buttonXOffset + 100, centerY * 1.1, 'tickMark').setDepth(100.1).setScale(0.7);
+        if (this.dressUpFinished) {
+            this.dressUpTickMark = scene.add.image(
+                btnLayout.dressUpX + btnLayout.tickMarkOffsetX,
+                btnLayout.y + btnLayout.tickMarkOffsetY,
+                'tickMark'
+            ).setDepth(100.1).setScale(0.7);
+        }
+
         this.makeUpButton = new UIButton(scene, scene.AudioManager, {
-            x: centerX + buttonXOffset,
-            y: centerY,
+            x: btnLayout.makeUpX,
+            y: btnLayout.y,
             textureButton: 'buttonIcon',
             buttonWidth: 75,
             buttonHeight: 75,
@@ -167,14 +180,19 @@ class Main extends Phaser.Scene {
             iconScale: 0.8,
             callback: () => { this.transitionToMinigame(GameState.MAKEUP); },
             buttonText: '',
-            buttonScale: 0.8,
-        }).setDepth(99); // Depth DI BAWAH tirai
+            buttonScale: btnLayout.scale, // Gunakan skala dari layout
+        }).setDepth(99);
 
-        if (this.makeUpFinished) this.makeUpTickMark = scene.add.image(centerX + buttonXOffset + 100, centerY * 1.1, 'tickMark').setDepth(100.1).setScale(0.7);
-
+        if (this.makeUpFinished) {
+            this.makeUpTickMark = scene.add.image(
+                btnLayout.makeUpX + btnLayout.tickMarkOffsetX,
+                btnLayout.y + btnLayout.tickMarkOffsetY,
+                'tickMark'
+            ).setDepth(100.1).setScale(0.7);
+        }
         this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
-            x: scene.scale.width / 2,
-            y: scene.scale.height - 80,
+            x: layout.finishButton.x,
+            y: layout.finishButton.y,
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
@@ -318,8 +336,8 @@ const config = {
     scene: [BootScene, PreloaderScene, Main]
 };
 
-//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isMobile = true;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = true;
 
 if (isMobile) {
     // Untuk mobile, kita paksa mode portrait

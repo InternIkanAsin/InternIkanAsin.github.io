@@ -1,7 +1,5 @@
 import { GameState } from './Main.js';
 import { OutfitButton } from './UI/UIButton.js';
-import { outfitCustomSizes, outfitPositions, outfitManualOffsets } from './Outfit Data/CostumeData.js'; // Add this import
-import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
 import { layout } from './ScreenOrientationUtils.js';
 export default class TweenUtils {
     constructor(scene) {

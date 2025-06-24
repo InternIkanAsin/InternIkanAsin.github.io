@@ -1,8 +1,9 @@
-import { outfitCustomSizes, outfitManualOffsets } from "../Outfit Data/CostumeData.js";
+
 import { BaseButton } from "./BaseButton.js";
 import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
+import { layout } from "../ScreenOrientationUtils.js";
 export default class UIButton extends BaseButton {
     constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, textureYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
 
@@ -482,6 +483,9 @@ export class OutfitButton extends BaseButton {
         // --- Properties for new highlight feature (already assigned this.highlightImage) ---
 
         // --- Properties for new tweenToView feature (for zoom transitions) ---
+        const outfitCustomSizes = layout.outfit.customSizes;
+        const outfitManualOffsets = layout.outfit.manualOffsets;
+
         const baseManualOffset = outfitManualOffsets[this.textureAnime] || { x: 0, y: 0 };
         this.baseWorldOutfitX = outfitX + baseManualOffset.x; // Absolute world X if char is at origin
         this.baseWorldOutfitY = outfitY + baseManualOffset.y; // Absolute world Y
@@ -629,6 +633,7 @@ export class OutfitButton extends BaseButton {
         unequip(outfitType);
 
         // --- Equip item  ---
+        const outfitManualOffsets = layout.outfit.manualOffsets;
         const manualOffset = outfitManualOffsets[textureAnime] || { x: 0, y: 0 };
         const finalX = this.outfitX + manualOffset.x;
         const finalY = this.outfitY + manualOffset.y;

@@ -1,5 +1,5 @@
-// const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isMobile = true;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -9,6 +9,36 @@ const LANDSCAPE_CENTERY = LANDSCAPE_HEIGHT / 2;
 const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
+
+    outfit: {
+        positions: {
+            Dress: { x: 872, y: 646.5 },
+            Shirt: { x: 872.5, y: 439 },
+            Outer: { x: 872.5, y: 479.5 },
+            Underwear: { x: 890, y: 740 },
+            Socks: { x: 911.5, y: 770 },
+            Shoes: { x: 922, y: 907 }
+        },
+        customSizes: {
+            dress18: { width: 944, height: 900 },
+            dress19: { width: 944, height: 900 },
+            dress20: { width: 944, height: 900 },
+            outer8: { width: 530, height: 565 }
+        },
+        manualOffsets: {
+            outer14: { x: 0, y: -40 },
+            underwear2: { x: 0, y: 0 },
+            underwear3: { x: 0, y: 0 },
+            underwear4: { x: -15, y: 20 },
+            underwear5: { x: -15, y: 20 },
+            underwear6: { x: -15, y: 20 },
+            underwear7: { x: -15, y: 20 },
+            underwear8: { x: -15, y: 20 },
+            underwear9: { x: -15, y: 20 },
+            underwear10: { x: -15, y: 20 }
+        }
+    },
+
     // character position
     character: {
         x: 1920 / 2 / 1.1,
@@ -20,9 +50,27 @@ const LANDSCAPE = {
 
 
     },
+
+    //minigameburron
+    selectionButtons: {
+
+        dressUpX: (1920 / 2) - 350,
+        makeUpX: (1920 / 2) + 350,
+        y: 1080 / 2,
+        scale: 0.8,
+
+        tickMarkOffsetX: 100,
+        tickMarkOffsetY: 50
+    },
+
+    //Background minigame
+    background: {
+        displayHeight: null
+    },
+
     //Tirai
     drapes: {
-
+        displayHeight: null,
         closed: {
             leftX: (1920 / 2) / 2,
             rightX: 1920 - ((1920 / 2) / 2)
@@ -147,6 +195,15 @@ const LANDSCAPE = {
         iconScale: 0.5,
         buttonScale: 0.6
     }
+    //Dressup Category
+    dressUpCategoryButtons: {
+        dressButton: { x: 1536, y: 175 },
+        outerButton: { x: 1536, y: 350 },
+        underwearButton: { x: 1536, y: 525 },
+        socksButton: { x: 1536, y: 700 },
+        shoesButton: { x: 1536, y: 875 }
+    },
+
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -169,8 +226,56 @@ const PORTRAIT = {
 
     },
 
+    outfit: {
+        positions: {
+            Dress: { x: 327, y: 757.5 },
+            Shirt: { x: 327, y: 549 },
+            Outer: { x: 328.5, y: 590.5 },
+            Underwear: { x: 342, y: 853 },
+            Socks: { x: 365.5, y: 878 },
+            Shoes: { x: 378, y: 1022 }
+        },
+
+        customSizes: {
+            dress18: { width: 944, height: 900 },
+            dress19: { width: 944, height: 900 },
+            dress20: { width: 944, height: 900 },
+            outer8: { width: 530, height: 565 }
+        },
+        manualOffsets: {
+            outer14: { x: 0, y: -40 },
+            underwear2: { x: 0, y: 0 },
+            underwear3: { x: 0, y: 0 },
+            underwear4: { x: -15, y: 20 },
+            underwear5: { x: -15, y: 20 },
+            underwear6: { x: -15, y: 20 },
+            underwear7: { x: -15, y: 20 },
+            underwear8: { x: -15, y: 20 },
+            underwear9: { x: -15, y: 20 },
+            underwear10: { x: -15, y: 20 }
+        }
+    },
+
+    //Minigame Buttons
+    selectionButtons: {
+
+        dressUpX: (720 / 2) - 180,
+        makeUpX: (720 / 2) + 180,
+        y: 1280 / 2,
+        scale: 0.6,
+        tickMarkOffsetX: 70,
+        tickMarkOffsetY: 40
+    },
+
+    //backroundminigame
+    background: {
+
+        displayHeight: 1280
+    },
+
     //Tirai
     drapes: {
+        displayHeight: 1280,
 
         closed: {
             leftX: -50,

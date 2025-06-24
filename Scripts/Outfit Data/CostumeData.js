@@ -103,33 +103,5 @@ const costumeData = [
     new Costume("Shoes 13", "Shoes", "shoes13", "buttonIcon2", "shoes13Icon", +1)
 ];
 
-const outfitCustomSizes = {
-    dress18: { width: 944, height: 900 },
-    dress19: { width: 944, height: 900 },
-    dress20: { width: 944, height: 900 },
-    outer8: { width: 530, height: 565 }
-};
 
-const outfitManualOffsets = {
-    outer14: { x: 0, y: -40 },
-    underwear2: { x: 0, y: 0 },
-    underwear3: { x: 0, y: 0 },
-    underwear4: { x: -15, y: 20 },
-    underwear5: { x: -15, y: 20 },
-    underwear6: { x: -15, y: 20 },
-    underwear7: { x: -15, y: 20 },
-    underwear8: { x: -15, y: 20 },
-    underwear9: { x: -15, y: 20 },
-    underwear10: { x: -15, y: 20 }
-};
-
-//Stores outfit positions to be displayed on the character.
-const outfitPositions = {
-    Dress: { x: 872, y: 646.5 },
-    Shirt: { x: 872.5, y: 439 },
-    Outer: { x: 872.5, y: 479.5 },
-    Underwear: { x: 890, y: 740 },
-    Socks: { x: 911.5, y: 770 },
-    Shoes: { x: 922, y: 907 }
-};
-export { costumeData, outfitPositions, outfitCustomSizes, outfitManualOffsets };
+export {costumeData};
