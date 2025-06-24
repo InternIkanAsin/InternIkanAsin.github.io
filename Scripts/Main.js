@@ -111,6 +111,11 @@ class Main extends Phaser.Scene {
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
 
+        if (layout.drapes.displayHeight) {
+        scene.leftDrape.setDisplaySize(scene.leftDrape.width, layout.drapes.displayHeight);
+        scene.rightDrape.setDisplaySize(scene.rightDrape.width, layout.drapes.displayHeight);
+    }
+
         scene.leftCurtain = scene.add.image(
         layout.curtain.closed.leftX, 
         centerY, 
@@ -318,8 +323,8 @@ const config = {
     scene: [BootScene, PreloaderScene, Main]
 };
 
-//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isMobile = true;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = true;
 
 if (isMobile) {
     // Untuk mobile, kita paksa mode portrait

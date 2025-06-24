@@ -1,5 +1,5 @@
-// const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isMobile = true;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -20,9 +20,14 @@ const LANDSCAPE = {
 
 
     },
+    //Background minigame
+    background: {
+        displayHeight: null
+    },
+
     //Tirai
     drapes: {
-        
+        displayHeight: null,
         closed: {
             leftX: (1920 / 2) / 2,
             rightX: 1920 - ((1920 / 2) / 2)
@@ -123,9 +128,15 @@ const PORTRAIT = {
 
 
     },
+    //backroundminigame
+    background: {
+        
+        displayHeight: 1280 
+    },
 
     //Tirai
     drapes: {
+        displayHeight: 1280,
         
         closed: {
             leftX: -50 ,
