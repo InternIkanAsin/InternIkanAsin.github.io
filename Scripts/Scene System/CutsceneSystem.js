@@ -63,10 +63,10 @@ export class CutsceneSystem {
 
         console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
         // Dialogue choices depending on your choice of outfit
-        if (statPoints < 6) {
+        if (statPoints >= 6) {
             this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Sad');
             this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After2'].getDialogue();
-        } else if (statPoints >= 6) {
+        } else if (statPoints < 6) {
             this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
             this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After'].getDialogue();
         }
