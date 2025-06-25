@@ -18,26 +18,31 @@ export class DressUpManager {
     setupCostumeButtons(scene) {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
-
-        // Add buttons to the panel
+    
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, stat }) => {
             const { x: outfitX, y: outfitY } = outfitPositions[outfitType] || { x: 0, y: 0 };
             const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, stat, scene.statTracker, scene.AudioManager);
-
-            // Optional: Hide/show by type
+    
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);
-
-            const currentSelectedButton = OutfitButton.selectedOutfits[outfitType]?.current;
-            // Kita bandingkan berdasarkan nama karena instance-nya berbeda
-            if (currentSelectedButton && currentSelectedButton.name === name) {
-                // HANYA atur tampilan, JANGAN ubah state
+    
+            // --- LOGIKA BARU YANG MENYELESAIKAN KEDUA BUG ---
+            const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
+            const oldButtonInstance = currentSelectedEntry?.current;
+    
+            // Bandingkan berdasarkan nama, karena instance objeknya berbeda
+            if (oldButtonInstance && oldButtonInstance.name === name) {
+                // 1. Tampilkan highlight pada tombol BARU
                 button.highlightImage.setVisible(true);
-
-                //bikin tween ngebug
-                // OutfitButton.selectedOutfits[outfitType].current = button; 
+    
+                // 2. "Pindahkan" referensi gambar dari tombol LAMA ke tombol BARU
+                button.displayedOutfit = oldButtonInstance.displayedOutfit;
+    
+                // 3. Sekarang aman untuk memperbarui state agar menunjuk ke tombol BARU
+                currentSelectedEntry.current = button;
             }
-
+            // --- AKHIR LOGIKA BARU ---
+    
             if (!scene.outfitButtons[outfitType]) {
                 scene.outfitButtons[outfitType] = [];
             }
