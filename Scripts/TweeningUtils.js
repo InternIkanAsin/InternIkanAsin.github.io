@@ -4,7 +4,7 @@ import { layout } from './ScreenOrientationUtils.js';
 export default class TweenUtils {
     constructor(scene) {
         this.scene = scene;
-         this.bodyScaleMakeupView = layout.character.zoomInScale;
+        this.bodyScaleMakeupView = layout.character.zoomInScale;
         this.bodyScaleDressUpView = layout.character.scale;
     }
 
@@ -63,7 +63,7 @@ export default class TweenUtils {
         }
 
         scene.state = GameState.MAKEUP;
-
+        if (!this.scene.MiniGameManager.canContinueToScene2()) this.scene.dressUpFinished = false;
 
         this.zoomOut();
 
@@ -87,11 +87,11 @@ export default class TweenUtils {
             return;
         }
 
-       
+
 
         scene.tweens.add({
             targets: scene.leftDrape,
-              x: layout.drapes.open.leftX,
+            x: layout.drapes.open.leftX,
             duration: duration,
             ease: 'Power2',
             onComplete: () => {
@@ -111,7 +111,7 @@ export default class TweenUtils {
         });
         scene.tweens.add({
             targets: scene.leftCurtain,
-              x: layout.curtain.open.leftX,
+            x: layout.curtain.open.leftX,
             duration: duration,
             ease: 'Power2',
         });

@@ -161,7 +161,7 @@ class Main extends Phaser.Scene {
             buttonScale: btnLayout.scale, // Gunakan skala dari layout
         }).setDepth(99);
 
-        if (this.dressUpFinished) {
+        if (this.dressUpFinished && this.MiniGameManager.canContinueToScene2()) {
             this.dressUpTickMark = scene.add.image(
                 btnLayout.dressUpX + btnLayout.tickMarkOffsetX,
                 btnLayout.y + btnLayout.tickMarkOffsetY,

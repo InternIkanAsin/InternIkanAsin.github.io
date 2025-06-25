@@ -326,7 +326,7 @@ export class MiniGameManager {
 
     transitionMiniGame() {
         let text;
-        if (!this.scene.makeUpFinished && !this.scene.dressUpFinished) text = "You haven't finished your make up and dress up!";
+        if (!this.scene.dressUpFinished && !this.scene.makeUpFinished) text = "You haven't finished your make up and dress up!";
         else if (!this.scene.makeUpFinished) text = "You haven't finished your make up!";
         else if (!this.scene.dressUpFinished) text = "You haven't finished your dress up!";
 
