@@ -29,13 +29,13 @@ export class DressUpManager {
             button.setData('instance', button);
 
             const currentSelectedButton = OutfitButton.selectedOutfits[outfitType]?.current;
+            // Kita bandingkan berdasarkan nama karena instance-nya berbeda
             if (currentSelectedButton && currentSelectedButton.name === name) {
-                // Jika nama tombol ini cocok dengan yang tersimpan di state, aktifkan highlight.
-                // Kita gunakan 'name' untuk perbandingan karena instance tombolnya baru dan berbeda.
+                // HANYA atur tampilan, JANGAN ubah state
                 button.highlightImage.setVisible(true);
 
-                // Penting: Perbarui referensi 'current' di state agar menunjuk ke instance tombol BARU.
-                OutfitButton.selectedOutfits[outfitType].current = button;
+                //bikin tween ngebug
+                // OutfitButton.selectedOutfits[outfitType].current = button; 
             }
 
             if (!scene.outfitButtons[outfitType]) {
