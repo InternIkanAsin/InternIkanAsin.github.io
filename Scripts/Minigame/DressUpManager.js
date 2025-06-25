@@ -33,7 +33,7 @@ export class DressUpManager {
                 // Jika nama tombol ini cocok dengan yang tersimpan di state, aktifkan highlight.
                 // Kita gunakan 'name' untuk perbandingan karena instance tombolnya baru dan berbeda.
                 button.highlightImage.setVisible(true);
-    
+
                 // Penting: Perbarui referensi 'current' di state agar menunjuk ke instance tombol BARU.
                 OutfitButton.selectedOutfits[outfitType].current = button;
             }
@@ -80,10 +80,6 @@ export class DressUpManager {
             OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfitButton || entry?.previous || null };
         });
 
-        // Optional: Play a sound
-        if (this.AudioManager) {
-            this.AudioManager.playSFX('buttonClick'); // Or a more specific "unequip all" sound
-        }
         console.log("[DressUpManager] All outfits removed. Current selection:", scene.OutfitButton.selectedOutfits);
     }
 

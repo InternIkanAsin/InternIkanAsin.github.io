@@ -29,7 +29,7 @@ export class MakeUpManager {
                 if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
                     button.highlightImage.setVisible(true);
 
-                    
+
                     MakeUpButton.selectedMakeUp[makeUpType].current = button;
                 }
 
@@ -434,7 +434,6 @@ export class MakeUpManager {
             }
         }
 
-        this.AudioManager.playSFX('buttonClick'); // Or a more specific "removeAll" sound
         // console.log("Finished 'Remove All'. Final state:", JSON.stringify(MakeUpButton.selectedMakeUp, (key, value) => (key === 'displayedMakeUp' && value) ? '[PhaserGameObject]' : value, 2));
     }
 
