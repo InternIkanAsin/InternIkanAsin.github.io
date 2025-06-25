@@ -65,8 +65,11 @@ const LANDSCAPE = {
 
     //Background minigame
     background: {
-        displayWidth: null,
-        displayHeight: null
+        originX: 0.5,
+        originY: 0.5,
+        x: 1920 / 2,
+        y: 1080 / 2,
+        scale: 1 
     },
 
     //Tirai
@@ -292,8 +295,11 @@ const PORTRAIT = {
 
     //backroundminigame
     background: {
-        displayWidth: 2276,
-        displayHeight: 1280
+        originX: 0,
+        originY: 0.5, 
+        x: 0,
+        y: 1280 / 2,
+        scale: 1280 / 1080 
     },
 
     //Tirai

@@ -29,15 +29,18 @@ class PreloaderScene extends Phaser.Scene {
 
         // --- 1. Display Background ---
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const bg = this.add.image(width / 2, height / 2, 'minigame_background_preload');
-
+    
         if (isMobile) {
-           
-            const originalAspectRatio = 1920 / 1080; 
-            const newWidth = height * originalAspectRatio;
-            bg.setDisplaySize(newWidth, height);
+            
+            const scale = height / 1080; 
+            this.add.image(0, height / 2, 'minigame_background_preload')
+                .setOrigin(0, 0.5)
+                .setScale(scale);
         } else {
-            bg.setDisplaySize(width, height);
+            
+            this.add.image(width / 2, height / 2, 'minigame_background_preload')
+                .setOrigin(0.5, 0.5)
+                .setScale(1); 
         }
 
         // --- 2. Display Logo ---

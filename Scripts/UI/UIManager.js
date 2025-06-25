@@ -25,11 +25,15 @@ export class UIManager {
 
         let isMobile = true;
         const bgScale = isMobile ? 1.2 : 1
-        scene.background = scene.add.image(centerX, centerY, 'background').setScale(bgScale);
+        const bgLayout = layout.background; 
 
-        if (layout.background.displayWidth && layout.background.displayHeight) {
-            scene.background.setDisplaySize(layout.background.displayWidth, layout.background.displayHeight);
-        }
+        scene.background = scene.add.image(
+            bgLayout.x, 
+            bgLayout.y, 
+            'background'
+        )
+        .setOrigin(bgLayout.originX, bgLayout.originY)
+        .setScale(bgLayout.scale);
 
         // Setup character
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
