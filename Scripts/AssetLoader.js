@@ -163,7 +163,7 @@ export default class AssetLoader {
     //Anime Textures
 
     //Dress
-    scene.load.image('dress1', 'Asset/Outfit/terusan17.png');
+    scene.load.image('dress1', 'Asset/Outfit/Terusan/terusan17.png');
     scene.load.image('dress2', 'Asset/Outfit/Terusan/kebaya1.png');
     scene.load.image('dress3', 'Asset/Outfit/Terusan/dress reward prereg.png');//ngga ada iconnya
     scene.load.image('dress4', 'Asset/Outfit/Terusan/kebaya2.png');
