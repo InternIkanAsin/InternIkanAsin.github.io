@@ -496,7 +496,7 @@ export class OutfitButton extends BaseButton {
             this.baseScaleXAfterCustomSize = 1; // Will be updated in toggleOutfit
             this.baseScaleYAfterCustomSize = 1;
         } else {
-            this.dressUpViewScale = 0.6; // Default scale for outfit image in DressUp view
+            this.dressUpViewScale = 1.2; // Default scale for outfit image in DressUp view
         }
         this.offsetXInDressUpView = 0; // Offset from body for DressUp view, calculated in toggleOutfit
         this.offsetYInDressUpView = 0;
