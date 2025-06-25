@@ -27,9 +27,9 @@ export class UIManager {
         const bgScale = isMobile ? 1.2 : 1
         scene.background = scene.add.image(centerX, centerY, 'background').setScale(bgScale);
 
-        // if (layout.background.displayHeight) {
-        //     scene.background.setDisplaySize(scene.scale.width, layout.background.displayHeight);
-        // }
+        if (layout.background.displayWidth && layout.background.displayHeight) {
+            scene.background.setDisplaySize(layout.background.displayWidth, layout.background.displayHeight);
+        }
 
         // Setup character
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')

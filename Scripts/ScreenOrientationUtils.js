@@ -65,6 +65,7 @@ const LANDSCAPE = {
 
     //Background minigame
     background: {
+        displayWidth: null,
         displayHeight: null
     },
 
@@ -291,7 +292,7 @@ const PORTRAIT = {
 
     //backroundminigame
     background: {
-
+        displayWidth: 2276,
         displayHeight: 1280
     },
 
