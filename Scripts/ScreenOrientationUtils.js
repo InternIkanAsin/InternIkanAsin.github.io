@@ -69,7 +69,7 @@ const LANDSCAPE = {
         originY: 0.5,
         x: 1920 / 2,
         y: 1080 / 2,
-        scale: 1 
+        scale: 1
     },
 
     //Tirai
@@ -127,8 +127,8 @@ const LANDSCAPE = {
     Hair: {
 
         zoomInHairX: 1920 / 2 * 1.035,
-        zoomInHairY: 1080 / 2 * 1.58,
-        zoomInTargetHairScale: 0.83,
+        zoomInHairY: 1080 / 2 * 1.553,
+        zoomInTargetHairScale: 0.8,
 
         zoomOutHairX: 1920 / 2 / 1.103,
         zoomOutHairY: 1080 / 2 / 1.45,
@@ -296,10 +296,10 @@ const PORTRAIT = {
     //backroundminigame
     background: {
         originX: 0,
-        originY: 0.5, 
+        originY: 0.5,
         x: 0,
         y: 1280 / 2,
-        scale: 1280 / 1080 
+        scale: 1280 / 1080
     },
 
     //Tirai
