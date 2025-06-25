@@ -782,76 +782,105 @@ export class MakeUpButton extends BaseButton {
         MakeUpButton.clearMakeupHighlightsForType(this.scene, makeupTypeToRevert);
         const scene = this.scene;
         const defaultTextureKey = defaultMakeUpSkins[makeupTypeToRevert];
-
+    
         if (defaultTextureKey) {
+            
+            if (makeupTypeToRevert === 'Hair') {
+                const defaultHairTextures = defaultMakeUpSkins['Hair'];
+                scene.hairBack.setTexture(defaultHairTextures.back).setVisible(true);
+                scene.hairFront.setTexture(defaultHairTextures.front).setVisible(true);
+    
+                
+                
+                const hairLayout = layout.Hair;
+                if (scene.state === GameState.MAKEUP) {
+                    
+                    scene.hairBack.setPosition(hairLayout.zoomInHairX, hairLayout.zoomInHairY);
+                    scene.hairFront.setPosition(hairLayout.zoomInHairX, hairLayout.zoomInHairY);
+                    scene.hairBack.setScale(hairLayout.zoomInTargetHairScale);
+                    scene.hairFront.setScale(hairLayout.zoomInTargetHairScale);
+                } else {
+                    
+                    scene.hairBack.setPosition(hairLayout.zoomOutHairX, hairLayout.zoomOutHairY);
+                    scene.hairFront.setPosition(hairLayout.zoomOutHairX, hairLayout.zoomOutHairY);
+                    scene.hairBack.setScale(hairLayout.zoomOutHairScale);
+                    scene.hairFront.setScale(hairLayout.zoomOutHairScale);
+                }
+                
+                
+                
+                MakeUpButton.selectedMakeUp[makeupTypeToRevert] = {
+                    current: { 
+                        name: 'Default Hair', 
+                        makeupType: makeupTypeToRevert, 
+                        textureAnime: defaultHairTextures, 
+                        displayedMakeUp: [scene.hairBack, scene.hairFront], 
+                        isDefault: true 
+                    },
+                    previous: previousEquippedItemInfo
+                };
+                return; 
+            }
+            
+    
+           
             const defaultMakeUpItemData = makeUpData.find(item => item.makeUpType === makeupTypeToRevert && item.textureAnime === defaultTextureKey);
-            // Allow Hair/Sticker to proceed even if no named "Default" in makeUpData, as long as defaultMakeUpSkins has a key for them (even if that key leads to clearing)
-            if (!defaultMakeUpItemData && !['Hair', 'Sticker'].includes(makeupTypeToRevert)) {
+            if (!defaultMakeUpItemData && !['Sticker'].includes(makeupTypeToRevert)) {
                 if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil'].includes(makeupTypeToRevert)) {
                     MakeUpButton.selectedMakeUp[makeupTypeToRevert] = { current: null, previous: previousEquippedItemInfo };
                     return;
                 }
             }
-
-
-
+    
             const position = MakeUpPositions[makeupTypeToRevert] || { x: 0, y: 0 };
             let imageToUpdate;
-            let isCoreType = false; // Changed from isCoreOrHair to be more specific
-
-            if (makeupTypeToRevert === 'Hair') {
-                const defaultHairTextures = defaultMakeUpSkins['Hair'];
-                scene.hairBack.setTexture(defaultHairTextures.back).setVisible(true);
-                scene.hairFront.setTexture(defaultHairTextures.front).setVisible(true);
-                imageToUpdate = [scene.hairBack, scene.hairFront]; // save as arrray
-                isCoreType = true;
+    
+            switch (makeupTypeToRevert) {
+                case 'Lips': imageToUpdate = scene.lips; break;
+                case 'Eyebrows': imageToUpdate = scene.eyebrows; break;
+                case 'Eyelashes': imageToUpdate = scene.eyelashes; break;
+                case 'Pupil': imageToUpdate = scene.pupils; break;
+                default:
+                    imageToUpdate = scene.add.image(position.x, position.y, defaultTextureKey);
+                    if (scene.faceContainer && !imageToUpdate.parentContainer) {
+                        scene.faceContainer.add(imageToUpdate);
+                    }
+                    break;
             }
-            else {
-
-                switch (makeupTypeToRevert) {
-                    case 'Lips': imageToUpdate = scene.lips; isCoreType = true; break;
-                    case 'Eyebrows': imageToUpdate = scene.eyebrows; isCoreType = true; break;
-                    case 'Eyelashes': imageToUpdate = scene.eyelashes; isCoreType = true; break;
-                    case 'Pupil': imageToUpdate = scene.pupils; isCoreType = true; break;
-                    //case 'Hair': imageToUpdate = scene.hair; isCoreType = true; break;
-                    // Sticker default: if defined in defaultMakeUpSkins, it's an additive image.
-                    // If not defined, this function won't apply anything new, selectedMakeUp[type].current becomes null.
-                    default:
-                        imageToUpdate = scene.add.image(position.x, position.y, defaultTextureKey);
-                        if (scene.faceContainer && !imageToUpdate.parentContainer) {
-                            scene.faceContainer.add(imageToUpdate);
-                        }
-                        break;
-                }
-
+    
+            if (!imageToUpdate) { 
+                console.error(`Could not get/create image for default ${makeupTypeToRevert}`); 
+                return; 
             }
-
-
-            if (!imageToUpdate) { console.error(`Could not get/create image for default ${makeupTypeToRevert}`); return; }
-
-            if (isCoreType) {
-                imageToUpdate.setTexture(defaultTextureKey).setVisible(true);
-            }
-
+    
+            imageToUpdate.setTexture(defaultTextureKey).setVisible(true);
+    
             // Apply scale
-            if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupTypeToRevert)) { // <<<< ADDED STICKER HERE
+            if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(0.55);
-            } else if (makeupTypeToRevert === 'Hair') {
-                imageToUpdate.setScale(0.8);
-            } else { // Eyeshadow (if it had a default)
+            } else {
                 imageToUpdate.setScale(0.9);
             }
-            imageToUpdate.setDepth(MakeUpButton.DEPTH_VALUES[makeupTypeToRevert] || (makeupTypeToRevert === 'Hair' ? 3 : MakeUpButton.DEPTH_VALUES['Sticker'] || 2.7));
-
+            
+            imageToUpdate.setDepth(MakeUpButton.DEPTH_VALUES[makeupTypeToRevert] || MakeUpButton.DEPTH_VALUES['Sticker'] || 2.7);
+    
             const currentName = defaultMakeUpItemData ? defaultMakeUpItemData.name : `Default ${makeupTypeToRevert}`;
             MakeUpButton.selectedMakeUp[makeupTypeToRevert] = {
-                current: { name: currentName, makeupType: makeupTypeToRevert, textureAnime: defaultTextureKey, displayedMakeUp: imageToUpdate, isDefault: true },
+                current: { 
+                    name: currentName, 
+                    makeupType: makeupTypeToRevert, 
+                    textureAnime: defaultTextureKey, 
+                    displayedMakeUp: imageToUpdate, 
+                    isDefault: true 
+                },
                 previous: previousEquippedItemInfo
             };
-        } else { // No default skin defined in defaultMakeUpSkins for this type (e.g., Sticker)
+    
+        } else {
             MakeUpButton.selectedMakeUp[makeupTypeToRevert] = { current: null, previous: previousEquippedItemInfo };
-            MakeUpButton.clearMakeupHighlightsForType(this.scene, makeupTypeToRevert); // Ensure highlight is off
+            MakeUpButton.clearMakeupHighlightsForType(this.scene, makeupTypeToRevert);
         }
+        
         if (this.scene.faceContainer) {
             this.scene.faceContainer.sort('depth');
         }
