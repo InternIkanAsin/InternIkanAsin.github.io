@@ -24,6 +24,15 @@ export class MakeUpManager {
                 const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, 'highlightTexture'); // Added highlightTextureKey
                 button.setSize(150, 200);
                 button.setData('instance', button);
+
+                const currentSelectedMakeup = MakeUpButton.selectedMakeUp[makeUpType]?.current;
+                if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
+                    button.highlightImage.setVisible(true);
+
+                    
+                    MakeUpButton.selectedMakeUp[makeUpType].current = button;
+                }
+
                 if (!scene.makeUpButtons[makeUpType]) {
                     scene.makeUpButtons[makeUpType] = [];
                 }

@@ -161,7 +161,7 @@ const LANDSCAPE = {
     // Finish Button
     finishButton: {
         x: 1920 / 2,
-        y: 1080 - 100
+        y: 1080 - 200
     },
 
     //Dialogue System
@@ -393,7 +393,7 @@ const PORTRAIT = {
     // Finish Button
     finishButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT - 80
+        y: PORTRAIT_HEIGHT - 50
     },
     //Dialogue System
     dialogueBox: {
