@@ -25,15 +25,15 @@ export class UIManager {
 
         let isMobile = true;
         const bgScale = isMobile ? 1.2 : 1
-        const bgLayout = layout.background; 
+        const bgLayout = layout.background;
 
         scene.background = scene.add.image(
-            bgLayout.x, 
-            bgLayout.y, 
+            bgLayout.x,
+            bgLayout.y,
             'background'
         )
-        .setOrigin(bgLayout.originX, bgLayout.originY)
-        .setScale(bgLayout.scale);
+            .setOrigin(bgLayout.originX, bgLayout.originY)
+            .setScale(bgLayout.scale);
 
         // Setup character
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
@@ -46,13 +46,13 @@ export class UIManager {
 
         //Back hair
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back)
-            .setScale(0.25)
+            .setScale(0.5)
             .setOrigin(0.5)
             .setDepth(0.9);
 
         // Front hair
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
-            .setScale(0.25)
+            .setScale(0.5)
             .setOrigin(0.5)
             .setDepth(6);
 

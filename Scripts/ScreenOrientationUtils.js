@@ -128,11 +128,11 @@ const LANDSCAPE = {
 
         zoomInHairX: 1920 / 2 * 1.035,
         zoomInHairY: 1080 / 2 * 1.553,
-        zoomInTargetHairScale: 0.8,
+        zoomInTargetHairScale: 1.6,
 
         zoomOutHairX: 1920 / 2 / 1.103,
         zoomOutHairY: 1080 / 2 / 1.45,
-        zoomOutHairScale: 0.25,
+        zoomOutHairScale: 0.5,
 
     },
     // Side Panel

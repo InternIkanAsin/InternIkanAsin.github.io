@@ -1021,7 +1021,7 @@ export class MakeUpButton extends BaseButton {
 
             // ... set scale, depth, update selectedMakeUp, set highlight ...
             if (makeupType === 'Hair') {
-                this.displayedMakeUp.forEach(img => img.setScale(0.8));
+                this.displayedMakeUp.forEach(img => img.setScale(1.6));
 
             } else {
 
