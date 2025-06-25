@@ -59,41 +59,8 @@ export default class AssetLoader {
   }
   static loadUIAssets(scene) {
     scene.load.image('theaterBackground', 'Asset/Cutscene/cutscene_bg.png');
-    scene.load.image('categoryButtonsPanel', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_1.png');
-    scene.load.image('outfitButton', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_2.png');
-    scene.load.image('outfitButtonOutline', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_2_Outline.png');
-    scene.load.image('openIcon', 'Asset/UI/Cisini_UI_DressUp_ScrollButton_UP_Icon.png');
-    scene.load.image('makeUpIcon', 'Asset/UI/Cisini_UI_DressUp_makeup_Icon.png');
-    scene.load.image('tipsPanel', 'Asset/UI/cisini_ui_notif box.png');
     scene.load.image('dialogueBox', 'Asset/UI/Text_Box.png');
     scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
-    scene.load.image('bubbleTextBoxTop', 'Asset/UI/balon_kata_atas.png');
-    scene.load.image('bubbleTextBoxBottom', 'Asset/UI/balon_kata_bawah.png');
-    scene.load.image('bubbleTextBoxLeft', 'Asset/UI/balon_kata.png');
-    scene.load.image('bubbleTextBoxRight', 'Asset/UI/balon_kata_kanan.png');
-    scene.load.image('statPanel', 'Asset/UI/Cisini_UI_DressUp_MenuIcon_Scroll_Button.png');
-    scene.load.image('emptyButton', 'Asset/UI/cisini_ui_button kosong.png');
-    scene.load.image('emptyButton2', 'Asset/UI/button kosong.png');
-    scene.load.image('emptyButtonRed', 'Asset/UI/button kosong merah.png');
-    scene.load.image('categoryButton', 'Asset/UI/Square_Line.png');
-    scene.load.image('continueButton', 'Asset/UI/Cisini_UI_Info_Box.png');
-    scene.load.image('continueButtonSelected', 'Asset/UI/Cisini_UI_Info_Box_Selected.png');
-    scene.load.image('backButton', 'Asset/UI/Cisini_UI_DressUp_BackButton_Icon.png');
-    scene.load.image('redButton', 'Asset/UI/Button_Merah.png');
-    scene.load.image('redButton', 'Asset/UI/Button_Merah.png');
-    scene.load.image('headerPanel', 'Asset/UI/Cisini_UI_menutab_up_areaSlice.png');
-    scene.load.image('checkMark', 'Asset/UI/tanda_ceklis.png');
-    scene.load.image('xMarkWhite', 'Asset/UI/UI_button No.png');
-    scene.load.image('finishChecklist', 'Asset/UI/ceklis_reversewarna.png');
-    scene.load.image('selectionBox', 'Asset/UI/action_box.png');
-    scene.load.image('tipsButton', 'Asset/UI/Question_Mark_Button_lineputih.png');
-    scene.load.image('statBar', 'Asset/UI/bar.png');
-    scene.load.image('heartIcon', 'Asset/UI/ikon_hati.png');
-    scene.load.image('heartIcon2', 'Asset/UI/hati_merah.png');
-    scene.load.image('brokenHeartIcon', 'Asset/UI/Hati_Hitam.png');
-    scene.load.image('endingHeader', 'Asset/UI/banner_shop_2.png');
-    scene.load.image('scoreBox', 'Asset/UI/bar_search.png');
-    scene.load.image('button1', 'Asset/UI/Cisini_UI_DressUp_Menu_DressInventory_2.png');
 
     //New Assets
     scene.load.image('buttonIcon', 'Asset/UI/Button_Released.png');
@@ -122,7 +89,7 @@ export default class AssetLoader {
     scene.load.image('rightCurtain', 'Asset/UI/Curtain_Tied_Right.png');
     scene.load.image('leftCurtainUntied', 'Asset/UI/Curtain_Untied_Left.png');
     scene.load.image('rightCurtainUntied', 'Asset/UI/Curtain_Untied_Right.png');
-    
+
 
     scene.load.image('sidePanel', 'Asset/UI/Panel.png');
     scene.load.image('sidePanelLine', 'Asset/UI/Panel_Line.png');
