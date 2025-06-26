@@ -33,10 +33,10 @@ export class MiniGameManager {
             buttonHeight: 75,
             textureIcon: '',
             iconYPosition: -10,
-            iconScale: 0.22 * 4,
+            iconScale: 0.22 * 2,
             callback: () => { scene.TweeningUtils.transitionBackToSelection(); },
             buttonText: '',
-            buttonScale: 0.22 * 4,
+            buttonScale: 0.22 * 2,
         }).setDepth(99); // Depth DI BAWAH tirai
 
         const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
