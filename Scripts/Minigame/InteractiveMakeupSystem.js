@@ -72,7 +72,7 @@ export class InteractiveMakeupSystem {
 
         // 1. Get position and scale for this makeup type
         const position = MakeUpPositions[makeupType] || { x: 0, y: 0 };
-        let scale = 0.55; // Default for most makeup
+        let scale = 0.55 * 2; // Default for most makeup
 
         // --- Outline Graphics ---
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
