@@ -33,10 +33,10 @@ export class MiniGameManager {
             buttonHeight: 75,
             textureIcon: '',
             iconYPosition: -10,
-            iconScale: 0.22,
+            iconScale: 0.22 * 4,
             callback: () => { scene.TweeningUtils.transitionBackToSelection(); },
             buttonText: '',
-            buttonScale: 0.22,
+            buttonScale: 0.22 * 4,
         }).setDepth(99); // Depth DI BAWAH tirai
 
         const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
@@ -49,7 +49,7 @@ export class MiniGameManager {
             buttonHeight: 75,
             textureIcon: removeAllIconKey,
             iconYPosition: -10,
-            iconScale: 0.6,
+            iconScale: 0.6 * 2,
             callback: () => {
                 if (scene.state === GameState.MAKEUP) {
                     if (scene.MakeUpManager) {
@@ -68,7 +68,7 @@ export class MiniGameManager {
             buttonText: 'Remove All',
             textSize: 24,
             textYPosition: 60,
-            buttonScale: 0.7,
+            buttonScale: 0.7 * 2,
         }).setDepth(99); // Depth DI BAWAH tirai
 
         scene.finishButton = new UIButton(scene, this.AudioManager, {

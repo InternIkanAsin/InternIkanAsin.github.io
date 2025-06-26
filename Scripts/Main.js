@@ -108,8 +108,8 @@ class Main extends Phaser.Scene {
         scene.UIManager.setupScene(scene);
         // First Curtain is closed
         const drapeWidth = scene.scale.width / 2;
-        scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
-        scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
+        scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101).setScale(2);
+        scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101).setScale(2);
 
         if (layout.drapes.displayHeight) {
             scene.leftDrape.setDisplaySize(scene.leftDrape.width, layout.drapes.displayHeight);
@@ -120,13 +120,13 @@ class Main extends Phaser.Scene {
             layout.curtain.closed.leftX,
             centerY,
             layout.curtain.leftTexture
-        ).setDepth(102);
+        ).setDepth(102).setScale(2);
 
         scene.rightCurtain = scene.add.image(
             layout.curtain.closed.rightX,
             centerY,
             layout.curtain.rightTexture
-        ).setDepth(102);
+        ).setDepth(102).setScale(2);
 
         // fix button size and position
         const buttonXOffset = 350;
@@ -155,7 +155,7 @@ class Main extends Phaser.Scene {
             buttonHeight: 75,
             textureIcon: 'dressButtonIcon',
             iconYPosition: -10,
-            iconScale: 0.8,
+            iconScale: 0.8 * 2,
             callback: () => { this.transitionToMinigame(GameState.DRESSUP); },
             buttonText: '',
             buttonScale: btnLayout.scale, // Gunakan skala dari layout
@@ -177,7 +177,7 @@ class Main extends Phaser.Scene {
             buttonHeight: 75,
             textureIcon: 'makeUpButtonIcon',
             iconYPosition: -10,
-            iconScale: 0.8,
+            iconScale: 0.8 * 2,
             callback: () => { this.transitionToMinigame(GameState.MAKEUP); },
             buttonText: '',
             buttonScale: btnLayout.scale, // Gunakan skala dari layout

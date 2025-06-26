@@ -58,10 +58,10 @@ export class UIManager {
 
         // Create initial facial feature GameObjects
         // These textures are the "visual defaults" when the game starts.
-        scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55).setDepth(2);
-        scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55).setDepth(2);
-        scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55).setDepth(2);
-        scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55).setDepth(2);
+        scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
+        scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
 
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
 

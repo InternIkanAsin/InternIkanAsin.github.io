@@ -226,9 +226,12 @@ export class GeneralButton extends BaseButton {
 export class CategoryButton extends BaseButton {
     constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick) {
         //Create button and icon using the scene
-        const button = scene.add.image(0, 0, textureButton).setInteractive().setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.4);
+         const button = scene.add.image(0, 0, textureButton)
+            .setInteractive()
+            .setScale(layout.categoryButton.buttonScale); 
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false); // Retained for potential explicit hover states if desired later
-        const icon = scene.add.image(0, 0, textureIcon).setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.3);
+        const icon = scene.add.image(0, 0, textureIcon)
+            .setScale(layout.categoryButton.iconScale);
 
         super(scene, x, y, [button, buttonHighlighted, icon]);
 
@@ -857,9 +860,9 @@ export class MakeUpButton extends BaseButton {
 
             // Apply scale
             if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupTypeToRevert)) {
-                imageToUpdate.setScale(0.55);
+                imageToUpdate.setScale(0.55 * 2);
             } else {
-                imageToUpdate.setScale(0.9);
+                imageToUpdate.setScale(0.9 * 2);
             }
 
             imageToUpdate.setDepth(MakeUpButton.DEPTH_VALUES[makeupTypeToRevert] || MakeUpButton.DEPTH_VALUES['Sticker'] || 2.7);
@@ -1025,8 +1028,8 @@ export class MakeUpButton extends BaseButton {
 
             } else {
 
-                if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55); }
-                else { this.displayedMakeUp.setScale(0.9); }
+                if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55 * 2); }
+                else { this.displayedMakeUp.setScale(0.9 * 2); }
                 this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
             }
             if (scene.faceContainer) {

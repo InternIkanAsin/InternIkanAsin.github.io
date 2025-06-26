@@ -57,7 +57,7 @@ const LANDSCAPE = {
         dressUpX: (1920 / 2) - 350,
         makeUpX: (1920 / 2) + 350,
         y: 1080 / 2,
-        scale: 0.8,
+        scale: 0.8 * 2,
 
         tickMarkOffsetX: 100,
         tickMarkOffsetY: 50
@@ -182,32 +182,35 @@ const LANDSCAPE = {
     backButton: {
         x: LANDSCAPE_WIDTH * 0.08,
         y: LANDSCAPE_HEIGHT * 0.1,
+        scale: 0.22 * 2
     },
 
     removeAllButton: {
         x: 70,
         y: 500,
+        buttonScale: 0.8 * 2, 
+        iconScale: 0.7 * 2 
     },
 
     itemPanelButton: {
-        iconScale: 0.5,
-        buttonScale: 0.8,
+        iconScale: 0.5 * 2,
+        buttonScale: 0.8 * 2,
         textYPosition: 70
     },
 
     categoryButton: {
-        iconScale: 0.5,
-        buttonScale: 0.6
+        iconScale: 0.5 * 2,
+        buttonScale: 0.6 * 2
     },
     makeUpButton: {
-        iconScale: 1.2,
+        iconScale: 1.2 * 2,
         highlightImg: 0.8,
-        buttonScale: 0.8
+        buttonScale: 0.8 * 2
     },
     outfitButton: {
         iconScale: 1.2,
         highlightImg: 0.8,
-        buttonScale: 0.8
+        buttonScale: 0.8 * 2
     },
     //Dressup Category
     dressUpCategoryButtons: {
@@ -288,7 +291,7 @@ const PORTRAIT = {
         dressUpX: (720 / 2) - 180,
         makeUpX: (720 / 2) + 180,
         y: 1280 / 2,
-        scale: 0.6,
+        scale: 0.6 * 2,
         tickMarkOffsetX: 70,
         tickMarkOffsetY: 40
     },
@@ -412,11 +415,14 @@ const PORTRAIT = {
     backButton: {
         x: PORTRAIT_WIDTH * 0.18,
         y: PORTRAIT_HEIGHT * 0.06,
+        scale: 0.22 * 2
     },
 
     removeAllButton: {
         x: 70,
         y: 250,
+        buttonScale: 0.8 * 2, // 
+        iconScale: 0.7 * 2 
     },
 
     //Category Buttons
@@ -484,24 +490,24 @@ const PORTRAIT = {
     outfitButton: {
         iconScale: 1,
         highlightImg: 0.6,
-        buttonScale: 0.6
+        buttonScale: 0.6 * 2
     },
 
     makeUpButton: {
-        iconScale: 1,
+        iconScale: 1 * 2,
         highlightImg: 0.6,
-        buttonScale: 0.6
+        buttonScale: 0.6 * 2
     },
 
     itemPanelButton: {
-        iconScale: 0.4,
-        buttonScale: 0.6,
+        iconScale: 0.4 * 2,
+        buttonScale: 0.6 * 2,
         textYPosition: 60
     },
 
     categoryButton: {
-        iconScale: 0.4,
-        buttonScale: 0.5,
+        iconScale: 0.4 * 2,
+        buttonScale: 0.5 * 2,
     }
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
