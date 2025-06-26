@@ -4,30 +4,27 @@ import { traitsMap } from '../Outfit Data/CostumeTraits.js'
 export const bachelorDialoguesContainer = {
 
     Angga: {
-        "Theater": new DialogueData(),
-        "TheaterAfter": new DialogueData(),
-        "TheaterAfter2": new DialogueData(),
+        "Hangout1": new DialogueData(),
     },
     Azril: {
-        "Theater": new DialogueData(),
-        "TheaterAfter": new DialogueData(),
-        "TheaterAfter2": new DialogueData(),
+        "Hangout1": new DialogueData(),
     },
     Reza: {
-        "Theater": new DialogueData(),
-        "TheaterAfter": new DialogueData(),
-        "TheaterAfter2": new DialogueData(),
+        "Hangout1": new DialogueData(),
     },
     Indra: {
-        "Theater": new DialogueData(),
-        "TheaterAfter": new DialogueData(),
-        "TheaterAfter2": new DialogueData(),
+        "Hangout1": new DialogueData(),
     },
     Keenan: {
-        "Theater": new DialogueData(),
-        "TheaterAfter": new DialogueData(),
-        "TheaterAfter2": new DialogueData(),
+        "Hangout1": new DialogueData(),
     },
+    AfterHangout: {
+        0: new DialogueData(),
+        1: new DialogueData(),
+        2: new DialogueData(),
+        3: new DialogueData(),
+        4: new DialogueData()
+    }
 };
 
 export function initializeBachelorDialogue(bachelorName, datePlace, dialogueLines) {
@@ -38,70 +35,34 @@ export function initializeBachelorDialogue(bachelorName, datePlace, dialogueLine
     return bachelorDialoguesContainer[bachelorName][datePlace];
 }
 
-export function fillTraits(dialogue, trait1, trait2) {
-    return dialogue.replace("{trait1}", trait1).replace("{trait2}", trait2);
-}
-
 // Angga Dialogues
-initializeBachelorDialogue("Angga", "Theater", [
-    { speakerName: "Angga", dialogue: fillTraits("Hi, wanna go watch a movie with me? Just wear a {trait1} and {trait2} outfit for me okay?", traitsMap["Angga"].trait1, traitsMap["Angga"].trait2) }
+initializeBachelorDialogue("Angga", "Hangout1", [
+    { speakerName: "Angga", dialogue: "Have you ever stood and watching the city lights stretch forever and the stars feel close enough to reach?" },
+    { speakerName: "Angga", dialogue: "It's one of those things I've always wanted to do and it'd be great to share that moment with you." }
 ])
-
-initializeBachelorDialogue("Angga", "TheaterAfter", [
-    { speakerName: "Angga", dialogue: "Oh my, you look beautiful! Your outfit especially" }
-])
-
-initializeBachelorDialogue("Angga", "TheaterAfter2", [
-    { speakerName: "Angga", dialogue: fillTraits("Why are you wearing that outfit? I thought you were going to wear something {trait1} and {trait2} for me?", traitsMap["Angga"].trait1, traitsMap["Angga"].trait2) }
-])
-
 
 // Azril Dialogues
-initializeBachelorDialogue("Azril", "Theater", [
-    { speakerName: "Azril", dialogue: fillTraits("Hi Ho! wanna go watch a movie with me? Just wear a {trait1} and {trait2} outfit for me okay?", traitsMap["Azril"].trait1, traitsMap["Azril"].trait2) }
+initializeBachelorDialogue("Azril", "Hangout1", [
+    { speakerName: "Azril", dialogue: "You know? They say music sounds better when you're with someone special." },
+    { speakerName: "Azril", dialogue: "Would you come to a concert with me and be the rhythm to my night?" }
 ])
 
-initializeBachelorDialogue("Azril", "TheaterAfter", [
-    { speakerName: "Azril", dialogue: "Wow you look stunning! I'm so looking forward to today!!" }
-])
-
-initializeBachelorDialogue("Azril", "TheaterAfter2", [
-    { speakerName: "Azril", dialogue: fillTraits("Why are you wearing that outfit? I thought you were going to wear something {trait1} and {trait2} for me?", traitsMap["Angga"].trait1, traitsMap["Angga"].trait2) }
-])
 // Reza Dialogues
-initializeBachelorDialogue("Reza", "Theater", [
-    { speakerName: "Reza", dialogue: fillTraits("Hi beautiful, let's go and watch a movie in this beautiful sunny day, just wear a {trait1} and {trait2} outfit for me okay?", traitsMap["Reza"].trait1, traitsMap["Reza"].trait2) }
-])
-
-initializeBachelorDialogue("Reza", "TheaterAfter", [
-    { speakerName: "Reza", dialogue: "Wow you look beautiful! The outfit accentuates your beauty!" }
-])
-
-initializeBachelorDialogue("Reza", "TheaterAfter2", [
-    { speakerName: "Reza", dialogue: fillTraits("Why are you wearing that outfit? I thought you were going to wear something {trait1} and {trait2} for me?", traitsMap["Angga"].trait1, traitsMap["Angga"].trait2) }
+initializeBachelorDialogue("Reza", "Hangout1", [
+    { speakerName: "Reza", dialogue: "The breeze is soft, the sun’s just right. It feels like the world’s inviting us out. " },
+    { speakerName: "Reza", dialogue: "Care to join me and let the quiet wrap around us for a while?" }
 ])
 
 // Indra Dialogues
-initializeBachelorDialogue("Indra", "Theater", [
-    { speakerName: "Indra", dialogue: fillTraits("Hi , let's go and watch a movie, just wear a {trait1} and {trait2} outfit for me okay?", traitsMap["Indra"].trait1, traitsMap["Indra"].trait2) }
+initializeBachelorDialogue("Indra", "Hangout1", [
+    { speakerName: "Indra", dialogue: "The delicate sweets may melt on the tongue but nothing compares to the sweetness of having them with you." },
+    { speakerName: "Indra", dialogue: "Will you share a bite of happiness with me?" }
 ])
 
-initializeBachelorDialogue("Indra", "TheaterAfter", [
-    { speakerName: "Indra", dialogue: "Wow, your outfit looks really good! I can't wait to spend the rest of the day with you!!" }
-])
-
-initializeBachelorDialogue("Indra", "TheaterAfter2", [
-    { speakerName: "Indra", dialogue: fillTraits("Why are you wearing that outfit? I thought you were going to wear something {trait1} and {trait2} for me?", traitsMap["Angga"].trait1, traitsMap["Angga"].trait2) }
-])
 // Keenan Dialogues
-initializeBachelorDialogue("Keenan", "Theater", [
-    { speakerName: "Keenan", dialogue: fillTraits("Hey you, come and watch a movie with me, or I'll double your work, just wear a {trait1} and {trait2} outfit for me.", traitsMap["Keenan"].trait1, traitsMap["Keenan"].trait2) }
+initializeBachelorDialogue("Keenan", "Hangout1", [
+    { speakerName: "Keenan", dialogue: "I heard you love the ocean, and they say the ocean holds many secrets." },
+    { speakerName: "Keenan", dialogue: "How about we explore the underwater world and uncover some of the secrets together?" }
 ])
 
-initializeBachelorDialogue("Keenan", "TheaterAfter", [
-    { speakerName: "Keenan", dialogue: "You look... nice. Maybe we should do this more often." }
-])
 
-initializeBachelorDialogue("Keenan", "TheaterAfter2", [
-    { speakerName: "Keenan", dialogue: fillTraits("Why are you wearing that outfit? I thought you were going to wear something {trait1} and {trait2} for me? That's it, I'm doubling your work and you will receive no pay this month.", traitsMap["Angga"].trait1, traitsMap["Angga"].trait2) }
-])

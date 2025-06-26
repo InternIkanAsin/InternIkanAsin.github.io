@@ -226,12 +226,12 @@ export class GeneralButton extends BaseButton {
 export class CategoryButton extends BaseButton {
     constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick) {
         //Create button and icon using the scene
-         const button = scene.add.image(0, 0, textureButton)
+        const button = scene.add.image(0, 0, textureButton)
             .setInteractive()
-            .setScale(layout.categoryButton.buttonScale); 
+            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.8);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false); // Retained for potential explicit hover states if desired later
         const icon = scene.add.image(0, 0, textureIcon)
-            .setScale(layout.categoryButton.iconScale);
+            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.6);
 
         super(scene, x, y, [button, buttonHighlighted, icon]);
 
@@ -688,7 +688,7 @@ export class MakeUpButton extends BaseButton {
             .setVisible(false)
             .setDepth(-1)    // Behind icon/text, above buttonBg
             .setScale(layout.makeUpButton.highlightImg);
-        const iconImg = scene.add.image(0, 0, textureIcon).setScale(layout.makeUpButton.iconScale);
+        const iconImg = scene.add.image(0, 0, textureIcon).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
         // --- End Create UI elements ---
 
         // --- Call super() ---

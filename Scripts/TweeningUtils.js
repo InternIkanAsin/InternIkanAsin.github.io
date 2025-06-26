@@ -8,6 +8,27 @@ export default class TweenUtils {
         this.bodyScaleDressUpView = layout.character.scale;
     }
 
+    showApplyMakeUpPanel() {
+        const scene = this.scene;
+
+        scene.tweens.add({
+            targets: scene.applyMakeUpContainer,
+            y: 100,
+            duration: 500,
+            ease: 'Back.Out'
+        })
+    }
+
+    hideApplyMakeUpPanel() {
+        const scene = this.scene;
+
+        scene.tweens.add({
+            targets: scene.applyMakeUpContainer,
+            y: -100,
+            duration: 500,
+            ease: 'Back.Out'
+        })
+    }
     closeDrapes(duration = 500, onComplete = null) {
         const scene = this.scene;
         if (!scene.leftDrape || !scene.rightDrape) {
@@ -66,7 +87,7 @@ export default class TweenUtils {
         scene.state = GameState.MAKEUP;
         if (!this.scene.MiniGameManager.canContinueToScene2()) this.scene.dressUpFinished = false;
 
-       
+        this.hideApplyMakeUpPanel();
 
         this.closeDrapes(500, () => {
 
@@ -142,7 +163,10 @@ export default class TweenUtils {
             targets: scene.rightDrape,
             x: targetRightX, // move from middle sideways
             duration: duration,
-            ease: 'Power2'
+            ease: 'Power2',
+            onComplete: () => {
+                this.scene.MiniGameManager.enableInteraction();
+            }
         });
     }
 
@@ -296,26 +320,26 @@ export default class TweenUtils {
             const scene = this.scene;
             const centerX = scene.scale.width / 2;
             const centerY = scene.scale.height / 2;
-    
+
             const targetBodyX = layout.character.x;
             const targetBodyY = layout.character.y;
             const targetBodyScale = this.bodyScaleDressUpView;
-    
+
             const targetFaceX = layout.face.zoomOutFaceX;
             const targetFaceY = layout.face.zoomOutFaceY;
             const targetFaceScale = layout.face.zoomOutTargetFaceScale;
-    
+
             const targetHairX = layout.Hair.zoomOutHairX;
             const targetHairY = layout.Hair.zoomOutHairY;
             const targetHairScale = layout.Hair.zoomOutHairScale;
-    
+
             const duration = 500; // Definisikan durasi
-    
+
             // Tambahkan tween untuk body, face, dan hair
             scene.tweens.add({ targets: [scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.hairBack, scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: duration, ease: 'Sine.easeInOut' });
-    
+
             // Tween untuk semua outfit yang sedang dipakai
             Object.values(OutfitButton.selectedOutfits).forEach(entry => {
                 const equippedButton = entry?.current;
@@ -323,7 +347,7 @@ export default class TweenUtils {
                     this.tweenOutfitImage(equippedButton.displayedOutfit, targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, duration, 'Sine.easeInOut');
                 }
             });
-    
+
             // Gunakan timer untuk menunggu tween selesai. Ini adalah cara sederhana dan efektif.
             scene.time.delayedCall(duration, () => {
                 console.log("[TweenUtils] zoomOut animation complete.");

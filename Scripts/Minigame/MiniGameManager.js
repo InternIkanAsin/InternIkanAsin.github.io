@@ -108,8 +108,8 @@ export class MiniGameManager {
                         });
                     }
                 } else {
-
                     this.showConfirmationPanel();
+                    this.scene.TweeningUtils.hideApplyMakeUpPanel();
                 }
             },
             buttonText: 'READY',
@@ -120,9 +120,16 @@ export class MiniGameManager {
             textColor: '#d6525f'
         });
 
-        this.setupOutfitTipsDisplay();
-        this.setUpSidePanel(scene);
+        scene.applyMakeUpPanel = this.scene.add.nineslice(0, 0, 'stitchedButtonIcon', '', 900, 125, 32, 32, 20, 24);
+        scene.applyMakeUpText = this.scene.add.text(0, 0, 'Swipe the highlighted area to apply the make up', {
+            fontSize: '40px',
+            fill: '#FFFFFF',
+            fontFamily: 'regularFont',
+            wordWrap: { width: this.scene.scale.width - 120 }
+        }).setOrigin(0.5, 0.5);
 
+        scene.applyMakeUpContainer = this.scene.add.container(scene.scale.width / 2, -100, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
+        this.setUpSidePanel(scene);
     }
 
     clearMinigameUI() {
@@ -137,6 +144,7 @@ export class MiniGameManager {
 
 
         scene.statPanelContainer?.destroy();
+        scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
         this.backButton?.destroy();
         scene.dressUpCategoryButtons?.forEach(buttons => buttons.destroy());
@@ -336,7 +344,7 @@ export class MiniGameManager {
                 targets: this.incompletePanel,
                 scale: 1,
                 duration: 100,
-                ease: 'Sine.easeInOut'
+                ease: 'Back.Out'
             });
             return;
         }
@@ -346,7 +354,7 @@ export class MiniGameManager {
             targets: this.activeConfirmationPanel,
             scale: 1,
             duration: 100,
-            ease: 'Sine.easeInOut'
+            ease: 'Back.Out'
         });
     }
     canContinueToScene2() {
@@ -365,7 +373,7 @@ export class MiniGameManager {
 
         const bachelorNameToUse = this.scene.chosenBachelorName;
         const statPointsToUse = this.scene.statTracker.getStatPoints();
-
+        this.disableInteraction();
 
         if (!bachelorNameToUse) {
             console.error("[MiniGameManager] FATAL: chosenBachelorName tidak ada di scene saat akan transisi!");
@@ -396,7 +404,7 @@ export class MiniGameManager {
             console.log(`[MiniGameManager] Memulai Cutscene 2 untuk ${bachelorNameToUse}`);
             this.scene.CutsceneSystem.initiateCutscene2(
                 bachelorNameToUse,
-                "Theater",
+                "Hangout1",
                 statPointsToUse
             );
         });

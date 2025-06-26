@@ -57,7 +57,7 @@ const LANDSCAPE = {
         dressUpX: (1920 / 2) - 350,
         makeUpX: (1920 / 2) + 350,
         y: 1080 / 2,
-        scale: 0.8 * 2,
+        scale: 0.8,
 
         tickMarkOffsetX: 100,
         tickMarkOffsetY: 50
@@ -188,8 +188,8 @@ const LANDSCAPE = {
     removeAllButton: {
         x: 70,
         y: 500,
-        buttonScale: 0.8 * 2, 
-        iconScale: 0.7 * 2 
+        buttonScale: 0.8 * 2,
+        iconScale: 0.7 * 2
     },
 
     itemPanelButton: {
@@ -422,7 +422,7 @@ const PORTRAIT = {
         x: 70,
         y: 250,
         buttonScale: 0.8 * 2, // 
-        iconScale: 0.7 * 2 
+        iconScale: 0.7 * 2
     },
 
     //Category Buttons
@@ -494,7 +494,7 @@ const PORTRAIT = {
     },
 
     makeUpButton: {
-        iconScale: 1 * 2,
+        iconScale: 1,
         highlightImg: 0.6,
         buttonScale: 0.6 * 2
     },

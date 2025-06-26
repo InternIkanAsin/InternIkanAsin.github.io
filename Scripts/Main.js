@@ -133,6 +133,7 @@ class Main extends Phaser.Scene {
 
         this.createSelectionButtons();
 
+        this.MiniGameManager.disableInteraction();
         // LANGKAH 3: Panggil animasi untuk MEMBUKA tirai setengah
         scene.cameras.main.once('camerafadeincomplete', () => {
             // Animasi openDrapesHalfway sekarang akan menggeser tirai dari tengah ke samping
@@ -306,7 +307,7 @@ class Main extends Phaser.Scene {
 
         // Mulai Cutscene 1 dengan data bachelor yang sudah siap
         //this.MiniGameManager.transitionToCutscene();
-        this.CutsceneSystem.initiateCutscene1(this.chosenBachelor, this.chosenBachelorName, "Theater");
+        this.CutsceneSystem.initiateCutscene1(this.chosenBachelor, this.chosenBachelorName, "Hangout1");
     }
 
     setUpMiniGame() {

@@ -42,6 +42,7 @@ export class InteractiveMakeupSystem {
     }
 
     startColoringSession(makeupType, textureKey, itemButtonInstance) {
+        this.scene.TweeningUtils.showApplyMakeUpPanel();
         this.stateBeforeColoring[makeupType] = MakeUpButton.selectedMakeUp[makeupType]?.current || null;
         console.log(this.stateBeforeColoring[makeupType])
         if (this.isActive) {
@@ -77,7 +78,7 @@ export class InteractiveMakeupSystem {
         // --- Outline Graphics ---
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
         this.activeOutlineGraphics = this.scene.add.graphics();
-        
+
 
 
 
@@ -111,12 +112,12 @@ export class InteractiveMakeupSystem {
         // Generate outline based on the now setup activeMakeupImage
         if (this.activeOutlineGraphics && this.activeMakeupImage) {
             this.generateAndDrawOutline(
-                this.activeOutlineGraphics, 
+                this.activeOutlineGraphics,
                 sourceTexture,
-                originalTextureWidth, 
+                originalTextureWidth,
                 originalTextureHeight,
-                this.activeMakeupImage.scale, 
-                10000 
+                this.activeMakeupImage.scale,
+                10000
             );
         }
         // 3. Create the RenderTexture (drawingLayer) for the mask
@@ -168,9 +169,9 @@ export class InteractiveMakeupSystem {
         const worldPos = { x: 0, y: 0 };
         this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
         graphics.setPosition(worldPos.x, worldPos.y);  // Graphics object origin is 0,0; position it at makeup center
-        
+
         // Position and scale in global scene
-        graphics.setPosition(worldPos.x, worldPos.y); 
+        graphics.setPosition(worldPos.x, worldPos.y);
         const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
         graphics.setScale(finalScale); // Scale the graphics object itself
         graphics.setDepth(depth);
@@ -236,8 +237,8 @@ export class InteractiveMakeupSystem {
         // Optional: Add a subtle tween to the outline
         this.scene.tweens.add({
             targets: graphics,
-            alpha: 0.4,
-            duration: 700,
+            alpha: 0.3,
+            duration: 500,
             yoyo: true,
             repeat: -1
         });
@@ -412,6 +413,7 @@ export class InteractiveMakeupSystem {
 
     finalizeSession(applyToCharacter, reason = "completed") {
         if (this.isComplete) return;
+
         this.isComplete = true;
         this.isDrawing = false;
         this.checkingCompletion = false; // Ensure this is reset
@@ -426,7 +428,7 @@ export class InteractiveMakeupSystem {
 
             if (typeFinalizing === 'Lips') {
                 // Apply the new texture to the persistent scene.lips
-                this.scene.lips.setTexture(this.activeTextureKey).setScale(0.55).setVisible(true);
+                this.scene.lips.setTexture(this.activeTextureKey).setScale(0.55 * 2).setVisible(true);
                 // The temporary coloring image for lips is no longer needed
                 if (imageThatWasColored && imageThatWasColored !== this.scene.lips) { // Ensure it's the temp one
                     imageThatWasColored.destroy();
@@ -448,6 +450,8 @@ export class InteractiveMakeupSystem {
         } else {
             this.revertToPreviousState(typeFinalizing); // This will destroy imageThatWasColored if it's temporary
         }
+
+        this.scene.TweeningUtils.hideApplyMakeUpPanel();
         // Pass true if the *final intended visual* was kept (scene.lips for Lips, imageThatWasColored for others)
         this.cleanupSessionObjects(applyToCharacter, typeFinalizing, applyToCharacter ? (typeFinalizing === 'Lips' ? this.scene.lips : imageThatWasColored) : null);
     }

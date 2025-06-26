@@ -224,7 +224,8 @@ export class UIManager {
 
         // 4. Destroy Character and Background
         scene.body?.destroy();
-        scene.hair?.destroy();
+        scene.hairFront?.destroy();
+        scene.hairBack?.destroy();
         scene.faceContainer?.destroy();
         scene.background?.destroy();
 

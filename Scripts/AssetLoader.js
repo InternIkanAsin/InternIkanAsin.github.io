@@ -42,9 +42,11 @@ export default class AssetLoader {
     });
   }
   static loadCutsceneAssets(scene) {
-    scene.load.image('cutscene1', 'Asset/Cutscene/Hangout1_Azril2.jpg');
-    scene.load.image('cutscene2', 'Asset/Cutscene/Crush1_Azril1.jpg');
-    scene.load.image('bachelorBackground', 'Asset/Cutscene/bg_placeholder.jpg');
+    scene.load.image('AnggaHangout1', 'Asset/Background/Pool.png');
+    scene.load.image('AzrilHangout1', 'Asset/Background/Concert.jpg');
+    scene.load.image('IndraHangout1', 'Asset/Background/Cafe.jpg');
+    scene.load.image('RezaHangout1', 'Asset/Background/Park.jpg');
+    scene.load.image('KeenanHangout1', 'Asset/Background/Aquarium.jpg');
   }
   static loadRexUIPlugin(scene) {
     scene.load.scenePlugin({
@@ -58,7 +60,6 @@ export default class AssetLoader {
       true);
   }
   static loadUIAssets(scene) {
-    scene.load.image('theaterBackground', 'Asset/Cutscene/cutscene_bg.png');
     scene.load.image('dialogueBox', 'Asset/UI/Text_Box.png');
     scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
 
@@ -123,12 +124,6 @@ export default class AssetLoader {
   }
 
   static loadBachelorAssets(scene) {
-    //Bachelor Icons
-    scene.load.image('AzrilIcon', 'Asset/Ikon Chibi/Azril.png');
-    scene.load.image('AnggaIcon', 'Asset/Ikon Chibi/Angga.png');
-    scene.load.image('IndraIcon', 'Asset/Ikon Chibi/Indra.png');
-    scene.load.image('KeenanIcon', 'Asset/Ikon Chibi/Keenan.png');
-    scene.load.image('RezaIcon', 'Asset/Ikon Chibi/Reza.png');
 
     //Bachelor Fullbody
     scene.load.image('anggaFullbody', 'Asset/Character/ekspresi/angga/Angga_casual.png');

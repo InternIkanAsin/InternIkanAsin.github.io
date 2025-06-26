@@ -14,34 +14,34 @@ export class BachelorManager {
 
         // Azril
         const azrilFullbody = this.scene.add.image(0, 0, 'azrilFullbody').setScale(2);
-        const AzrilExpression = this.scene.add.image(0, 0, 'AzrilNeutral').setScale(2).setDepth(2);
+        const AzrilExpression = this.scene.add.image(0, 0, 'AzrilHappy').setScale(2).setDepth(2);
         this.bachelorChoices['Azril'] = this.scene.add.container(centerX, centerY * 1.1, [azrilFullbody, AzrilExpression]).setVisible(false);
         this.bachelorExpressions['Azril'] = AzrilExpression;
 
         // Angga
         const anggaFullbody = this.scene.add.image(0, 0, 'anggaFullbody').setScale(2);
-        const AnggaExpression = this.scene.add.image(0, 0, 'AnggaNeutral').setScale(2);
+        const AnggaExpression = this.scene.add.image(0, 0, 'AnggaHappy').setScale(2);
         this.bachelorChoices['Angga'] = this.scene.add.container(centerX, centerY * 1.1, [anggaFullbody, AnggaExpression]).setVisible(false);
         this.bachelorExpressions['Angga'] = AnggaExpression;
 
         // Reza
         const rezaFullbody = this.scene.add.image(0, 0, 'rezaFullbody').setScale(2);
-        const RezaExpression = this.scene.add.image(0, 0, 'RezaNeutral').setScale(2);
+        const RezaExpression = this.scene.add.image(0, 0, 'RezaHappy').setScale(2);
         this.bachelorChoices['Reza'] = this.scene.add.container(centerX, centerY * 1.1, [rezaFullbody, RezaExpression]).setVisible(false);
         this.bachelorExpressions['Reza'] = RezaExpression;
 
         // Indra
         const indraFullbody = this.scene.add.image(0, 0, 'indraFullbody').setScale(2);
-        const IndraExpression = this.scene.add.image(0, 0, 'IndraNeutral').setScale(2);
+        const IndraExpression = this.scene.add.image(0, 0, 'IndraHappy').setScale(2);
         this.bachelorChoices['Indra'] = this.scene.add.container(centerX, centerY * 1.1, [indraFullbody, IndraExpression]).setVisible(false);
         this.bachelorExpressions['Indra'] = IndraExpression;
 
         // Keenan
         const keenanFullbody = this.scene.add.image(0, 0, 'keenanFullbody').setScale(2);
-        const KeenanExpression = this.scene.add.image(0, 0, 'KeenanNeutral').setScale(2);
+        const KeenanExpression = this.scene.add.image(0, 0, 'KeenanHappy').setScale(2);
         this.bachelorChoices['Keenan'] = this.scene.add.container(centerX, centerY * 1.1, [keenanFullbody, KeenanExpression]).setVisible(false);
         this.bachelorExpressions['Keenan'] = KeenanExpression;
-        
+
         // Sekarang, pilih dan aktifkan bachelor yang sesuai
         const chosenContainer = this.bachelorChoices[chosenBachelorName];
         const chosenExpression = this.bachelorExpressions[chosenBachelorName];
@@ -139,28 +139,28 @@ export class BachelorManager {
 
         //Azril
         this.azrilFullbody = this.scene.add.image(0, 0, 'azrilFullbody').setScale(2);
-        this.AzrilExpression = this.scene.add.image(0, 0, 'AzrilNeutral').setScale(2).setDepth(2);
+        this.AzrilExpression = this.scene.add.image(0, 0, 'AzrilHappy').setScale(2).setDepth(2);
 
         this.AzrilContainer = this.scene.add.container(0, 0, [this.azrilFullbody, this.AzrilExpression]);
         //Angga
         this.anggaFullbody = this.scene.add.image(0, 0, 'anggaFullbody').setScale(2);
-        this.AnggaExpression = this.scene.add.image(0, 0, 'AnggaNeutral').setScale(2);
+        this.AnggaExpression = this.scene.add.image(0, 0, 'AnggaHappy').setScale(2);
 
         this.AnggaContainer = this.scene.add.container(centerX * 2, 0, [this.anggaFullbody, this.AnggaExpression]);
         //Reza
         this.rezaFullbody = this.scene.add.image(0, 0, 'rezaFullbody').setScale(2);
-        this.RezaExpression = this.scene.add.image(0, 0, 'RezaNeutral').setScale(2);
+        this.RezaExpression = this.scene.add.image(0, 0, 'RezaHappy').setScale(2);
 
         this.RezaContainer = this.scene.add.container(centerX * 4, 0, [this.rezaFullbody, this.RezaExpression]);
         //Indra
         this.indraFullbody = this.scene.add.image(0, 0, 'indraFullbody').setScale(2);
-        this.IndraExpression = this.scene.add.image(0, 0, 'IndraNeutral').setScale(2);
+        this.IndraExpression = this.scene.add.image(0, 0, 'IndraHappy').setScale(2);
 
         this.IndraContainer = this.scene.add.container(centerX * 6, 0, [this.indraFullbody, this.IndraExpression]);
 
         //Keenan
         this.keenanFullbody = this.scene.add.image(0, 0, 'keenanFullbody').setScale(2);
-        this.KeenanExpression = this.scene.add.image(0, 0, 'KeenanNeutral').setScale(2);
+        this.KeenanExpression = this.scene.add.image(0, 0, 'KeenanHappy').setScale(2);
 
         this.KeenanContainer = this.scene.add.container(centerX * 8, 0, [this.keenanFullbody, this.KeenanExpression]);
 
@@ -269,7 +269,7 @@ export class BachelorManager {
             this.scene.bachelorContainer.remove(this.scene.chosenBachelor);
             this.clearBachelorChoiceScene();
             this.scene.cameras.main.fadeIn(2000);
-            this.scene.CutsceneSystem.initiateCutscene1(this.scene.chosenBachelor, this.scene.chosenBachelorName, "Theater");
+            this.scene.CutsceneSystem.initiateCutscene1(this.scene.chosenBachelor, this.scene.chosenBachelorName, "Hangout1");
             this.scene.DialogueManager.createDialogueUI();
         });
     }

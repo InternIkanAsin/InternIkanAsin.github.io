@@ -14,7 +14,7 @@ export class CutsceneSystem {
     initiateCutscene1(bachelorChoice, bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.scene.backgroundCutscene1 = this.scene.add.image(width / 2, height / 2, 'bachelorBackground').setDepth(-1).setScale(3);
+        this.scene.backgroundCutscene1 = this.scene.add.image(width / 2, height / 2, bachelorName + datePlace).setDepth(-1).setDisplaySize(this.scene.scale.width, this.scene.scale.height);
         // Fade in cutscene
         this.scene.add.existing(bachelorChoice);
 
@@ -39,7 +39,7 @@ export class CutsceneSystem {
 
     }
 
-    initiateCutscene2(bachelorName, datePlace, statPoints) {
+    initiateCutscene2(bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
 
 
@@ -50,7 +50,7 @@ export class CutsceneSystem {
 
         this.scene.chosenBachelorExpression = bachelorExpression;
 
-        this.scene.backgroundCutscene2 = this.scene.add.image(width / 2, height / 2, 'theaterBackground').setDepth(-1).setVisible(true);
+        this.scene.backgroundCutscene2 = this.scene.add.image(width / 2, height / 2, bachelorName + datePlace).setDepth(-1).setVisible(true);
 
         const originalWidth = this.scene.backgroundCutscene2.width;
         const originalHeight = this.scene.backgroundCutscene2.height;
@@ -63,13 +63,31 @@ export class CutsceneSystem {
 
         console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
         // Dialogue choices depending on your choice of outfit
-        if (statPoints >= 6) {
-            this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Sad');
-            this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After2'].getDialogue();
-        } else if (statPoints < 6) {
-            this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
-            this.selectedDialogue = bachelorDialoguesContainer[bachelorName][datePlace + 'After'].getDialogue();
-        }
+
+        this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
+        const randomIndex = Math.floor(Math.random() * 5);
+
+        initializeBachelorDialogue("AfterHangout", "0", [
+            { speakerName: bachelorName, dialogue: "There you are, you look amazing!" }
+        ])
+
+        initializeBachelorDialogue("AfterHangout", "1", [
+            { speakerName: bachelorName, dialogue: "You're here! You look gorgeous!" }
+        ])
+
+        initializeBachelorDialogue("AfterHangout", "2", [
+            { speakerName: bachelorName, dialogue: "You made it! You look... beautiful." }
+        ])
+
+        initializeBachelorDialogue("AfterHangout", "3", [
+            { speakerName: bachelorName, dialogue: "Hey, you're here! You look lovely." }
+        ])
+
+        initializeBachelorDialogue("AfterHangout", "4", [
+            { speakerName: bachelorName, dialogue: "Wow... you're here... and you look stunning!" }
+        ])
+
+        this.selectedDialogue = bachelorDialoguesContainer["AfterHangout"][randomIndex].getDialogue();
 
         // Start cutscene
         bachelorChoice.x = width / 2;
