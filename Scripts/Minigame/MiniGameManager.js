@@ -33,10 +33,10 @@ export class MiniGameManager {
             buttonHeight: 75,
             textureIcon: '',
             iconYPosition: -10,
-            iconScale: 0.22 * 2,
+            iconScale: layout.backButton.scale,
             callback: () => { scene.TweeningUtils.transitionBackToSelection(); },
             buttonText: '',
-            buttonScale: 0.22 * 2,
+            buttonScale: layout.backButton.scale,
         }).setDepth(99); // Depth DI BAWAH tirai
 
         const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
@@ -120,15 +120,15 @@ export class MiniGameManager {
             textColor: '#d6525f'
         });
 
-        scene.applyMakeUpPanel = this.scene.add.nineslice(0, 0, 'stitchedButtonIcon', '', 900, 125, 32, 32, 20, 24);
-        scene.applyMakeUpText = this.scene.add.text(0, 0, 'Swipe the highlighted area to apply the make up', {
-            fontSize: '40px',
+        scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'stitchedButtonIcon', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
+        scene.applyMakeUpText = this.scene.add.text(layout.applyMakeUpText.x, layout.applyMakeUpText.y, 'Swipe the highlighted area to apply the make up', {
+            fontSize: layout.applyMakeUpText.fontSize,
             fill: '#FFFFFF',
             fontFamily: 'regularFont',
-            wordWrap: { width: this.scene.scale.width - 120 }
+            wordWrap: { width: this.scene.scale.width - layout.applyMakeUpText.wordWrap }
         }).setOrigin(0.5, 0.5);
 
-        scene.applyMakeUpContainer = this.scene.add.container(scene.scale.width / 2, -100, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
+        scene.applyMakeUpContainer = this.scene.add.container(layout.applyMakeUpContainer.x, layout.applyMakeUpContainer.y, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
         this.setUpSidePanel(scene);
     }
 
@@ -620,7 +620,7 @@ export class MiniGameManager {
             fontFamily: 'regularFont',
             wordWrap: { width: this.scene.scale.width - 120 }
         }).setDepth(10).setOrigin(0.5, 0.5);
-        this.scene.sidePanelIcon = this.scene.add.image(layout.sidePanelIcon.x, layout.sidePanelIcon.y, panelIcon).setDepth(10).setScale(0.4);
+        this.scene.sidePanelIcon = this.scene.add.image(layout.sidePanelIcon.x, layout.sidePanelIcon.y, panelIcon).setDepth(10).setScale(0.8);
         this.scene.sidePanelLine = this.scene.add.image(layout.sidePanelLine.x, layout.sidePanelLine.y, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(440, 5);
 
         this.scene.sidePanel
@@ -860,8 +860,8 @@ export class MiniGameManager {
 
 
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
-            x: this.scene.scale.width / 2.7,
-            y: this.scene.scale.height / 2,
+            x: layout.nextLevelButton.x,
+            y: layout.nextLevelButton.y,
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
@@ -879,8 +879,8 @@ export class MiniGameManager {
 
 
         const restartButton = new UIButton(this.scene, this.AudioManager, {
-            x: this.scene.scale.width / 1.6,
-            y: this.scene.scale.height / 2,
+            x: layout.restartButton.x,
+            y: layout.restartButton.y,
             textureButton: 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,

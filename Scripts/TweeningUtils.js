@@ -13,7 +13,7 @@ export default class TweenUtils {
 
         scene.tweens.add({
             targets: scene.applyMakeUpContainer,
-            y: 100,
+            y: layout.applyMakeUpContainer.targetYPosition,
             duration: 500,
             ease: 'Back.Out'
         })

@@ -88,7 +88,7 @@ class Main extends Phaser.Scene {
         loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 
         AssetLoader.loadRexUIPlugin(this);
-        //AssetLoader.loadAllAssets(this);
+        AssetLoader.loadAllAssets(this);
     }
 
     create() {
@@ -337,8 +337,8 @@ const config = {
     scene: [BootScene, PreloaderScene, Main]
 };
 
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 
 if (isMobile) {
     // Untuk mobile, kita paksa mode portrait

@@ -88,8 +88,8 @@ export default class AssetLoader {
     scene.load.image('rightDrape', 'Asset/UI/Curtains_Released_Right.png');
     scene.load.image('leftCurtain', 'Asset/UI/Curtain_Tied_Left.png');
     scene.load.image('rightCurtain', 'Asset/UI/Curtain_Tied_Right.png');
-    scene.load.image('leftCurtainUntied', 'Asset/UI/Curtain_Untied_Left.png');
-    scene.load.image('rightCurtainUntied', 'Asset/UI/Curtain_Untied_Right.png');
+    scene.load.image('leftCurtainUntied', 'Asset/UI/Curtain_Tied_Left_Mobile.png');
+    scene.load.image('rightCurtainUntied', 'Asset/UI/Curtain_Tied_Right_Mobile.png');
 
 
     scene.load.image('sidePanel', 'Asset/UI/Panel.png');

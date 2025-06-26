@@ -1,5 +1,5 @@
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -233,6 +233,36 @@ const LANDSCAPE = {
         hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
     },
 
+    //-------
+    applyMakeUpPanel: {
+        x: 0,
+        y: 0,
+        width: 900,
+        height: 125
+    },
+
+    applyMakeUpText: {
+        x: 0,
+        y: 0,
+        fontSize: 40,
+        wordWrap: 120
+    },
+
+    applyMakeUpContainer: {
+        x: LANDSCAPE_CENTERX,
+        y: -100,
+        targetYPosition: 100
+    },
+
+    nextLevelButton: {
+        x: LANDSCAPE_WIDTH / 2.7,
+        y: LANDSCAPE_CENTERY
+    },
+
+    restartButton: {
+        x: LANDSCAPE_WIDTH / 1.6,
+        y: LANDSCAPE_CENTERY
+    },
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -291,7 +321,7 @@ const PORTRAIT = {
         dressUpX: (720 / 2) - 180,
         makeUpX: (720 / 2) + 180,
         y: 1280 / 2,
-        scale: 0.6 * 2,
+        scale: 0.8,
         tickMarkOffsetX: 70,
         tickMarkOffsetY: 40
     },
@@ -300,7 +330,7 @@ const PORTRAIT = {
     background: {
         originX: 0,
         originY: 0.5,
-        x: 0,
+        x: -300,
         y: 1280 / 2,
         scale: 1280 / 1080
     },
@@ -310,8 +340,8 @@ const PORTRAIT = {
         displayHeight: 1280,
 
         closed: {
-            leftX: -50,
-            rightX: 835
+            leftX: 180,
+            rightX: PORTRAIT_WIDTH - 180
         },
 
         open: {
@@ -348,7 +378,6 @@ const PORTRAIT = {
 
     //Face
     face: {
-
         zoomInFaceX: 720 / 2 * 0.95,
         zoomInFaceY: 1280 / 2 / 1.2,
         zoomInTargetFaceScale: 1,
@@ -362,12 +391,12 @@ const PORTRAIT = {
     Hair: {
 
         zoomInHairX: 720 / 2,
-        zoomInHairY: 1280 / 2 * 1.47,
-        zoomInTargetHairScale: 0.8,
+        zoomInHairY: 1280 / 2 * 1.46,
+        zoomInTargetHairScale: 0.8 * 2,
 
         zoomOutHairX: 720 / 2 / 1.1,
         zoomOutHairY: 1280 / 2 / 1.31,
-        zoomOutHairScale: 0.25,
+        zoomOutHairScale: 0.25 * 2,
 
     },
     // Side Panel
@@ -409,13 +438,13 @@ const PORTRAIT = {
         x: PORTRAIT_WIDTH / 13,
         y: PORTRAIT_CENTERY * 1.3,
         fontSize: 32,
-        wordWrap: PORTRAIT_WIDTH - 120
+        wordWrap: PORTRAIT_WIDTH - 80
     },
 
     backButton: {
-        x: PORTRAIT_WIDTH * 0.18,
+        x: PORTRAIT_WIDTH * 0.12,
         y: PORTRAIT_HEIGHT * 0.06,
-        scale: 0.22 * 2
+        scale: 0.22 * 1.5
     },
 
     removeAllButton: {
@@ -489,13 +518,13 @@ const PORTRAIT = {
     },
     outfitButton: {
         iconScale: 1,
-        highlightImg: 0.6,
+        highlightImg: 0.6 * 2,
         buttonScale: 0.6 * 2
     },
 
     makeUpButton: {
-        iconScale: 1,
-        highlightImg: 0.6,
+        iconScale: 1 * 2,
+        highlightImg: 0.6 * 2,
         buttonScale: 0.6 * 2
     },
 
@@ -508,7 +537,38 @@ const PORTRAIT = {
     categoryButton: {
         iconScale: 0.4 * 2,
         buttonScale: 0.5 * 2,
-    }
+    },
+
+    //-------
+    applyMakeUpPanel: {
+        x: 0,
+        y: 0,
+        width: 500,
+        height: 125
+    },
+
+    applyMakeUpText: {
+        x: 0,
+        y: 0,
+        fontSize: 32,
+        wordWrap: 250
+    },
+
+    applyMakeUpContainer: {
+        x: PORTRAIT_CENTERX * 1.2,
+        y: -100,
+        targetYPosition: 70
+    },
+
+    nextLevelButton: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT / 2.7
+    },
+
+    restartButton: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT / 1.6
+    },
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
 export const orientation = { isPortrait, isMobile };
