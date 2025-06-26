@@ -204,12 +204,12 @@ const LANDSCAPE = {
     },
     makeUpButton: {
         iconScale: 1.2 * 2,
-        highlightImg: 0.8,
+        highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2
     },
     outfitButton: {
         iconScale: 1.2,
-        highlightImg: 0.8,
+        highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2
     },
     //Dressup Category
