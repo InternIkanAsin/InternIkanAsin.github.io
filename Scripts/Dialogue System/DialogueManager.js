@@ -17,7 +17,7 @@ export class DialogueManager {
         const { width, height } = this.scene.sys.game.config;
 
         this.dialogueBox = this.scene.add.nineslice(layout.dialogueBox.x, layout.dialogueBox.y, 'dialogueBox', '', layout.dialogueBox.width, layout.dialogueBox.height, 128, 128, 64, 68).setDepth(10);
-        this.dialogueNameBox = this.scene.add.nineslice(width / 3.3, height / 1.65, 'dialogueNameBox', '', 450, 120, 120, 120, 64, 72).setDepth(10).setScale(0.8);
+        this.dialogueNameBox = this.scene.add.nineslice(width / 3.3, height / 1.65, 'dialogueNameBox', '', 450, 120, 60, 60, 32, 36).setDepth(10).setScale(0.8);
         this.nameText = this.scene.add.text(width / 3.3, height / 1.66, 'Tristan', {
             fontSize: '54px',
             fill: '#60292b',
