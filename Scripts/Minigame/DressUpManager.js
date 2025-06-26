@@ -186,7 +186,7 @@ export class DressUpManager {
                     // If Dress was unequipped, also clear highlights for dependent types
                     if (typeToUnequipActually === "Dress") {
                         OutfitButton.clearHighlightsForType(scene, "Shirt");
-                        OutfitButton.clearHighlightsForType(scene, "Underwear");
+                        OutfitButton.clearHighlightsForType(scene, "Lower");
                     }
                 } else {
                     console.log(`[LepasButton] No ${typeToUnequipActually} item currently equipped to remove.`);
@@ -317,7 +317,7 @@ export class DressUpManager {
                     case 'Dress': iconKey = 'dressIcon'; break;
                     case 'Shirt': iconKey = 'dressIcon'; break;
                     case 'Outer': iconKey = 'outerIcon'; break;
-                    case 'Underwear': iconKey = 'underwearIcon'; break;
+                    case 'Lower': iconKey = 'LowerIcon'; break;
                     case 'Socks': iconKey = 'socksIcon'; break;
                     case 'Shoes': iconKey = 'shoesIcon'; break;
                     case 'DressShirt': iconKey = 'dressIcon'; break;

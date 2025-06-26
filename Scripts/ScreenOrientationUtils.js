@@ -15,7 +15,7 @@ const LANDSCAPE = {
             Dress: { x: 872, y: 646.5 },
             Shirt: { x: 872.5, y: 439 },
             Outer: { x: 872.5, y: 479.5 },
-            Underwear: { x: 890, y: 740 },
+            Lower: { x: 890, y: 740 },
             Socks: { x: 911.5, y: 770 },
             Shoes: { x: 922, y: 907 }
         },
@@ -213,7 +213,7 @@ const LANDSCAPE = {
     dressUpCategoryButtons: {
         dressButton: { x: 1536, y: 175 },
         outerButton: { x: 1536, y: 350 },
-        underwearButton: { x: 1536, y: 525 },
+        LowerButton: { x: 1536, y: 525 },
         socksButton: { x: 1536, y: 700 },
         shoesButton: { x: 1536, y: 875 }
     },
@@ -257,7 +257,7 @@ const PORTRAIT = {
             Dress: { x: 327, y: 757.5 },
             Shirt: { x: 327, y: 549 },
             Outer: { x: 328.5, y: 590.5 },
-            Underwear: { x: 342, y: 853 },
+            Lower: { x: 342, y: 853 },
             Socks: { x: 365.5, y: 878 },
             Shoes: { x: 378, y: 1022 }
         },
@@ -429,7 +429,7 @@ const PORTRAIT = {
             x: 55,
             y: 575
         },
-        underwearButton: {
+        LowerButton: {
             x: 55,
             y: 725
         },

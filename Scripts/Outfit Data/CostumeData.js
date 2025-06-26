@@ -65,16 +65,16 @@ const costumeData = [
 
 
     // Underwear
-    new Costume("Underwear 1", "Underwear", "underwear1", "buttonIcon2", "underwear1Icon", -2),
+    new Costume("Underwear 1", "Lower", "underwear1", "buttonIcon2", "underwear1Icon", -2),
     // new Costume("Underwear2", "Underwear", "underwear2", "buttonIcon2", "underwear2Icon", 2), // nggak ada iconnya
     // new Costume("Underwear3", "Underwear", "underwear3", "buttonIcon2", "underwear3Icon", 2), // nggak ada iconnya
-    new Costume("Underwear 4", "Underwear", "underwear4", "buttonIcon2", "underwear4Icon", +3),
-    new Costume("Underwear 5", "Underwear", "underwear5", "buttonIcon2", "underwear5Icon", +3),
-    new Costume("Underwear 6", "Underwear", "underwear6", "buttonIcon2", "underwear6Icon", -4),
-    new Costume("Underwear 7", "Underwear", "underwear7", "buttonIcon2", "underwear7Icon", +4),
-    new Costume("Underwear 8", "Underwear", "underwear8", "buttonIcon2", "underwear8Icon", -5),
-    new Costume("Underwear 9", "Underwear", "underwear9", "buttonIcon2", "underwear9Icon", +5),
-    new Costume("Underwear 10", "Underwear", "underwear10", "buttonIcon2", "underwear10Icon", +6),
+    new Costume("Underwear 4", "Lower", "underwear4", "buttonIcon2", "underwear4Icon", +3),
+    new Costume("Underwear 5", "Lower", "underwear5", "buttonIcon2", "underwear5Icon", +3),
+    new Costume("Underwear 6", "Lower", "underwear6", "buttonIcon2", "underwear6Icon", -4),
+    new Costume("Underwear 7", "Lower", "underwear7", "buttonIcon2", "underwear7Icon", +4),
+    new Costume("Underwear 8", "Lower", "underwear8", "buttonIcon2", "underwear8Icon", -5),
+    new Costume("Underwear 9", "Lower", "underwear9", "buttonIcon2", "underwear9Icon", +5),
+    new Costume("Underwear 10", "Lower", "underwear10", "buttonIcon2", "underwear10Icon", +6),
 
     // Socks
     new Costume("Socks 1", "Socks", "socks1", "buttonIcon2", "socks1Icon", +1),

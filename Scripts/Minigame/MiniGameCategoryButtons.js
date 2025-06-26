@@ -109,8 +109,8 @@ export function createDressUpCategoryButtons(scene, audioManager) {
         scene.outerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.outerButton.x, layout.dressUpCategoryButtons.outerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'outerIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Outer', scene);
         }),
-        scene.underwearButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.underwearButton.x, layout.dressUpCategoryButtons.underwearButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'underwearIcon', () => {
-            scene.DressUpManager.displayDressUpButtons('Underwear', scene);
+        scene.LowerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.LowerButton.x, layout.dressUpCategoryButtons.LowerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'LowerIcon', () => {
+            scene.DressUpManager.displayDressUpButtons('Lower', scene);
         }),
         scene.socksButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.socksButton.x, layout.dressUpCategoryButtons.socksButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'socksIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Socks', scene);
@@ -119,7 +119,7 @@ export function createDressUpCategoryButtons(scene, audioManager) {
             scene.DressUpManager.displayDressUpButtons('Shoes', scene);
         }),
 
-        //scene.dressUpCategoryButtonsContainer = scene.add.container(0, 0, scene.dressButton, scene.outerButton, scene.underwearButton, scene.socksButton, scene.shoesButton)
+        //scene.dressUpCategoryButtonsContainer = scene.add.container(0, 0, scene.dressButton, scene.outerButton, scene.LowerButton, scene.socksButton, scene.shoesButton)
     ];
 
     scene.dressUpCategoryButtons = buttons;

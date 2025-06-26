@@ -421,7 +421,7 @@ export class LepasButton extends BaseButton {
                         // Handle dress override implications for highlights
                         if (activeType === "Dress") {
                             OutfitButton.clearHighlightsForType(scene, "Shirt");
-                            OutfitButton.clearHighlightsForType(scene, "Underwear");
+                            OutfitButton.clearHighlightsForType(scene, "Lower");
                         }
                     } else {
                         console.log(`[LepasButton] No ${activeType} item currently equipped to remove.`);
@@ -593,7 +593,7 @@ export class OutfitButton extends BaseButton {
 
     toggleOutfit() {
         const { scene, textureAnime, stat, outfitType, name } = this;
-        const depthValues = { "Socks": 1, "Shoes": 2, "Underwear": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
+        const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
         const currentEntry = OutfitButton.selectedOutfits[outfitType];
 
 
@@ -616,9 +616,9 @@ export class OutfitButton extends BaseButton {
         // --- Override ---
         if (outfitType === "Dress") {
             unequip("Shirt");
-            unequip("Underwear");
+            unequip("Lower");
         }
-        if (outfitType === "Shirt" || outfitType === "Underwear") {
+        if (outfitType === "Shirt" || outfitType === "Lower") {
             unequip("Dress");
         }
 

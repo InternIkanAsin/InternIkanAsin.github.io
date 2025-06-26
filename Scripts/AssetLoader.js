@@ -96,7 +96,7 @@ export default class AssetLoader {
 
     scene.load.image('dressIcon', 'Asset/UI/Dress_Icon.png');
     scene.load.image('outerIcon', 'Asset/UI/Coat_Icon.png');
-    scene.load.image('underwearIcon', 'Asset/UI/Pants_Icon.png');
+    scene.load.image('LowerIcon', 'Asset/UI/Pants_Icon.png');
     scene.load.image('socksIcon', 'Asset/UI/Socks_Icon.png');
     scene.load.image('shoesIcon', 'Asset/UI/Shoes_Icon.png');
 
@@ -768,7 +768,7 @@ export default class AssetLoader {
     scene.textures.get('button1').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('dressIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('outerIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('underwearIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
+    scene.textures.get('LowerIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('uniformIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('socksIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('shoesIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
@@ -818,7 +818,7 @@ export default class AssetLoader {
     scene.textures.get('dress2Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('shirt1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('shirt2Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('underwear1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
+    scene.textures.get('Lower1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('socks1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
     scene.textures.get('shoes1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
 

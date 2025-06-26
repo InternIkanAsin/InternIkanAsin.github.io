@@ -356,7 +356,7 @@ export class MiniGameManager {
 
         const isSet1 = has("Dress") && has("Shoes");
 
-        const isSet2 = has("Shirt") && has("Underwear") && has("Shoes");
+        const isSet2 = has("Shirt") && has("Lower") && has("Shoes");
 
         return isSet1 || isSet2;
     }
