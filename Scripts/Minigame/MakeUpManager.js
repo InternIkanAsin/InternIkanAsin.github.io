@@ -17,63 +17,75 @@ export class MakeUpManager {
     * @method setupCostumeButtons - Initializes an array and creates costumedata SOs and stores it in the array created based on its type
     */
     setupMakeUpButtons(scene) {
-    this.scene.makeUpButtons = {};
-    makeUpData.forEach(makeupItem => {
-        const { name, makeUpType, textureAnime, textureButton, textureIcon } = makeupItem;
-        if (textureButton && textureIcon) {
-            const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
-
-            button.setSize(150, 200);
-            button.setData('instance', button);
-
-            // Periksa apakah tombol yang baru dibuat ini seharusnya dalam keadaan terpilih.
-            const currentSelectedMakeup = MakeUpButton.selectedMakeUp[makeUpType]?.current;
-            if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
-                
-                // 1. Aktifkan highlight.
-                button.highlightImage.setVisible(true);
-                
-                // 2. Perbarui referensi 'current' di state agar menunjuk ke instance tombol BARU.
-                MakeUpButton.selectedMakeUp[makeUpType].current = button;
-                
-                // 3. Jika ini adalah item additive (Sticker, Blush, dll.), buat ulang gambar visualnya.
-                if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeUpType)) {
-                    console.log(`[Setup] Re-rendering visual for ${makeUpType}: ${name}`);
+        this.scene.makeUpButtons = {};
+        makeUpData.forEach(makeupItem => {
+            const { name, makeUpType, textureAnime, textureButton, textureIcon } = makeupItem;
+            if (textureButton && textureIcon) {
+                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
+            
+                button.setSize(150, 200);
+                button.setData('instance', button);
+            
+                const currentSelectedMakeup = MakeUpButton.selectedMakeUp[makeUpType]?.current;
+                if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
                     
-                    const pos = MakeUpPositions[makeUpType] || { x: 0, y: 0 };
-                    const newImage = scene.add.image(pos.x, pos.y, textureAnime);
+                    // 1. Aktifkan highlight (logika ini sudah benar).
+                    button.highlightImage.setVisible(true);
                     
-                    // Terapkan skala & depth yang benar
-                    if (['Blush', 'Eyeliner', 'Sticker'].includes(makeUpType)) {
-                        newImage.setScale(0.55 * 2);
-                    } else { // Eyeshadow
-                        newImage.setScale(0.9 * 2);
+                    // 2. Perbarui referensi 'current' di state agar menunjuk ke instance tombol BARU.
+                    MakeUpButton.selectedMakeUp[makeUpType].current = button;
+                    
+                    // --- LOGIKA BARU YANG LEBIH PINTAR ---
+                    // Periksa apakah item ini adalah item additive.
+                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeUpType)) {
+                        // Cek apakah visualnya SUDAH ADA dan MASIH VALID.
+                        // `currentSelectedMakeup` di sini merujuk ke state LAMA.
+                        const oldVisual = currentSelectedMakeup.displayedMakeUp;
+                        
+                        if (oldVisual && oldVisual.scene) {
+                            // Jika visual lama masih ada di scene, kita tidak perlu membuat yang baru.
+                            // Cukup perbarui referensi di instance tombol yang baru.
+                            console.log(`[Setup] Visual for ${name} already exists. Re-linking.`);
+                            button.displayedMakeUp = oldVisual;
+                        } else {
+                            // Jika visual lama tidak ada (misalnya, ini load pertama kali atau state rusak),
+                            // maka kita buat ulang visualnya.
+                            console.log(`[Setup] Visual for ${name} not found. Re-rendering.`);
+                            const pos = MakeUpPositions[makeUpType] || { x: 0, y: 0 };
+                            const newImage = scene.add.image(pos.x, pos.y, textureAnime);
+                            
+                            // Terapkan skala & depth
+                            if (['Blush', 'Eyeliner', 'Sticker'].includes(makeUpType)) {
+                                newImage.setScale(0.55 * 2);
+                            } else { // Eyeshadow
+                                newImage.setScale(0.9 * 2);
+                            }
+                            newImage.setDepth(MakeUpButton.DEPTH_VALUES[makeUpType] || 2.7);
+                            
+                            if (scene.faceContainer) {
+                                scene.faceContainer.add(newImage);
+                            }
+                            
+                            // Simpan referensi visual baru ini ke state dan ke tombol.
+                            button.displayedMakeUp = newImage;
+                            MakeUpButton.selectedMakeUp[makeUpType].current.displayedMakeUp = newImage;
+                        }
                     }
-                    newImage.setDepth(MakeUpButton.DEPTH_VALUES[makeUpType] || 2.7);
-                    
-                    if (scene.faceContainer) {
-                        scene.faceContainer.add(newImage);
-                    }
-                    
-                    // 4. Simpan referensi visual baru ini ke state dan ke instance tombol yang baru.
-                    button.displayedMakeUp = newImage;
-                    MakeUpButton.selectedMakeUp[makeUpType].current.displayedMakeUp = newImage;
+                    // --- AKHIR LOGIKA BARU ---
                 }
+            
+                if (!scene.makeUpButtons[makeUpType]) {
+                    scene.makeUpButtons[makeUpType] = [];
+                }
+                scene.makeUpButtons[makeUpType].push(button);
             }
-
-            if (!scene.makeUpButtons[makeUpType]) {
-                scene.makeUpButtons[makeUpType] = [];
-            }
-            scene.makeUpButtons[makeUpType].push(button);
+        });
+        
+        // Panggil sort setelah semua item yang mungkin ada telah dibuat ulang.
+        if (scene.faceContainer) {
+            scene.faceContainer.sort('depth');
         }
-    });
-
-    // Panggil sort setelah semua item yang mungkin ada telah dibuat ulang.
-    if (scene.faceContainer) {
-        scene.faceContainer.sort('depth');
     }
-}
-
     /**
     * @method updateMakeUpButtons - Updates makeup buttons of make up Panel
     */
