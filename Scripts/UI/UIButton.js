@@ -498,6 +498,8 @@ export class OutfitButton extends BaseButton {
             this.dressUpViewDisplayHeight = custom.height;
             this.baseScaleXAfterCustomSize = 1; // Will be updated in toggleOutfit
             this.baseScaleYAfterCustomSize = 1;
+        } else if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
+            this.dressUpViewScale = 0.6; // Default scale for outfit image in DressUp view
         } else {
             this.dressUpViewScale = 1.2; // Default scale for outfit image in DressUp view
         }

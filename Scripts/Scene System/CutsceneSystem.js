@@ -67,28 +67,33 @@ export class CutsceneSystem {
         this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
         const randomIndex = Math.floor(Math.random() * 5);
 
-        initializeBachelorDialogue("AfterHangout", "0", [
-            { speakerName: bachelorName, dialogue: "There you are, you look amazing!" }
-        ])
+        const randomDialogueInitialized = this.scene.registry.get('randomDialogueInitialized')
+        if (!randomDialogueInitialized) {
+            initializeBachelorDialogue("AfterHangout", "0", [
+                { speakerName: bachelorName, dialogue: "There you are, you look amazing!" }
+            ])
 
-        initializeBachelorDialogue("AfterHangout", "1", [
-            { speakerName: bachelorName, dialogue: "You're here! You look gorgeous!" }
-        ])
+            initializeBachelorDialogue("AfterHangout", "1", [
+                { speakerName: bachelorName, dialogue: "You're here! You look gorgeous!" }
+            ])
 
-        initializeBachelorDialogue("AfterHangout", "2", [
-            { speakerName: bachelorName, dialogue: "You made it! You look... beautiful." }
-        ])
+            initializeBachelorDialogue("AfterHangout", "2", [
+                { speakerName: bachelorName, dialogue: "You made it! You look... beautiful." }
+            ])
 
-        initializeBachelorDialogue("AfterHangout", "3", [
-            { speakerName: bachelorName, dialogue: "Hey, you're here! You look lovely." }
-        ])
+            initializeBachelorDialogue("AfterHangout", "3", [
+                { speakerName: bachelorName, dialogue: "Hey, you're here! You look lovely." }
+            ])
 
-        initializeBachelorDialogue("AfterHangout", "4", [
-            { speakerName: bachelorName, dialogue: "Wow... you're here... and you look stunning!" }
-        ])
+            initializeBachelorDialogue("AfterHangout", "4", [
+                { speakerName: bachelorName, dialogue: "Wow... you're here... and you look stunning!" }
+            ])
+
+            this.scene.registry.set('randomDialogueInitialized', true);
+        }
 
         this.selectedDialogue = bachelorDialoguesContainer["AfterHangout"][randomIndex].getDialogue();
-
+        this.selectedDialogue[0].speakerName = bachelorName;
         // Start cutscene
         bachelorChoice.x = width / 2;
         bachelorChoice.y = height / 2 * 1.1;
@@ -105,6 +110,9 @@ export class CutsceneSystem {
                 this.scene.leftCurtain.setDepth(151);
                 this.scene.rightCurtain.setDepth(151);
                 this.scene.TweeningUtils.openCurtains();
+
+                this.selectedDialogue = null;
+
             });
         });
     }

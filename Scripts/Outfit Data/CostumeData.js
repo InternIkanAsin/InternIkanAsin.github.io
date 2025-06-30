@@ -98,10 +98,10 @@ const costumeData = [
     new Costume("Shoes 8", "Shoes", "shoes8", "buttonIcon2", "shoes8Icon", +5),
     new Costume("Shoes 9", "Shoes", "shoes9", "buttonIcon2", "shoes9Icon", +1),
     new Costume("Shoes 10", "Shoes", "shoes10", "buttonIcon2", "shoes10Icon", +4),
-    new Costume("Shoes 11", "Shoes", "shoes11", "buttonIcon2", "shoes11Icon", +6),
+    new Costume("Shoes 11", "Shoes", "shoes11", "buttonIcon2", "shoes13Icon", +6),
     new Costume("Shoes 12", "Shoes", "shoes12", "buttonIcon2", "shoes12Icon", -7),
-    new Costume("Shoes 13", "Shoes", "shoes13", "buttonIcon2", "shoes13Icon", +1)
+    new Costume("Shoes 13", "Shoes", "shoes13", "buttonIcon2", "shoes11Icon", +1)
 ];
 
 
-export {costumeData};
+export { costumeData };
