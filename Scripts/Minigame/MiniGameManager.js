@@ -34,7 +34,10 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: -10,
             iconScale: layout.backButton.scale,
-            callback: () => { scene.TweeningUtils.transitionBackToSelection(); },
+            callback: () => { 
+                this.backButton.disableInteractive();
+                scene.TweeningUtils.transitionBackToSelection(); 
+            },
             buttonText: '',
             buttonScale: layout.backButton.scale,
         }).setDepth(99); // Depth DI BAWAH tirai
