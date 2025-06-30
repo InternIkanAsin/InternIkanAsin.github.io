@@ -10,6 +10,8 @@ const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
 
+    
+
     outfit: {
         positions: {
             Dress: { x: 872, y: 646.5 },
@@ -17,7 +19,7 @@ const LANDSCAPE = {
             Outer: { x: 872.5, y: 479.5 },
             Lower: { x: 890, y: 740 },
             Socks: { x: 911.5, y: 770 },
-            Shoes: { x: 922, y: 907 }
+            Shoes: { x: 922, y: 917 }
         },
         customSizes: {
             dress18: { width: 944, height: 900 },
@@ -35,7 +37,8 @@ const LANDSCAPE = {
             underwear7: { x: -15, y: 20 },
             underwear8: { x: -15, y: 20 },
             underwear9: { x: -15, y: 20 },
-            underwear10: { x: -15, y: 20 }
+            underwear10: { x: -15, y: 20 },
+            
         }
     },
 
@@ -285,6 +288,8 @@ const PORTRAIT = {
 
     },
 
+   
+
     outfit: {
         positions: {
             Dress: { x: 327, y: 757.5 },
@@ -311,7 +316,8 @@ const PORTRAIT = {
             underwear7: { x: -15, y: 20 },
             underwear8: { x: -15, y: 20 },
             underwear9: { x: -15, y: 20 },
-            underwear10: { x: -15, y: 20 }
+            underwear10: { x: -15, y: 20 },
+            
         }
     },
 
