@@ -372,102 +372,20 @@ export default class AssetLoader {
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
 
+     scene.load.atlas(
+        'hair_front_spritesheet', 
+        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.png', 
+        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.json'
+    );
+    scene.load.atlas(
+        'hair_back_spritesheet', 
+        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.png', 
+        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.json'
+    );
+
     //hair
     scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
-    scene.load.image('01blondeB', "Asset/Outfit/Hairs_upscaled/hair_01_blonde_B_out.png");
-    scene.load.image('01blondeF', "Asset/Outfit/Hairs_upscaled/hair_01_blonde_F_out.png");
-    scene.load.image('01brownB', "Asset/Outfit/Hairs_upscaled/hair_01_brown_B_out.png");
-    scene.load.image('01brownF', "Asset/Outfit/Hairs_upscaled/hair_01_brown_F_out.png");
-    scene.load.image('01pinkB', "Asset/Outfit/Hairs_upscaled/hair_01_pink_B_out.png");
-    scene.load.image('01pinkF', "Asset/Outfit/Hairs_upscaled/hair_01_pink_F_out.png");
-    scene.load.image('02blackB', "Asset/Outfit/Hairs_upscaled/hair_02_black_B_out.png");
-    scene.load.image('02blackF', "Asset/Outfit/Hairs_upscaled/hair_02_black_F_out.png");
-    scene.load.image('02blondeB', "Asset/Outfit/Hairs_upscaled/hair_02_blonde_B_out.png");
-
-    scene.load.image('02blondeF', "Asset/Outfit/Hairs_upscaled/hair_02_blonde_F_out.png");
-    scene.load.image('02brownB', "Asset/Outfit/Hairs_upscaled/hair_02_brown_B_out.png");
-    scene.load.image('02brownF', "Asset/Outfit/Hairs_upscaled/hair_02_brown_F_out.png");
-    scene.load.image('02pinkB', "Asset/Outfit/Hairs_upscaled/hair_02_pink_B_out.png");
-    scene.load.image('02pinkF', "Asset/Outfit/Hairs_upscaled/hair_02_pink_F_out.png");
-    scene.load.image('03blackB', "Asset/Outfit/Hairs_upscaled/hair_03_black_B_out.png");
-    scene.load.image('03blackF', "Asset/Outfit/Hairs_upscaled/hair_03_black_F_out.png");
-    scene.load.image('03blondeB', "Asset/Outfit/Hairs_upscaled/hair_03_blonde_B_out.png");
-    scene.load.image('03blondeF', "Asset/Outfit/Hairs_upscaled/hair_03_blonde_F_out.png");
-    scene.load.image('03brownB', "Asset/Outfit/Hairs_upscaled/hair_03_brown_B_out.png");
-
-    scene.load.image('03brownF', "Asset/Outfit/Hairs_upscaled/hair_03_brown_F_out.png");
-    scene.load.image('03pinkB', "Asset/Outfit/Hairs_upscaled/hair_03_pink_B_out.png");
-    scene.load.image('03pinkF', "Asset/Outfit/Hairs_upscaled/hair_03_pink_F_out.png");
-    scene.load.image('04blackB', "Asset/Outfit/Hairs_upscaled/hair_04_black_B_out.png");
-    scene.load.image('04blackF', "Asset/Outfit/Hairs_upscaled/hair_04_black_F_out.png");
-    scene.load.image('04blondeB', "Asset/Outfit/Hairs_upscaled/hair_04_blonde_B_out.png");
-    scene.load.image('04blondeF', "Asset/Outfit/Hairs_upscaled/hair_04_blonde_F_out.png");
-    scene.load.image('04brownB', "Asset/Outfit/Hairs_upscaled/hair_04_brown_B_out.png");
-    scene.load.image('04brownF', "Asset/Outfit/Hairs_upscaled/hair_04_brown_F_out.png");
-    scene.load.image('04pinkB', "Asset/Outfit/Hairs_upscaled/hair_04_pink_B_out.png");
-
-    scene.load.image('04pinkF', "Asset/Outfit/Hairs_upscaled/hair_04_pink_F_out.png");
-    scene.load.image('05blackB', "Asset/Outfit/Hairs_upscaled/hair_05_black_B_out.png");
-    scene.load.image('05blackF', "Asset/Outfit/Hairs_upscaled/hair_05_black_F_out.png");
-    scene.load.image('05blondeB', "Asset/Outfit/Hairs_upscaled/hair_05_blonde_B_out.png");
-    scene.load.image('05blondeF', "Asset/Outfit/Hairs_upscaled/hair_05_blonde_F_out.png");
-    scene.load.image('05brownB', "Asset/Outfit/Hairs_upscaled/hair_05_brown_B_out.png");
-    scene.load.image('05brownF', "Asset/Outfit/Hairs_upscaled/hair_05_brown_F_out.png");
-    scene.load.image('05pinkB', "Asset/Outfit/Hairs_upscaled/hair_05_pink_B_out.png");
-    scene.load.image('05pinkF', "Asset/Outfit/Hairs_upscaled/hair_05_pink_F_out.png");
-    scene.load.image('06blackB', "Asset/Outfit/Hairs_upscaled/hair_06_black_B_out.png");
-
-    scene.load.image('06blackF', "Asset/Outfit/Hairs_upscaled/hair_06_black_F_out.png");
-    scene.load.image('06blondeB', "Asset/Outfit/Hairs_upscaled/hair_06_blonde_B_out.png");
-    scene.load.image('06blondeF', "Asset/Outfit/Hairs_upscaled/hair_06_blonde_F_out.png");
-    scene.load.image('06brownB', "Asset/Outfit/Hairs_upscaled/hair_06_brown_B_out.png");
-    scene.load.image('06brownF', "Asset/Outfit/Hairs_upscaled/hair_06_brown_F_out.png");
-    scene.load.image('06pinkB', "Asset/Outfit/Hairs_upscaled/hair_06_pink_B_out.png");
-    scene.load.image('06pinkF', "Asset/Outfit/Hairs_upscaled/hair_06_pink_F_out.png");
-    scene.load.image('07blackB', "Asset/Outfit/Hairs_upscaled/hair_07_black_B_out.png");
-    scene.load.image('07blackF', "Asset/Outfit/Hairs_upscaled/hair_07_black_F_out.png");
-    scene.load.image('07blondeB', "Asset/Outfit/Hairs_upscaled/hair_07_blonde_B_out.png");
-
-    scene.load.image('07blondeF', "Asset/Outfit/Hairs_upscaled/hair_07_blonde_F_out.png");
-    scene.load.image('07brownB', "Asset/Outfit/Hairs_upscaled/hair_07_brown_B_out.png");
-    scene.load.image('07brownF', "Asset/Outfit/Hairs_upscaled/hair_07_brown_F_out.png");
-    scene.load.image('07pinkB', "Asset/Outfit/Hairs_upscaled/hair_07_pink_B_out.png");
-    scene.load.image('07pinkF', "Asset/Outfit/Hairs_upscaled/hair_07_pink_F_out.png");
-    scene.load.image('08blackB', "Asset/Outfit/Hairs_upscaled/hair_08_black_B_out.png");
-    scene.load.image('08blackF', "Asset/Outfit/Hairs_upscaled/hair_08_black_F_out.png");
-    scene.load.image('08blondeB', "Asset/Outfit/Hairs_upscaled/hair_08_blonde_B_out.png");
-    scene.load.image('08blondeF', "Asset/Outfit/Hairs_upscaled/hair_08_blonde_F_out.png");
-    scene.load.image('08brownB', "Asset/Outfit/Hairs_upscaled/hair_08_brown_B_out.png");
-
-    scene.load.image('08brownF', "Asset/Outfit/Hairs_upscaled/hair_08_brown_F_out.png");
-    scene.load.image('08pinkB', "Asset/Outfit/Hairs_upscaled/hair_08_pink_B_out.png");
-    scene.load.image('08pinkF', "Asset/Outfit/Hairs_upscaled/hair_08_pink_F_out.png");
-    scene.load.image('09blackB', "Asset/Outfit/Hairs_upscaled/hair_09_black_B_out.png");
-    scene.load.image('09blackF', "Asset/Outfit/Hairs_upscaled/hair_09_black_F_out.png");
-    scene.load.image('09blondeB', "Asset/Outfit/Hairs_upscaled/hair_09_blonde_B_out.png");
-    scene.load.image('09blondeF', "Asset/Outfit/Hairs_upscaled/hair_09_blonde_F_out.png");
-    scene.load.image('09brownB', "Asset/Outfit/Hairs_upscaled/hair_09_brown_B_out.png");
-    scene.load.image('09brownF', "Asset/Outfit/Hairs_upscaled/hair_09_brown_F_out.png");
-    scene.load.image('09pinkB', "Asset/Outfit/Hairs_upscaled/hair_09_pink_B_out.png");
-
-    scene.load.image('09pinkF', "Asset/Outfit/Hairs_upscaled/hair_09_pink_F_out.png");
-    scene.load.image('10blackB', "Asset/Outfit/Hairs_upscaled/hair_10_black_B_out.png");
-    scene.load.image('10blackF', "Asset/Outfit/Hairs_upscaled/hair_10_black_F_out.png");
-    scene.load.image('10blondeB', "Asset/Outfit/Hairs_upscaled/hair_10_blonde_B_out.png");
-    scene.load.image('10blondeF', "Asset/Outfit/Hairs_upscaled/hair_10_blonde_F_out.png");
-    scene.load.image('10brownB', "Asset/Outfit/Hairs_upscaled/hair_10_brown_B_out.png");
-    scene.load.image('10brownF', "Asset/Outfit/Hairs_upscaled/hair_10_brown_F_out.png");
-    scene.load.image('10violetB', "Asset/Outfit/Hairs_upscaled/hair_10_violet_B_out.png");
-    scene.load.image('10violetF', "Asset/Outfit/Hairs_upscaled/hair_10_violet_F_out.png");
-    scene.load.image('11blackB', "Asset/Outfit/Hairs_upscaled/hair_11_black_B_out.png");
-
-    scene.load.image('11blackF', "Asset/Outfit/Hairs_upscaled/hair_11_black_F_out.png");
-    scene.load.image('11blondeB', "Asset/Outfit/Hairs_upscaled/hair_11_blonde_B_out.png");
-    scene.load.image('11blondeF', "Asset/Outfit/Hairs_upscaled/hair_11_blonde_F_out.png");
-    scene.load.image('11brownB', "Asset/Outfit/Hairs_upscaled/hair_11_brown_B_out.png");
-    scene.load.image('11brownF', "Asset/Outfit/Hairs_upscaled/hair_11_brown_F_out.png");
-    scene.load.image('11pinkB', "Asset/Outfit/Hairs_upscaled/hair_11_pink_B_out.png");
-    scene.load.image('11pinkF', "Asset/Outfit/Hairs_upscaled/hair_11_pink_F_out.png");
+    
 
 
 

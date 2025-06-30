@@ -1000,8 +1000,8 @@ export class MakeUpButton extends BaseButton {
 
             if (makeupType === 'Hair') {
                 const hairTextures = this.textureAnime; // object { front: '...', back: '...' }
-                scene.hairBack.setTexture(hairTextures.back).setVisible(true);
-                scene.hairFront.setTexture(hairTextures.front).setVisible(true);
+                scene.hairBack.setTexture(hairTextures.back.atlas, hairTextures.back.frame).setVisible(true);
+                scene.hairFront.setTexture(hairTextures.front.atlas, hairTextures.front.frame).setVisible(true);
 
                 // Save the reffferences of the two game objects
                 this.displayedMakeUp = [scene.hairBack, scene.hairFront];
