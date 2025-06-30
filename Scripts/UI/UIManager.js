@@ -54,7 +54,7 @@ export class UIManager {
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
             .setScale(0.5)
             .setOrigin(0.5)
-            .setDepth(6);
+            .setDepth(7);
 
         // Create initial facial feature GameObjects
         // These textures are the "visual defaults" when the game starts.
