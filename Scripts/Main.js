@@ -88,7 +88,6 @@ class Main extends Phaser.Scene {
         loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 
         AssetLoader.loadRexUIPlugin(this);
-        AssetLoader.loadAllAssets(this);
     }
 
     create() {
