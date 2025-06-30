@@ -465,7 +465,7 @@ export class InteractiveMakeupSystem {
         const wasCompleted = this.isComplete;
         console.log(`[InteractiveMakeup] Stopping session for ${typeEffectivelyStopping}. Discard: ${forceDiscard}, Completed: ${wasCompleted}`);
         this.isActive = false;
-
+        this.scene.TweeningUtils.hideApplyMakeUpPanel();
         const imageFromThisSession = this.activeMakeupImage; // Store ref
         this.activeMakeupImage = null; // System no longer directly manages this specific image object
 
