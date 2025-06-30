@@ -503,7 +503,7 @@ export class InteractiveMakeupSystem {
         if (makeupType === 'Lips') {
             if (!this.scene.lips || !this.scene.lips.active) { return; }
             const targetTexture = (previousStateStored && previousStateStored.textureKey) ? previousStateStored.textureKey : defaultMakeUpSkins['Lips'];
-            this.scene.lips.setTexture(targetTexture).setScale(0.55).setVisible(true).clearMask(); // Ensure mask is cleared
+            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask(); // Ensure mask is cleared
 
             if (previousStateStored && previousStateStored.isDefault) {
                 MakeUpButton.selectedMakeUp.Lips = { current: previousStateStored, previous: null };
