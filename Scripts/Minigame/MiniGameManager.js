@@ -264,14 +264,14 @@ export class MiniGameManager {
         this.disableInteraction();
         const textContent = panelText || 'Your outfit is not complete!';
         const text = this.scene.add.text(0, -20, textContent, {
-            fontSize: '40px',
+            fontSize: '32px',
             fontFamily: 'regularFont',
             color: '#d6525f',
             align: 'center',
             wordWrap: { width: 600 }
         }).setOrigin(0.5).setDepth(151);
 
-        const panelWidth = Phaser.Math.Clamp(text.width + 40, 200, 300); // Add padding for aesthetics
+        const panelWidth = Phaser.Math.Clamp(text.width + 20, 100, 200); // Add padding for aesthetics
         const panelHeight = 100;
         const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', panelWidth, panelHeight, 15, 15, 15, 12)
             .setDepth(151).setScale(3);
