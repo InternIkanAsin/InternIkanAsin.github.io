@@ -678,7 +678,7 @@ export class OutfitButton extends BaseButton {
 export class MakeUpButton extends BaseButton {
     static selectedMakeUp = {};
     static DEPTH_VALUES = {
-        "Pupil": 2, "Eyeshadow": 1.9, "Eyeliner": 2.2, "Blush": 2.3,
+        "Pupil": 2, "Eyeshadow": 1.9, "Eyeliner": 2.2, "Blush": 1.9,
         "Eyebrows": 2.4, "Eyelashes": 2.5, "Lips": 2.6, "Sticker": 2.7
     };
 

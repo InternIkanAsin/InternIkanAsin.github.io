@@ -21,26 +21,71 @@ export class MakeUpManager {
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon } = makeupItem;
             if (textureButton && textureIcon) {
-                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, 'highlightTexture'); // Added highlightTextureKey
+                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
+            
                 button.setSize(150, 200);
                 button.setData('instance', button);
-
+            
                 const currentSelectedMakeup = MakeUpButton.selectedMakeUp[makeUpType]?.current;
                 if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
+                    
+                    // 1. Aktifkan highlight (logika ini sudah benar).
                     button.highlightImage.setVisible(true);
-
-
+                    
+                    // 2. Perbarui referensi 'current' di state agar menunjuk ke instance tombol BARU.
                     MakeUpButton.selectedMakeUp[makeUpType].current = button;
+                    
+                    // --- LOGIKA BARU YANG LEBIH PINTAR ---
+                    // Periksa apakah item ini adalah item additive.
+                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeUpType)) {
+                        // Cek apakah visualnya SUDAH ADA dan MASIH VALID.
+                        // `currentSelectedMakeup` di sini merujuk ke state LAMA.
+                        const oldVisual = currentSelectedMakeup.displayedMakeUp;
+                        
+                        if (oldVisual && oldVisual.scene) {
+                            // Jika visual lama masih ada di scene, kita tidak perlu membuat yang baru.
+                            // Cukup perbarui referensi di instance tombol yang baru.
+                            console.log(`[Setup] Visual for ${name} already exists. Re-linking.`);
+                            button.displayedMakeUp = oldVisual;
+                        } else {
+                            // Jika visual lama tidak ada (misalnya, ini load pertama kali atau state rusak),
+                            // maka kita buat ulang visualnya.
+                            console.log(`[Setup] Visual for ${name} not found. Re-rendering.`);
+                            const pos = MakeUpPositions[makeUpType] || { x: 0, y: 0 };
+                            const newImage = scene.add.image(pos.x, pos.y, textureAnime);
+                            
+                            // Terapkan skala & depth
+                            if (['Blush', 'Eyeliner', 'Sticker'].includes(makeUpType)) {
+                                newImage.setScale(0.55 * 2);
+                            } else { // Eyeshadow
+                                newImage.setScale(0.9 * 2);
+                            }
+                            newImage.setDepth(MakeUpButton.DEPTH_VALUES[makeUpType] || 2.7);
+                            
+                            if (scene.faceContainer) {
+                                scene.faceContainer.add(newImage);
+                            }
+                            
+                            // Simpan referensi visual baru ini ke state dan ke tombol.
+                            button.displayedMakeUp = newImage;
+                            MakeUpButton.selectedMakeUp[makeUpType].current.displayedMakeUp = newImage;
+                        }
+                    }
+                    // --- AKHIR LOGIKA BARU ---
                 }
-
+            
                 if (!scene.makeUpButtons[makeUpType]) {
                     scene.makeUpButtons[makeUpType] = [];
                 }
                 scene.makeUpButtons[makeUpType].push(button);
             }
         });
+        
+        // Panggil sort setelah semua item yang mungkin ada telah dibuat ulang.
+        if (scene.faceContainer) {
+            scene.faceContainer.sort('depth');
+        }
     }
-
     /**
     * @method updateMakeUpButtons - Updates makeup buttons of make up Panel
     */
@@ -373,68 +418,38 @@ export class MakeUpManager {
         if (this.scene.interactiveMakeupSystem?.isActive) {
             this.scene.interactiveMakeupSystem.stopColoringSession(true); // force discard
         }
-        // console.log("Attempting to remove all makeup...");
         const scene = this.scene;
-
-        // Iterate over a copy of the keys to avoid issues if the underlying selectedMakeUp object is modified during iteration (though less likely here)
-        const makeupTypesCurrentlySelected = Object.keys(MakeUpButton.selectedMakeUp);
-
-        for (const makeupType of makeupTypesCurrentlySelected) {
+        const makeupTypes = Object.keys(MakeUpButton.selectedMakeUp);
+    
+        console.log("[RemoveAll] Starting to remove all makeup...");
+    
+        for (const makeupType of makeupTypes) {
             const entry = MakeUpButton.selectedMakeUp[makeupType];
-            const currentEquippedItemInfo = entry?.current;
-
-            if (currentEquippedItemInfo) { // If something is equipped for this type
-                // console.log(`Processing 'Remove All' for type: ${makeupType}, current: ${currentEquippedItemInfo.name}`);
-
-                // We need to call _equipDefaultMakeUp.
-                // This method is on the MakeUpButton prototype and expects a 'this' context of a MakeUpButton.
-
-                let buttonInstanceToCallHelper;
-
-                if (currentEquippedItemInfo instanceof MakeUpButton) {
-                    // If the current item is a MakeUpButton instance itself, we can use it.
-                    // This means a custom, non-default item is selected.
-                    buttonInstanceToCallHelper = currentEquippedItemInfo;
-
-                    // Since we are removing this custom item, its own displayedMakeUp (if additive) needs to be destroyed.
-                    // The _equipDefaultMakeUp method called below will handle setting the new default.
-                    if (buttonInstanceToCallHelper.displayedMakeUp) {
-                        if (makeupType !== 'Lips' && makeupType !== 'Eyebrows' && makeupType !== 'Eyelashes' && makeupType !== 'Pupil' && makeupType !== 'Hair' && makeupType !== 'Sticker') {
-                            if (typeof buttonInstanceToCallHelper.displayedMakeUp.destroy === 'function') {
-                                // console.log(`Destroying displayedMakeUp of button ${buttonInstanceToCallHelper.name} for ${makeupType}`);
-                                buttonInstanceToCallHelper.displayedMakeUp.destroy();
-                            }
-                        }
-                        buttonInstanceToCallHelper.displayedMakeUp = null; // Nullify on the button instance
-                    }
-                } else if (currentEquippedItemInfo.isDefault) {
-                    // A default is already active. For "Remove All", we typically don't need to do anything further
-                    // unless we want to explicitly "refresh" the default display.
-                    // console.log(`${makeupType} is already showing its default. Skipping explicit action for Remove All.`);
-                    continue; // Skip to the next makeup type
-                } else {
-                    // This case should ideally not happen if currentEquippedItemInfo is always either a MakeUpButton or a default info object.
-                    // If it does, we need a fallback to find *any* MakeUpButton instance to make the call.
-                    console.warn(`currentEquippedItemInfo for ${makeupType} is neither MakeUpButton nor default. Finding fallback button.`);
-                    const allMakeUpButtonsFlat = Object.values(scene.makeUpButtons || {}).flat();
-                    if (allMakeUpButtonsFlat.length > 0) {
-                        buttonInstanceToCallHelper = allMakeUpButtonsFlat[0]; // Use the first available button
-                    } else {
-                        console.error(`Cannot 'Remove All' for ${makeupType}: No MakeUpButton instances available to call helper method.`);
-                        continue; // Skip this type
+            const currentEquipped = entry?.current;
+        
+            if (currentEquipped) { // Jika ada sesuatu yang terpasang untuk tipe ini
+                
+                // Hancurkan objek visual dari item "additive" (Sticker, Blush, dll.)
+                if (currentEquipped.displayedMakeUp && !['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeupType)) {
+                    if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
+                        console.log(`[RemoveAll] Destroying visual for ${makeupType}: ${currentEquipped.name}`);
+                        currentEquipped.displayedMakeUp.destroy();
                     }
                 }
-
-                // If we decided we need to act (i.e., it wasn't already default or we found a button)
-                if (buttonInstanceToCallHelper) {
-                    // Call the instance method _equipDefaultMakeUp on the determined button instance.
-                    // It will handle setting the correct default texture and updating MakeUpButton.selectedMakeUp.
-                    buttonInstanceToCallHelper._equipDefaultMakeUp(makeupType, currentEquippedItemInfo);
+            
+                // Dapatkan instance tombol mana pun dari tipe ini untuk memanggil metode helper
+                let helperButton = scene.makeUpButtons[makeupType]?.[0] || Object.values(scene.makeUpButtons || {}).flat()[0];
+                if (helperButton) {
+                    // Panggil _equipDefaultMakeUp untuk mereset state dan tampilan ke default.
+                    // Ini akan menangani reset tekstur untuk item inti seperti Bibir, dan membersihkan state untuk item additive.
+                    helperButton._equipDefaultMakeUp(makeupType, currentEquipped);
                 }
             }
         }
-
-        // console.log("Finished 'Remove All'. Final state:", JSON.stringify(MakeUpButton.selectedMakeUp, (key, value) => (key === 'displayedMakeUp' && value) ? '[PhaserGameObject]' : value, 2));
+    
+        this.AudioManager.playSFX('buttonClick');
+        MakeUpButton.clearAllMakeUpHighlights(scene); // Pastikan semua highlight hilang
+        console.log("[RemoveAll] Finished removing makeup.");
     }
 
 }
