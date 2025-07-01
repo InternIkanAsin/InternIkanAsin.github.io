@@ -206,19 +206,6 @@ export default class AssetLoader {
       'Asset/Outfit/Sepatu/shoes_spritesheet.png',
       'Asset/Outfit/Sepatu/shoes_spritesheet.json'
     );
-    scene.load.image('shoes1', 'Asset/Outfit/Sepatu/sepatu_14.png');
-    scene.load.image('shoes2', 'Asset/Outfit/Sepatu/sepatu_07.png');
-    scene.load.image('shoes3', 'Asset/Outfit/Sepatu/sepatu_08.png');
-    scene.load.image('shoes4', 'Asset/Outfit/Sepatu/sepatu_12.png');
-    scene.load.image('shoes5', 'Asset/Outfit/Sepatu/sepatu_18.png');
-    scene.load.image('shoes6', 'Asset/Outfit/Sepatu/sepatu_16.png');
-    scene.load.image('shoes7', 'Asset/Outfit/Sepatu/sepatu_21.png');
-    scene.load.image('shoes8', 'Asset/Outfit/Sepatu/sepatu_26.png');
-    scene.load.image('shoes9', 'Asset/Outfit/Sepatu/sepatu_28.png');
-    scene.load.image('shoes10', 'Asset/Outfit/Sepatu/sepatu_29.png');
-    scene.load.image('shoes11', 'Asset/Outfit/Sepatu/sepatu_30.png');
-    scene.load.image('shoes12', 'Asset/Outfit/Sepatu/sepatu_34.png');
-    scene.load.image('shoes13', 'Asset/Outfit/Sepatu/sepatu_36.png');
 
     //Outer
     scene.load.atlas(
