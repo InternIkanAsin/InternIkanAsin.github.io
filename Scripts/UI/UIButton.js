@@ -1016,8 +1016,19 @@ export class MakeUpButton extends BaseButton {
                     case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
                     case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
                     // ... other instant cases ...
-                    case 'Hair': if (scene.hair) { scene.hair.setTexture(this.textureAnime).setVisible(true); newImage = scene.hair; } break;
-                    case 'Sticker': newImage = scene.add.image(pos.x, pos.y, this.textureAnime); if (scene.faceContainer) scene.faceContainer.add(newImage); break;
+                    case 'Sticker':
+            // Logika baru untuk menangani format string atau objek
+            if (typeof this.textureAnime === 'object' && this.textureAnime.atlas) {
+                // Format baru (spritesheet)
+                newImage = scene.add.image(pos.x, pos.y, this.textureAnime.atlas, this.textureAnime.frame);
+            } else {
+                // Fallback untuk format lama (gambar tunggal)
+                newImage = scene.add.image(pos.x, pos.y, this.textureAnime);
+            }
+            if (scene.faceContainer) {
+                scene.faceContainer.add(newImage);
+            }
+            break;
                     default: return;
                 }
                 if (!newImage) { return; }
