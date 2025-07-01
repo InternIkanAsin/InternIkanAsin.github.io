@@ -84,272 +84,64 @@ const makeUpData = [
     new MakeUp('StickerstarYellow', 'Sticker', 'stickerstaryellow', 'buttonIcon2', 'stickerstaryellowIcon'),
 
     //hair data
-     new MakeUp('01Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_01_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_01_black_B_out.png' } 
-        }, 'buttonIcon2', '01blackIcon'
-    ),
-    new MakeUp('01Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_01_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_01_blonde_B_out.png' } 
-        }, 'buttonIcon2', '01blondeIcon'
-    ),
-    new MakeUp('01Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_01_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_01_brown_B_out.png' }
-        }, 'buttonIcon2', '01brownIcon'
-    ),
-    new MakeUp('01Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_01_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_01_pink_B_out.png' }
-        }, 'buttonIcon2', '01pinkIcon'
-    ),
-    new MakeUp('02Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_02_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_02_black_B_out.png' } 
-        }, 'buttonIcon2', '02blackIcon'
-    ),
-    new MakeUp('02Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_02_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_02_blonde_B_out.png' } 
-        }, 'buttonIcon2', '02blondeIcon'
-    ),
-    new MakeUp('02Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_02_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_02_brown_B_out.png' }
-        }, 'buttonIcon2', '02brownIcon'
-    ),
-    new MakeUp('02Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_02_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_02_pink_B_out.png' }
-        }, 'buttonIcon2', '02pinkIcon'
-    ),
-    new MakeUp('03Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_03_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_03_black_B_out.png' } 
-        }, 'buttonIcon2', '03blackIcon'
-    ),
-    new MakeUp('03Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_03_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_03_blonde_B_out.png' } 
-        }, 'buttonIcon2', '03blondeIcon'
-    ),
-    new MakeUp('03Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_03_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_03_brown_B_out.png' }
-        }, 'buttonIcon2', '03brownIcon'
-    ),
-    new MakeUp('03Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_03_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_03_pink_B_out.png' }
-        }, 'buttonIcon2', '03pinkIcon'
-    ),
-    new MakeUp('04Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_04_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_04_black_B_out.png' } 
-        }, 'buttonIcon2', '04blackIcon'
-    ),
-    new MakeUp('04Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_04_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_04_blonde_B_out.png' } 
-        }, 'buttonIcon2', '04blondeIcon'
-    ),
-    new MakeUp('04Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_04_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_04_brown_B_out.png' }
-        }, 'buttonIcon2', '04brownIcon'
-    ),
-    new MakeUp('04Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_04_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_04_pink_B_out.png' }
-        }, 'buttonIcon2', '04pinkIcon'
-    ),
-    new MakeUp('05Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_05_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_05_black_B_out.png' } 
-        }, 'buttonIcon2', '05blackIcon'
-    ),
-    new MakeUp('05Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_05_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_05_blonde_B_out.png' } 
-        }, 'buttonIcon2', '05blondeIcon'
-    ),
-    new MakeUp('05Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_05_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_05_brown_B_out.png' }
-        }, 'buttonIcon2', '05brownIcon'
-    ),
-    new MakeUp('05Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_05_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_05_pink_B_out.png' }
-        }, 'buttonIcon2', '05pinkIcon'
-    ),
-    new MakeUp('06Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_06_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_06_black_B_out.png' } 
-        }, 'buttonIcon2', '06blackIcon'
-    ),
-    new MakeUp('06Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_06_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_06_blonde_B_out.png' } 
-        }, 'buttonIcon2', '06blondeIcon'
-    ),
-    new MakeUp('06Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_06_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_06_brown_B_out.png' }
-        }, 'buttonIcon2', '06brownIcon'
-    ),
-    new MakeUp('06Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_06_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_06_pink_B_out.png' }
-        }, 'buttonIcon2', '06pinkIcon'
-    ),
-    new MakeUp('07Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_07_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_07_black_B_out.png' } 
-        }, 'buttonIcon2', '07blackIcon'
-    ),
-    new MakeUp('07Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_07_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_07_blonde_B_out.png' } 
-        }, 'buttonIcon2', '07blondeIcon'
-    ),
-    new MakeUp('07Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_07_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_07_brown_B_out.png' }
-        }, 'buttonIcon2', '07brownIcon'
-    ),
-    new MakeUp('07Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_07_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_07_pink_B_out.png' }
-        }, 'buttonIcon2', '07pinkIcon'
-    ),
-    new MakeUp('08Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_08_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_08_black_B_out.png' } 
-        }, 'buttonIcon2', '08blackIcon'
-    ),
-    new MakeUp('08Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_08_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_08_blonde_B_out.png' } 
-        }, 'buttonIcon2', '08blondeIcon'
-    ),
-    new MakeUp('08Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_08_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_08_brown_B_out.png' }
-        }, 'buttonIcon2', '08brownIcon'
-    ),
-    new MakeUp('08Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_08_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_08_pink_B_out.png' }
-        }, 'buttonIcon2', '08pinkIcon'
-    ),
-    new MakeUp('09Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_09_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_09_black_B_out.png' } 
-        }, 'buttonIcon2', '09blackIcon'
-    ),
-    new MakeUp('09Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_09_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_09_blonde_B_out.png' } 
-        }, 'buttonIcon2', '09blondeIcon'
-    ),
-    new MakeUp('09Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_09_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_09_brown_B_out.png' }
-        }, 'buttonIcon2', '09brownIcon'
-    ),
-    new MakeUp('09Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_09_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_09_pink_B_out.png' }
-        }, 'buttonIcon2', '09pinkIcon'
-    ),
-    new MakeUp('10Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_10_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_10_black_B_out.png' } 
-        }, 'buttonIcon2', '10blackIcon'
-    ),
-    new MakeUp('10Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_10_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_10_blonde_B_out.png' } 
-        }, 'buttonIcon2', '10blondeIcon'
-    ),
-    new MakeUp('10Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_10_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_10_brown_B_out.png' }
-        }, 'buttonIcon2', '10brownIcon'
-    ),
-    new MakeUp('10Violet', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_10_violet_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_10_violet_B_out.png' }
-        }, 'buttonIcon2', '10violetBIcon'
-    ),
-    new MakeUp('11Black', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_11_black_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_11_black_B_out.png' } 
-        }, 'buttonIcon2', '11blackIcon'
-    ),
-    new MakeUp('11Blonde', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_11_blonde_F_out.png' }, 
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_11_blonde_B_out.png' } 
-        }, 'buttonIcon2', '11blondeBIcon'
-    ),
-    new MakeUp('11Brown', 'Hair', 
-        { 
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_11_brown_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_11_brown_B_out.png' }
-        }, 'buttonIcon2', '11brownBIcon'
-    ),
-    new MakeUp('11Pink', 'Hair', 
-        {
-            front: { atlas: 'hair_front_spritesheet', frame: 'hair_11_pink_F_out.png' },
-            back:  { atlas: 'hair_back_spritesheet',  frame: 'hair_11_pink_B_out.png' }
-        }, 'buttonIcon2', '11pinkBIcon'
-    ),
+     // --- GRUP 1 (ATLAS 01) ---
+    new MakeUp('01Black',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_01_black_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_01_black_B_out.png'  } }, 'buttonIcon2', '01blackIcon'),
+    new MakeUp('01Blonde', 'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_01_blonde_F_out.png' }, back: { atlas: 'hair_back_01', frame: 'hair_01_blonde_B_out.png' } }, 'buttonIcon2', '01blondeIcon'),
+    new MakeUp('01Brown',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_01_brown_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_01_brown_B_out.png'  } }, 'buttonIcon2', '01brownIcon'),
+    new MakeUp('01Pink',   'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_01_pink_F_out.png'   }, back: { atlas: 'hair_back_01', frame: 'hair_01_pink_B_out.png'   } }, 'buttonIcon2', '01pinkIcon'),
     
-]
+    new MakeUp('02Black',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_02_black_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_02_black_B_out.png'  } }, 'buttonIcon2', '02blackIcon'),
+    new MakeUp('02Blonde', 'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_02_blonde_F_out.png' }, back: { atlas: 'hair_back_01', frame: 'hair_02_blonde_B_out.png' } }, 'buttonIcon2', '02blondeIcon'),
+    new MakeUp('02Brown',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_02_brown_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_02_brown_B_out.png'  } }, 'buttonIcon2', '02brownIcon'),
+    new MakeUp('02Pink',   'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_02_pink_F_out.png'   }, back: { atlas: 'hair_back_01', frame: 'hair_02_pink_B_out.png'   } }, 'buttonIcon2', '02pinkIcon'),
+
+    new MakeUp('03Black',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_03_black_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_03_black_B_out.png'  } }, 'buttonIcon2', '03blackIcon'),
+    new MakeUp('03Blonde', 'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_03_blonde_F_out.png' }, back: { atlas: 'hair_back_01', frame: 'hair_03_blonde_B_out.png' } }, 'buttonIcon2', '03blondeIcon'),
+    new MakeUp('03Brown',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_03_brown_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_03_brown_B_out.png'  } }, 'buttonIcon2', '03brownIcon'),
+    new MakeUp('03Pink',   'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_03_pink_F_out.png'   }, back: { atlas: 'hair_back_01', frame: 'hair_03_pink_B_out.png'   } }, 'buttonIcon2', '03pinkIcon'),
+
+    new MakeUp('04Black',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_04_black_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_04_black_B_out.png'  } }, 'buttonIcon2', '04blackIcon'),
+    new MakeUp('04Blonde', 'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_04_blonde_F_out.png' }, back: { atlas: 'hair_back_01', frame: 'hair_04_blonde_B_out.png' } }, 'buttonIcon2', '04blondeIcon'),
+    new MakeUp('04Brown',  'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_04_brown_F_out.png'  }, back: { atlas: 'hair_back_01', frame: 'hair_04_brown_B_out.png'  } }, 'buttonIcon2', '04brownIcon'),
+    new MakeUp('04Pink',   'Hair', { front: { atlas: 'hair_front_01', frame: 'hair_04_pink_F_out.png'   }, back: { atlas: 'hair_back_01', frame: 'hair_04_pink_B_out.png'   } }, 'buttonIcon2', '04pinkIcon'),
+
+    // --- GRUP 2 (ATLAS 02) ---
+    new MakeUp('05Black',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_05_black_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_05_black_B_out.png'  } }, 'buttonIcon2', '05blackIcon'),
+    new MakeUp('05Blonde', 'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_05_blonde_F_out.png' }, back: { atlas: 'hair_back_02', frame: 'hair_05_blonde_B_out.png' } }, 'buttonIcon2', '05blondeIcon'),
+    new MakeUp('05Brown',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_05_brown_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_05_brown_B_out.png'  } }, 'buttonIcon2', '05brownIcon'),
+    new MakeUp('05Pink',   'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_05_pink_F_out.png'   }, back: { atlas: 'hair_back_02', frame: 'hair_05_pink_B_out.png'   } }, 'buttonIcon2', '05pinkIcon'),
+
+    new MakeUp('06Black',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_06_black_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_06_black_B_out.png'  } }, 'buttonIcon2', '06blackIcon'),
+    new MakeUp('06Blonde', 'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_06_blonde_F_out.png' }, back: { atlas: 'hair_back_02', frame: 'hair_06_blonde_B_out.png' } }, 'buttonIcon2', '06blondeIcon'),
+    new MakeUp('06Brown',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_06_brown_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_06_brown_B_out.png'  } }, 'buttonIcon2', '06brownIcon'),
+    new MakeUp('06Pink',   'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_06_pink_F_out.png'   }, back: { atlas: 'hair_back_02', frame: 'hair_06_pink_B_out.png'   } }, 'buttonIcon2', '06pinkIcon'),
+
+    new MakeUp('07Black',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_07_black_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_07_black_B_out.png'  } }, 'buttonIcon2', '07blackIcon'),
+    new MakeUp('07Blonde', 'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_07_blonde_F_out.png' }, back: { atlas: 'hair_back_02', frame: 'hair_07_blonde_B_out.png' } }, 'buttonIcon2', '07blondeIcon'),
+    new MakeUp('07Brown',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_07_brown_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_07_brown_B_out.png'  } }, 'buttonIcon2', '07brownIcon'),
+    new MakeUp('07Pink',   'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_07_pink_F_out.png'   }, back: { atlas: 'hair_back_02', frame: 'hair_07_pink_B_out.png'   } }, 'buttonIcon2', '07pinkIcon'),
+
+    new MakeUp('08Black',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_08_black_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_08_black_B_out.png'  } }, 'buttonIcon2', '08blackIcon'),
+    new MakeUp('08Blonde', 'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_08_blonde_F_out.png' }, back: { atlas: 'hair_back_02', frame: 'hair_08_blonde_B_out.png' } }, 'buttonIcon2', '08blondeIcon'),
+    new MakeUp('08Brown',  'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_08_brown_F_out.png'  }, back: { atlas: 'hair_back_02', frame: 'hair_08_brown_B_out.png'  } }, 'buttonIcon2', '08brownIcon'),
+    new MakeUp('08Pink',   'Hair', { front: { atlas: 'hair_front_02', frame: 'hair_08_pink_F_out.png'   }, back: { atlas: 'hair_back_02', frame: 'hair_08_pink_B_out.png'   } }, 'buttonIcon2', '08pinkIcon'),
+    
+    // --- GRUP 3 (ATLAS 03) ---
+    new MakeUp('09Black',  'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_09_black_F_out.png'  }, back: { atlas: 'hair_back_03', frame: 'hair_09_black_B_out.png'  } }, 'buttonIcon2', '09blackIcon'),
+    new MakeUp('09Blonde', 'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_09_blonde_F_out.png' }, back: { atlas: 'hair_back_03', frame: 'hair_09_blonde_B_out.png' } }, 'buttonIcon2', '09blondeIcon'),
+    new MakeUp('09Brown',  'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_09_brown_F_out.png'  }, back: { atlas: 'hair_back_03', frame: 'hair_09_brown_B_out.png'  } }, 'buttonIcon2', '09brownIcon'),
+    new MakeUp('09Pink',   'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_09_pink_F_out.png'   }, back: { atlas: 'hair_back_03', frame: 'hair_09_pink_B_out.png'   } }, 'buttonIcon2', '09pinkIcon'),
+
+    new MakeUp('10Black',  'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_10_black_F_out.png'  }, back: { atlas: 'hair_back_03', frame: 'hair_10_black_B_out.png'  } }, 'buttonIcon2', '10blackIcon'),
+    new MakeUp('10Blonde', 'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_10_blonde_F_out.png' }, back: { atlas: 'hair_back_03', frame: 'hair_10_blonde_B_out.png' } }, 'buttonIcon2', '10blondeIcon'),
+    new MakeUp('10Brown',  'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_10_brown_F_out.png'  }, back: { atlas: 'hair_back_03', frame: 'hair_10_brown_B_out.png'  } }, 'buttonIcon2', '10brownIcon'),
+    new MakeUp('10Violet', 'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_10_violet_F_out.png' }, back: { atlas: 'hair_back_03', frame: 'hair_10_violet_B_out.png' } }, 'buttonIcon2', '10violetBIcon'),
+
+    new MakeUp('11Black',  'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_11_black_F_out.png'  }, back: { atlas: 'hair_back_03', frame: 'hair_11_black_B_out.png'  } }, 'buttonIcon2', '11blackIcon'),
+    new MakeUp('11Blonde', 'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_11_blonde_F_out.png' }, back: { atlas: 'hair_back_03', frame: 'hair_11_blonde_B_out.png' } }, 'buttonIcon2', '11blondeBIcon'),
+    new MakeUp('11Brown',  'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_11_brown_F_out.png'  }, back: { atlas: 'hair_back_03', frame: 'hair_11_brown_B_out.png'  } }, 'buttonIcon2', '11brownBIcon'),
+    new MakeUp('11Pink',   'Hair', { front: { atlas: 'hair_front_03', frame: 'hair_11_pink_F_out.png'   }, back: { atlas: 'hair_back_03', frame: 'hair_11_pink_B_out.png'   } }, 'buttonIcon2', '11pinkBIcon'),
+];
 
 export const defaultMakeUpSkins = {
     'Lips': 'LipNormalDefault',
