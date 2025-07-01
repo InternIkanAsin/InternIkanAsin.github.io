@@ -469,8 +469,6 @@ export class OutfitButton extends BaseButton {
         // --- Initialize properties from your "before changes" version ---
         this.button = buttonBg; // The interactive image
         this.icon = iconImg;    // The small icon on the button
-        // this.statText = statText; // Your "before" version had this, but "after" uses statContainer. Ensure consistency.
-        // If statText is still used elsewhere, re-add it. For now, assuming statContainer is primary.
         this.AudioManager = AudioManager;
         this.name = name;
         this.outfitType = outfitType;
@@ -482,18 +480,16 @@ export class OutfitButton extends BaseButton {
         this.offsetY = 0;
         this.highlightImage = highlightImg;           // <<<< KEPT FROM YOUR ORIGINAL - Used by original tweenOutfit
 
-        // --- Properties for new highlight feature (already assigned this.highlightImage) ---
-
         // --- Properties for new tweenToView feature (for zoom transitions) ---
         const outfitCustomSizes = layout.outfit.customSizes;
         const outfitManualOffsets = layout.outfit.manualOffsets;
 
-        const baseManualOffset = outfitManualOffsets[this.textureAnime] || { x: 0, y: 0 };
+        const baseManualOffset = outfitManualOffsets[this.name] || { x: 0, y: 0 };
         this.baseWorldOutfitX = outfitX + baseManualOffset.x; // Absolute world X if char is at origin
         this.baseWorldOutfitY = outfitY + baseManualOffset.y; // Absolute world Y
-        this.usesCustomSize = !!outfitCustomSizes[this.textureAnime];
+        this.usesCustomSize = !!outfitCustomSizes[this.name];
         if (this.usesCustomSize) {
-            const custom = outfitCustomSizes[this.textureAnime];
+            const custom = outfitCustomSizes[this.name];
             this.dressUpViewDisplayWidth = custom.width;
             this.dressUpViewDisplayHeight = custom.height;
             this.baseScaleXAfterCustomSize = 1; // Will be updated in toggleOutfit
@@ -638,13 +634,14 @@ export class OutfitButton extends BaseButton {
 
         // --- Equip item  ---
         const outfitManualOffsets = layout.outfit.manualOffsets;
-        const manualOffset = outfitManualOffsets[textureAnime] || { x: 0, y: 0 };
+        const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
         const finalX = this.outfitX + manualOffset.x;
         const finalY = this.outfitY + manualOffset.y;
+        let newOutfitImage;
+        if (textureAnime.atlas && textureAnime.frame) newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame);
+        else newOutfitImage = scene.add.image(finalX, finalY, textureAnime);
 
-        const newOutfitImage = scene.add.image(finalX, finalY, textureAnime);
         newOutfitImage.setDepth(depthValues[outfitType] || 1);
-
         this.displayedOutfit = newOutfitImage;
 
         // metadata 
