@@ -1,11 +1,12 @@
 export class Costume {
-    constructor(name, outfitType, textureAnime, textureButton, textureIcon, stat = 0) {
+    constructor(name, outfitType, textureAnime, textureButton, textureIcon, stat = 0, offsetKey = null) {
         this.name = name;
         this.outfitType = outfitType;
         this.textureAnime = textureAnime;
         this.textureButton = textureButton;
         this.textureIcon = textureIcon;
         this.stat = stat;
+        this.offsetKey = offsetKey;
     }
 }
 

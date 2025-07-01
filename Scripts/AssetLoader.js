@@ -180,52 +180,32 @@ export default class AssetLoader {
     scene.load.image('dress20', 'Asset/Outfit/Terusan/terusan20.png');
 
     //Shirts
-    scene.load.image('shirt1', 'Asset/Outfit/Baju/baju_20.png');
-    scene.load.image('shirt2', 'Asset/Outfit/Baju/baju_01.png');
-    scene.load.image('shirt3', 'Asset/Outfit/Baju/atasan_school.png');
-    scene.load.image('shirt4', 'Asset/Outfit/Baju/baju_02.png');//ngga ada iconnya
-    scene.load.image('shirt5', 'Asset/Outfit/Baju/baju_03.png');
-    scene.load.image('shirt6', 'Asset/Outfit/Baju/baju_04.png');
-    scene.load.image('shirt7', 'Asset/Outfit/Baju/baju_06.png');
-    scene.load.image('shirt8', 'Asset/Outfit/Baju/baju_08.png');
-    scene.load.image('shirt9', 'Asset/Outfit/Baju/baju_22.png');
-    scene.load.image('shirt10', 'Asset/Outfit/Baju/baju_19.png');
-    scene.load.image('shirt11', 'Asset/Outfit/Baju/baju_23.png');
-    scene.load.image('shirt12', 'Asset/Outfit/Baju/baju_25.png');
-    scene.load.image('shirt13', 'Asset/Outfit/Baju/baju_26.png');
-    scene.load.image('shirt14', 'Asset/Outfit/Baju/baju_28.png');
-    scene.load.image('shirt15', 'Asset/Outfit/Baju/baju_31.png');
-    scene.load.image('shirt16', 'Asset/Outfit/Baju/baju_32.png');
-    scene.load.image('shirt17', 'Asset/Outfit/Baju/baju_33.png');
-    scene.load.image('shirt18', 'Asset/Outfit/Baju/baju_34.png');
-    scene.load.image('shirt19', 'Asset/Outfit/Baju/baju_35.png');
-    scene.load.image('shirt20', 'Asset/Outfit/Baju/baju_37.png');
+    scene.load.atlas(
+      'Shirt_spritesheet',
+      'Asset/Outfit/Baju/shirt_spritesheet.png',
+      'Asset/Outfit/Baju/shirt_spritesheet.json'
+    );
 
-    //Underwear
-    scene.load.image('underwear1', 'Asset/Outfit/Bawahan/celana_33.png');
-    scene.load.image('underwear2', 'Asset/Outfit/Bawahan/celana_school.png');//ga ada icon
-    scene.load.image('underwear3', 'Asset/Outfit/Bawahan/celana_sport.png');//ga ada
-    scene.load.image('underwear4', 'Asset/Outfit/Bawahan/rok_06.png');
-    scene.load.image('underwear5', 'Asset/Outfit/Bawahan/rok_19.png');
-    scene.load.image('underwear6', 'Asset/Outfit/Bawahan/rok_23.png');
-    scene.load.image('underwear7', 'Asset/Outfit/Bawahan/rok_32.png');
-    scene.load.image('underwear8', 'Asset/Outfit/Bawahan/rok_34.png');
-    scene.load.image('underwear9', 'Asset/Outfit/Bawahan/rok_36.png');
-    scene.load.image('underwear10', 'Asset/Outfit/Bawahan/rok_hangout.png');
+    //Lower
+    scene.load.atlas(
+      'Lower_spritesheet',
+      'Asset/Outfit/Bawahan/lower_spritesheet.png',
+      'Asset/Outfit/Bawahan/lower_spritesheet.json'
+    );
 
-    //Uniform
     //Socks
-    scene.load.image('socks1', 'Asset/Outfit/Kaos Kaki/kaoskaki_29.png');
-    scene.load.image('socks2', 'Asset/Outfit/Kaos Kaki/kaoskaki_05.png');
-    scene.load.image('socks3', 'Asset/Outfit/Kaos Kaki/kaoskaki_10.png');
-    scene.load.image('socks4', 'Asset/Outfit/Kaos Kaki/kaoskaki_17.png');
-    scene.load.image('socks5', 'Asset/Outfit/Kaos Kaki/kaoskaki_18.png');
-    scene.load.image('socks6', 'Asset/Outfit/Kaos Kaki/kaoskaki_22.png');
-    scene.load.image('socks7', 'Asset/Outfit/Kaos Kaki/kaoskaki_28.png');
-    scene.load.image('socks8', 'Asset/Outfit/Kaos Kaki/kaoskaki_in.png');
-    scene.load.image('socks9', 'Asset/Outfit/Kaos Kaki/kaoskaki_short.png');
+    scene.load.atlas(
+      'Socks_spritesheet',
+      'Asset/Outfit/Kaos Kaki/socks_spritesheet.png',
+      'Asset/Outfit/Kaos Kaki/socks_spritesheet.json'
+    );
 
     //Shoes
+    scene.load.atlas(
+      'Shoes_spritesheet',
+      'Asset/Outfit/Sepatu/shoes_spritesheet.png',
+      'Asset/Outfit/Sepatu/shoes_spritesheet.json'
+    );
     scene.load.image('shoes1', 'Asset/Outfit/Sepatu/sepatu_14.png');
     scene.load.image('shoes2', 'Asset/Outfit/Sepatu/sepatu_07.png');
     scene.load.image('shoes3', 'Asset/Outfit/Sepatu/sepatu_08.png');
@@ -241,21 +221,11 @@ export default class AssetLoader {
     scene.load.image('shoes13', 'Asset/Outfit/Sepatu/sepatu_36.png');
 
     //Outer
-    scene.load.image('outer1', 'Asset/Outfit/Jaket/jaket_16.png');
-    scene.load.image('outer2', 'Asset/Outfit/Jaket/jaket_17.png');
-    scene.load.image('outer3', 'Asset/Outfit/Jaket/jaket_18.png');
-    scene.load.image('outer4', 'Asset/Outfit/Jaket/jaket_20.png');
-    scene.load.image('outer5', 'Asset/Outfit/Jaket/jaket_29.png');
-    scene.load.image('outer6', 'Asset/Outfit/Jaket/jaket_32.png');
-    scene.load.image('outer7', 'Asset/Outfit/Jaket/jaket_36.png');
-    scene.load.image('outer8', 'Asset/Outfit/Jaket/jaket_37.png');
-    scene.load.image('outer9', 'Asset/Outfit/Jaket/jaket_bomber.png');
-    scene.load.image('outer10', 'Asset/Outfit/Jaket/jaket_coklat.png');
-    scene.load.image('outer11', 'Asset/Outfit/Jaket/jaket_flower.png');
-    scene.load.image('outer12', 'Asset/Outfit/Jaket/jaket_purple.png');
-    scene.load.image('outer13', 'Asset/Outfit/Jaket/jaket_red.png');
-    scene.load.image('outer14', 'Asset/Outfit/Jaket/jaket_sport.png');
-    scene.load.image('outer15', 'Asset/Outfit/Jaket/jaket_sweater.png');
+    scene.load.atlas(
+      'Outer_spritesheet',
+      'Asset/Outfit/Jaket/outer_spritesheet.png',
+      'Asset/Outfit/Jaket/outer_spritesheet.json'
+    );
 
 
 
@@ -372,20 +342,20 @@ export default class AssetLoader {
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
 
-     scene.load.atlas(
-        'hair_front_spritesheet', 
-        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.png', 
-        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.json'
+    scene.load.atlas(
+      'hair_front_spritesheet',
+      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.png',
+      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.json'
     );
     scene.load.atlas(
-        'hair_back_spritesheet', 
-        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.png', 
-        'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.json'
+      'hair_back_spritesheet',
+      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.png',
+      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.json'
     );
 
     //hair
     scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
-    
+
 
 
 
