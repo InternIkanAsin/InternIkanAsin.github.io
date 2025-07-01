@@ -308,22 +308,22 @@ const PORTRAIT = {
         },
 
         customSizes: {
-            dress18: { width: 944, height: 900 },
-            dress19: { width: 944, height: 900 },
-            dress20: { width: 944, height: 900 },
-            outer8: { width: 530, height: 565 }
+            'Dress 18': { width: 944, height: 900 },
+            'Dress 19': { width: 944, height: 900 },
+            'Dress 20': { width: 944, height: 900 },
+            'Outer 8': { width: 530, height: 565 }
         },
         manualOffsets: {
-            outer14: { x: 0, y: -40 },
-            underwear2: { x: 0, y: 0 },
-            underwear3: { x: 0, y: 0 },
-            underwear4: { x: -15, y: 20 },
-            underwear5: { x: -15, y: 20 },
-            underwear6: { x: -15, y: 20 },
-            underwear7: { x: -15, y: 20 },
-            underwear8: { x: -15, y: 20 },
-            underwear9: { x: -15, y: 20 },
-            underwear10: { x: -15, y: 20 },
+            'Outer 14': { x: 0, y: -40 },
+            'Underwear 2': { x: 0, y: 0 },
+            'Underwear 3': { x: 0, y: 0 },
+            'Underwear 4': { x: -15, y: 20 },
+            'Underwear 5': { x: -15, y: 20 },
+            'Underwear 6': { x: -15, y: 20 },
+            'Underwear 7': { x: -15, y: 20 },
+            'Underwear 8': { x: -15, y: 20 },
+            'Underwear 9': { x: -15, y: 20 },
+            'Underwear 10': { x: -15, y: 20 },
 
         }
     },
