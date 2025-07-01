@@ -44,9 +44,11 @@ const LANDSCAPE = {
     minigameFinishButton: {
         x: 70,                 
         y: 500 + (75 * 1.6) + 60, 
-        scale: 0.35,        
-        useNineSlice: false,   
-        texture: 'readyButtonIcon' 
+        scale: 1,        
+        useNineSlice: true,   
+        texture: 'readyButtonIcon',
+        width: 200,
+        height: 150 
     },
 
     // character position
@@ -439,6 +441,16 @@ const PORTRAIT = {
     finishButton: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_HEIGHT - 50
+    },
+
+    minigameFinishButton: {
+        x: PORTRAIT_CENTERX,                 
+        y: PORTRAIT_HEIGHT - 50,
+        scale: 0.7,        
+        useNineSlice: true,   
+        texture: 'readyButtonIcon',
+        width: 600,
+        height: 150 
     },
     //Dialogue System
     dialogueBox: {
