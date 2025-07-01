@@ -190,6 +190,8 @@ class Main extends Phaser.Scene {
                 'tickMark'
             ).setDepth(100.1).setScale(0.7);
         }
+
+        if (this.finishMiniGameButton) this.finishMiniGameButton.destroy();
         this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
             x: layout.finishButton.x,
             y: layout.finishButton.y,
@@ -231,6 +233,10 @@ class Main extends Phaser.Scene {
             if (this.makeUpTickMark) this.makeUpTickMark.destroy();
             if (this.miniGameFinishButton) this.miniGameFinishButton.destroy();
 
+            if (this.finishMiniGameButton) {
+                this.finishMiniGameButton.destroy();
+                this.finishMiniGameButton = null;
+            }
 
             this.dressUpButton = null;
             this.makeUpButton = null;

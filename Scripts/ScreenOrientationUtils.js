@@ -41,6 +41,14 @@ const LANDSCAPE = {
         }
     },
 
+    minigameFinishButton: {
+        x: 70,                 
+        y: 500 + (75 * 1.6) + 60, 
+        scale: 0.35,        
+        useNineSlice: false,   
+        texture: 'readyButtonIcon' 
+    },
+
     // character position
     character: {
         x: 1920 / 2 / 1.1,

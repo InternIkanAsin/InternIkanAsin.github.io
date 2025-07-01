@@ -75,9 +75,9 @@ export class MiniGameManager {
         }).setDepth(99); // Depth DI BAWAH tirai
 
         scene.finishButton = new UIButton(scene, this.AudioManager, {
-            x: layout.finishButton.x,
-            y: layout.finishButton.y,
-            textureButton: 'readyButtonIcon',
+            x: layout.minigameFinishButton.x,
+            y: layout.minigameFinishButton.y,
+            textureButton: layout.minigameFinishButton.texture || 'readyButtonIcon',
             buttonWidth: 600,
             buttonHeight: 150,
             textureIcon: '',
@@ -116,10 +116,11 @@ export class MiniGameManager {
                 }
             },
             buttonText: 'READY',
-            textSize: 60,
+            textSize: 48,
             textYPosition: 0,
             font: 'regularFont',
-            useNineSlice: true,
+            useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
+            buttonScale: layout.minigameFinishButton.scale,
             textColor: '#d6525f'
         });
 
@@ -144,6 +145,8 @@ export class MiniGameManager {
         scene.removeAllButton?.destroy();
         scene.tipsButton?.destroy();
         scene.finishButton?.destroy();
+
+        scene.finishButton = null;
 
 
         scene.statPanelContainer?.destroy();
@@ -415,34 +418,48 @@ export class MiniGameManager {
 
     //Disables interaction with all buttons while tip panel is open
     disableInteraction() {
+    // Gunakan optional chaining (?.) untuk memastikan kita tidak memanggil metode pada objek yang null/undefined
         this.scene.removeAllButton?.disableInteractive();
         this.backButton?.disableInteractive();
         this.scene.finishButton?.disableInteractive();
         this.scene.makeUpButton?.disableInteractive();
         this.scene.dressUpButton?.disableInteractive();
-        this.scene.finishMiniGameButton.disableInteractive();
-
+        this.scene.finishMiniGameButton?.disableInteractive(); // Ini adalah baris yang menyebabkan error
+        this.scene.miniGameButton?.disableInteractive();
+        
         const minigameButtons = this.buttonGrid ? this.buttonGrid.getAllChildren() : [];
-        //disableDressUpMakeUpCategoryButtons(this.scene);
-
-        minigameButtons.forEach(buttons => buttons.disableInteractive());
+        minigameButtons.forEach(buttons => buttons?.disableInteractive());
+        
         this.scene.sidePanel?.getElement('scroller').setEnable(false);
+        
+        if (!this.inputBlocker) {
+            this.inputBlocker = this.scene.add.rectangle(
+                this.scene.scale.width / 2, this.scene.scale.height / 2,
+                this.scene.scale.width, this.scene.scale.height, 0x000000, 0
+            ).setInteractive().setDepth(150);
+        }
     }
-
+    
     //Enables interaction with all buttons while tip panel is closed
     enableInteraction() {
+        // Gunakan juga optional chaining di sini untuk konsistensi dan keamanan
         this.scene.removeAllButton?.setInteractive();
         this.backButton?.setInteractive();
         this.scene.finishButton?.setInteractive();
         this.scene.makeUpButton?.setInteractive();
         this.scene.dressUpButton?.setInteractive();
-        this.scene.finishMiniGameButton.setInteractive();
-
+        this.scene.finishMiniGameButton?.setInteractive();
+        this.scene.miniGameButton?.setInteractive();
+    
         const minigameButtons = this.buttonGrid ? this.buttonGrid.getAllChildren() : [];
-        //enableDressUpMakeUpCategoryButtons(this.scene);
-
-        minigameButtons.forEach(buttons => buttons.setInteractive());
+        minigameButtons.forEach(buttons => buttons?.setInteractive());
+    
         this.scene.sidePanel?.getElement('scroller').setEnable(true);
+    
+        if (this.inputBlocker) {
+            this.inputBlocker.destroy();
+            this.inputBlocker = null;
+        }
     }
 
     createOutfitLabel(outfitIcon, outfitText, index) {
