@@ -341,7 +341,16 @@ export default class AssetLoader {
     scene.load.image('eyeColorIcon', "Asset/UI/Eye_Color_Icon.png");
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
+    //Hair Atlas
+    
+    scene.load.atlas('hair_front_01', "Asset/Outfit/Hairs_upscaled/spritesheet_F.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F.json");
+    scene.load.atlas('hair_back_01', "Asset/Outfit/Hairs_upscaled/spritesheet_B.png", " Asset/Outfit/Hairs_upscaled/spritesheet_B.json");
+    
+    // Grup 2
+    scene.load.atlas('hair_front_02', "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.json");
+    scene.load.atlas('hair_back_02', "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.json");
 
+<<<<<<< HEAD
     scene.load.atlas(
       'hair_front_spritesheet',
       'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.png',
@@ -352,6 +361,11 @@ export default class AssetLoader {
       'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.png',
       'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.json'
     );
+=======
+    // Grup 3
+    scene.load.atlas('hair_front_03', "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.json");
+    scene.load.atlas('hair_back_03', "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.json");
+>>>>>>> 9d70019bb84c01dbccdc963cb117ec8f63e611be
 
     //hair
     scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
@@ -433,34 +447,11 @@ export default class AssetLoader {
     scene.load.image('pupilnormalyellow', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil yellow_normal.png");
 
     //sticker
-    //blusing love
-    scene.load.image('stickerblushpink', "Asset/makeup/MakeupAnime/sticker make up/blushing love/mc_sticker manik pink_blush love.png");
-    scene.load.image('stickerblushpurple', "Asset/makeup/MakeupAnime/sticker make up/blushing love/mc_sticker manik purple_blush love.png");
-    scene.load.image('stickerblushred', "Asset/makeup/MakeupAnime/sticker make up/blushing love/mc_sticker manik red_blush love.png");
-    scene.load.image('stickerblushyellow', "Asset/makeup/MakeupAnime/sticker make up/blushing love/mc_sticker manik yellow_blush love.png");
-
-    //Diamond
-    scene.load.image('stickerdiamond', "Asset/makeup/MakeupAnime/sticker make up/diamond/mc_sticker manik diamond.png");
-
-    //Love
-    scene.load.image('stickerlove', "Asset/makeup/MakeupAnime/sticker make up/love/mc_sticker manik_Love.png");
-
-    //moonlight crown
-    scene.load.image('stickermoonlightcrownblue', "Asset/makeup/MakeupAnime/sticker make up/moonlight crown/mc_sticker manik blue_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownpurple', "Asset/makeup/MakeupAnime/sticker make up/moonlight crown/mc_sticker manik purple_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownred', "Asset/makeup/MakeupAnime/sticker make up/moonlight crown/mc_sticker manik red_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownwhite', "Asset/makeup/MakeupAnime/sticker make up/moonlight crown/mc_sticker manik white_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownyellow', "Asset/makeup/MakeupAnime/sticker make up/moonlight crown/mc_sticker manik yellow_moonlight crown.png");
-
-    //princess tears
-    scene.load.image('stickerprincesstears', "Asset/makeup/MakeupAnime/sticker make up/princess tears/mc_sticker manik_princess tears.png");
-
-    //star
-    scene.load.image('stickerstarblue', "Asset/makeup/MakeupAnime/sticker make up/star/mc_sticker manik blue_star.png");
-    scene.load.image('stickerstarpink', "Asset/makeup/MakeupAnime/sticker make up/star/mc_sticker manik pink_star.png");
-    scene.load.image('stickerstarpurple', "Asset/makeup/MakeupAnime/sticker make up/star/mc_sticker manik purple_star.png");
-    scene.load.image('stickerstarred', "Asset/makeup/MakeupAnime/sticker make up/star/mc_sticker manik red_star.png");
-    scene.load.image('stickerstaryellow', "Asset/makeup/MakeupAnime/sticker make up/star/mc_sticker manik yellow_star.png");
+      scene.load.atlas(
+        'sticker_spritesheet', 
+        "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.png", 
+        "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.json"
+    );
 
 
 
