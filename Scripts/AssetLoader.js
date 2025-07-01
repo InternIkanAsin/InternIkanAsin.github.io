@@ -342,30 +342,17 @@ export default class AssetLoader {
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
     //Hair Atlas
-    
+
     scene.load.atlas('hair_front_01', "Asset/Outfit/Hairs_upscaled/spritesheet_F.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F.json");
     scene.load.atlas('hair_back_01', "Asset/Outfit/Hairs_upscaled/spritesheet_B.png", " Asset/Outfit/Hairs_upscaled/spritesheet_B.json");
-    
+
     // Grup 2
     scene.load.atlas('hair_front_02', "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.json");
     scene.load.atlas('hair_back_02', "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.json");
 
-<<<<<<< HEAD
-    scene.load.atlas(
-      'hair_front_spritesheet',
-      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.png',
-      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_F.json'
-    );
-    scene.load.atlas(
-      'hair_back_spritesheet',
-      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.png',
-      'Asset/Outfit/Hairs_upscaled/spritesheet_hair_B.json'
-    );
-=======
     // Grup 3
     scene.load.atlas('hair_front_03', "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.json");
     scene.load.atlas('hair_back_03', "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.json");
->>>>>>> 9d70019bb84c01dbccdc963cb117ec8f63e611be
 
     //hair
     scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
@@ -447,10 +434,10 @@ export default class AssetLoader {
     scene.load.image('pupilnormalyellow', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil yellow_normal.png");
 
     //sticker
-      scene.load.atlas(
-        'sticker_spritesheet', 
-        "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.png", 
-        "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.json"
+    scene.load.atlas(
+      'sticker_spritesheet',
+      "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.png",
+      "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.json"
     );
 
 
