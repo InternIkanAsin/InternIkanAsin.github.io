@@ -46,13 +46,13 @@ export class UIManager {
 
         //Back hair
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back)
-            .setScale(0.5)
+            .setScale(0.5 * 256 / 225)
             .setOrigin(0.5)
             .setDepth(0.9);
 
         // Front hair
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
-            .setScale(0.5)
+            .setScale(0.5 * 256 / 225)
             .setOrigin(0.5)
             .setDepth(7);
 

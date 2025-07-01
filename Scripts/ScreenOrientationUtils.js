@@ -131,11 +131,11 @@ const LANDSCAPE = {
 
         zoomInHairX: 1920 / 2 * 1.035,
         zoomInHairY: 1080 / 2 * 1.553,
-        zoomInTargetHairScale: 1.6,
+        zoomInTargetHairScale: 1.6 * 256 / 225,
 
         zoomOutHairX: 1920 / 2 / 1.103,
         zoomOutHairY: 1080 / 2 / 1.45,
-        zoomOutHairScale: 0.5,
+        zoomOutHairScale: 0.5 * 256 / 225,
 
     },
     // Side Panel
@@ -398,11 +398,11 @@ const PORTRAIT = {
 
         zoomInHairX: 720 / 2,
         zoomInHairY: 1280 / 2 * 1.46,
-        zoomInTargetHairScale: 0.8 * 2,
+        zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
 
         zoomOutHairX: 720 / 2 / 1.1,
         zoomOutHairY: 1280 / 2 / 1.31,
-        zoomOutHairScale: 0.25 * 2,
+        zoomOutHairScale: 0.25 * 2 * 256 / 225,
 
     },
     // Side Panel
