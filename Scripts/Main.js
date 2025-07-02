@@ -215,8 +215,8 @@ class Main extends Phaser.Scene {
 
     transitionToMinigame(gameState) {
         // Make sure transition only happened once
-        if (this.dressUpButton) this.dressUpButton.disableInteractive();
-        if (this.makeUpButton) this.makeUpButton.disableInteractive();
+        this.dressUpButton.disableInteractive();
+        this.makeUpButton.disableInteractive();
 
 
         this.state = gameState; // Set state game

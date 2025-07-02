@@ -154,7 +154,7 @@ export class DressUpManager {
 
                 let typeToUnequipActually = outfitType;
                 // Special handling for "DressShirt" if it's a combined category view
-                if (outfitType === "DressShirt") {
+                if (outfitType === "Shirt" || outfitType === "Dress") {
 
                     if (OutfitButton.selectedOutfits["Dress"]?.current) {
                         typeToUnequipActually = "Dress"; // Prioritize Dress

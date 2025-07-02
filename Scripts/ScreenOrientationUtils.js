@@ -38,17 +38,19 @@ const LANDSCAPE = {
             'Underwear 8': { x: -15, y: 20 },
             'Underwear 9': { x: -15, y: 20 },
             'Underwear 10': { x: -15, y: 20 },
+            'Shoes 9': { x: 0, y: -5 },
+            'Shoes 12': { x: 0, y: -5 }
         }
     },
 
     minigameFinishButton: {
-        x: 70,                 
-        y: 500 + (75 * 1.6) + 60, 
-        scale: 1,        
-        useNineSlice: true,   
+        x: 70,
+        y: 500 + (75 * 1.6) + 60,
+        scale: 1,
+        useNineSlice: true,
         texture: 'readyButtonIcon',
         width: 200,
-        height: 150 
+        height: 150
     },
 
     // character position
@@ -211,7 +213,7 @@ const LANDSCAPE = {
     },
 
     categoryButton: {
-        iconScale: 0.5 * 2,
+        iconScale: 0.5,
         buttonScale: 0.6 * 2
     },
     makeUpButton: {
@@ -267,12 +269,12 @@ const LANDSCAPE = {
     },
 
     nextLevelButton: {
-        x: LANDSCAPE_WIDTH / 2.7,
+        x: LANDSCAPE_WIDTH / 1.6,
         y: LANDSCAPE_CENTERY
     },
 
     restartButton: {
-        x: LANDSCAPE_WIDTH / 1.6,
+        x: LANDSCAPE_WIDTH / 2.7,
         y: LANDSCAPE_CENTERY
     },
 };
@@ -440,17 +442,17 @@ const PORTRAIT = {
     // Finish Button
     finishButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT - 50
+        y: PORTRAIT_HEIGHT - 60
     },
 
     minigameFinishButton: {
-        x: PORTRAIT_CENTERX,                 
-        y: PORTRAIT_HEIGHT - 50,
-        scale: 0.7,        
-        useNineSlice: true,   
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT - 60,
+        scale: 0.7,
+        useNineSlice: true,
         texture: 'readyButtonIcon',
         width: 600,
-        height: 150 
+        height: 150
     },
     //Dialogue System
     dialogueBox: {
@@ -460,7 +462,7 @@ const PORTRAIT = {
         height: 250
     },
     dialogueText: {
-        x: PORTRAIT_WIDTH / 13,
+        x: PORTRAIT_WIDTH / 15,
         y: PORTRAIT_CENTERY * 1.3,
         fontSize: 32,
         wordWrap: PORTRAIT_WIDTH - 80
