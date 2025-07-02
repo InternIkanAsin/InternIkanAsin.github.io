@@ -140,13 +140,8 @@ export default class AssetLoader {
     scene.load.image('KeenanNeutral', 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png');
     scene.load.image('RezaNeutral', 'Asset/Character/ekspresi/reza/Reza_expression_normal.png');
 
-    //Sad Expression
-    scene.load.image('AnggaSad', 'Asset/Character/ekspresi/angga/Angga_Sedih.png');
-    scene.load.image('AzrilSad', 'Asset/Character/ekspresi/Azril/Azril_Sedih.png');
-    scene.load.image('IndraSad', 'Asset/Character/ekspresi/indra/Indra_Sedih.png');
-    scene.load.image('KeenanSad', 'Asset/Character/ekspresi/keenan/Keenan_Sedih.png');
-    scene.load.image('RezaSad', 'Asset/Character/ekspresi/reza/Reza_Sedih.png');
-
+    
+   
     //Happy Expression
     scene.load.image('AnggaHappy', 'Asset/Character/ekspresi/angga/Angga_Senang.png');
     scene.load.image('AzrilHappy', 'Asset/Character/ekspresi/Azril/Azril_Senang.png');
