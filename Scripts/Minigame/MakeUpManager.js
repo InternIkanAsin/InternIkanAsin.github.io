@@ -454,7 +454,7 @@ export class MakeUpManager {
             }
         }
     
-        this.AudioManager.playSFX('buttonClick');
+       
         MakeUpButton.clearAllMakeUpHighlights(scene); // Pastikan semua highlight hilang
         console.log("[RemoveAll] Finished removing makeup.");
     }
