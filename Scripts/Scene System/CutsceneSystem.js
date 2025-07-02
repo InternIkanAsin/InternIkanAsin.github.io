@@ -56,10 +56,9 @@ export class CutsceneSystem {
         const originalHeight = this.scene.backgroundCutscene2.height;
 
 
-        const newWidth = width * 1.5;
-        const newHeight = originalHeight
 
-        this.scene.backgroundCutscene2.setDisplaySize(newWidth, newHeight);
+
+        this.scene.backgroundCutscene2.setDisplaySize(width, height);
 
         console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
         // Dialogue choices depending on your choice of outfit

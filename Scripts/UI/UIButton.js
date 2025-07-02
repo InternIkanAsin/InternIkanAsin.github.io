@@ -231,7 +231,7 @@ export class CategoryButton extends BaseButton {
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.8);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false); // Retained for potential explicit hover states if desired later
         const icon = scene.add.image(0, 0, textureIcon)
-            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.6);
+            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6);
 
         super(scene, x, y, [button, buttonHighlighted, icon]);
 
@@ -507,7 +507,6 @@ export class OutfitButton extends BaseButton {
         this.isDragging = false;
         const tapThreshold = 10;
 
-        this.addHoverEffect(buttonBg, AudioManager); // From BaseButton (handles hover alpha and sound)
         buttonBg.on("pointerout", () => {
             buttonBg.setAlpha(1); // Target buttonBg
             this.isDragging = false;
@@ -709,8 +708,6 @@ export class MakeUpButton extends BaseButton {
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
         const tapThreshold = 10;
-
-        this.addHoverEffect(buttonBg, AudioManager); // From BaseButton (handles hover alpha and sound)
 
         // Custom click handling (for tap vs drag, and sound on SUCCESSFUL tap)
         buttonBg.on("pointerdown", (pointer) => {
@@ -1023,18 +1020,18 @@ export class MakeUpButton extends BaseButton {
                         break;
                     // ... other instant cases ...
                     case 'Sticker':
-            // Logika baru untuk menangani format string atau objek
-            if (typeof this.textureAnime === 'object' && this.textureAnime.atlas) {
-                // Format baru (spritesheet)
-                newImage = scene.add.image(pos.x, pos.y, this.textureAnime.atlas, this.textureAnime.frame);
-            } else {
-                // Fallback untuk format lama (gambar tunggal)
-                newImage = scene.add.image(pos.x, pos.y, this.textureAnime);
-            }
-            if (scene.faceContainer) {
-                scene.faceContainer.add(newImage);
-            }
-            break;
+                        // Logika baru untuk menangani format string atau objek
+                        if (typeof this.textureAnime === 'object' && this.textureAnime.atlas) {
+                            // Format baru (spritesheet)
+                            newImage = scene.add.image(pos.x, pos.y, this.textureAnime.atlas, this.textureAnime.frame);
+                        } else {
+                            // Fallback untuk format lama (gambar tunggal)
+                            newImage = scene.add.image(pos.x, pos.y, this.textureAnime);
+                        }
+                        if (scene.faceContainer) {
+                            scene.faceContainer.add(newImage);
+                        }
+                        break;
                     default: return;
                 }
                 if (!newImage) { return; }
