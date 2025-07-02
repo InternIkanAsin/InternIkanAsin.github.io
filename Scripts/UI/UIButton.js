@@ -1007,11 +1007,20 @@ export class MakeUpButton extends BaseButton {
             }
 
             else {
-
+                const textureData = this.textureAnime;
                 switch (makeupType) {
-                    case 'Eyebrows': scene.eyebrows.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyebrows; break;
-                    case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
-                    case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
+                    case 'Eyebrows':
+                        scene.eyebrows.setTexture(textureData.atlas, textureData.frame).setVisible(true);
+                        newImage = scene.eyebrows;
+                        break;
+                    case 'Eyelashes':
+                        scene.eyelashes.setTexture(textureData.atlas, textureData.frame).setVisible(true);
+                        newImage = scene.eyelashes;
+                        break;
+                    case 'Pupil':
+                        scene.pupils.setTexture(textureData.atlas, textureData.frame).setVisible(true);
+                        newImage = scene.pupils;
+                        break;
                     // ... other instant cases ...
                     case 'Sticker':
             // Logika baru untuk menangani format string atau objek
