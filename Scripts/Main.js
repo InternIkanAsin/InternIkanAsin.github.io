@@ -262,7 +262,7 @@ class Main extends Phaser.Scene {
             if (gameState === GameState.DRESSUP) {
                 this.DressUpManager.displayDressUpButtons('Dress', this);
             } else {
-                this.MakeUpManager.displayMakeUpButtons('Blush', this);
+                this.MakeUpManager.displayMakeUpButtons('Eyebrows', this);
             }
             // Buka tirai sepenuhnya
             this.TweeningUtils.openDrapes(1000);
