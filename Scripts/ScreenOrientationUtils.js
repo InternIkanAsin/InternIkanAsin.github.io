@@ -267,12 +267,12 @@ const LANDSCAPE = {
     },
 
     nextLevelButton: {
-        x: LANDSCAPE_WIDTH / 2.7,
+        x: LANDSCAPE_WIDTH / 1.6,
         y: LANDSCAPE_CENTERY
     },
 
     restartButton: {
-        x: LANDSCAPE_WIDTH / 1.6,
+        x: LANDSCAPE_WIDTH / 2.7,
         y: LANDSCAPE_CENTERY
     },
 };
