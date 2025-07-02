@@ -34,16 +34,15 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: -10,
             iconScale: layout.backButton.scale,
-            callback: () => { 
+            callback: () => {
                 this.backButton.disableInteractive();
-                scene.TweeningUtils.transitionBackToSelection(); 
+                scene.TweeningUtils.transitionBackToSelection();
             },
             buttonText: '',
             buttonScale: layout.backButton.scale,
         }).setDepth(99); // Depth DI BAWAH tirai
 
         const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
-
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
             x: layout.removeAllButton.x,
             y: layout.removeAllButton.y,
@@ -418,7 +417,7 @@ export class MiniGameManager {
 
     //Disables interaction with all buttons while tip panel is open
     disableInteraction() {
-    // Gunakan optional chaining (?.) untuk memastikan kita tidak memanggil metode pada objek yang null/undefined
+        // Gunakan optional chaining (?.) untuk memastikan kita tidak memanggil metode pada objek yang null/undefined
         this.scene.removeAllButton?.disableInteractive();
         this.backButton?.disableInteractive();
         this.scene.finishButton?.disableInteractive();
@@ -426,12 +425,12 @@ export class MiniGameManager {
         this.scene.dressUpButton?.disableInteractive();
         this.scene.finishMiniGameButton?.disableInteractive(); // Ini adalah baris yang menyebabkan error
         this.scene.miniGameButton?.disableInteractive();
-        
+
         const minigameButtons = this.buttonGrid ? this.buttonGrid.getAllChildren() : [];
         minigameButtons.forEach(buttons => buttons?.disableInteractive());
-        
+
         this.scene.sidePanel?.getElement('scroller').setEnable(false);
-        
+
         if (!this.inputBlocker) {
             this.inputBlocker = this.scene.add.rectangle(
                 this.scene.scale.width / 2, this.scene.scale.height / 2,
@@ -439,7 +438,7 @@ export class MiniGameManager {
             ).setInteractive().setDepth(150);
         }
     }
-    
+
     //Enables interaction with all buttons while tip panel is closed
     enableInteraction() {
         // Gunakan juga optional chaining di sini untuk konsistensi dan keamanan
@@ -450,12 +449,12 @@ export class MiniGameManager {
         this.scene.dressUpButton?.setInteractive();
         this.scene.finishMiniGameButton?.setInteractive();
         this.scene.miniGameButton?.setInteractive();
-    
+
         const minigameButtons = this.buttonGrid ? this.buttonGrid.getAllChildren() : [];
         minigameButtons.forEach(buttons => buttons?.setInteractive());
-    
+
         this.scene.sidePanel?.getElement('scroller').setEnable(true);
-    
+
         if (this.inputBlocker) {
             this.inputBlocker.destroy();
             this.inputBlocker = null;

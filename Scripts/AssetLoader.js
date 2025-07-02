@@ -15,7 +15,6 @@ export default class AssetLoader {
     AssetLoader.loadUIAssets(scene);
     AssetLoader.loadAudioAssets(scene);
     AssetLoader.loadCutsceneAssets(scene);
-    AssetLoader.changeFilterMode(scene);
   }
 
   static loadMiniGame(scene) {
@@ -140,8 +139,8 @@ export default class AssetLoader {
     scene.load.image('KeenanNeutral', 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png');
     scene.load.image('RezaNeutral', 'Asset/Character/ekspresi/reza/Reza_expression_normal.png');
 
-    
-   
+
+
     //Happy Expression
     scene.load.image('AnggaHappy', 'Asset/Character/ekspresi/angga/Angga_Senang.png');
     scene.load.image('AzrilHappy', 'Asset/Character/ekspresi/Azril/Azril_Senang.png');
@@ -153,26 +152,23 @@ export default class AssetLoader {
     //Anime Textures
 
     //Dress
-    scene.load.image('dress1', 'Asset/Outfit/Terusan/terusan17.png');
-    scene.load.image('dress2', 'Asset/Outfit/Terusan/kebaya1.png');
-    scene.load.image('dress3', 'Asset/Outfit/Terusan/dress reward prereg.png');//ngga ada iconnya
-    scene.load.image('dress4', 'Asset/Outfit/Terusan/kebaya2.png');
-    scene.load.image('dress5', 'Asset/Outfit/Terusan/kebaya3.png');
-    scene.load.image('dress6', 'Asset/Outfit/Terusan/skate.png');
-    scene.load.image('dress7', 'Asset/Outfit/Terusan/terusan biru rample.png');
-    scene.load.image('dress8', 'Asset/Outfit/Terusan/terusan_07.png');
-    scene.load.image('dress9', 'Asset/Outfit/Terusan/terusan_09.png');
-    scene.load.image('dress10', 'Asset/Outfit/Terusan/terusan_14.png');
-    scene.load.image('dress11', 'Asset/Outfit/Terusan/terusan_barista.png');//ngga ada iconnya
-    scene.load.image('dress12', 'Asset/Outfit/Terusan/terusan_dance.png');
-    scene.load.image('dress13', 'Asset/Outfit/Terusan/terusan_prom.png');
-    scene.load.image('dress14', 'Asset/Outfit/Terusan/terusan_summer.png');
-    scene.load.image('dress15', 'Asset/Outfit/Terusan/terusan05.png');
-    scene.load.image('dress16', 'Asset/Outfit/Terusan/terusan10.png');
-    scene.load.image('dress17', 'Asset/Outfit/Terusan/terusan13.png');
-    scene.load.image('dress18', 'Asset/Outfit/Terusan/terusan18.png');
-    scene.load.image('dress19', 'Asset/Outfit/Terusan/terusan19.png');
-    scene.load.image('dress20', 'Asset/Outfit/Terusan/terusan20.png');
+    scene.load.atlas(
+      'Dress_spritesheet1',
+      'Asset/Outfit/Terusan/dress_spritesheet.png',
+      'Asset/Outfit/Terusan/spritesheet.json'
+    );
+
+    scene.load.atlas(
+      'Dress_spritesheet2',
+      'Asset/Outfit/Terusan/dress_spritesheet(1).png',
+      'Asset/Outfit/Terusan/spritesheet (1).json'
+    );
+
+    scene.load.atlas(
+      'Dress_spritesheet3',
+      'Asset/Outfit/Terusan/dress_spritesheet(2).png',
+      'Asset/Outfit/Terusan/spritesheet (2).json'
+    );
 
     //Shirts
     scene.load.atlas(
@@ -209,106 +205,48 @@ export default class AssetLoader {
       'Asset/Outfit/Jaket/outer_spritesheet.json'
     );
 
-
-
+    //Outfit Icons
     //Dress
-    scene.load.image('dress1Icon', 'Asset/ikon/Terusan/terusan17.png');
-    scene.load.image('dress2Icon', 'Asset/ikon/Terusan/Kebaya_1.png');
-    //scene.load.image('dress3Icon', 'Asset/ikon/Terusan/dress reward prereg.png');
-    scene.load.image('dress4Icon', 'Asset/ikon/Terusan/Kebaya_2.png');
-    scene.load.image('dress5Icon', 'Asset/ikon/Terusan/Kebaya_3.png');
-    scene.load.image('dress6Icon', 'Asset/ikon/Terusan/skate.png');
-    scene.load.image('dress7Icon', 'Asset/ikon/Terusan/terusan biru rample.png');
-    scene.load.image('dress8Icon', 'Asset/ikon/Terusan/terusan07.png');
-    scene.load.image('dress9Icon', 'Asset/ikon/Terusan/terusan09.png');
-    scene.load.image('dress10Icon', 'Asset/ikon/Terusan/terusan14.png');
-    //scene.load.image('dress11Icon', 'Asset/ikon/Terusan/terusan_barista.png');
-    scene.load.image('dress12Icon', 'Asset/ikon/Terusan/terusan_dansa.png');
-    scene.load.image('dress13Icon', 'Asset/ikon/Terusan/terusan_prom.png');
-    scene.load.image('dress14Icon', 'Asset/ikon/Terusan/terusan_summer.png');
-    scene.load.image('dress15Icon', 'Asset/ikon/Terusan/terusan05.png');
-    scene.load.image('dress16Icon', 'Asset/ikon/Terusan/terusan10.png');
-    scene.load.image('dress17Icon', 'Asset/ikon/Terusan/terusan13.png');
-    scene.load.image('dress18Icon', 'Asset/ikon/Terusan/terusan18.png');
-    scene.load.image('dress19Icon', 'Asset/ikon/Terusan/terusan_Valentine.png');
-    scene.load.image('dress20Icon', 'Asset/ikon/Terusan/terusan_gamis lebaran.png');
+    scene.load.atlas(
+      'dressIcon_spritesheet',
+      'Asset/ikon/Terusan/spritesheet.png',
+      'Asset/ikon/Terusan/spritesheet.json'
+    );
 
     //Shirts
-    scene.load.image('shirt1Icon', 'Asset/ikon/Baju/baju_20.png');
-    scene.load.image('shirt2Icon', 'Asset/ikon/Baju/baju_01.png');
-    scene.load.image('shirt3Icon', 'Asset/ikon/Baju/baju_school.png');
-    //scene.load.image('shirt4Icon', 'Asset/Outfit/Baju/baju_02.png');
-    scene.load.image('shirt5Icon', 'Asset/ikon/Baju/baju_03.png');
-    scene.load.image('shirt6Icon', 'Asset/ikon/Baju/baju_04.png');
-    scene.load.image('shirt7Icon', 'Asset/ikon/Baju/baju_06.png');
-    scene.load.image('shirt8Icon', 'Asset/ikon/Baju/baju_08.png');
-    scene.load.image('shirt9Icon', 'Asset/ikon/Baju/baju_22.png');
-    scene.load.image('shirt10Icon', 'Asset/ikon/Baju/baju_19.png');
-    scene.load.image('shirt11Icon', 'Asset/ikon/Baju/baju_23.png');
-    scene.load.image('shirt12Icon', 'Asset/ikon/Baju/baju_25.png');
-    scene.load.image('shirt13Icon', 'Asset/ikon/Baju/baju_26.png');
-    scene.load.image('shirt14Icon', 'Asset/ikon/Baju/baju_28.png');
-    scene.load.image('shirt15Icon', 'Asset/ikon/Baju/baju_31.png');
-    scene.load.image('shirt16Icon', 'Asset/ikon/Baju/baju_32.png');
-    scene.load.image('shirt17Icon', 'Asset/ikon/Baju/baju_33.png');
-    scene.load.image('shirt18Icon', 'Asset/ikon/Baju/baju_34.png');
-    scene.load.image('shirt19Icon', 'Asset/ikon/Baju/baju_35.png');
-    scene.load.image('shirt20Icon', 'Asset/ikon/Baju/baju_37.png');
+    scene.load.atlas(
+      'shirtIcon_spritesheet',
+      'Asset/ikon/Baju/spritesheet.png',
+      'Asset/ikon/Baju/spritesheet.json'
+    );
 
     //Underwear
-    scene.load.image('underwear1Icon', 'Asset/ikon/Bawahan/celana33.png');
-    //scene.load.image('underwear2Icon', 'Asset/ikon/Bawahan/celana_school.png');
-    //scene.load.image('underwear3Icon', 'Asset/ikon/Bawahan/celana_sport.png');
-    scene.load.image('underwear4Icon', 'Asset/ikon/Bawahan/rok_06.png');
-    scene.load.image('underwear5Icon', 'Asset/ikon/Bawahan/rok_19.png');
-    scene.load.image('underwear6Icon', 'Asset/ikon/Bawahan/rok_23.png');
-    scene.load.image('underwear7Icon', 'Asset/ikon/Bawahan/rok_32.png');
-    scene.load.image('underwear8Icon', 'Asset/ikon/Bawahan/rok_34.png');
-    scene.load.image('underwear9Icon', 'Asset/ikon/Bawahan/rok_36.png');
-    scene.load.image('underwear10Icon', 'Asset/ikon/Bawahan/rok_hangout.png');
+    scene.load.atlas(
+      'underwearIcon_spritesheet',
+      'Asset/ikon/Bawahan/spritesheet (1).png',
+      'Asset/ikon/Bawahan/spritesheet (1).json'
+    );
 
-    //Uniform
     //Socks
-    scene.load.image('socks1Icon', 'Asset/Outfit/ikon/Kaos Kaki/kaoskaki_29.png');
-    scene.load.image('socks2Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_05.png');
-    scene.load.image('socks3Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_10.png');
-    scene.load.image('socks4Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_17.png');
-    scene.load.image('socks5Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_18.png');
-    scene.load.image('socks6Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_22.png');
-    scene.load.image('socks7Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_28.png');
-    scene.load.image('socks8Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_in.png');
-    scene.load.image('socks9Icon', 'Asset/ikon/Kaos Kaki/kaoskaki_short.png');
-    //Shoes
-    scene.load.image('shoes1Icon', 'Asset/ikon/Sepatu/sepatu_14.png');
-    scene.load.image('shoes2Icon', 'Asset/ikon/Sepatu/sepatu_07.png');
-    scene.load.image('shoes3Icon', 'Asset/ikon/Sepatu/sepatu_08.png');
-    scene.load.image('shoes4Icon', 'Asset/ikon/Sepatu/sepatu_12.png');
-    scene.load.image('shoes5Icon', 'Asset/ikon/Sepatu/sepatu_18.png');
-    scene.load.image('shoes6Icon', 'Asset/ikon/Sepatu/sepatu_16.png');
-    scene.load.image('shoes7Icon', 'Asset/ikon/Sepatu/sepatu_21.png');
-    scene.load.image('shoes8Icon', 'Asset/ikon/Sepatu/sepatu_26.png');
-    scene.load.image('shoes9Icon', 'Asset/ikon/Sepatu/sepatu_28.png');
-    scene.load.image('shoes10Icon', 'Asset/ikon/Sepatu/sepatu_29.png');
-    scene.load.image('shoes11Icon', 'Asset/ikon/Sepatu/sepatu_30.png');
-    scene.load.image('shoes12Icon', 'Asset/ikon/Sepatu/sepatu_34.png');
-    scene.load.image('shoes13Icon', 'Asset/ikon/Sepatu/sepatu_36.png');
-    //Outer
-    scene.load.image('outer1Icon', 'Asset/ikon/Jaket/jaket_16.png');
-    scene.load.image('outer2Icon', 'Asset/ikon/Jaket/jaket_17.png');
-    scene.load.image('outer3Icon', 'Asset/ikon/Jaket/jaket_18.png');
-    scene.load.image('outer4Icon', 'Asset/ikon/Jaket/jaket_20.png');
-    scene.load.image('outer5Icon', 'Asset/ikon/Jaket/jaket_29.png');
-    scene.load.image('outer6Icon', 'Asset/ikon/Jaket/jaket_32.png');
-    scene.load.image('outer7Icon', 'Asset/ikon/Jaket/jaket_36.png');
-    scene.load.image('outer8Icon', 'Asset/ikon/Jaket/jaket_37.png');
-    scene.load.image('outer9Icon', 'Asset/ikon/Jaket/jaketbomber.png');
-    scene.load.image('outer10Icon', 'Asset/ikon/Jaket/jaket_coklat.png');
-    scene.load.image('outer11Icon', 'Asset/ikon/Jaket/jaket_flower.png');
-    scene.load.image('outer12Icon', 'Asset/ikon/Jaket/jaket_purple.png');
-    scene.load.image('outer13Icon', 'Asset/ikon/Jaket/jaket_red.png');
-    scene.load.image('outer14Icon', 'Asset/ikon/Jaket/jaket_sport.png');
-    scene.load.image('outer15Icon', 'Asset/ikon/Jaket/jaket_sweater.png');
+    scene.load.atlas(
+      'socksIcon_spritesheet',
+      'Asset/ikon/Kaos Kaki/spritesheet (3).png',
+      'Asset/ikon/Kaos Kaki/spritesheet (3).json'
+    );
 
+    //Shoes
+    scene.load.atlas(
+      'shoesIcon_spritesheet',
+      'Asset/ikon/Sepatu/shoes_spritesheet.png',
+      'Asset/ikon/Sepatu/shoes_spritesheet.json'
+    );
+
+    //Outer
+    scene.load.atlas(
+      'outerIcon_spritesheet',
+      'Asset/ikon/Jaket/spritesheet (2).png',
+      'Asset/ikon/Jaket/spritesheet (2).json'
+    );
   }
 
   static loadMakeupAssets(scene) {
@@ -588,75 +526,5 @@ export default class AssetLoader {
     ]);
   }
 
-  static changeFilterMode(scene) {
-    //Change filter Mode of all pixel art assets to not appear blurry
-    scene.textures.get('highlightTexture').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('categoryButtonsPanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('outfitButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('button1').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('dressIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('outerIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('LowerIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('uniformIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('socksIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shoesIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('eyebrowsIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('blushIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('eyelashesIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('eyelinerIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('eyeshadowIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('lipstickIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('stickerIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('eyeColorIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('makeUpIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('hairIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('openIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('statPanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('tipsPanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('emptyButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('emptyButton2').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('emptyButtonRed').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('backButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('continueButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('continueButtonSelected').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('redButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('xMarkWhite').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('categoryButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('dialogueBox').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('dialogueNameBox').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('selectionBox').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('bubbleTextBoxTop').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('bubbleTextBoxBottom').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('bubbleTextBoxLeft').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('bubbleTextBoxRight').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('tipsButton').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('finishChecklist').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('statBar').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('heartIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('heartIcon2').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('brokenHeartIcon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('headerPanel').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('endingHeader').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('background').setFilter(Phaser.Textures.FilterMode.LINEAR);
-    scene.textures.get('background').setFilter(Phaser.Textures.FilterMode.LINEAR);
-    scene.textures.get('sidePanelLine').setFilter(Phaser.Textures.FilterMode.LINEAR);
 
-    // Add filters for outfit icons if desired
-    scene.textures.get('dress1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('dress2Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shirt1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shirt2Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('Lower1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('socks1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shoes1Icon').setFilter(Phaser.Textures.FilterMode.NEAREST);
-
-    // Add filters for outfit anime textures if they are pixel art
-    scene.textures.get('dress1').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('dress2').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shirt1').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shirt2').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('underwear1').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('socks1').setFilter(Phaser.Textures.FilterMode.NEAREST);
-    scene.textures.get('shoes1').setFilter(Phaser.Textures.FilterMode.NEAREST);
-  }
 }

@@ -1,0 +1,175 @@
+{
+	"frames": {
+		"terusan05.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_07.png": {
+			"frame": {
+				"x": 947,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_09.png": {
+			"frame": {
+				"x": 1893,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_14.png": {
+			"frame": {
+				"x": 1,
+				"y": 1503,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_barista.png": {
+			"frame": {
+				"x": 947,
+				"y": 1503,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_dance.png": {
+			"frame": {
+				"x": 1893,
+				"y": 1503,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_prom.png": {
+			"frame": {
+				"x": 2839,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan_summer.png": {
+			"frame": {
+				"x": 2839,
+				"y": 1503,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 3784,
+			"h": 3004
+		},
+		"scale": "1"
+	}
+}

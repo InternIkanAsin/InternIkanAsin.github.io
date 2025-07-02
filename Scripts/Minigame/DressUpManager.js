@@ -21,7 +21,7 @@ export class DressUpManager {
 
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, stat }) => {
             const { x: outfitX, y: outfitY } = outfitPositions[outfitType] || { x: 0, y: 0 };
-            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, stat, scene.statTracker, scene.AudioManager);
+            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, stat, scene.statTracker, scene.AudioManager);
 
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);

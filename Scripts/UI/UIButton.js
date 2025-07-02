@@ -461,7 +461,7 @@ export class OutfitButton extends BaseButton {
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
-        const iconImg = scene.add.image(0, 0, textureIcon).setScale(layout.outfitButton.iconScale);
+        const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
 
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
 
@@ -1004,20 +1004,11 @@ export class MakeUpButton extends BaseButton {
             }
 
             else {
-                const textureData = this.textureAnime;
+
                 switch (makeupType) {
-                    case 'Eyebrows':
-                        scene.eyebrows.setTexture(textureData.atlas, textureData.frame).setVisible(true);
-                        newImage = scene.eyebrows;
-                        break;
-                    case 'Eyelashes':
-                        scene.eyelashes.setTexture(textureData.atlas, textureData.frame).setVisible(true);
-                        newImage = scene.eyelashes;
-                        break;
-                    case 'Pupil':
-                        scene.pupils.setTexture(textureData.atlas, textureData.frame).setVisible(true);
-                        newImage = scene.pupils;
-                        break;
+                    case 'Eyebrows': scene.eyebrows.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyebrows; break;
+                    case 'Eyelashes': scene.eyelashes.setTexture(this.textureAnime).setVisible(true); newImage = scene.eyelashes; break;
+                    case 'Pupil': scene.pupils.setTexture(this.textureAnime).setVisible(true); newImage = scene.pupils; break;
                     // ... other instant cases ...
                     case 'Sticker':
                         // Logika baru untuk menangani format string atau objek

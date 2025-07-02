@@ -159,7 +159,7 @@ class Main extends Phaser.Scene {
             callback: () => {
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
-                this.transitionToMinigame(GameState.DRESSUP); 
+                this.transitionToMinigame(GameState.DRESSUP);
             },
             buttonText: '',
             buttonScale: btnLayout.scale, // Gunakan skala dari layout
@@ -184,7 +184,7 @@ class Main extends Phaser.Scene {
             iconScale: 0.8 * 2,
             callback: () => {
                 this.dressUpButton.disableInteractive();
-                this.makeUpButton.disableInteractive(); 
+                this.makeUpButton.disableInteractive();
                 this.transitionToMinigame(GameState.MAKEUP);
             },
             buttonText: '',
@@ -263,15 +263,16 @@ class Main extends Phaser.Scene {
                 this.TweeningUtils.zoomIn();
             }
 
-            AssetLoader.changeFilterMode(this);
-            // Setup UI minigame (panel kategori di samping, tombol finish, dll)
             this.setUpMiniGame();
 
+            // Setup UI minigame (panel kategori di samping, tombol finish, dll
             if (gameState === GameState.DRESSUP) {
                 this.DressUpManager.displayDressUpButtons('Dress', this);
             } else {
                 this.MakeUpManager.displayMakeUpButtons('Eyebrows', this);
             }
+
+
             // Buka tirai sepenuhnya
             this.TweeningUtils.openDrapes(1000);
         });
