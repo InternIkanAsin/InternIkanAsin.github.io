@@ -156,7 +156,11 @@ class Main extends Phaser.Scene {
             textureIcon: 'dressButtonIcon',
             iconYPosition: -10,
             iconScale: 0.8 * 2,
-            callback: () => { this.transitionToMinigame(GameState.DRESSUP); },
+            callback: () => {
+                this.dressUpButton.disableInteractive();
+                this.makeUpButton.disableInteractive();
+                this.transitionToMinigame(GameState.DRESSUP); 
+            },
             buttonText: '',
             buttonScale: btnLayout.scale, // Gunakan skala dari layout
         }).setDepth(99);
@@ -178,7 +182,11 @@ class Main extends Phaser.Scene {
             textureIcon: 'makeUpButtonIcon',
             iconYPosition: -10,
             iconScale: 0.8 * 2,
-            callback: () => { this.transitionToMinigame(GameState.MAKEUP); },
+            callback: () => {
+                this.dressUpButton.disableInteractive();
+                this.makeUpButton.disableInteractive(); 
+                this.transitionToMinigame(GameState.MAKEUP);
+            },
             buttonText: '',
             buttonScale: btnLayout.scale, // Gunakan skala dari layout
         }).setDepth(99);
@@ -262,7 +270,7 @@ class Main extends Phaser.Scene {
             if (gameState === GameState.DRESSUP) {
                 this.DressUpManager.displayDressUpButtons('Dress', this);
             } else {
-                this.MakeUpManager.displayMakeUpButtons('Blush', this);
+                this.MakeUpManager.displayMakeUpButtons('Eyebrows', this);
             }
             // Buka tirai sepenuhnya
             this.TweeningUtils.openDrapes(1000);

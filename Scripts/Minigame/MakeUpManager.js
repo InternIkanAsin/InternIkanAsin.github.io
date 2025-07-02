@@ -100,16 +100,24 @@ export class MakeUpManager {
         }
 
         // --- Create and Add "Lepas" Button ---
+        const noRemoveButtonCategories = ['Hair', 'Pupil'];
+
+    // Hanya buat dan tambahkan tombol "Lepas" jika kategori saat ini
+    // TIDAK termasuk dalam daftar noRemoveButtonCategories.
+    if (!noRemoveButtonCategories.includes(makeUpType)) {
+        
+        // Seluruh logika pembuatan ItemPanelButton sekarang ada di dalam blok if ini.
         const lepasButton = new ItemPanelButton(
             scene,
             scene.AudioManager,
-            0, 0,                         // Position will be set by grid sizer
-            'buttonIcon2',                    // Background texture (same as MakeUpButton)
-            'xMark',                      // Icon texture key for the 'X'
-            -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
-            'Remove',                     // Text ("Lepas" or "Remove")
-            '30px',                       // Text size (matches MakeUpButton textLbl)
-            () => { // Callback for "Lepas"
+            0, 0,
+            'buttonIcon2',
+            'xMark',
+            -15,
+            'Remove',
+            '30px',
+            () => { 
+                // ... (callback untuk lepas button tetap sama)
                 console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
                 if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeUpType) {
                     scene.interactiveMakeupSystem.stopColoringSession(makeUpType, true);
@@ -122,7 +130,6 @@ export class MakeUpManager {
                 }
 
                 if (helperButton && helperButton instanceof MakeUpButton) {
-                    // Destroy displayed makeup if it's an additive type
                     if (currentEquipped && currentEquipped.displayedMakeUp) {
                         const typeOfEquipped = currentEquipped.makeupType || makeUpType;
                         if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(typeOfEquipped)) {
@@ -139,13 +146,13 @@ export class MakeUpManager {
                     console.error(`[LepasButton] Could not find a MakeUpButton instance for unequip: ${makeUpType}`);
                 }
                 MakeUpButton.clearMakeupHighlightsForType(scene, makeUpType);
-
             }
-
         );
 
         lepasButton.setSize(150, 200);
         allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
+    }
+    // --- AKHIR PERUBAHAN ---
 
         if (scene.sidePanelHeaderText) {
             scene.tweens.add({

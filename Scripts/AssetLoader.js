@@ -140,13 +140,8 @@ export default class AssetLoader {
     scene.load.image('KeenanNeutral', 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png');
     scene.load.image('RezaNeutral', 'Asset/Character/ekspresi/reza/Reza_expression_normal.png');
 
-    //Sad Expression
-    scene.load.image('AnggaSad', 'Asset/Character/ekspresi/angga/Angga_Sedih.png');
-    scene.load.image('AzrilSad', 'Asset/Character/ekspresi/Azril/Azril_Sedih.png');
-    scene.load.image('IndraSad', 'Asset/Character/ekspresi/indra/Indra_Sedih.png');
-    scene.load.image('KeenanSad', 'Asset/Character/ekspresi/keenan/Keenan_Sedih.png');
-    scene.load.image('RezaSad', 'Asset/Character/ekspresi/reza/Reza_Sedih.png');
-
+    
+   
     //Happy Expression
     scene.load.image('AnggaHappy', 'Asset/Character/ekspresi/angga/Angga_Senang.png');
     scene.load.image('AzrilHappy', 'Asset/Character/ekspresi/Azril/Azril_Senang.png');
@@ -360,20 +355,12 @@ export default class AssetLoader {
 
     //eyebrow
     //normal
-    scene.load.image('eyebrownormal1', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 1_normal.png");
-    scene.load.image('eyebrownormal2', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 2_normal.png");
-    scene.load.image('eyebrownormal3', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 3_normal.png");
-    scene.load.image('eyebrownormal4', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 4_normal.png");
-    scene.load.image('eyebrownormal5', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb 5_normal.png");
+    scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
 
     //eyelashes
     //normal
     scene.load.image('EyelashesNormalDefault', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
-    scene.load.image('eyelashesnormal1', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el 1_normal.png");
-    scene.load.image('eyelashesnormal2', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el 2_normal.png");
-    scene.load.image('eyelashesnormal3', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el 3_normal.png");
-    scene.load.image('eyelashesnormal4', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el 4_normal.png");
-    scene.load.image('eyelashesnormal5', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el 5_normal.png");
+    scene.load.atlas('eyelashes_spritesheet', "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.png", "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.json");
 
     //eyeliner
 
@@ -411,14 +398,7 @@ export default class AssetLoader {
 
     //pupil
     //normal
-    scene.load.image('pupilnormalblack', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil black_normal.png");
-    scene.load.image('pupilnormaldragon', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil dragon_normal.png");
-    scene.load.image('pupilnormalfairy', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil fairy_normal.png");
-    scene.load.image('pupilnormalgreen', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil green_normal.png");
-    scene.load.image('pupilnormalmagical', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil magical_normal.png");
-    scene.load.image('pupilnormalpink', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil pink_normal.png");
-    scene.load.image('pupilnormalred', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil red_normal.png");
-    scene.load.image('pupilnormalyellow', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil yellow_normal.png");
+    scene.load.atlas('pupil_spritesheet', "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.png", "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.json");
 
     //sticker
     scene.load.atlas(

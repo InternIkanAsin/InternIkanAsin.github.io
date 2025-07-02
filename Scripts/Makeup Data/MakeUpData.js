@@ -15,18 +15,19 @@ const makeUpData = [
     new MakeUp('Blush 8', 'Blush', 'blushround', 'buttonIcon2', 'blushroundIcon'),
 
     // Eyebrows Data
-    new MakeUp('Eyebrows 1', 'Eyebrows', 'eyebrownormal1', 'buttonIcon2', 'eyebrow1Icon'),
-    new MakeUp('Eyebrows 2', 'Eyebrows', 'eyebrownormal2', 'buttonIcon2', 'eyebrow2Icon'),
-    new MakeUp('Eyebrows 3', 'Eyebrows', 'eyebrownormal3', 'buttonIcon2', 'eyebrow3Icon'),
-    new MakeUp('Eyebrows 4', 'Eyebrows', 'eyebrownormal4', 'buttonIcon2', 'eyebrow4Icon'),
-    new MakeUp('Eyebrows 5', 'Eyebrows', 'eyebrownormal5', 'buttonIcon2', 'eyebrow5Icon'),
+    new MakeUp('Eyebrows 1', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 1_normal.png' }, 'buttonIcon2', 'eyebrow1Icon'),
+    new MakeUp('Eyebrows 2', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 2_normal.png' }, 'buttonIcon2', 'eyebrow2Icon'),
+    new MakeUp('Eyebrows 3', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 3_normal.png' }, 'buttonIcon2', 'eyebrow3Icon'),
+    new MakeUp('Eyebrows 4', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 4_normal.png' }, 'buttonIcon2', 'eyebrow4Icon'),
+    new MakeUp('Eyebrows 5', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 5_normal.png' }, 'buttonIcon2', 'eyebrow5Icon'),
+
 
     // Eyelashes Data
-    new MakeUp('Eyelashes1', 'Eyelashes', 'eyelashesnormal1', 'buttonIcon2', 'eyelashes1Icon'),
-    new MakeUp('Eyelashes2', 'Eyelashes', 'eyelashesnormal2', 'buttonIcon2', 'eyelashes2Icon'),
-    new MakeUp('Eyelashes3', 'Eyelashes', 'eyelashesnormal3', 'buttonIcon2', 'eyelashes3Icon'),
-    new MakeUp('Eyelashes4', 'Eyelashes', 'eyelashesnormal4', 'buttonIcon2', 'eyelashes4Icon'),
-    new MakeUp('Eyelashes5', 'Eyelashes', 'eyelashesnormal5', 'buttonIcon2', 'eyelashes5Icon'),
+    new MakeUp('Eyelashes1', 'Eyelashes', { atlas: 'eyelashes_spritesheet', frame: 'mc_el 1_normal.png' }, 'buttonIcon2', 'eyelashes1Icon'),
+    new MakeUp('Eyelashes2', 'Eyelashes', { atlas: 'eyelashes_spritesheet', frame: 'mc_el 2_normal.png' }, 'buttonIcon2', 'eyelashes2Icon'),
+    new MakeUp('Eyelashes3', 'Eyelashes', { atlas: 'eyelashes_spritesheet', frame: 'mc_el 3_normal.png' }, 'buttonIcon2', 'eyelashes3Icon'),
+    new MakeUp('Eyelashes4', 'Eyelashes', { atlas: 'eyelashes_spritesheet', frame: 'mc_el 4_normal.png' }, 'buttonIcon2', 'eyelashes4Icon'),
+    new MakeUp('Eyelashes5', 'Eyelashes', { atlas: 'eyelashes_spritesheet', frame: 'mc_el 5_normal.png' }, 'buttonIcon2', 'eyelashes5Icon'),
 
 
     new MakeUp('Eyeliner1', 'Eyeliner', 'eyelinernormal1', 'buttonIcon2', 'eyeliner1Icon'),
@@ -54,15 +55,15 @@ const makeUpData = [
     new MakeUp('LipsWine', 'Lips', 'lipnormalwine', 'buttonIcon2', 'lipsorangeIcon'),
 
     // Pupil Data
-    new MakeUp('PupilBlue', 'Pupil', 'PupilNormalBlue', 'buttonIcon2', 'pupilblueIcon'),
-    new MakeUp('PupilBlack', 'Pupil', 'pupilnormalblack', 'buttonIcon2', 'pupilblackIcon'),
-    new MakeUp('PupilDragon', 'Pupil', 'pupilnormaldragon', 'buttonIcon2', 'pupildragonIcon'),
-    new MakeUp('PupilFairy', 'Pupil', 'pupilnormalfairy', 'buttonIcon2', 'pupilfairyIcon'),
-    new MakeUp('PupilGreen', 'Pupil', 'pupilnormalgreen', 'buttonIcon2', 'pupilgreenIcon'),
-    new MakeUp('PupilMagical', 'Pupil', 'pupilnormalmagical', 'buttonIcon2', 'pupilmagicIcon'),
-    new MakeUp('PupilPink', 'Pupil', 'pupilnormalpink', 'buttonIcon2', 'pupilpinkIcon'),
-    new MakeUp('PupilRed', 'Pupil', 'pupilnormalred', 'buttonIcon2', 'pupilredIcon'),
-    new MakeUp('PupilYellow', 'Pupil', 'pupilnormalyellow', 'buttonIcon2', 'pupilyellowIcon'),
+    new MakeUp('PupilBlue',    'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil blue_normal.png'    }, 'buttonIcon2', 'pupilblueIcon'),
+    new MakeUp('PupilBlack',   'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil black_normal.png'   }, 'buttonIcon2', 'pupilblackIcon'),
+    new MakeUp('PupilDragon',  'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil dragon_normal.png'  }, 'buttonIcon2', 'pupildragonIcon'),
+    new MakeUp('PupilFairy',   'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil fairy_normal.png'   }, 'buttonIcon2', 'pupilfairyIcon'),
+    new MakeUp('PupilGreen',   'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil green_normal.png'   }, 'buttonIcon2', 'pupilgreenIcon'),
+    new MakeUp('PupilMagical', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil magical_normal.png' }, 'buttonIcon2', 'pupilmagicIcon'),
+    new MakeUp('PupilPink',    'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil pink_normal.png'    }, 'buttonIcon2', 'pupilpinkIcon'),
+    new MakeUp('PupilRed',     'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil red_normal.png'     }, 'buttonIcon2', 'pupilredIcon'),
+    new MakeUp('PupilYellow',  'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil yellow_normal.png'  }, 'buttonIcon2', 'pupilyellowIcon'),
 
     // Sticker Data
     new MakeUp('StickerBlushPink',    'Sticker', { atlas: 'sticker_spritesheet', frame: 'mc_sticker manik pink_blush love.png' },      'buttonIcon2', 'stickerblushpinkIcon'),
