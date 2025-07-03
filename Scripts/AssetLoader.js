@@ -75,6 +75,7 @@ export default class AssetLoader {
     scene.load.image('backButtonIconPressed', 'Asset/UI/Back_Button_Pressed.png');
 
     scene.load.image('stitchedButtonIcon', 'Asset/UI/Stitched_Button.png');
+    scene.load.image('StitchedButtonWithoutStitchIcon', "Asset/UI/Stitched_Button_WithoutStitch.png")
 
     scene.load.image('removeDressIcon', 'Asset/UI/Undress_All_Icon.png');
     scene.load.image('removeMakeUpIcon', 'Asset/UI/Remove_All_MakeUp_Icon.png');

@@ -69,7 +69,14 @@ export class InteractiveMakeupSystem {
         this.isComplete = false; // Reset completion status for new session
 
         // Store the state before this coloring session began for this makeupType
-
+        if (makeupType === 'Lips') {
+            const defaultLipTexture = defaultMakeUpSkins['Lips']; // Ambil key tekstur default
+            if (this.scene.lips && defaultLipTexture) {
+                console.log("[InteractiveMakeup] Setting lips to default for coloring session.");
+                // Atur tekstur DAN skala yang benar (* 2) untuk bibir dasar
+                this.scene.lips.setTexture(defaultLipTexture).setScale(0.55 * 2);
+            }
+        }
 
         // 1. Get position and scale for this makeup type
         const position = MakeUpPositions[makeupType] || { x: 0, y: 0 };

@@ -123,7 +123,7 @@ export class MiniGameManager {
             textColor: '#d6525f'
         });
 
-        scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'dialogueNameBox', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
+        scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'StitchedButtonWithoutStitchIcon', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
         scene.applyMakeUpText = this.scene.add.text(layout.applyMakeUpText.x, layout.applyMakeUpText.y, 'Swipe the highlighted area to apply the make up', {
             fontSize: layout.applyMakeUpText.fontSize,
             fill: '#FFFFFF',
