@@ -11,6 +11,12 @@ const LANDSCAPE = {
     HEIGHT: 1080,
 
 
+    CisiniLogo: {
+        x: (1920 / 4) * 3,
+        y: 1080 * 0.35,
+        scale: 1,
+        depth: 5
+    },
 
     outfit: {
         positions: {
@@ -299,7 +305,12 @@ const PORTRAIT = {
 
     },
 
-
+    CisiniLogo: {
+        x: (720 / 4) * 3/2.2,
+        y: 1280 * 0.65,
+        scale: 1,
+        depth: 5
+    },
 
     outfit: {
         positions: {

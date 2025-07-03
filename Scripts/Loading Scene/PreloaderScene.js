@@ -1,4 +1,5 @@
 import AssetLoader from '../AssetLoader.js'; // Assuming your AssetLoader has the main loadAllAssets function
+import { layout } from '../ScreenOrientationUtils.js';
 
 class PreloaderScene extends Phaser.Scene {
     constructor() {
@@ -45,7 +46,7 @@ class PreloaderScene extends Phaser.Scene {
 
         // --- 2. Display Logo ---
         // Position it, e.g., at the top
-        this.add.image(width / 4 * 3, height * 0.35, 'logo_cisini').setOrigin(0.5, 0.5).setScale(); // Adjust scale/pos
+        this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, 'logo_cisini').setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth); // Adjust scale/pos
 
         // --- 3. Display Predetermined Bachelor (Azril for now) ---
         // Bachelor assets were loaded in BootScene
