@@ -91,6 +91,7 @@ class Main extends Phaser.Scene {
     }
 
     create() {
+        this.isTransitioning = false;
         this.initializeSystems();
         this.state = GameState.MAKEUP;
         this.startGameFlow();
@@ -159,6 +160,13 @@ class Main extends Phaser.Scene {
             callback: () => {
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
+                if (this.isTransitioning) return;
+
+                
+                this.isTransitioning = true;
+                this.dressUpButton.disableInteractive();
+                this.makeUpButton.disableInteractive();
+                
                 this.transitionToMinigame(GameState.DRESSUP);
             },
             buttonText: '',
@@ -183,8 +191,16 @@ class Main extends Phaser.Scene {
             iconYPosition: -10,
             iconScale: 0.8 * 2,
             callback: () => {
+               
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
+                if (this.isTransitioning) return;
+
+                
+                this.isTransitioning = true;
+                this.dressUpButton.disableInteractive();
+                this.makeUpButton.disableInteractive();
+                
                 this.transitionToMinigame(GameState.MAKEUP);
             },
             buttonText: '',
@@ -274,7 +290,10 @@ class Main extends Phaser.Scene {
 
 
             // Buka tirai sepenuhnya
-            this.TweeningUtils.openDrapes(1000);
+            this.TweeningUtils.openDrapes(1000, () => {
+                console.log("[Transition] Lock released.");
+                this.isTransitioning = false; 
+            });
         });
     }
 

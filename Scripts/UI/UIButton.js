@@ -47,12 +47,13 @@ export default class UIButton extends BaseButton {
             const pressedTextureKey = textureButton + 'Pressed';
             if (button.scene.textures.exists(pressedTextureKey)) button.setTexture(pressedTextureKey);
             if (icon) icon.y += 5;
+            if (callback) callback();
         });
 
         button.on("pointerup", () => {
             button.setTexture(textureButton);
             if (icon) icon.y -= 5;
-            if (callback) callback();
+            
         });
     }
 
