@@ -96,8 +96,8 @@ const LANDSCAPE = {
     drapes: {
         displayHeight: null,
         closed: {
-            leftX: (1920 / 2) / 2,
-            rightX: 1920 - ((1920 / 2) / 2)
+            leftX: (1920 / 2) / 2 + 50,
+            rightX: 1920 - ((1920 / 2) / 2 + 50 )
         },
 
         open: {
