@@ -306,7 +306,7 @@ const PORTRAIT = {
     },
 
     CisiniLogo: {
-        x: (720 / 4) * 3/2.2,
+        x: (720 / 4) * 3/ 1.5,
         y: 1280 * 0.65,
         scale: 1,
         depth: 5
