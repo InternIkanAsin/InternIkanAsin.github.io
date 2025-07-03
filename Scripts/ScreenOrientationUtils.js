@@ -562,7 +562,7 @@ const PORTRAIT = {
     },
 
     categoryButton: {
-        iconScale: 0.4 * 2,
+        iconScale: 0.5,
         buttonScale: 0.5 * 2,
     },
 
