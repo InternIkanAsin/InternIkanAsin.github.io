@@ -345,150 +345,27 @@ export default class AssetLoader {
       "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.json"
     );
 
+    //icon makeup
+    //Grup 1
+    scene.load.atlas(
+      'makeup1_spritesheet',
+      "Asset/ikon/makeup icon/makeup_spritesheet1.png",
+      "Asset/ikon/makeup icon/makeup_spritesheet1.json"
+    );
 
+    //Grup 2
+    scene.load.atlas(
+      'makeup2_spritesheet',
+      "Asset/ikon/makeup icon/makeup_spritesheet2.png",
+      "Asset/ikon/makeup icon/makeup_spritesheet2.json"
+    );
 
-
-
-    //icon
-    //blush 
-    //scene.load.image('blushdefaultIcon', "Asset/makeup/MakeupIcon/blush/mc_blush anime.png");
-    scene.load.image('blushanimeIcon', "Asset/makeup/MakeupIcon/blush/mc_blush anime.png");
-    scene.load.image('blushfeverIcon', "Asset/makeup/MakeupIcon/blush/mc_blush fever.png");
-    scene.load.image('blushfracklesIcon', "Asset/makeup/MakeupIcon/blush/mc_blush frackles.png");
-    scene.load.image('blushloveIcon', "Asset/makeup/MakeupIcon/blush/mc_blush love.png");
-    scene.load.image('blushorangeIcon', "Asset/makeup/MakeupIcon/blush/mc_blush orange.png");
-    scene.load.image('blushpinkIcon', "Asset/makeup/MakeupIcon/blush/mc_blush pink.png");
-    scene.load.image('blushnoseIcon', "Asset/makeup/MakeupIcon/blush/mc_blush red nose.png");
-    scene.load.image('blushroundIcon', "Asset/makeup/MakeupIcon/blush/mc_blush round.png");
-
-    //eyebrow
-    scene.load.image('eyebrow1Icon', "Asset/makeup/MakeupIcon/eyebrow/mc_eb 1.png");
-    scene.load.image('eyebrow2Icon', "Asset/makeup/MakeupIcon/eyebrow/mc_eb 2.png");
-    scene.load.image('eyebrow3Icon', "Asset/makeup/MakeupIcon/eyebrow/mc_eb 3.png");
-    scene.load.image('eyebrow4Icon', "Asset/makeup/MakeupIcon/eyebrow/mc_eb 4.png");
-    scene.load.image('eyebrow5Icon', "Asset/makeup/MakeupIcon/eyebrow/mc_eb 5.png");
-
-    //eyelashes
-    scene.load.image('eyelashes1Icon', "Asset/makeup/MakeupIcon/eyeleashes/mc_el 1.png");
-    scene.load.image('eyelashes2Icon', "Asset/makeup/MakeupIcon/eyeleashes/mc_el 2.png");
-    scene.load.image('eyelashes3Icon', "Asset/makeup/MakeupIcon/eyeleashes/mc_el 3.png");
-    scene.load.image('eyelashes4Icon', "Asset/makeup/MakeupIcon/eyeleashes/mc_el 4.png");
-    scene.load.image('eyelashes5Icon', "Asset/makeup/MakeupIcon/eyeleashes/mc_el 5.png");
-
-    //eyeliner
-    scene.load.image('eyelinerdefaultIcon', "Asset/makeup/MakeupIcon/eyeliner/mc_er default.png");
-    scene.load.image('eyeliner1Icon', "Asset/makeup/MakeupIcon/eyeliner/mc_er 1.png");
-    scene.load.image('eyeliner2Icon', "Asset/makeup/MakeupIcon/eyeliner/mc_er 2.png");
-    scene.load.image('eyeliner3Icon', "Asset/makeup/MakeupIcon/eyeliner/mc_er 3.png");
-    scene.load.image('eyeliner4Icon', "Asset/makeup/MakeupIcon/eyeliner/mc_er 4.png");
-    scene.load.image('eyeliner5Icon', "Asset/makeup/MakeupIcon/eyeliner/mc_er 5.png");
-
-    //eyeshadow
-    scene.load.image('eyeshadowbrownIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_brown.png");
-    scene.load.image('eyeshadowdragonIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_es dragon.png");
-    scene.load.image('eyeshadowfairyIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_es fairy.png");
-    scene.load.image('eyeshadowgoldIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_gold.png");
-    scene.load.image('eyeshadowgreenIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_green.png");
-    scene.load.image('eyeshadoworangeIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_orange.png");
-    scene.load.image('eyeshadowpeachIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_peach.png");
-    scene.load.image('eyeshadowpinkIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_pink.png");
-    scene.load.image('eyeshadowpurpleIcon', "Asset/makeup/MakeupIcon/eyeshadow/mc_purple.png");
-
-    //lips
-    scene.load.image('lipsbrownIcon', "Asset/makeup/MakeupIcon/lips/mc_lips brown.png");
-    scene.load.image('lipspinkIcon', "Asset/makeup/MakeupIcon/lips/mc_lips cherry.png");
-    scene.load.image('lipsredIcon', "Asset/makeup/MakeupIcon/lips/mc_lips orange.png");
-    scene.load.image('lipswineIcon', "Asset/makeup/MakeupIcon/lips/mc_lips pink.png");
-    scene.load.image('lipscherryIcon', "Asset/makeup/MakeupIcon/lips/mc_lips red.png");
-    scene.load.image('lipsorangeIcon', "Asset/makeup/MakeupIcon/lips/mc_lips wine.png");
-
-    //pupil
-    scene.load.image('pupilblackIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil black.png");
-    scene.load.image('pupilblueIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil blue.png");
-    scene.load.image('pupildragonIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil dragon.png");
-    scene.load.image('pupilfairyIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil fairy.png");
-    scene.load.image('pupilgreenIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil green.png");
-    scene.load.image('pupilmagicIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil magic.png");
-    scene.load.image('pupilpinkIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil pink.png");
-    scene.load.image('pupilredIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil red.png");
-    scene.load.image('pupilyellowIcon', "Asset/makeup/MakeupIcon/pupil/mc_pupil yellow.png");
-
-    //hair
-    scene.load.image('01blackIcon', "Asset/ikon/Rambut/hair_01_black.png");
-    scene.load.image('01blondeIcon', "Asset/ikon/Rambut/hair_01_blonde.png");
-    scene.load.image('01brownIcon', "Asset/ikon/Rambut/hair_01_brown.png");
-    scene.load.image('01pinkIcon', "Asset/ikon/Rambut/hair_01_pink.png");
-    scene.load.image('02blackIcon', "Asset/ikon/Rambut/hair_02_black.png");
-    scene.load.image('02blondeIcon', "Asset/ikon/Rambut/hair_02_blonde.png");
-    scene.load.image('02brownIcon', "Asset/ikon/Rambut/hair_02_brown.png");
-    scene.load.image('02pinkIcon', "Asset/ikon/Rambut/hair_02_pink.png");
-    scene.load.image('03blackIcon', "Asset/ikon/Rambut/hair_03_black.png");
-    scene.load.image('03blondeIcon', "Asset/ikon/Rambut/hair_03_blonde.png");
-    scene.load.image('03brownIcon', "Asset/ikon/Rambut/hair_03_brown.png");
-    scene.load.image('03pinkIcon', "Asset/ikon/Rambut/hair_03_pink.png");
-    scene.load.image('04blackIcon', "Asset/ikon/Rambut/hair_04_black.png");
-    scene.load.image('04blondeIcon', "Asset/ikon/Rambut/hair_04_blonde.png");
-    scene.load.image('04brownIcon', "Asset/ikon/Rambut/hair_04_brown.png");
-    scene.load.image('04pinkIcon', "Asset/ikon/Rambut/hair_04_pink.png");
-    scene.load.image('05blackIcon', "Asset/ikon/Rambut/hair_05_black.png");
-    scene.load.image('05blondeIcon', "Asset/ikon/Rambut/hair_05_blonde.png");
-    scene.load.image('05brownIcon', "Asset/ikon/Rambut/hair_05_brown.png");
-    scene.load.image('05pinkIcon', "Asset/ikon/Rambut/hair_05_pink.png");
-    scene.load.image('06blackIcon', "Asset/ikon/Rambut/hair_06_black.png");
-    scene.load.image('06blondeIcon', "Asset/ikon/Rambut/hair_06_blonde.png");
-    scene.load.image('06brownIcon', "Asset/ikon/Rambut/hair_06_brown.png");
-    scene.load.image('06pinkIcon', "Asset/ikon/Rambut/hair_06_pink.png");
-    scene.load.image('07blackIcon', "Asset/ikon/Rambut/hair_07_black.png");
-    scene.load.image('07blondeIcon', "Asset/ikon/Rambut/hair_07_blonde.png");
-    scene.load.image('07brownIcon', "Asset/ikon/Rambut/hair_07_brown.png");
-    scene.load.image('07pinkIcon', "Asset/ikon/Rambut/hair_07_pink.png");
-    scene.load.image('08blackIcon', "Asset/ikon/Rambut/hair_08_black.png");
-    scene.load.image('08blondeIcon', "Asset/ikon/Rambut/hair_08_blonde.png");
-    scene.load.image('08brownIcon', "Asset/ikon/Rambut/hair_08_brown.png");
-    scene.load.image('08pinkIcon', "Asset/ikon/Rambut/hair_08_pink.png");
-    scene.load.image('09blackIcon', "Asset/ikon/Rambut/hair_09_black.png");
-    scene.load.image('09blondeIcon', "Asset/ikon/Rambut/hair_09_blonde.png");
-    scene.load.image('09brownIcon', "Asset/ikon/Rambut/hair_09_brown.png");
-    scene.load.image('09pinkIcon', "Asset/ikon/Rambut/hair_09_pink.png");
-    scene.load.image('10blackIcon', "Asset/ikon/Rambut/hair_10_black.png");
-    scene.load.image('10blondeIcon', "Asset/ikon/Rambut/hair_10_blonde.png");
-    scene.load.image('10brownIcon', "Asset/ikon/Rambut/hair_10_brown.png");
-    scene.load.image('10violetBIcon', "Asset/ikon/Rambut/hair_10_violet.png");
-    scene.load.image('11blackIcon', "Asset/ikon/Rambut/hair_11_black.png");
-    scene.load.image('11blondeBIcon', "Asset/ikon/Rambut/hair_11_blonde.png");
-    scene.load.image('11brownBIcon', "Asset/ikon/Rambut/hair_11_brown.png");
-    scene.load.image('11pinkBIcon', "Asset/ikon/Rambut/hair_11_pink.png");
-
-
-    //sticker
-    //blushing love
-    scene.load.image('stickerblushpinkIcon', "Asset/makeup/MakeupIcon/sticker/blushing love/mc_sticker manik pink_blush love.png");
-    scene.load.image('stickerblushpurpleIcon', "Asset/makeup/MakeupIcon/sticker/blushing love/mc_sticker manik purple_blush love.png");
-    scene.load.image('stickerblushredIcon', "Asset/makeup/MakeupIcon/sticker/blushing love/mc_sticker manik red_blush love.png");
-    scene.load.image('stickerblushyellowIcon', "Asset/makeup/MakeupIcon/sticker/blushing love/mc_sticker manik yellow_blush love.png");
-
-    //diamond
-    scene.load.image('stickerdiamondIcon', "Asset/makeup/MakeupIcon/sticker/diamond/mc_sticker manik diamond.png");
-
-    //love
-    scene.load.image('stickerloveIcon', "Asset/makeup/MakeupIcon/sticker/love/mc_sticker manik_Love.png");
-
-    //moonlight crown
-    scene.load.image('stickermoonlightcrownblueIcon', "Asset/makeup/MakeupIcon/sticker/moonlight crown/mc_sticker manik blue_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownpurpleIcon', "Asset/makeup/MakeupIcon/sticker/moonlight crown/mc_sticker manik purple_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownredIcon', "Asset/makeup/MakeupIcon/sticker/moonlight crown/mc_sticker manik red_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownwhiteIcon', "Asset/makeup/MakeupIcon/sticker/moonlight crown/mc_sticker manik white_moonlight crown.png");
-    scene.load.image('stickermoonlightcrownyellowIcon', "Asset/makeup/MakeupIcon/sticker/moonlight crown/mc_sticker manik yellow_moonlight crown.png");
-
-    //princess tears
-    scene.load.image('stickerprincesstearsIcon', "Asset/makeup/MakeupIcon/sticker/princess tears/mc_sticker manik_princess tears.png");
-
-    //star
-    scene.load.image('stickerstarblueIcon', "Asset/makeup/MakeupIcon/sticker/star/mc_sticker manik blue_star.png");
-    scene.load.image('stickerstarpinkIcon', "Asset/makeup/MakeupIcon/sticker/star/mc_sticker manik pink_star.png");
-    scene.load.image('stickerstarpurpleIcon', "Asset/makeup/MakeupIcon/sticker/star/mc_sticker manik purple_star.png");
-    scene.load.image('stickerstarredIcon', "Asset/makeup/MakeupIcon/sticker/star/mc_sticker manik red_star.png");
-    scene.load.image('stickerstaryellowIcon', "Asset/makeup/MakeupIcon/sticker/star/mc_sticker manik yellow_star.png");
+    //Hair
+    scene.load.atlas(
+      'hair_spritesheet',
+      "Asset/ikon/Rambut/hair_spritesheet.png",
+      "Asset/ikon/Rambut/hair_spritesheet.json"
+    );
 
   }
 

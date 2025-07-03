@@ -97,7 +97,7 @@ const LANDSCAPE = {
         displayHeight: null,
         closed: {
             leftX: (1920 / 2) / 2 + 50,
-            rightX: 1920 - ((1920 / 2) / 2 + 50 )
+            rightX: 1920 - ((1920 / 2) / 2 + 50)
         },
 
         open: {
@@ -223,7 +223,7 @@ const LANDSCAPE = {
         buttonScale: 0.6 * 2
     },
     makeUpButton: {
-        iconScale: 1.2 * 2,
+        iconScale: 1.2,
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2
     },
@@ -306,7 +306,7 @@ const PORTRAIT = {
     },
 
     CisiniLogo: {
-        x: (720 / 4) * 3/ 1.5,
+        x: (720 / 4) * 3 / 1.5,
         y: 1280 * 0.65,
         scale: 1,
         depth: 5
@@ -561,7 +561,7 @@ const PORTRAIT = {
     },
 
     makeUpButton: {
-        iconScale: 1 * 2,
+        iconScale: 1,
         highlightImg: 0.6 * 2,
         buttonScale: 0.6 * 2
     },

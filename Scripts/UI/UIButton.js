@@ -53,7 +53,7 @@ export default class UIButton extends BaseButton {
         button.on("pointerup", () => {
             button.setTexture(textureButton);
             if (icon) icon.y -= 5;
-            
+
         });
     }
 
@@ -687,7 +687,7 @@ export class MakeUpButton extends BaseButton {
             .setVisible(false)
             .setDepth(-1)    // Behind icon/text, above buttonBg
             .setScale(layout.makeUpButton.highlightImg);
-        const iconImg = scene.add.image(0, 0, textureIcon).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
+        const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
         // --- End Create UI elements ---
 
         // --- Call super() ---
