@@ -5,6 +5,8 @@ import { InteractiveMakeupSystem } from '../Minigame/InteractiveMakeupSystem.js'
 // MakeUp Data
 import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 
+import AssetLoader from '../AssetLoader.js';
+
 import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
 export class MakeUpManager {
     constructor(scene, AudioManager) {
@@ -91,6 +93,22 @@ export class MakeUpManager {
     */
     updateMakeUpButtons(makeUpType) {
         const scene = this.scene;
+        if (!scene.makeUpButtons[makeUpType]) {
+        console.log(`[Update] Button instances for '${makeUpType}' not found. Creating them now...`);
+        scene.makeUpButtons[makeUpType] = []; // Buat array kosongnya dulu
+        
+        const itemsToCreate = makeUpData.filter(item => item.makeUpType === makeUpType);
+        
+        itemsToCreate.forEach(makeupItem => {
+            const { name, textureAnime, textureButton, textureIcon } = makeupItem;
+            if (textureButton && textureIcon) {
+                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
+                button.setSize(150, 200);
+                button.setData('instance', button);
+                scene.makeUpButtons[makeUpType].push(button);
+            }
+        });
+    }
         const itemButtonsForType = scene.makeUpButtons[makeUpType] || [];
         let allButtonContainersForPanel = [];
 
@@ -231,6 +249,63 @@ export class MakeUpManager {
     }
 
     displayMakeUpButtons(makeUpType, scene) {
+       
+        const loadAndDisplay = (flag, loaderFunc, type) => {
+            if (!scene[flag]) {
+                scene.UIManager.showLoadingOverlay(`Loading ${type}...`);
+                scene.MiniGameManager.disableInteraction();
+                
+                scene.load.once('complete', () => {
+                    console.log(`${type} assets loaded!`);
+                    scene[flag] = true;
+                    scene.UIManager.hideLoadingOverlay();
+                    scene.MiniGameManager.enableInteraction();
+                    this.displayMakeUpButtons(type, scene);
+                });
+                
+                loaderFunc(scene);
+                return true;
+            }
+            return false;
+        };
+
+        
+        let isLoading = false;
+        
+        if (makeUpType !== 'Eyebrows') {
+            switch (makeUpType) {
+                case 'Eyelashes':
+                    isLoading = loadAndDisplay('areEyelashesLoaded', AssetLoader.loadEyelash, 'Eyelashes');
+                    break;
+                case 'Eyeliner':
+                    isLoading = loadAndDisplay('areEyelinerLoaded', AssetLoader.loadEyeliner, 'Eyeliner');
+                    break;
+                case 'Eyeshadow':
+                    isLoading = loadAndDisplay('areEyeshadowsLoaded', AssetLoader.loadEyeShadow, 'Eyeshadow');
+                    break;
+                case 'Lips':
+                    isLoading = loadAndDisplay('areLipsLoaded', AssetLoader.loadLip, 'Lips');
+                    break;
+                case 'Pupil':
+                    isLoading = loadAndDisplay('arePupilsLoaded', AssetLoader.loadPupil, 'Pupil');
+                    break;
+                case 'Blush':
+                    isLoading = loadAndDisplay('areBlushLoaded', AssetLoader.loadBlush, 'Blush');
+                    break;
+                case 'Sticker':
+                    isLoading = loadAndDisplay('areStickersLoaded', AssetLoader.loadSticker, 'Sticker');
+                    break;
+                case 'Hair':
+                    isLoading = loadAndDisplay('areHairLoaded', AssetLoader.loadHair, 'Hair');
+                    break;
+            }
+        }
+
+       
+        if (isLoading) {
+            return;
+        }
+
         if (scene.miniGameButton) { // The main mode toggle button
             scene.miniGameButton.disableInteractive();
         }

@@ -96,6 +96,15 @@ class Main extends Phaser.Scene {
         this.areSocksLoaded = false;
         this.areLowersLoaded = false;
         this.areOutersLoaded = false;
+
+        this.areEyelashesLoaded = false;
+        this.areEyelinerLoaded = false;
+        this.areEyeshadowsLoaded = false;
+        this.areLipsLoaded = false;
+        this.arePupilsLoaded = false;
+        this.areBlushLoaded = false;
+        this.areStickersLoaded = false;
+        this.areHairLoaded = false;
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         this.state = GameState.MAKEUP;

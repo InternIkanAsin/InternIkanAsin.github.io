@@ -264,6 +264,99 @@ export default class AssetLoader {
       'Asset/ikon/Jaket/spritesheet (2).json'
     );
   }
+  static loadHair(scene){
+    scene.load.atlas('hair_front_01', "Asset/Outfit/Hairs_upscaled/spritesheet_F.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F.json");
+    scene.load.atlas('hair_back_01', "Asset/Outfit/Hairs_upscaled/spritesheet_B.png", " Asset/Outfit/Hairs_upscaled/spritesheet_B.json");
+
+    
+    scene.load.atlas('hair_front_02', "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.json");
+    scene.load.atlas('hair_back_02', "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.json");
+
+    
+    scene.load.atlas('hair_front_03', "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.json");
+    scene.load.atlas('hair_back_03', "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.json");
+
+    
+    scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
+    scene.load.start();
+  }
+
+  static loadBlush(scene){
+    scene.load.image('blushdefault', "Asset/makeup/MakeupAnime/blush/mc_blush default.png");
+    scene.load.image('blushanime', "Asset/makeup/MakeupAnime/blush/mc_blush anime.png");
+    scene.load.image('blushfever', "Asset/makeup/MakeupAnime/blush/mc_blush fever.png");
+    scene.load.image('blushfrackles', "Asset/makeup/MakeupAnime/blush/mc_blush frackles.png");
+    scene.load.image('blushlove', "Asset/makeup/MakeupAnime/blush/mc_blush love.png");
+    scene.load.image('blushorange', "Asset/makeup/MakeupAnime/blush/mc_blush orange.png");
+    scene.load.image('blushpink', "Asset/makeup/MakeupAnime/blush/mc_blush pink.png");
+    scene.load.image('blushnose', "Asset/makeup/MakeupAnime/blush/mc_blush red nose.png");
+    scene.load.image('blushround', "Asset/makeup/MakeupAnime/blush/mc_blush round.png");
+    scene.load.start();
+  }
+
+  static loadEyelash(scene){
+    
+    scene.load.image('EyelashesNormalDefault', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
+    scene.load.atlas('eyelashes_spritesheet', "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.png", "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.json");
+
+    scene.load.start();
+  }
+
+  static loadEyeliner(scene){
+    scene.load.image('eyelinernormaldefault', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er default_normal.png");
+    scene.load.image('eyelinernormal1', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 1_normal.png");
+    scene.load.image('eyelinernormal2', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 2_normal.png");
+    scene.load.image('eyelinernormal3', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 3_normal.png");
+    scene.load.image('eyelinernormal4', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 4_normal.png");
+    scene.load.image('eyelinernormal5', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 5_normal.png");
+    scene.load.start();
+  }
+
+  static loadEyeShadow(scene){
+    scene.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
+    scene.load.image('eyeshadownormalbrown', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es brown_normal.png");
+    scene.load.image('eyeshadownormaldragon', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es dragon_normal.png");
+    scene.load.image('eyeshadownormalfairy', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es fairy_normal.png");
+    scene.load.image('eyeshadownormalgold', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es gold_normal.png");
+    scene.load.image('eyeshadownormalgreen', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es green_normal.png");
+    scene.load.image('eyeshadownormalorange', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es orange_normal.png");
+    scene.load.image('eyeshadownormalpeach', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es peach_normal.png");
+    scene.load.image('eyeshadownormalpink', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es pink_normal.png");
+    scene.load.image('eyeshadownormalpurple', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es purple_normal.png");
+
+    scene.load.start();
+  }
+
+  static loadLip(scene){
+    scene.load.image('lipnormalbrown', "Asset/makeup/MakeupAnime/lips/normal/mc_lips brown_normal.png");
+    scene.load.image('lipnormalcherry', "Asset/makeup/MakeupAnime/lips/normal/mc_lips cherry_normal.png");
+    scene.load.image('lipnormalorange', "Asset/makeup/MakeupAnime/lips/normal/mc_lips orange_normal.png");
+    scene.load.image('lipnormalpink', "Asset/makeup/MakeupAnime/lips/normal/mc_lips pink_normal.png");
+    scene.load.image('lipnormalred', "Asset/makeup/MakeupAnime/lips/normal/mc_lips red_normal.png");
+    scene.load.image('lipnormalwine', "Asset/makeup/MakeupAnime/lips/normal/mc_lips wine_normal.png");
+
+
+    scene.load.start();
+  }
+
+  static loadPupil(scene){
+    scene.load.atlas('pupil_spritesheet', "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.png", "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.json");
+
+    scene.load.start();
+  }
+
+  static loadSticker(scene){
+    //sticker
+    scene.load.atlas(
+      'sticker_spritesheet',
+      "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.png",
+      "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.json"
+    );
+
+    scene.load.start();
+  }
+
+
 
   static loadMakeupAssets(scene) {
     //Icon texture
@@ -277,89 +370,10 @@ export default class AssetLoader {
     scene.load.image('eyeColorIcon', "Asset/UI/Eye_Color_Icon.png");
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
-    //Hair Atlas
-
-    scene.load.atlas('hair_front_01', "Asset/Outfit/Hairs_upscaled/spritesheet_F.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F.json");
-    scene.load.atlas('hair_back_01', "Asset/Outfit/Hairs_upscaled/spritesheet_B.png", " Asset/Outfit/Hairs_upscaled/spritesheet_B.json");
-
-    // Grup 2
-    scene.load.atlas('hair_front_02', "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.json");
-    scene.load.atlas('hair_back_02', "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.json");
-
-    // Grup 3
-    scene.load.atlas('hair_front_03', "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.json");
-    scene.load.atlas('hair_back_03', "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.json");
-
-    //hair
-    scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
-
-
-
-
-    //blush
-    scene.load.image('blushdefault', "Asset/makeup/MakeupAnime/blush/mc_blush default.png");
-    scene.load.image('blushanime', "Asset/makeup/MakeupAnime/blush/mc_blush anime.png");
-    scene.load.image('blushfever', "Asset/makeup/MakeupAnime/blush/mc_blush fever.png");
-    scene.load.image('blushfrackles', "Asset/makeup/MakeupAnime/blush/mc_blush frackles.png");
-    scene.load.image('blushlove', "Asset/makeup/MakeupAnime/blush/mc_blush love.png");
-    scene.load.image('blushorange', "Asset/makeup/MakeupAnime/blush/mc_blush orange.png");
-    scene.load.image('blushpink', "Asset/makeup/MakeupAnime/blush/mc_blush pink.png");
-    scene.load.image('blushnose', "Asset/makeup/MakeupAnime/blush/mc_blush red nose.png");
-    scene.load.image('blushround', "Asset/makeup/MakeupAnime/blush/mc_blush round.png");
-
+    
     //eyebrow
     //normal
     scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
-
-    //eyelashes
-    //normal
-    scene.load.image('EyelashesNormalDefault', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
-    scene.load.atlas('eyelashes_spritesheet', "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.png", "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.json");
-
-    //eyeliner
-
-    //normal
-    scene.load.image('eyelinernormaldefault', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er default_normal.png");
-    scene.load.image('eyelinernormal1', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 1_normal.png");
-    scene.load.image('eyelinernormal2', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 2_normal.png");
-    scene.load.image('eyelinernormal3', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 3_normal.png");
-    scene.load.image('eyelinernormal4', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 4_normal.png");
-    scene.load.image('eyelinernormal5', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 5_normal.png");
-
-    //eyeshadow
-    //normal
-    scene.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
-    scene.load.image('eyeshadownormalbrown', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es brown_normal.png");
-    scene.load.image('eyeshadownormaldragon', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es dragon_normal.png");
-    scene.load.image('eyeshadownormalfairy', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es fairy_normal.png");
-    scene.load.image('eyeshadownormalgold', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es gold_normal.png");
-    scene.load.image('eyeshadownormalgreen', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es green_normal.png");
-    scene.load.image('eyeshadownormalorange', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es orange_normal.png");
-    scene.load.image('eyeshadownormalpeach', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es peach_normal.png");
-    scene.load.image('eyeshadownormalpink', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es pink_normal.png");
-    scene.load.image('eyeshadownormalpurple', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es purple_normal.png");
-
-
-    //lip
-
-    //normal
-    scene.load.image('lipnormalbrown', "Asset/makeup/MakeupAnime/lips/normal/mc_lips brown_normal.png");
-    scene.load.image('lipnormalcherry', "Asset/makeup/MakeupAnime/lips/normal/mc_lips cherry_normal.png");
-    scene.load.image('lipnormalorange', "Asset/makeup/MakeupAnime/lips/normal/mc_lips orange_normal.png");
-    scene.load.image('lipnormalpink', "Asset/makeup/MakeupAnime/lips/normal/mc_lips pink_normal.png");
-    scene.load.image('lipnormalred', "Asset/makeup/MakeupAnime/lips/normal/mc_lips red_normal.png");
-    scene.load.image('lipnormalwine', "Asset/makeup/MakeupAnime/lips/normal/mc_lips wine_normal.png");
-
-    //pupil
-    //normal
-    scene.load.atlas('pupil_spritesheet', "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.png", "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.json");
-
-    //sticker
-    scene.load.atlas(
-      'sticker_spritesheet',
-      "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.png",
-      "Asset/makeup/MakeupAnime/sticker make up/spritesheet_stiker.json"
-    );
 
     //icon makeup
     //Grup 1
