@@ -35,7 +35,6 @@ export class MiniGameManager {
             iconYPosition: -10,
             iconScale: layout.backButton.scale,
             callback: () => {
-                this.backButton.disableInteractive();
                 scene.TweeningUtils.transitionBackToSelection();
             },
             buttonText: '',
