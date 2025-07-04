@@ -35,7 +35,6 @@ export class MiniGameManager {
             iconYPosition: -10,
             iconScale: layout.backButton.scale,
             callback: () => {
-                this.backButton.disableInteractive();
                 scene.TweeningUtils.transitionBackToSelection();
             },
             buttonText: '',
@@ -887,7 +886,7 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame() },
+            callback: () => { this.restartGame(); nextLevelButton.disableInteractive(); },
             buttonText: 'Next Level',
             textSize: 60,
             textYPosition: 0,
@@ -906,7 +905,7 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame(true) },
+            callback: () => { this.restartGame(true); restartButton.disableInteractive(); },
             buttonText: 'Restart',
             textSize: 60,
             textYPosition: 0,

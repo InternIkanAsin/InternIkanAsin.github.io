@@ -98,9 +98,9 @@ const costumeData = [
     new Costume("Shoes 8", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_26.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_26.png' }),
     new Costume("Shoes 9", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_28.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_28.png' }),
     new Costume("Shoes 10", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_29.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_29.png' }),
-    new Costume("Shoes 11", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_30.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_30.png' }),
+    new Costume("Shoes 11", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_30.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_36.png' }),
     new Costume("Shoes 12", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_34.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_34.png' }),
-    new Costume("Shoes 13", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_36.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_36.png' })
+    new Costume("Shoes 13", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_36.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_30.png' })
 ];
 
 
