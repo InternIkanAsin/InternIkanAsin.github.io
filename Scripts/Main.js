@@ -92,6 +92,11 @@ class Main extends Phaser.Scene {
 
     create() {
         this.isTransitioning = false;
+        this.areShoesLoaded = false;
+        this.areSocksLoaded = false;
+        this.areLowersLoaded = false;
+        this.areOutersLoaded = false;
+        this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         this.state = GameState.MAKEUP;
         this.startGameFlow();

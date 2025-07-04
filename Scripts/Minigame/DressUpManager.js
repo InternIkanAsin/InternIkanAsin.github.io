@@ -3,6 +3,7 @@ import { costumeData } from '../Outfit Data/CostumeData.js'
 
 // UI Buttons Class
 import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
+import AssetLoader from '../AssetLoader.js'; 
 
 import { layout } from '../ScreenOrientationUtils.js';
 
@@ -266,6 +267,91 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
+        //if ((outfitType === 'Dress' || outfitType === 'Shirt') && !scene.areDressesAndShirtsLoaded) {
+        //    scene.UIManager.showLoadingOverlay('Loading Dresses & Shirts...');
+        //    scene.MiniGameManager.disableInteraction();
+        //    
+        //    scene.load.once('complete', () => {
+        //        console.log('Dress and Shirt assets loaded!');
+        //        scene.areDressesAndShirtsLoaded = true;
+        //        scene.UIManager.hideLoadingOverlay();
+        //        scene.MiniGameManager.enableInteraction();
+        //        this.displayDressUpButtons(outfitType, scene); 
+        //    });
+        //    
+        //    AssetLoader.loadDressAndShirt(scene);
+        //    return;
+        //}
+        
+
+        
+        if (outfitType === 'Outer' && !scene.areOutersLoaded) {
+            scene.UIManager.showLoadingOverlay('Loading Outers...');
+            scene.MiniGameManager.disableInteraction();
+            
+            scene.load.once('complete', () => {
+                console.log('Outer assets loaded!');
+                scene.areOutersLoaded = true;
+                scene.UIManager.hideLoadingOverlay();
+                scene.MiniGameManager.enableInteraction();
+                this.displayDressUpButtons('Outer', scene);
+            });
+            
+            AssetLoader.loadOuter(scene);
+            return;
+        }
+        
+        
+        
+        if (outfitType === 'Lower' && !scene.areLowersLoaded) {
+            scene.UIManager.showLoadingOverlay('Loading Lowers...');
+            scene.MiniGameManager.disableInteraction();
+            
+            scene.load.once('complete', () => {
+                console.log('Lower assets loaded!');
+                scene.areLowersLoaded = true;
+                scene.UIManager.hideLoadingOverlay();
+                scene.MiniGameManager.enableInteraction();
+                this.displayDressUpButtons('Lower', scene);
+            });
+            
+            AssetLoader.loadLower(scene);
+            return;
+        }
+       
+
+        
+        if (outfitType === 'Socks' && !scene.areSocksLoaded) {
+            scene.UIManager.showLoadingOverlay('Loading Socks...');
+            scene.MiniGameManager.disableInteraction();
+            
+            scene.load.once('complete', () => {
+                console.log('Socks assets loaded!');
+                scene.areSocksLoaded = true;
+                scene.UIManager.hideLoadingOverlay();
+                scene.MiniGameManager.enableInteraction();
+                this.displayDressUpButtons('Socks', scene);
+            });
+            
+            AssetLoader.loadSocks(scene);
+            return;
+        }
+
+        if (outfitType === 'Shoes' && !scene.areShoesLoaded) {
+            scene.UIManager.showLoadingOverlay('Loading Shoes...');
+            scene.MiniGameManager.disableInteraction();
+            scene.load.once('complete', () => {
+                console.log('Shoes assets loaded!');
+                scene.areShoesLoaded = true;
+                scene.UIManager.hideLoadingOverlay();
+                scene.MiniGameManager.enableInteraction();
+                this.displayDressUpButtons('Shoes', scene); 
+            });
+            
+            AssetLoader.loadShoes(scene);
+            return; 
+        }
+
         // Ensure MiniGameManager and its backButton exist before trying to use them
         if (!scene.MiniGameManager || !scene.MiniGameManager.backButton) {
             console.error("Critical: MiniGameManager or its backButton not found in displayDressUpButtons!");
@@ -280,6 +366,13 @@ export class DressUpManager {
             scene.MiniGameManager.backButton.disableInteractive();
         }
 
+        let headerText = outfitType;
+        if (outfitType === 'Shirt') {
+            headerText = 'Dress'; // Saat di kategori Shirt, header tetap "Dress"
+        } else if (outfitType === 'Underwear') {
+             headerText = 'Lower'; // Mengganti nama header
+        }
+
         if (scene.sidePanelHeaderText) {
             scene.tweens.add({
                 targets: scene.sidePanelHeaderText,
@@ -287,7 +380,7 @@ export class DressUpManager {
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 onComplete: () => {
-                    scene.sidePanelHeaderText.setText(outfitType.toString());
+                    scene.sidePanelHeaderText.setText(headerText); // Gunakan headerText yang sudah disesuaikan
                     scene.tweens.add({
                         targets: scene.sidePanelHeaderText,
                         alpha: 1,

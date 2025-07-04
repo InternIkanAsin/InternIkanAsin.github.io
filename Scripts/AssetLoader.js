@@ -149,62 +149,77 @@ export default class AssetLoader {
     scene.load.image('KeenanHappy', 'Asset/Character/ekspresi/keenan/Keenan_Senang.png');
     scene.load.image('RezaHappy', 'Asset/Character/ekspresi/reza/Reza_Senang.png');
   }
-  static loadOutfitAssets(scene) {
-    //Anime Textures
 
-    //Dress
-    scene.load.atlas(
-      'Dress_spritesheet1',
-      'Asset/Outfit/Terusan/dress_spritesheet.png',
-      'Asset/Outfit/Terusan/spritesheet.json'
-    );
+  static loadShoes(scene) {
+        scene.load.atlas(
+          'Shoes_spritesheet',
+          'Asset/Outfit/Sepatu/shoes_spritesheet.png',
+          'Asset/Outfit/Sepatu/shoes_spritesheet.json'
+        );
+        scene.load.start();
+    }
 
-    scene.load.atlas(
-      'Dress_spritesheet2',
-      'Asset/Outfit/Terusan/dress_spritesheet(1).png',
-      'Asset/Outfit/Terusan/spritesheet (1).json'
-    );
+  static loadSocks(scene) {
+        scene.load.atlas(
+          'Socks_spritesheet',
+          'Asset/Outfit/Kaos Kaki/socks_spritesheet.png',
+          'Asset/Outfit/Kaos Kaki/socks_spritesheet.json'
+        );
+        scene.load.start();
+    }
 
-    scene.load.atlas(
-      'Dress_spritesheet3',
-      'Asset/Outfit/Terusan/dress_spritesheet(2).png',
-      'Asset/Outfit/Terusan/spritesheet (2).json'
-    );
+ 
 
-    //Shirts
-    scene.load.atlas(
-      'Shirt_spritesheet',
-      'Asset/Outfit/Baju/shirt_spritesheet.png',
-      'Asset/Outfit/Baju/shirt_spritesheet.json'
-    );
-
-    //Lower
+  static loadLower(scene) {
     scene.load.atlas(
       'Lower_spritesheet',
       'Asset/Outfit/Bawahan/lower_spritesheet.png',
       'Asset/Outfit/Bawahan/lower_spritesheet.json'
     );
+        scene.load.start();
+  }
 
-    //Socks
-    scene.load.atlas(
-      'Socks_spritesheet',
-      'Asset/Outfit/Kaos Kaki/socks_spritesheet.png',
-      'Asset/Outfit/Kaos Kaki/socks_spritesheet.json'
-    );
-
-    //Shoes
-    scene.load.atlas(
-      'Shoes_spritesheet',
-      'Asset/Outfit/Sepatu/shoes_spritesheet.png',
-      'Asset/Outfit/Sepatu/shoes_spritesheet.json'
-    );
-
-    //Outer
+  static loadOuter(scene) {
     scene.load.atlas(
       'Outer_spritesheet',
       'Asset/Outfit/Jaket/outer_spritesheet.png',
       'Asset/Outfit/Jaket/outer_spritesheet.json'
     );
+        scene.load.start();
+  }
+
+  static loadOutfitAssets(scene) {
+    
+
+    //Dress & shirt
+    scene.load.atlas(
+        'Dress_spritesheet1',
+        'Asset/Outfit/Terusan/dress_spritesheet.png',
+        'Asset/Outfit/Terusan/spritesheet.json'
+      );
+
+      scene.load.atlas(
+        'Dress_spritesheet2',
+        'Asset/Outfit/Terusan/dress_spritesheet(1).png',
+        'Asset/Outfit/Terusan/spritesheet (1).json'
+      );
+
+      scene.load.atlas(
+        'Dress_spritesheet3',
+        'Asset/Outfit/Terusan/dress_spritesheet(2).png',
+        'Asset/Outfit/Terusan/spritesheet (2).json'
+      );
+
+      scene.load.atlas(
+        'Shirt_spritesheet',
+        'Asset/Outfit/Baju/shirt_spritesheet.png',
+        'Asset/Outfit/Baju/shirt_spritesheet.json'
+      );
+
+    
+
+
+    
 
     //Outfit Icons
     //Dress

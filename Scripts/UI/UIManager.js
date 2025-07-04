@@ -127,6 +127,37 @@ export class UIManager {
 
     }
 
+    showLoadingOverlay(text = 'Loading...') {
+        const scene = this.scene;
+        this.hideLoadingOverlay(); // Hapus yang lama jika ada
+
+        // Gunakan darkOverlay yang sudah ada atau buat jika belum
+        if (!scene.darkOverlay) {
+            scene.darkOverlay = scene.add.rectangle(
+                scene.scale.width / 2, scene.scale.height / 2,
+                scene.scale.width, scene.scale.height, 0x000000, 0.7
+            ).setDepth(200);
+        }
+        scene.darkOverlay.setVisible(true).setInteractive(); // setInteractive untuk memblokir klik lain
+
+        // Tambahkan teks loading
+        this.loadingText = scene.add.text(
+            scene.scale.width / 2, scene.scale.height / 2,
+            text,
+            { font: '48px pixelFont', fill: '#ffffff' }
+        ).setOrigin(0.5).setDepth(201);
+    }
+
+    hideLoadingOverlay() {
+        if (this.scene.darkOverlay) {
+            this.scene.darkOverlay.setVisible(false).disableInteractive();
+        }
+        if (this.loadingText) {
+            this.loadingText.destroy();
+            this.loadingText = null;
+        }
+    }
+
     setupStatusPanel(scene) {
         scene.statusPanel = scene.add.nineslice(400, -100, 'statPanel', '', 505, 130, 6, 6, 5, 5);
 
