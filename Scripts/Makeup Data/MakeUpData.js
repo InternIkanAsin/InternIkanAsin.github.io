@@ -56,8 +56,8 @@ const makeUpData = [
     new MakeUp('LipsWine', 'Lips', 'lipnormalwine', 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_lips wine.png' }),
 
     // Pupil Data
-    new MakeUp('PupilBlue', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil blue_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil black.png' }),
-    new MakeUp('PupilBlack', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil black_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil blue.png' }),
+    new MakeUp('PupilBlue', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil blue_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil blue.png' }),
+    new MakeUp('PupilBlack', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil black_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil black.png' }),
     new MakeUp('PupilDragon', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil dragon_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil dragon.png' }),
     new MakeUp('PupilFairy', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil fairy_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil fairy.png' }),
     new MakeUp('PupilGreen', 'Pupil', { atlas: 'pupil_spritesheet', frame: 'mc_pupil green_normal.png' }, 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pupil green.png' }),
