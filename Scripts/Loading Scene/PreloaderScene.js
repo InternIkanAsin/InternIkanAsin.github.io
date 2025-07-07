@@ -30,18 +30,18 @@ class PreloaderScene extends Phaser.Scene {
 
         // --- 1. Display Background ---
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
+
         if (isMobile) {
-            
-            const scale = height / 1080; 
+
+            const scale = height / 1080;
             this.add.image(0, height / 2, 'minigame_background_preload')
                 .setOrigin(0, 0.5)
                 .setScale(scale);
         } else {
-            
+
             this.add.image(width / 2, height / 2, 'minigame_background_preload')
                 .setOrigin(0.5, 0.5)
-                .setScale(1); 
+                .setScale(1);
         }
 
         // --- 2. Display Logo ---
@@ -52,11 +52,11 @@ class PreloaderScene extends Phaser.Scene {
         // Bachelor assets were loaded in BootScene
         const bachelorX = width * 0.30; // Position to the right
         const bachelorY = height * 0.85; // Position lower part of screen
-
         // Use the keys received from BootScene
         const bachelorFullbody = this.add.image(0, 0, this.bachelorDisplayAssets.fullbodyKey);
         const bachelorExpression = this.add.image(0, 0, this.bachelorDisplayAssets.expressionKey);
 
+        console.log(this.bachelorDisplayAssets.expressionKey);
         // Adjust origins if your assets are not centered, or adjust relative positions
         bachelorFullbody.setOrigin(0.5, 1);
         bachelorExpression.setOrigin(0.5, 0.3); // Or adjust based on your art
@@ -65,7 +65,8 @@ class PreloaderScene extends Phaser.Scene {
         // This requires knowing the pixel offsets from your art.
         // These are just placeholder values.
         const expressionOffsetY = -bachelorFullbody.displayHeight * 0.7; // Fine-tune this value
-        bachelorExpression.setPosition(bachelorFullbody.x, bachelorFullbody.y + expressionOffsetY);
+        const expressionOffsetX = this.bachelorDisplayAssets.expressionKey === 'anggaExpression_neutral_preload' ? -5 : 0;
+        bachelorExpression.setPosition(bachelorFullbody.x + expressionOffsetX, bachelorFullbody.y + expressionOffsetY);
 
         this.bachelorContainer = this.add.container(bachelorX, bachelorY, [bachelorFullbody, bachelorExpression]);
         this.bachelorContainer.setScale(1.5); // Adjust overall scale

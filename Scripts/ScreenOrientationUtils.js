@@ -1,5 +1,5 @@
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -99,7 +99,7 @@ const LANDSCAPE = {
         depth: -1,
         width: 1920,
         height: 1080,
-        
+
     },
     //Tirai
     drapes: {
@@ -379,7 +379,7 @@ const PORTRAIT = {
         depth: -1,
         width: 720 * 2.2,
         height: 1280,
-        
+
     },
 
     //Tirai

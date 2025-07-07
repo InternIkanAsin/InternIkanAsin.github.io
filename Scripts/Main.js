@@ -176,11 +176,11 @@ class Main extends Phaser.Scene {
                 this.makeUpButton.disableInteractive();
                 if (this.isTransitioning) return;
 
-                
+
                 this.isTransitioning = true;
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
-                
+
                 this.transitionToMinigame(GameState.DRESSUP);
             },
             buttonText: '',
@@ -205,16 +205,16 @@ class Main extends Phaser.Scene {
             iconYPosition: -10,
             iconScale: 0.8 * 2,
             callback: () => {
-               
+
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
                 if (this.isTransitioning) return;
 
-                
+
                 this.isTransitioning = true;
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
-                
+
                 this.transitionToMinigame(GameState.MAKEUP);
             },
             buttonText: '',
@@ -306,7 +306,7 @@ class Main extends Phaser.Scene {
             // Buka tirai sepenuhnya
             this.TweeningUtils.openDrapes(1000, () => {
                 console.log("[Transition] Lock released.");
-                this.isTransitioning = false; 
+                this.isTransitioning = false;
             });
         });
     }
@@ -384,8 +384,8 @@ const config = {
     scene: [BootScene, PreloaderScene, Main]
 };
 
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 
 if (isMobile) {
     // Untuk mobile, kita paksa mode portrait
