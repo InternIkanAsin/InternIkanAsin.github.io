@@ -142,7 +142,7 @@ export class MiniGameManager {
 
         scene.backToSelectionButton?.destroy();
         scene.removeAllButton?.destroy();
-        scene.tipsButton?.destroy();
+        
         scene.finishButton?.destroy();
 
         scene.finishButton = null;
@@ -162,7 +162,7 @@ export class MiniGameManager {
 
         scene.backToSelectionButton = null;
         scene.removeAllButton = null;
-        scene.tipsButton = null;
+       
         scene.finishButton = null;
         scene.statPanelContainer = null;
         scene.sidePanel = null;
@@ -212,14 +212,14 @@ export class MiniGameManager {
         }
     }
     createConfirmationPanel() {
-        const { state, darkOverlay, finishButton, tipsButton, removeAllButton, backToSelectionButton, scale } = this.scene;
+        const { state, darkOverlay, finishButton,  removeAllButton, backToSelectionButton, scale } = this.scene;
         const centerX = scale.width / 2;
         const centerY = scale.height / 2;
 
         // Always do this
         darkOverlay.setVisible(true);
 
-        const buttonsToDisable = [finishButton, tipsButton, removeAllButton, backToSelectionButton];
+        const buttonsToDisable = [finishButton, removeAllButton, backToSelectionButton];
         buttonsToDisable.forEach(btn => btn?.disableInteractive());
 
         const isDressUp = state === GameState.DRESSUP;
@@ -498,28 +498,7 @@ export class MiniGameManager {
     }
 
     //Creates array to store outfit of all types
-    setupOutfitTipsDisplay() {
-        const { width, height } = this.scene.sys.game.config;
-        this.scene.outfitStats = {};
-
-        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, stat }) => {
-            let statText = stat.toString();
-            if (stat > 0) statText = '+' + statText;
-            const outfitIcon = this.scene.add.image(0, 0, textureIcon).setScale(0.6);
-            const outfitStatText = this.scene.add.text(0, 50, statText, {
-                fontSize: '24px',
-                fill: '#00000',
-                fontFamily: 'pixelFont',
-                wordWrap: { width: width - 120 }
-            }).setOrigin(0.5, 0.5);
-
-            const outfitStatContainer = this.scene.add.container(0, -100, [outfitIcon, outfitStatText]).setDepth(102);
-            if (!this.scene.outfitStats[outfitType]) {
-                this.scene.outfitStats[outfitType] = [];
-            }
-            this.scene.outfitStats[outfitType].push(outfitStatContainer);
-        });
-    }
+    
 
     //Create grid display for outfit of specified type
     createOutfitStatsDisplay(outfitType, index) {
