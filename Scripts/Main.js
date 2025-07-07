@@ -241,7 +241,7 @@ class Main extends Phaser.Scene {
             iconScale: 1.5,
             callback: () => { this.MiniGameManager.transitionMiniGame() },
             buttonText: 'READY',
-            textSize: 60,
+            textSize: layout.finishButton.textSize,
             textYPosition: 0,
             font: 'regularFont',
             useNineSlice: true,

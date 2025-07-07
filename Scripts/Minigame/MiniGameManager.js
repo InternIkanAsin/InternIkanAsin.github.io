@@ -114,7 +114,8 @@ export class MiniGameManager {
                 }
             },
             buttonText: 'READY',
-            textSize: 48,
+            textOffset: layout.minigameFinishButton.textOffsetX || 0,
+            textSize: layout.minigameFinishButton.textSize,
             textYPosition: 0,
             font: 'regularFont',
             useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
