@@ -157,9 +157,6 @@ class Main extends Phaser.Scene {
 
     createSelectionButtons() {
         const scene = this;
-        const centerX = scene.scale.width / 2;
-        const centerY = scene.scale.height / 2;
-        const buttonXOffset = 350;
         const btnLayout = layout.selectionButtons; // Ambil layout tombol untuk kemudahan akses
 
         this.dressUpButton = new UIButton(scene, scene.AudioManager, {
