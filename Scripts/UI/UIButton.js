@@ -271,11 +271,23 @@ export class CategoryButton extends BaseButton {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             // Execute callback and play sound only if movement is below threshold (a tap)
-            if (distance <= tapThreshold && !this.isDragging) {
+             if (distance <= tapThreshold && !this.isDragging && !scene.isCategoryLocked) {
+                
+                // 1. Langsung kunci kategori untuk mencegah klik lain
+                scene.isCategoryLocked = true;
+                console.log("Category buttons LOCKED.");
+
+                // 2. Jalankan aksi asli tombol
                 if (this.onClickCallback) {
                     this.onClickCallback();
-                    this.AudioManager?.playSFX?.("buttonClick"); // Play sound on successful tap action
+                    this.AudioManager?.playSFX?.("buttonClick");
                 }
+                
+                // 3. Atur timer untuk membuka kunci setelah 500ms (0.5 detik)
+                scene.time.delayedCall(300, () => {
+                    scene.isCategoryLocked = false;
+                    console.log("Category buttons UNLOCKED.");
+                });
             }
             this.isDragging = false;
         });
