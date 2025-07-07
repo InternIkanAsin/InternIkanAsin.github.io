@@ -423,7 +423,7 @@ const PORTRAIT = {
         zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
 
         zoomOutHairX: 720 / 2 / 1.11,
-        zoomOutHairY: 1280 / 2 / 1.33,
+        zoomOutHairY: 1280 / 2 / 1.323,
         zoomOutHairScale: 0.25 * 2 * 256 / 225,
 
     },
