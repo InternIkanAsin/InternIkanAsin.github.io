@@ -34,6 +34,7 @@ const LANDSCAPE = {
             'Outer 8': { width: 555, height: 565 }
         },
         manualOffsets: {
+            'Dress 5': { x: 1, y: 0 },
             'Outer 8': { x: 2, y: 0 },
             'Outer 14': { x: 0, y: -40 },
             'Underwear 2': { x: 0, y: 0 },
