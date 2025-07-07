@@ -90,9 +90,7 @@ export class UIManager {
                 };
                 console.log(`Registered initial state for ${makeupType}: ${defaultMakeUpItemData.name} using texture ${initialTextureKey}`);
             } else {
-                // This is a more critical warning. If the initial texture (e.g., 'LipNormalDefault')
-                // doesn't have a corresponding entry in makeUpData, the system can't fully manage it.
-                console.warn(`CRITICAL: Initial texture ${initialTextureKey} for ${makeupType} NOT FOUND in makeUpData.js. Default state might not be managed correctly.`);
+                
                 // Fallback: still register the game object so it's known, but with limited info
                 MakeUpButton.selectedMakeUp[makeupType] = {
                     current: {
