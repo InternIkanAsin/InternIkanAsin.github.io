@@ -54,9 +54,11 @@ const LANDSCAPE = {
         y: 500 + (75 * 1.6) + 60,
         scale: 1,
         useNineSlice: true,
+        textOffsetX: 5,
         texture: 'readyButtonIcon',
         width: 200,
-        height: 150
+        height: 150,
+        textSize: 45
     },
 
     // character position
@@ -190,7 +192,8 @@ const LANDSCAPE = {
     // Finish Button
     finishButton: {
         x: 1920 / 2,
-        y: 1080 - 200
+        y: 1080 - 200,
+        textSize: 60
     },
 
     //Dialogue System
@@ -472,7 +475,8 @@ const PORTRAIT = {
     // Finish Button
     finishButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT - 60
+        y: PORTRAIT_HEIGHT - 60,
+        textSize: 60
     },
 
     minigameFinishButton: {
@@ -480,9 +484,11 @@ const PORTRAIT = {
         y: PORTRAIT_HEIGHT - 60,
         scale: 0.7,
         useNineSlice: true,
+        textOffsetX: 0,
         texture: 'readyButtonIcon',
         width: 600,
-        height: 150
+        height: 150,
+        textSize: 60
     },
     //Dialogue System
     dialogueBox: {
