@@ -1,8 +1,4 @@
-// DialogueManager Class
-import { DialogueManager } from '../Dialogue System/DialogueManager.js';
-// DialogueData Class
-import { DialogueData } from '../Dialogue System/DialogueData.js';
-
+import { layout } from '../ScreenOrientationUtils.js';
 //Bachelor Dialogues Class
 import { bachelorDialoguesContainer, initializeBachelorDialogue } from '../Bachelor/bachelorDialogues.js';
 
@@ -14,7 +10,7 @@ export class CutsceneSystem {
     initiateCutscene1(bachelorChoice, bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.scene.backgroundCutscene1 = this.scene.add.image(width / 2, height / 2, bachelorName + datePlace).setDepth(-1).setDisplaySize(this.scene.scale.width, this.scene.scale.height);
+        this.scene.backgroundCutscene1 = this.scene.add.image(layout.cutsceneBG.x, layout.cutsceneBG.y, bachelorName + datePlace).setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
         // Fade in cutscene
         this.scene.add.existing(bachelorChoice);
 

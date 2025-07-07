@@ -92,6 +92,15 @@ const LANDSCAPE = {
         scale: 1
     },
 
+    //Background Cutscene
+    cutsceneBG: {
+        x: 1920 / 2,
+        y: 1080 / 2,
+        depth: -1,
+        width: 1920,
+        height: 1080,
+        
+    },
     //Tirai
     drapes: {
         displayHeight: null,
@@ -354,13 +363,23 @@ const PORTRAIT = {
         tickMarkOffsetY: 40
     },
 
-    //backroundminigame
+    //Background minigame
     background: {
         originX: 0,
         originY: 0.5,
         x: -300,
         y: 1280 / 2,
         scale: 1280 / 1080
+    },
+
+    //Background Cutscene
+    cutsceneBG: {
+        x: 720 / 2,
+        y: 1280 / 2,
+        depth: -1,
+        width: 720 * 2.2,
+        height: 1280,
+        
     },
 
     //Tirai
