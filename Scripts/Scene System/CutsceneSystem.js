@@ -46,7 +46,7 @@ export class CutsceneSystem {
 
         this.scene.chosenBachelorExpression = bachelorExpression;
 
-        this.scene.backgroundCutscene2 = this.scene.add.image(width / 2, height / 2, bachelorName + datePlace).setDepth(-1).setVisible(true);
+        this.scene.backgroundCutscene2 = this.scene.add.image(layout.cutsceneBG.x, layout.cutsceneBG.y, bachelorName + datePlace).setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
 
         const originalWidth = this.scene.backgroundCutscene2.width;
         const originalHeight = this.scene.backgroundCutscene2.height;
