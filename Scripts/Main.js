@@ -384,8 +384,8 @@ const config = {
     scene: [BootScene, PreloaderScene, Main]
 };
 
-//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isMobile = true;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 
 if (isMobile) {
     // Untuk mobile, kita paksa mode portrait
