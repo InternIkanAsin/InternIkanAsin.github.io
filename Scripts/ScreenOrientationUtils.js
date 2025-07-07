@@ -28,7 +28,7 @@ const LANDSCAPE = {
             Shoes: { x: 922, y: 917 }
         },
         customSizes: {
-            'Dress 18': { width: 944, height: 900 },
+            'Dress 18': { width: 944, height: 900 }, 
             'Dress 19': { width: 944, height: 900 },
             'Dress 20': { width: 944, height: 900 },
             'Outer 8': { width: 530, height: 565 }
@@ -444,8 +444,8 @@ const PORTRAIT = {
         zoomInHairY: 1280 / 2 * 1.46,
         zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
 
-        zoomOutHairX: 720 / 2 / 1.11,
-        zoomOutHairY: 1280 / 2 / 1.323,
+        zoomOutHairX: 720 / 2 / 1.107,
+        zoomOutHairY: 1280 / 2 / 1.325,
         zoomOutHairScale: 0.25 * 2 * 256 / 225,
 
     },
