@@ -9,6 +9,8 @@ import UIButton from './UI/UIButton.js';
 //Asset Loader Class
 import AssetLoader from './AssetLoader.js'
 
+import { PokiPlugin } from './node_modules/@poki/phaser-3/lib/poki.js'
+
 //Tweening Utils Class
 import TweenUtils from './TweeningUtils.js'
 
@@ -373,6 +375,24 @@ const config = {
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: LANDSCAPE_WIDTH,
         height: LANDSCAPE_HEIGHT,
+    },
+   plugins: {
+        global: [
+            {
+                plugin: PokiPlugin,
+                key: 'poki',      // Kunci untuk mengakses plugin nanti
+                start: true,      // Harus true agar plugin dimuat
+                data: {
+                    // Gunakan key scene Anda yang sebenarnya
+                    loadingSceneKey: 'PreloaderScene',
+                    gameplaySceneKey: 'MainScene',
+
+                    // Ini akan otomatis menampilkan iklan saat MainScene dimulai.
+                    // Biarkan true untuk monetisasi yang lebih baik.
+                    autoCommercialBreak: true 
+                }
+            }
+        ]
     },
     scene: [BootScene, PreloaderScene, Main]
 };
