@@ -1,13 +1,12 @@
 //General Button Class
 import { MakeUpButton, ItemPanelButton } from '../UI/UIButton.js'
 
-import { InteractiveMakeupSystem } from '../Minigame/InteractiveMakeupSystem.js';
 // MakeUp Data
 import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 
 import AssetLoader from '../AssetLoader.js';
 
-import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
+
 export class MakeUpManager {
     constructor(scene, AudioManager) {
         this.scene = scene;
@@ -30,36 +29,26 @@ export class MakeUpManager {
             
                 const currentSelectedMakeup = MakeUpButton.selectedMakeUp[makeUpType]?.current;
                 if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
-                    
-                    // 1. Aktifkan highlight (logika ini sudah benar).
                     button.highlightImage.setVisible(true);
-                    
-                    // 2. Perbarui referensi 'current' di state agar menunjuk ke instance tombol BARU.
                     MakeUpButton.selectedMakeUp[makeUpType].current = button;
                     
-                    // --- LOGIKA BARU YANG LEBIH PINTAR ---
-                    // Periksa apakah item ini adalah item additive.
                     if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeUpType)) {
-                        // Cek apakah visualnya SUDAH ADA dan MASIH VALID.
-                        // `currentSelectedMakeup` di sini merujuk ke state LAMA.
+                        
                         const oldVisual = currentSelectedMakeup.displayedMakeUp;
                         
                         if (oldVisual && oldVisual.scene) {
-                            // Jika visual lama masih ada di scene, kita tidak perlu membuat yang baru.
-                            // Cukup perbarui referensi di instance tombol yang baru.
+                        
                             console.log(`[Setup] Visual for ${name} already exists. Re-linking.`);
                             button.displayedMakeUp = oldVisual;
                         } else {
-                            // Jika visual lama tidak ada (misalnya, ini load pertama kali atau state rusak),
-                            // maka kita buat ulang visualnya.
+                            
                             console.log(`[Setup] Visual for ${name} not found. Re-rendering.`);
                             const pos = MakeUpPositions[makeUpType] || { x: 0, y: 0 };
                             const newImage = scene.add.image(pos.x, pos.y, textureAnime);
                             
-                            // Terapkan skala & depth
                             if (['Blush', 'Eyeliner', 'Sticker'].includes(makeUpType)) {
                                 newImage.setScale(0.55 * 2);
-                            } else { // Eyeshadow
+                            } else { 
                                 newImage.setScale(0.9 * 2);
                             }
                             newImage.setDepth(MakeUpButton.DEPTH_VALUES[makeUpType] || 2.7);
@@ -68,12 +57,10 @@ export class MakeUpManager {
                                 scene.faceContainer.add(newImage);
                             }
                             
-                            // Simpan referensi visual baru ini ke state dan ke tombol.
                             button.displayedMakeUp = newImage;
                             MakeUpButton.selectedMakeUp[makeUpType].current.displayedMakeUp = newImage;
                         }
                     }
-                    // --- AKHIR LOGIKA BARU ---
                 }
             
                 if (!scene.makeUpButtons[makeUpType]) {
@@ -83,7 +70,6 @@ export class MakeUpManager {
             }
         });
         
-        // Panggil sort setelah semua item yang mungkin ada telah dibuat ulang.
         if (scene.faceContainer) {
             scene.faceContainer.sort('depth');
         }
@@ -95,7 +81,7 @@ export class MakeUpManager {
         const scene = this.scene;
         if (!scene.makeUpButtons[makeUpType]) {
         console.log(`[Update] Button instances for '${makeUpType}' not found. Creating them now...`);
-        scene.makeUpButtons[makeUpType] = []; // Buat array kosongnya dulu
+        scene.makeUpButtons[makeUpType] = []; 
         
         const itemsToCreate = makeUpData.filter(item => item.makeUpType === makeUpType);
         
@@ -117,14 +103,10 @@ export class MakeUpManager {
             this.currentLepasButton = null;
         }
 
-        // --- Create and Add "Lepas" Button ---
         const noRemoveButtonCategories = ['Hair', 'Pupil'];
 
-    // Hanya buat dan tambahkan tombol "Lepas" jika kategori saat ini
-    // TIDAK termasuk dalam daftar noRemoveButtonCategories.
     if (!noRemoveButtonCategories.includes(makeUpType)) {
         
-        // Seluruh logika pembuatan ItemPanelButton sekarang ada di dalam blok if ini.
         const lepasButton = new ItemPanelButton(
             scene,
             scene.AudioManager,
@@ -135,7 +117,6 @@ export class MakeUpManager {
             'Remove',
             '30px',
             () => { 
-                // ... (callback untuk lepas button tetap sama)
                 console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
                 if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeUpType) {
                     scene.interactiveMakeupSystem.stopColoringSession(makeUpType, true);
@@ -170,7 +151,6 @@ export class MakeUpManager {
         lepasButton.setSize(150, 200);
         allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
     }
-    // --- AKHIR PERUBAHAN ---
 
         if (scene.sidePanelHeaderText) {
             scene.tweens.add({
@@ -189,7 +169,6 @@ export class MakeUpManager {
                 }
             });
         }
-        // Add the actual makeup item buttons (their containers)
 
         itemButtonsForType.forEach(buttonInstance => {
             buttonInstance.setVisible(true);
@@ -200,26 +179,18 @@ export class MakeUpManager {
             const children = scene.MiniGameManager.buttonGrid.getAllChildren();
 
             children.forEach(childGameObject => {
-                // Kita periksa apakah child ini adalah instance OutfitButton yang persisten.
-                // Kita bisa menggunakan data yang kita set saat pembuatan tombol.
+                
                 const instance = childGameObject.getData ? childGameObject.getData('instance') : null;
 
                 if (instance instanceof MakeUpButton) {
-                    // Jika ini adalah OutfitButton, kita hapus dari grid TANPA menghancurkannya.
-                    // Ini "menyelamatkan" tombol agar bisa dipakai lagi.
-                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false); // false = jangan hancurkan
+                    scene.MiniGameManager.buttonGrid.remove(childGameObject, false);
                 }
-                // Jika bukan (misalnya, ini adalah tombol "Lepas"), kita tidak melakukan apa-apa.
-                // Tombol "Lepas" akan hancur bersama dengan grid di bawah ini.
             });
 
-            // Setelah tombol-tombol persisten diselamatkan, baru kita hancurkan grid-nya.
-            // Ini juga akan menghancurkan anak-anak yang tersisa (yaitu tombol "Lepas" yang lama).
             scene.MiniGameManager.buttonGrid.destroy();
             scene.MiniGameManager.buttonGrid = null;
         }
 
-        // Setelah pembersihan selesai, baru kita update buttonList dengan yang baru.
         scene.MiniGameManager.buttonList = allButtonContainersForPanel;
 
         if (scene.MiniGameManager.innerSizer) {
@@ -306,18 +277,17 @@ export class MakeUpManager {
             return;
         }
 
-        if (scene.miniGameButton) { // The main mode toggle button
+        if (scene.miniGameButton) { 
             scene.miniGameButton.disableInteractive();
         }
 
         if (scene.interactiveMakeupSystem?.isActive) {
-            scene.interactiveMakeupSystem.stopColoringSession(true); // force discard
+            scene.interactiveMakeupSystem.stopColoringSession(true); 
         }
         if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
             scene.MiniGameManager.backButton.disableInteractive();
         } else {
             console.error("scene.MiniGameManager.backButton not found in displayMakeUpButtons!");
-            // return; // Optionally stop if button is critical
         }
         if (scene.sidePanelHeaderText) {
             scene.tweens.add({
@@ -344,11 +314,7 @@ export class MakeUpManager {
             duration: 200,
             ease: 'Sine.easeInOut',
             onComplete: () => {
-
-                // Update makeup buttons
                 scene.MakeUpManager.updateMakeUpButtons(makeUpType);
-
-                // ... (iconKey and text setting logic - this is fine) ...
                 let iconKey = 'blushIcon';
 
                 switch (makeUpType) {
@@ -360,7 +326,7 @@ export class MakeUpManager {
                     case 'Pupil': iconKey = 'eyeColorIcon'; break;
                     case 'Blush': iconKey = 'blushIcon'; break;
                     case 'Hair': iconKey = 'hairIcon'; break;
-                    case 'Sticker': iconKey = 'stickerIcon'; break; // Assuming you have 'stickerIcon' for the header
+                    case 'Sticker': iconKey = 'stickerIcon'; break; 
                     default:
                         console.warn(`No specific header icon found for makeUpType: ${makeUpType}. Using default '${iconKey}'.`);
                         break;
@@ -368,7 +334,7 @@ export class MakeUpManager {
                 if (scene.selectedButtonIcon) scene.selectedButtonIcon.setTexture(iconKey);
                 if (scene.selectedButtonText) scene.selectedButtonText.setText(makeUpType.toString());
 
-                if (scene.MiniGameManager) { // Check existence
+                if (scene.MiniGameManager) { 
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
@@ -380,7 +346,6 @@ export class MakeUpManager {
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
 
-                        // If no header, still make button interactive after panel is in
                         if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
                             scene.MiniGameManager.backButton.setInteractive();
                         }
@@ -412,7 +377,6 @@ export class MakeUpManager {
             space: { column: 100, row: -100 },
         });
 
-        // Add buttons to the grid
         this.buttonList.forEach((btnContainer, index) => {
             this.buttonGrid.add(btnContainer, index, 0, 'center', 0, false);
         });
@@ -420,7 +384,6 @@ export class MakeUpManager {
         const panelBackground = this.scene.add.nineslice(0, 0, 'categoryButtonsPanel', '', 1000, 400, 3, 3, 2, 2);
         panelBackground.setDepth(7);
 
-        // Create the scrollable panel
         this.scene.makeUpButtonsTypePanel = this.scene.rexUI.add.scrollablePanel({
             x: 360,
             y: 1010,
@@ -428,9 +391,9 @@ export class MakeUpManager {
             height: 250,
             scrollMode: 0,
 
-            scrollDetectionMode: 1,            // drag dideteksi berdasarkan mask area&#8203;:contentReference[oaicite:0]{index=0}
+            scrollDetectionMode: 1,           
             scroller: {
-                pointerOutRelease: false,      // jangan lepaskan kontrol saat pointer keluar area panel&#8203;:contentReference[oaicite:1]{index=1}
+                pointerOutRelease: false,      
                 rectBoundsInteractive: false
             },
 
@@ -463,8 +426,6 @@ export class MakeUpManager {
                 targetMode: 'direct'
             })
             .on('child.click', (childContainer) => {
-                // childContainer adalah container OutfitButton yang diklik
-                // panggil callback toggleOutfit di sini, misal:
                 const btn = childContainer.getData('instance');
             });
 
@@ -509,9 +470,9 @@ export class MakeUpManager {
             const entry = MakeUpButton.selectedMakeUp[makeupType];
             const currentEquipped = entry?.current;
         
-            if (currentEquipped) { // Jika ada sesuatu yang terpasang untuk tipe ini
+            if (currentEquipped) { 
                 
-                // Hancurkan objek visual dari item "additive" (Sticker, Blush, dll.)
+                
                 if (currentEquipped.displayedMakeUp && !['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeupType)) {
                     if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
                         console.log(`[RemoveAll] Destroying visual for ${makeupType}: ${currentEquipped.name}`);
@@ -519,18 +480,15 @@ export class MakeUpManager {
                     }
                 }
             
-                // Dapatkan instance tombol mana pun dari tipe ini untuk memanggil metode helper
                 let helperButton = scene.makeUpButtons[makeupType]?.[0] || Object.values(scene.makeUpButtons || {}).flat()[0];
                 if (helperButton) {
-                    // Panggil _equipDefaultMakeUp untuk mereset state dan tampilan ke default.
-                    // Ini akan menangani reset tekstur untuk item inti seperti Bibir, dan membersihkan state untuk item additive.
                     helperButton._equipDefaultMakeUp(makeupType, currentEquipped);
                 }
             }
         }
     
        
-        MakeUpButton.clearAllMakeUpHighlights(scene); // Pastikan semua highlight hilang
+        MakeUpButton.clearAllMakeUpHighlights(scene); 
         console.log("[RemoveAll] Finished removing makeup.");
     }
 
