@@ -2,7 +2,7 @@
 import { costumeData } from '../Outfit Data/CostumeData.js'
 
 // UI Buttons Class
-import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
+import UIButton, { OutfitButton, ItemPanelButton } from '../UI/UIButton.js'
 import AssetLoader from '../AssetLoader.js'; 
 
 import { layout } from '../ScreenOrientationUtils.js';
@@ -27,22 +27,18 @@ export class DressUpManager {
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);
 
-            // --- LOGIKA BARU YANG MENYELESAIKAN KEDUA BUG ---
+           
             const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
             const oldButtonInstance = currentSelectedEntry?.current;
 
-            // Bandingkan berdasarkan nama, karena instance objeknya berbeda
-            if (oldButtonInstance && oldButtonInstance.name === name) {
-                // 1. Tampilkan highlight pada tombol BARU
+            
+            if (oldButtonInstance && oldButtonInstance.name === name) {              
                 button.highlightImage.setVisible(true);
 
-                // 2. "Pindahkan" referensi gambar dari tombol LAMA ke tombol BARU
                 button.displayedOutfit = oldButtonInstance.displayedOutfit;
 
-                // 3. Sekarang aman untuk memperbarui state agar menunjuk ke tombol BARU
                 currentSelectedEntry.current = button;
             }
-            // --- AKHIR LOGIKA BARU ---
 
             if (!scene.outfitButtons[outfitType]) {
                 scene.outfitButtons[outfitType] = [];
@@ -72,17 +68,17 @@ export class DressUpManager {
 
         typesToRemove.forEach(outfitType => {
             const entry = OutfitButton.selectedOutfits[outfitType];
-            const currentOutfitButton = entry?.current; // 'current' refers to button instance
+            const currentOutfitButton = entry?.current; 
 
-            if (currentOutfitButton && currentOutfitButton instanceof OutfitButton) { // Check if it's an OutfitButton instance
-                // console.log(`Removing ${outfitType}: ${currentOutfitButton.name}`);
+            if (currentOutfitButton && currentOutfitButton instanceof OutfitButton) { 
+                
                 if (currentOutfitButton.displayedOutfit && typeof currentOutfitButton.displayedOutfit.destroy === 'function') {
                     currentOutfitButton.displayedOutfit.destroy();
                     currentOutfitButton.displayedOutfit = null;
                 }
 
             }
-            // 3. Clear the entry in the selectedOutfits registry for this type
+            
             OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfitButton || entry?.previous || null };
         });
 
@@ -97,14 +93,12 @@ export class DressUpManager {
         const scene = this.scene;
         let itemButtonsForType = [];
 
-        if (outfitType === "Dress") { // <<<< MODIFIED HERE
-            // When "Dress" category is selected, show both Dress and Shirt items
+        if (outfitType === "Dress") { 
             itemButtonsForType = [
                 ...(scene.outfitButtons["Dress"] || []),
                 ...(scene.outfitButtons["Shirt"] || [])
             ];
         } else if (outfitType === "DressShirt") {
-            // Keep this if you have a SEPARATE "DressShirt" button for some reason
             itemButtonsForType = [
                 ...(scene.outfitButtons["Dress"] || []),
                 ...(scene.outfitButtons["Shirt"] || [])
@@ -114,12 +108,6 @@ export class DressUpManager {
         }
 
         let allButtonContainersForPanel = [];
-        // ... (rest of the method for creating Lepas button and populating the grid) ...
-        // Make sure when creating the Lepas button, its callback correctly targets
-        // "Dress" or "Shirt" for un-equipping if the panel shows combined items.
-        // The 'activeType' passed to the LepasButton constructor should be smart.
-
-        // For the "Lepas" button logic when outfitType is "Dress" (showing Dress+Shirt):
         const lepasButtonCallbackType = (outfitType === "Dress" || outfitType === "DressShirt") ? "DressShirt" : outfitType;
 
 
@@ -140,29 +128,29 @@ export class DressUpManager {
                 }
             });
         }
-        // --- Create and Add "Lepas" Button for Outfits ---
+        
         const lepasOutfitButton = new ItemPanelButton(
             scene,
             scene.AudioManager,
-            0, 0,                         // Position will be set by grid sizer
-            'buttonIcon2',                    // Background texture (same as MakeUpButton)
-            'xMark',                      // Icon texture key for the 'X'                      
-            -15,                          // Icon Y offset (matches MakeUpButton iconImage.y)
-            'Remove',                     // Text ("Lepas" or "Remove")
-            '30px',                       // Text size (matches MakeUpButton textLbl)
-            () => { // Callback for "Lepas Outfit"
+            0, 0,                         
+            'buttonIcon2',                
+            'xMark',                        
+            -15,                          
+            'Remove',                     
+            '30px',                       
+            () => { 
                 console.log(`[LepasButton] Clicked for Outfit Type: ${outfitType}`);
 
                 let typeToUnequipActually = outfitType;
-                // Special handling for "DressShirt" if it's a combined category view
+                
                 if (outfitType === "Shirt" || outfitType === "Dress") {
 
                     if (OutfitButton.selectedOutfits["Dress"]?.current) {
-                        typeToUnequipActually = "Dress"; // Prioritize Dress
+                        typeToUnequipActually = "Dress"; 
                     } else if (OutfitButton.selectedOutfits["Shirt"]?.current) {
                         typeToUnequipActually = "Shirt";
                     } else {
-                        // Nothing from Dress/Shirt to unequip if DressShirt was a filter and nothing selected
+                       
                         scene.AudioManager?.playSFX?.("buttonClick");
                         return;
                     }
@@ -172,7 +160,7 @@ export class DressUpManager {
                 const equippedButtonInstance = currentEntry?.current;
 
                 if (equippedButtonInstance && equippedButtonInstance instanceof OutfitButton) {
-                    // Unequip it: destroy visual, update stat, clear selection in registry
+                    
                     if (equippedButtonInstance.displayedOutfit) {
                         equippedButtonInstance.displayedOutfit.destroy();
                         equippedButtonInstance.displayedOutfit = null;
@@ -180,11 +168,10 @@ export class DressUpManager {
 
                     OutfitButton.selectedOutfits[typeToUnequipActually] = { current: null, previous: equippedButtonInstance };
 
-                    // Clear highlight for this specific button
                     if (equippedButtonInstance.highlightImage) {
                         equippedButtonInstance.highlightImage.setVisible(false);
                     }
-                    // If Dress was unequipped, also clear highlights for dependent types
+                    
                     if (typeToUnequipActually === "Dress") {
                         OutfitButton.clearHighlightsForType(scene, "Shirt");
                         OutfitButton.clearHighlightsForType(scene, "Lower");
@@ -205,18 +192,14 @@ export class DressUpManager {
         });
 
         itemButtonsForType.forEach(buttonInstance => {
-            // 'buttonInstance' is instance of OutfitButton
             const type = buttonInstance.outfitType;
             const currentSelectedButton = OutfitButton.selectedOutfits[type]?.current;
 
-            // Check if the current button is selected button
             if (currentSelectedButton && currentSelectedButton === buttonInstance) {
-                // if yes, highlight
                 if (buttonInstance.highlightImage) {
                     buttonInstance.highlightImage.setVisible(true);
                 }
             } else {
-                // if not, disable highlight
                 if (buttonInstance.highlightImage) {
                     buttonInstance.highlightImage.setVisible(false);
                 }
@@ -267,24 +250,6 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
-        //if ((outfitType === 'Dress' || outfitType === 'Shirt') && !scene.areDressesAndShirtsLoaded) {
-        //    scene.UIManager.showLoadingOverlay('Loading Dresses & Shirts...');
-        //    scene.MiniGameManager.disableInteraction();
-        //    
-        //    scene.load.once('complete', () => {
-        //        console.log('Dress and Shirt assets loaded!');
-        //        scene.areDressesAndShirtsLoaded = true;
-        //        scene.UIManager.hideLoadingOverlay();
-        //        scene.MiniGameManager.enableInteraction();
-        //        this.displayDressUpButtons(outfitType, scene); 
-        //    });
-        //    
-        //    AssetLoader.loadDressAndShirt(scene);
-        //    return;
-        //}
-        
-
-        
         if (outfitType === 'Outer' && !scene.areOutersLoaded) {
             scene.UIManager.showLoadingOverlay('Loading Outers...');
             scene.MiniGameManager.disableInteraction();
@@ -352,7 +317,6 @@ export class DressUpManager {
             return; 
         }
 
-        // Ensure MiniGameManager and its backButton exist before trying to use them
         if (!scene.MiniGameManager || !scene.MiniGameManager.backButton) {
             console.error("Critical: MiniGameManager or its backButton not found in displayDressUpButtons!");
             return;
@@ -361,16 +325,16 @@ export class DressUpManager {
         if (scene.miniGameButton) {
             scene.miniGameButton.disableInteractive();
         }
-        // 1. Disable back button at the start of this specific transition
+        
         if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
             scene.MiniGameManager.backButton.disableInteractive();
         }
 
         let headerText = outfitType;
         if (outfitType === 'Shirt') {
-            headerText = 'Dress'; // Saat di kategori Shirt, header tetap "Dress"
+            headerText = 'Dress'; 
         } else if (outfitType === 'Underwear') {
-             headerText = 'Lower'; // Mengganti nama header
+             headerText = 'Lower'; 
         }
 
         if (scene.sidePanelHeaderText) {
@@ -380,7 +344,7 @@ export class DressUpManager {
                 duration: 200,
                 ease: 'Sine.easeInOut',
                 onComplete: () => {
-                    scene.sidePanelHeaderText.setText(headerText); // Gunakan headerText yang sudah disesuaikan
+                    scene.sidePanelHeaderText.setText(headerText); 
                     scene.tweens.add({
                         targets: scene.sidePanelHeaderText,
                         alpha: 1,
@@ -398,13 +362,11 @@ export class DressUpManager {
             ease: 'Sine.easeInOut',
             onComplete: () => {
 
-                // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
 
-                // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
                 switch (outfitType) {
                     case 'Dress': iconKey = 'dressIcon'; break;
@@ -419,12 +381,10 @@ export class DressUpManager {
                 if (scene.selectedButtonIcon) scene.selectedButtonIcon.setTexture(iconKey);
                 if (scene.selectedButtonText) scene.selectedButtonText.setText(outfitType.toString());
 
-                // 5. Adjust panel layout if necessary
                 if (scene.MiniGameManager.updatePanelLayout) {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
 
-                // 6. Tween the panel (now with new items) back into view
                 scene.tweens.add({
                     targets: newButtons,
                     alpha: 1,
