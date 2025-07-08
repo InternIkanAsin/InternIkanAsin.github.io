@@ -45,9 +45,6 @@ import { statTracker } from './Outfit Data/CostumeManager.js'
 //Audio Manager Class
 import { AudioManager } from './Audio System/AudioManager.js'
 
-//Particle System Class
-import { ParticleSystem } from './Particle System/ParticleSystem.js'
-
 //interactive makeupsystem
 import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
 
@@ -318,11 +315,10 @@ class Main extends Phaser.Scene {
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
         this.DressUpManager = new DressUpManager(this, this.AudioManager);
-        this.TutorialManager = new TutorialManager(this);
+        this.TutorialManager = new TutorialManager  (this);
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
         this.TweeningUtils = new TweenUtils(this);
-        this.ParticleSystem = new ParticleSystem(this);
         this.interactiveMakeupSystem = new InteractiveMakeupSystem(this);
         this.BachelorManager = new BachelorManager(this);
     }
