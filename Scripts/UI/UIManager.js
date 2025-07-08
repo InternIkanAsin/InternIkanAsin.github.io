@@ -216,7 +216,7 @@ export class UIManager {
             });
         }
 
-        // Reset Makeup state
+        
         MakeUpButton.selectedMakeUp = {};
 
         
