@@ -19,12 +19,8 @@ export class UIManager {
      * @method setupScene - Setup the scene by setting background and character
      */
     setupScene(scene) {
-        // Setup background
-        const centerX = scene.cameras.main.centerX;
-        const centerY = scene.cameras.main.centerY;
+       
 
-        let isMobile = true;
-        const bgScale = isMobile ? 1.2 : 1
         const bgLayout = layout.background;
 
         scene.background = scene.add.image(
@@ -35,7 +31,7 @@ export class UIManager {
             .setOrigin(bgLayout.originX, bgLayout.originY)
             .setScale(bgLayout.scale);
 
-        // Setup character
+        
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
             .setScale(layout.character.scale)
             .setOrigin(0.5)
@@ -44,20 +40,19 @@ export class UIManager {
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
 
 
-        //Back hair
+        
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back)
             .setScale(0.5 * 256 / 225)
             .setOrigin(0.5)
             .setDepth(0.9);
 
-        // Front hair
+        
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
             .setScale(0.5 * 256 / 225)
             .setOrigin(0.5)
             .setDepth(7);
 
-        // Create initial facial feature GameObjects
-        // These textures are the "visual defaults" when the game starts.
+        
         scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
         scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
@@ -65,33 +60,31 @@ export class UIManager {
 
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
 
-        // --- Initialize MakeUpButton's state for default makeup ---
-        MakeUpButton.selectedMakeUp = {}; // CRITICAL: Initialize the static property
+       
+        MakeUpButton.selectedMakeUp = {}; 
 
-        // Helper to register the initial state of facial features with MakeUpButton.selectedMakeUp
+        
         const registerInitialFacialFeature = (makeupType, initialTextureKey, gameObject) => {
-            // Find the MakeUp object in makeUpData that corresponds to this initial state.
-            // This entry in makeUpData might be one specifically for "Default Lips"
-            // or it might be a regular selectable item that also serves as the default.
+            
             const defaultMakeUpItemData = makeUpData.find(
                 item => item.makeUpType === makeupType && item.textureAnime === initialTextureKey
             );
 
             if (defaultMakeUpItemData) {
                 MakeUpButton.selectedMakeUp[makeupType] = {
-                    current: { // This object represents the currently "equipped" default state
+                    current: { 
                         name: defaultMakeUpItemData.name,
                         makeupType: defaultMakeUpItemData.makeUpType,
                         textureAnime: defaultMakeUpItemData.textureAnime,
-                        displayedMakeUp: gameObject, // The actual Phaser GameObject
-                        isDefault: true // Flag this as a default that's currently active
+                        displayedMakeUp: gameObject, 
+                        isDefault: true 
                     },
                     previous: null
                 };
                 console.log(`Registered initial state for ${makeupType}: ${defaultMakeUpItemData.name} using texture ${initialTextureKey}`);
             } else {
                 
-                // Fallback: still register the game object so it's known, but with limited info
+                
                 MakeUpButton.selectedMakeUp[makeupType] = {
                     current: {
                         name: `Initial ${makeupType}`,
@@ -105,12 +98,12 @@ export class UIManager {
             }
         };
 
-        // Register the initial state of the created facial features
+        
         registerInitialFacialFeature('Pupil', 'PupilNormalBlue', scene.pupils);
         registerInitialFacialFeature('Lips', 'LipNormalDefault', scene.lips);
         registerInitialFacialFeature('Eyebrows', 'EyebrowNormalDefault', scene.eyebrows);
         registerInitialFacialFeature('Eyelashes', 'EyelashesNormalDefault', scene.eyelashes);
-        //Register default hair
+        
         MakeUpButton.selectedMakeUp['Hair'] = {
             current: {
                 name: 'Default Hair',
@@ -127,18 +120,16 @@ export class UIManager {
 
     showLoadingOverlay(text = 'Loading...') {
         const scene = this.scene;
-        this.hideLoadingOverlay(); // Hapus yang lama jika ada
-
-        // Gunakan darkOverlay yang sudah ada atau buat jika belum
+        this.hideLoadingOverlay(); 
+        
         if (!scene.darkOverlay) {
             scene.darkOverlay = scene.add.rectangle(
                 scene.scale.width / 2, scene.scale.height / 2,
                 scene.scale.width, scene.scale.height, 0x000000, 0.7
             ).setDepth(200);
         }
-        scene.darkOverlay.setVisible(true).setInteractive(); // setInteractive untuk memblokir klik lain
+        scene.darkOverlay.setVisible(true).setInteractive(); 
 
-        // Tambahkan teks loading
         this.loadingText = scene.add.text(
             scene.scale.width / 2, scene.scale.height / 2,
             text,
@@ -159,7 +150,6 @@ export class UIManager {
     setupStatusPanel(scene) {
         scene.statusPanel = scene.add.nineslice(400, -100, 'statPanel', '', 505, 130, 6, 6, 5, 5);
 
-        //If outfit is not complete
         scene.xMark = scene.add.image(230, -100, 'xMark').setVisible(false);
         scene.failStatusText = scene.add.text(280, -100, 'Pakaian belum lengkap!', {
             fontSize: '32px',
@@ -167,7 +157,6 @@ export class UIManager {
             fontFamily: 'pixelFont'
         }).setVisible(false);
 
-        //If outfit is complete
         scene.checkMark = scene.add.image(230, -100, 'checkMark').setVisible(false);
         scene.successStatusText = scene.add.text(270, -100, 'Pakaian sudah lengkap! Have fun!', {
             fontSize: '24px',
@@ -176,9 +165,8 @@ export class UIManager {
         }).setVisible(false);
     }
 
-    clearMinigameScene(scene) { // Accept scene as a parameter for clarity
+    clearMinigameScene(scene) {
         console.log("[UIManager] Clearing Minigame Scene...");
-        // 1. Destroy all button in minigame
 
         scene.backToSelectionButton?.destroy();
         scene.removeAllButton?.destroy();
@@ -193,23 +181,20 @@ export class UIManager {
         scene.leftDrape?.destroy();
         scene.rightDrape?.destroy();
         scene.finishMiniGameButton?.destroy();
-        // 2. Destroy outfitbutton instance and texture anime
         if (OutfitButton.selectedOutfits) {
-            // Iterasi melalui setiap entry di selectedOutfits
+            
             Object.values(OutfitButton.selectedOutfits).forEach(entry => {
                 const currentButton = entry?.current;
-                // Jika ada tombol yang terpilih dan ia memiliki gambar yang ditampilkan
+                
                 if (currentButton && currentButton.displayedOutfit && typeof currentButton.displayedOutfit.destroy === 'function') {
-                    // Hancurkan gambar outfit yang sebenarnya
+                    
                     currentButton.displayedOutfit.destroy();
                 }
             });
         }
-        // Reset static state SETELAH semua gambar dihancurkan
+        
         OutfitButton.selectedOutfits = {};
 
-
-        // Destroy OutfitButton instances
         if (scene.outfitButtons) {
             Object.values(scene.outfitButtons).flat().forEach(buttonInstance => {
                 buttonInstance?.destroy();
@@ -223,10 +208,9 @@ export class UIManager {
                 if (!item) return;
 
                 if (Array.isArray(item.displayedMakeUp)) {
-                    // Handle hair (array of 2 images)
                     item.displayedMakeUp.forEach(img => img?.destroy());
                 } else if (item.displayedMakeUp && !item.isDefault) {
-                    // Handle single, non-default makeup images (like stickers, colored blush)
+                    
                     item.displayedMakeUp?.destroy();
                 }
             });
@@ -235,23 +219,19 @@ export class UIManager {
         // Reset Makeup state
         MakeUpButton.selectedMakeUp = {};
 
-        // 3. Destroy UI panel
+        
         scene.statPanelContainer?.destroy();
-        scene.sidePanel?.destroy(); // Destroy Rexui and its objects
+        scene.sidePanel?.destroy(); 
 
         if (scene.MiniGameManager) {
             scene.MiniGameManager.backButton?.destroy();
             scene.selectedButtonHeader?.destroy();
         }
 
-        // Destroy popup
-        scene.tipsPanel?.destroy();
-
         if (scene.MiniGameManager && scene.MiniGameManager.activeConfirmationPanel) {
             scene.MiniGameManager.activeConfirmationPanel.destroy();
         }
 
-        // 4. Destroy Character and Background
         scene.body?.destroy();
         scene.hairFront?.destroy();
         scene.hairBack?.destroy();
@@ -263,7 +243,7 @@ export class UIManager {
     }
 
     destroySidePanel(scene) {
-        // 1. Disable all child interactivity safely
+        
         if (scene.sidePanel) {
             try {
                 scene.sidePanel.iterate(child => {
@@ -271,13 +251,13 @@ export class UIManager {
                         child.disableInteractive();
                     }
                 });
-                scene.sidePanel.removeAllListeners(); // Optional: remove sidePanel-specific events
+                scene.sidePanel.removeAllListeners(); 
             } catch (e) {
                 console.warn("Failed to disable interactivity:", e);
             }
         }
 
-        // 2. Destroy buttons
+       
         if (scene.buttons) {
             Object.values(scene.buttons).flat().forEach(button => {
                 button?.clearMask?.(true);
@@ -286,21 +266,20 @@ export class UIManager {
             scene.buttons = null;
         }
 
-        // 3. Destroy layout
+        
         this.buttonGrid?.destroy();
         this.buttonGrid = null;
 
         this.innerSizer?.destroy();
         this.innerSizer = null;
 
-        // 4. Destroy panel and mask
+        
         scene.sidePanel?.destroy(true);
         scene.sidePanel = null;
 
         scene.sidePanelMaskGraphics?.destroy();
         scene.sidePanelMaskGraphics = null;
 
-        // 5. Destroy header and back button
         scene.selectedButtonHeader?.destroy();
         scene.selectedButtonHeader = null;
 
