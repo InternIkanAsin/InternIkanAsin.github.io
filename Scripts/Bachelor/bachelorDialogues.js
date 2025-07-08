@@ -1,5 +1,5 @@
 import { DialogueData } from "../Dialogue System/DialogueData.js";
-import { traitsMap } from '../Outfit Data/CostumeTraits.js'
+
 
 export const bachelorDialoguesContainer = {
 

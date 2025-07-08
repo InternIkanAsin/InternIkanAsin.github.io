@@ -1,6 +1,6 @@
 import { Costume } from './CostumeManager.js'
 
-//Stores Costumes and its stats.
+
 const costumeData = [
     // Dress Data
     new Costume("Dress 1", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan17.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan17.png' }),

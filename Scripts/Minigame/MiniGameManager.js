@@ -2,18 +2,16 @@
 import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
 
 //MakeUp and DressUp Category Buttons
-import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableDressUpMakeUpCategoryButtons, enableDressUpMakeUpCategoryButtons } from './MiniGameCategoryButtons.js'
+import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons} from './MiniGameCategoryButtons.js'
 
 //Costume Data Class
-import { costumeData } from '../Outfit Data/CostumeData.js'
+
 
 //Game State Class
 import { GameState } from '../Main.js';
 
-import { layout } from '../ScreenOrientationUtils.js';
+import { layout } from '../ScreenOrientationUtils.js'; 
 
-//Bachelor outfit preferences / traits 
-import { traitsMap } from '../Outfit Data/CostumeTraits.js'
 export class MiniGameManager {
     constructor(scene, AudioManager) {
         this.scene = scene;

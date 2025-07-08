@@ -350,31 +350,9 @@ export class InteractiveMakeupSystem {
                 );
                 const snapshotData = snapCtx.getImageData(0, 0, rtWidth, rtHeight).data;
 
-                // We need to compare the scaled snapshot to the original targetPixelData.
-                // This requires scaling down the snapshot or scaling up the targetPixelData for accurate comparison,
-                // or more simply, ensuring calculateTargetPixels uses the *displayed size* if that's what drawingLayer matches.
-                // For now, assuming drawingLayer matches displayed size of activeMakeupImage.
-                // And targetPixelData was from original texture. This comparison will be tricky if scales differ.
-
-                // Let's assume calculateTargetPixels was for the *source* texture dimensions.
-                // And drawingLayer is for the *scaled displayed* dimensions.
-                // This comparison is the hardest part to get right if source and display scales differ.
-                // The prototype assumes drawingLayer matches source texture dimensions.
-                // If activeMakeupImage is scaled, drawingLayer must also effectively map to the scaled version.
-
-                // For now, let's simplify and assume the prototype's direct comparison logic can be adapted
-                // IF drawingLayer is created with the original texture's width/height, and then the
-                // activeMakeupImage is scaled and the drawingLayer (as a mask source) is also scaled with it.
-                // OR, the drawingLayer matches the scaled activeMakeupImage, and we resample for comparison.
-
-                // --- Simplified comparison (ASSUMES drawingLayer matches original texture pixel density) ---
-                // This might not be accurate if activeMakeupImage is scaled.
-                // The Eyeliner prototype had eyelinerImage (full texture) and drawingLayer be the same size.
                 const originalData = this.targetPixelData.data;
                 let revealedPixels = 0;
 
-                // This loop assumes snapshotData (from drawingLayer) and originalData (from texture) are 1:1 pixel map
-                // This will only be true if drawingLayer width/height === targetPixelData width/height
                 if (snapshotData.length === originalData.length) {
                     for (let i = 0; i < snapshotData.length; i += 4) {
                         if (originalData[i + 3] > 0 && snapshotData[i + 3] > 0) { // Original pixel was part of makeup & drawn pixel is opaque
@@ -383,7 +361,7 @@ export class InteractiveMakeupSystem {
                     }
                 } else {
                     console.warn("[InteractiveMakeup] Snapshot and original texture data length mismatch. Completion check will be inaccurate.");
-                    // Fallback or more complex resampling needed here. For now, we'll get 0% if mismatch.
+                    
                 }
 
 
@@ -398,7 +376,7 @@ export class InteractiveMakeupSystem {
                         this.autoFillAndFinalize();
                     }
                 }
-                this.checkingCompletion = false; // Reset flag
+                this.checkingCompletion = false; 
             } catch (error) {
                 console.error("[InteractiveMakeup] Error during snapshot processing:", error);
                 this.checkingCompletion = false;
@@ -409,11 +387,8 @@ export class InteractiveMakeupSystem {
     autoFillAndFinalize() {
         if (this.isComplete || !this.drawingLayer || !this.activeMakeupImage) return;
         console.log("[InteractiveMakeup] Auto-filling and finalizing...");
-        // Draw the full original texture onto the drawingLayer to make the mask fully opaque where makeup should be
-        // We need to draw it at the correct local position (0,0) within the drawingLayer
-        this.drawingLayer.draw(this.activeMakeupImage, 0, 0, 1, 0xffffff); // Draw with full alpha, white color
-        // Or, more directly if activeMakeupImage is the source texture
-        // this.drawingLayer.drawFrame(this.activeTextureKey, 0, 0, 0);
+        
+        this.drawingLayer.draw(this.activeMakeupImage, 0, 0, 1, 0xffffff); 
 
         this.finalizeSession(true, "auto-completed");
     }
@@ -423,21 +398,21 @@ export class InteractiveMakeupSystem {
 
         this.isComplete = true;
         this.isDrawing = false;
-        this.checkingCompletion = false; // Ensure this is reset
+        this.checkingCompletion = false; 
 
         console.log(`%c[InteractiveMakeup] Session finalized for ${this.activeMakeupType}. Reason: ${reason}. Apply: ${applyToCharacter}`, 'color: lightgreen; font-weight: bold;');
 
         const typeFinalizing = this.activeMakeupType;
-        const imageThatWasColored = this.activeMakeupImage; // Store ref before it's potentially changed/destroyed
+        const imageThatWasColored = this.activeMakeupImage; 
 
         if (applyToCharacter) {
             if (imageThatWasColored) imageThatWasColored.clearMask();
 
             if (typeFinalizing === 'Lips') {
-                // Apply the new texture to the persistent scene.lips
+                
                 this.scene.lips.setTexture(this.activeTextureKey).setScale(0.55 * 2).setVisible(true);
-                // The temporary coloring image for lips is no longer needed
-                if (imageThatWasColored && imageThatWasColored !== this.scene.lips) { // Ensure it's the temp one
+                
+                if (imageThatWasColored && imageThatWasColored !== this.scene.lips) { 
                     imageThatWasColored.destroy();
                 }
                 // Update the button that started this to point to the persistent scene.lips
@@ -445,26 +420,22 @@ export class InteractiveMakeupSystem {
                 if (lipButton instanceof MakeUpButton) {
                     lipButton.displayedMakeUp = this.scene.lips;
                 }
-            } else {
-                // For Blush/Eyeshadow/Eyeliner, imageThatWasColored IS the one we keep.
-                // Its mask was cleared. The button already points to it.
-            }
+            } 
 
             if (this.scene.faceContainer) {
                 this.scene.faceContainer.sort('depth');
             }
             console.log(`[InteractiveMakeup] ${typeFinalizing} applied.`);
         } else {
-            this.revertToPreviousState(typeFinalizing); // This will destroy imageThatWasColored if it's temporary
+            this.revertToPreviousState(typeFinalizing); 
         }
 
         this.scene.TweeningUtils.hideApplyMakeUpPanel();
-        // Pass true if the *final intended visual* was kept (scene.lips for Lips, imageThatWasColored for others)
+        
         this.cleanupSessionObjects(applyToCharacter, typeFinalizing, applyToCharacter ? (typeFinalizing === 'Lips' ? this.scene.lips : imageThatWasColored) : null);
     }
 
-    // Call this when user action dictates stopping (switching item, category, mode)
-    // forceDiscard = true means don't try to finalize/complete, just clear.
+    
     stopColoringSession(makeupTypeToStop, forceDiscard = false) {
         if (!this.isActive || (makeupTypeToStop && this.activeMakeupType !== makeupTypeToStop)) return;
 
@@ -473,23 +444,19 @@ export class InteractiveMakeupSystem {
         console.log(`[InteractiveMakeup] Stopping session for ${typeEffectivelyStopping}. Discard: ${forceDiscard}, Completed: ${wasCompleted}`);
         this.isActive = false;
         this.scene.TweeningUtils.hideApplyMakeUpPanel();
-        const imageFromThisSession = this.activeMakeupImage; // Store ref
-        this.activeMakeupImage = null; // System no longer directly manages this specific image object
+        const imageFromThisSession = this.activeMakeupImage; 
+        this.activeMakeupImage = null; 
 
-        this.cleanupInputAndVisuals(); // Removes listeners, drawingLayer, outline, cursor
+        this.cleanupInputAndVisuals(); 
 
         if (forceDiscard || !wasCompleted) {
-            // Discarding or not completed: Destroy the temporary image used for coloring.
-            // For Lips, imageFromThisSession was temporary. scene.lips was untouched during coloring.
-            if (imageFromThisSession && imageFromThisSession !== this.scene.lips) { // Don't destroy scene.lips
+            if (imageFromThisSession && imageFromThisSession !== this.scene.lips) { 
                 console.log(`[InteractiveMakeup] Discarding: Destroying temp image for ${typeEffectivelyStopping}`);
                 imageFromThisSession.destroy();
             }
             this.revertToPreviousState(typeEffectivelyStopping);
-            this.resetSessionState(); // Resets all session flags
-        } else { // Session was completed and applied
-            // `finalizeSession` already handled keeping the correct image (scene.lips or the temp image for others)
-            // and clearing its mask. We just need to reset system state.
+            this.resetSessionState(); 
+        } else { 
             this.resetSessionState();
         }
         console.log(`[InteractiveMakeup] Session for ${typeEffectivelyStopping} fully stopped.`);
@@ -503,29 +470,25 @@ export class InteractiveMakeupSystem {
         let buttonForHelperCall = this.scene.makeUpButtons[makeupType]?.[0] || Object.values(this.scene.makeUpButtons || {}).flat()[0];
         if (!buttonForHelperCall) { return; }
 
-        // If the active session was for Lips, scene.lips was being directly manipulated.
-        // We need to restore its texture based on previousStateInfo.
-        // For other types (Blush, Eyeshadow), their activeMakeupImage was temporary and already handled/destroyed by stopColoringSession.
-
         if (makeupType === 'Lips') {
             if (!this.scene.lips || !this.scene.lips.active) { return; }
             const targetTexture = (previousStateStored && previousStateStored.textureKey) ? previousStateStored.textureKey : defaultMakeUpSkins['Lips'];
-            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask(); // Ensure mask is cleared
+            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask(); 
 
             if (previousStateStored && previousStateStored.isDefault) {
                 MakeUpButton.selectedMakeUp.Lips = { current: previousStateStored, previous: null };
             } else if (previousStateStored && previousStateStored.buttonInstance) {
                 MakeUpButton.selectedMakeUp.Lips = { current: previousStateStored.buttonInstance, previous: null };
                 previousStateStored.buttonInstance.displayedMakeUp = this.scene.lips;
-            } else { // Absolute default
+            } else { 
                 if (buttonForHelperCall) buttonForHelperCall._equipDefaultMakeUp('Lips', null);
             }
-        } else { // Other colorable types (Blush, Eyeshadow, Eyeliner)
-            if (!buttonForHelperCall) { /* ... */ MakeUpButton.selectedMakeUp[makeupType] = { current: null, previous: null }; return; }
+        } else { 
+            if (!buttonForHelperCall) {  MakeUpButton.selectedMakeUp[makeupType] = { current: null, previous: null }; return; }
             if (previousStateStored && previousStateStored.buttonInstance) {
-                previousStateStored.buttonInstance.toggleMakeUp(); // Re-select previous (will be instant if non-colorable)
+                previousStateStored.buttonInstance.toggleMakeUp(); 
             } else {
-                buttonForHelperCall._equipDefaultMakeUp(makeupType, previousStateStored); // Revert to default for this additive type
+                buttonForHelperCall._equipDefaultMakeUp(makeupType, previousStateStored); 
             }
         }
         this.stateBeforeColoring[makeupType] = null;
@@ -533,10 +496,9 @@ export class InteractiveMakeupSystem {
 
     updateCustomCursorPosition(pointer) {
         if (this.isActive && !this.isComplete && this.customCursor.visible) {
-            this.customCursor.x = pointer.worldX - this.brushRadius; // Adjust for circle's internal origin
+            this.customCursor.x = pointer.worldX - this.brushRadius; 
             this.customCursor.y = pointer.worldY - this.brushRadius;
         } else if (this.customCursor.visible) {
-            // If session ended but somehow listener still active, hide cursor
             this.customCursor.setVisible(false);
             this.scene.input.setDefaultCursor('default');
         }
@@ -547,7 +509,7 @@ export class InteractiveMakeupSystem {
         this.scene.input.off('pointermove', this.boundOnPointerMove);
         this.scene.input.off('pointerup', this.boundOnPointerUp);
         this.scene.input.off('pointerupoutside', this.boundOnPointerUp);
-        if (this.customCursor) this.customCursor.setVisible(false); // If you have custom cursor
+        if (this.customCursor) this.customCursor.setVisible(false); 
         this.scene.input.setDefaultCursor('default');
 
         if (this.drawingLayer) { this.drawingLayer.destroy(); this.drawingLayer = null; }
@@ -558,21 +520,16 @@ export class InteractiveMakeupSystem {
         this.isActive = false; this.activeMakeupType = null; this.activeTextureKey = null;
         this.targetPixelData = null; this.totalTargetPixels = 0;
         this.isDrawing = false; this.isComplete = false; this.checkingCompletion = false;
-        // Do NOT clear stateBeforeColoring here, it's used by revert and cleared there per-type.
     }
 
     cleanupSessionObjects(keepTemporaryActiveImage, makeupTypeCleaned) {
-        // Input listeners and outline are always cleaned
         this.cleanupInputAndVisuals();
 
         if (this.activeMakeupImage) {
-            // For Lips, activeMakeupImage IS scene.lips, so we NEVER destroy it here.
-            // Its texture is managed by finalizeSession or revertToPreviousState.
             if (makeupTypeCleaned !== 'Lips') {
-                if (!keepTemporaryActiveImage) { // If it's a temp image (Blush/Eyeshadow) and NOT kept
+                if (!keepTemporaryActiveImage) { 
                     this.activeMakeupImage.destroy();
                 } else if (keepTemporaryActiveImage && this.activeMakeupImage.mask) {
-                    // If it's a temp image that was kept (completed), clear its mask
                     this.activeMakeupImage.clearMask();
                 }
             }
@@ -584,8 +541,8 @@ export class InteractiveMakeupSystem {
 
     cleanupAfterSession(wasAppliedAndKept) {
 
-        this.customCursor.setVisible(false); // Turn off custom cursor (coloring cursor)
-        this.scene.input.setDefaultCursor('default'); // Restore browser cursor
+        this.customCursor.setVisible(false); 
+        this.scene.input.setDefaultCursor('default'); 
         this.scene.input.off('pointermove', this.updateCustomCursorPosition, this);
         this.scene.input.off('pointerdown', this.boundOnPointerDown);
         this.scene.input.off('pointermove', this.boundOnPointerMove);
@@ -594,7 +551,7 @@ export class InteractiveMakeupSystem {
 
 
         if (this.activeOutlineGraphics) {
-            this.scene.tweens.killTweensOf(this.activeOutlineGraphics); // Stop pulsing
+            this.scene.tweens.killTweensOf(this.activeOutlineGraphics); 
             this.activeOutlineGraphics.destroy();
             this.activeOutlineGraphics = null;
         }
@@ -603,11 +560,10 @@ export class InteractiveMakeupSystem {
             this.drawingLayer.destroy();
             this.drawingLayer = null;
         }
-        if (this.activeMakeupImage && !wasAppliedAndKept) { // Only destroy if not kept by a button
+        if (this.activeMakeupImage && !wasAppliedAndKept) { 
             this.activeMakeupImage.destroy();
         }
         if (wasAppliedAndKept && this.activeMakeupImage) {
-            // If applied and kept, just clear its mask so it's fully visible
             this.activeMakeupImage.clearMask();
         }
 
