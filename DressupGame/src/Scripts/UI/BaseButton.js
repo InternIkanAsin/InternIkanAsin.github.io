@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 export class BaseButton extends Phaser.GameObjects.Container {
     constructor(scene, x, y, elements = []) {
         super(scene, x, y, elements);

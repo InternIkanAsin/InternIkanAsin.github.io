@@ -1,6 +1,6 @@
 import AssetLoader from '../AssetLoader.js'; 
 import { layout } from '../ScreenOrientationUtils.js';
-
+import Phaser from 'phaser';
 class PreloaderScene extends Phaser.Scene {
     constructor() {
         super({ key: 'PreloaderScene' });
