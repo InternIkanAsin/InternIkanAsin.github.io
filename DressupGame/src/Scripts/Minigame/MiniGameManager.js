@@ -826,28 +826,8 @@ export class MiniGameManager {
             console.log("Poki SDK: Firing gameplayStop event.");
             poki.gameplayStop();
         }
-        let headerText;
-        if (this.scene.statTracker.getStatPoints() >= 6) {
-            headerText = 'Good Ending'
-            scoreTextColor = '#00ff00';
-            heartTexture = 'heartIcon2'
-        } else {
-            headerText = 'Bad Ending'
-            scoreTextColor = '#ff4d4d';
-            heartTexture = 'brokenHeartIcon'
-        }
+        
 
-        const endingHeader = this.scene.add.nineslice(
-            0, -220,
-            'endingHeader',
-            '',
-            160,
-            36,
-            31,
-            31,
-            31,
-            31
-        ).setDepth(151).setScale(3);
 
         const endingText = this.scene.add.text(0, -225, headerText, {
             fontSize: '62px',
