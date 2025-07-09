@@ -1,6 +1,3 @@
-//Preload loading asset
-import BootScene from './Loading Scene/BootScene.js';
-
 //Loading logic
 import PreloaderScene from './Loading Scene/PreloaderScene.js';
 
@@ -109,7 +106,12 @@ class Main extends Phaser.Scene {
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         this.state = GameState.MAKEUP;
-        this.startGameFlow();
+        const poki = this.plugins.get('poki');
+        poki.runWhenInitialized((poki) => {
+            poki.gameplayStart();
+            this.startGameFlow();
+        });
+
         //this.setUpMiniGame();
         //this.BachelorManager.setUpBachelorChoice();
     }
@@ -319,7 +321,7 @@ class Main extends Phaser.Scene {
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
         this.DressUpManager = new DressUpManager(this, this.AudioManager);
-        this.TutorialManager = new TutorialManager  (this);
+        this.TutorialManager = new TutorialManager(this);
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
         this.TweeningUtils = new TweenUtils(this);
@@ -378,7 +380,7 @@ const config = {
         width: LANDSCAPE_WIDTH,
         height: LANDSCAPE_HEIGHT,
     },
-   plugins: {
+    plugins: {
         global: [
             {
                 plugin: PokiPlugin,
@@ -391,12 +393,12 @@ const config = {
 
                     // Ini akan otomatis menampilkan iklan saat MainScene dimulai.
                     // Biarkan true untuk monetisasi yang lebih baik.
-                    autoCommercialBreak: true 
+                    autoCommercialBreak: true
                 }
             }
         ]
     },
-    scene: [BootScene, PreloaderScene, Main]
+    scene: [PreloaderScene, Main]
 };
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

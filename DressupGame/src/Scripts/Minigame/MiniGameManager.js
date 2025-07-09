@@ -142,7 +142,7 @@ export class MiniGameManager {
 
         scene.backToSelectionButton?.destroy();
         scene.removeAllButton?.destroy();
-        
+
         scene.finishButton?.destroy();
 
         scene.finishButton = null;
@@ -162,7 +162,7 @@ export class MiniGameManager {
 
         scene.backToSelectionButton = null;
         scene.removeAllButton = null;
-       
+
         scene.finishButton = null;
         scene.statPanelContainer = null;
         scene.sidePanel = null;
@@ -212,7 +212,7 @@ export class MiniGameManager {
         }
     }
     createConfirmationPanel() {
-        const { state, darkOverlay, finishButton,  removeAllButton, backToSelectionButton, scale } = this.scene;
+        const { state, darkOverlay, finishButton, removeAllButton, backToSelectionButton, scale } = this.scene;
         const centerX = scale.width / 2;
         const centerY = scale.height / 2;
 
@@ -498,7 +498,7 @@ export class MiniGameManager {
     }
 
     //Creates array to store outfit of all types
-    
+
 
     //Create grid display for outfit of specified type
     createOutfitStatsDisplay(outfitType, index) {
@@ -885,7 +885,7 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame(true);nextLevelButton.disableInteractive(); restartButton.disableInteractive(); },
+            callback: () => { this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive(); },
             buttonText: 'Restart',
             textSize: 60,
             textYPosition: 0,
@@ -903,6 +903,10 @@ export class MiniGameManager {
     }
 
     restartGame(isRestarted = false) {
+        if (poki) {
+            console.log("Poki SDK: Firing gameplayStop event.");
+            poki.commercialBreak();
+        }
         if (isRestarted) this.scene.registry.set('gameRestarted', true);
         this.scene.AudioManager.stopMusic('cutsceneMusic');
 

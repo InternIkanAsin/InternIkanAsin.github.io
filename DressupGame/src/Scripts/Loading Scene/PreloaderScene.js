@@ -4,26 +4,24 @@ import { layout } from '../ScreenOrientationUtils.js';
 class PreloaderScene extends Phaser.Scene {
     constructor() {
         super({ key: 'PreloaderScene' });
-        
+
     }
-    
+
 
     preload() {
-        
-
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
         const barLayout = { barWidth: 1300, barHeight: 60, barY: height * 0.85 };
         const barX = width / 2 - barLayout.barWidth / 2;
-        
+
         const progressBox = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
         progressBox.fillRect(barX, barLayout.barY, barLayout.barWidth, barLayout.barHeight);
-        
+
         const progressBar = this.add.graphics();
         const percentText = this.make.text({ x: width / 2, y: barLayout.barY + barLayout.barHeight / 2, text: '0%', style: { font: '18px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
         const assetText = this.make.text({ x: width / 2, y: barLayout.barY + barLayout.barHeight + 30, text: '', style: { font: '18px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
-        
+
         // --- 2. PASANG SEMUA EVENT LISTENER UNTUK LOADER ---
         this.load.on('progress', (value) => {
             progressBar.clear();
@@ -46,7 +44,7 @@ class PreloaderScene extends Phaser.Scene {
             loadingText.destroy();
             this.scene.start('MainScene', { bachelorName: this.chosenBachelorName });
         });
-        
+
         // Buat teks "Loading..." setelah listener dipasang
         const loadingText = this.make.text({ x: width / 2, y: barLayout.barY - 30, text: 'Loading...', style: { font: '20px monospace', fill: '#ffffff' } }).setOrigin(0.5, 0.5);
 
@@ -115,32 +113,32 @@ class PreloaderScene extends Phaser.Scene {
         });
 
         this.load.on('filecomplete-image-logo_cisini', (key) => {
-             this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, key).setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth);
+            this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, key).setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth);
         });
 
         this.load.on('filecomplete-image-' + chosenBachelorAssets.expressionKey, () => {
-             const bachelorX = width * 0.30;
-             const bachelorY = height * 0.85;
-             const bachelorFullbody = this.add.image(0, 0, chosenBachelorAssets.fullbodyKey);
-             const bachelorExpression = this.add.image(0, 0, chosenBachelorAssets.expressionKey);
-             bachelorFullbody.setOrigin(0.5, 1);
-             bachelorExpression.setOrigin(0.5, 0.3);
-             const expressionOffsetY = -bachelorFullbody.displayHeight * 0.7;
-             const expressionOffsetX = chosenBachelorAssets.expressionKey === 'anggaExpression_neutral_preload' ? -5 : 0;
-             bachelorExpression.setPosition(bachelorFullbody.x + expressionOffsetX, bachelorFullbody.y + expressionOffsetY);
-             this.add.container(bachelorX, bachelorY, [bachelorFullbody, bachelorExpression]).setScale(1.5);
+            const bachelorX = width * 0.30;
+            const bachelorY = height * 0.85;
+            const bachelorFullbody = this.add.image(0, 0, chosenBachelorAssets.fullbodyKey);
+            const bachelorExpression = this.add.image(0, 0, chosenBachelorAssets.expressionKey);
+            bachelorFullbody.setOrigin(0.5, 1);
+            bachelorExpression.setOrigin(0.5, 0.3);
+            const expressionOffsetY = -bachelorFullbody.displayHeight * 0.7;
+            const expressionOffsetX = chosenBachelorAssets.expressionKey === 'anggaExpression_neutral_preload' ? -5 : 0;
+            bachelorExpression.setPosition(bachelorFullbody.x + expressionOffsetX, bachelorFullbody.y + expressionOffsetY);
+            this.add.container(bachelorX, bachelorY, [bachelorFullbody, bachelorExpression]).setScale(1.5);
         });
 
 
         // Muat sisa aset game
         AssetLoader.loadGame(this);
         AssetLoader.loadMiniGame(this)
-        
+
     }
 
     create() {
     }
-    
+
 }
 
 
