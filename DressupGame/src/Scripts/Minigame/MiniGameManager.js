@@ -828,16 +828,6 @@ export class MiniGameManager {
             console.log("Poki SDK: Firing gameplayStop event.");
             poki.gameplayStop();
         }
-        
-
-
-        const endingText = this.scene.add.text(0, -225, headerText, {
-            fontSize: '62px',
-            fill: '#ffffff',
-            fontFamily: 'pixelFont',
-            wordWrap: { width: this.scene.scale.width - 120 }
-        }).setDepth(151).setOrigin(0.5, 0.5);
-
 
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.nextLevelButton.x,
@@ -885,6 +875,7 @@ export class MiniGameManager {
     }
 
     restartGame(isRestarted = false) {
+        const poki = this.scene.plugins.get('poki');
         if (poki) {
             console.log("Poki SDK: Firing gameplayStop event.");
             poki.commercialBreak();
