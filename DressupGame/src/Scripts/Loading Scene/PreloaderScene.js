@@ -1,4 +1,4 @@
-import AssetLoader from '../AssetLoader.js'; // Assuming your AssetLoader has the main loadAllAssets function
+import AssetLoader from '../AssetLoader.js'; 
 import { layout } from '../ScreenOrientationUtils.js';
 
 class PreloaderScene extends Phaser.Scene {
@@ -22,7 +22,7 @@ class PreloaderScene extends Phaser.Scene {
         const percentText = this.make.text({ x: width / 2, y: barLayout.barY + barLayout.barHeight / 2, text: '0%', style: { font: '18px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
         const assetText = this.make.text({ x: width / 2, y: barLayout.barY + barLayout.barHeight + 30, text: '', style: { font: '18px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
 
-        // --- 2. PASANG SEMUA EVENT LISTENER UNTUK LOADER ---
+       
         this.load.on('progress', (value) => {
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
@@ -36,7 +36,6 @@ class PreloaderScene extends Phaser.Scene {
 
         this.load.on('complete', () => {
             console.log('PreloaderScene: All assets loaded.');
-            // Hancurkan elemen loading bar saat selesai
             progressBar.destroy();
             progressBox.destroy();
             percentText.destroy();
@@ -45,11 +44,10 @@ class PreloaderScene extends Phaser.Scene {
             this.scene.start('MainScene', { bachelorName: this.chosenBachelorName });
         });
 
-        // Buat teks "Loading..." setelah listener dipasang
+        
         const loadingText = this.make.text({ x: width / 2, y: barLayout.barY - 30, text: 'Loading...', style: { font: '20px monospace', fill: '#ffffff' } }).setOrigin(0.5, 0.5);
 
-        // --- 3. ANTRIKAN SEMUA ASET UNTUK DIMUAT ---
-        // (Logika pemilihan bachelor Anda yang sudah benar)
+        
         const bachelorPreloadData = {
             Azril: {
                 fullbodyKey: 'azrilFullbody',
@@ -95,13 +93,13 @@ class PreloaderScene extends Phaser.Scene {
         this.chosenBachelorName = bachelorNames[currentIndex];
         const chosenBachelorAssets = bachelorPreloadData[this.chosenBachelorName];
 
-        // Muat aset untuk visual preloader. Gambar-gambar ini akan muncul saat loading berjalan.
+       
         this.load.image('minigame_background_preload', 'Asset/Background/Cisini_UI_DressUp_Background.png');
         this.load.image('logo_cisini', "Asset/UI/Logo Cisni.png");
         this.load.image(chosenBachelorAssets.fullbodyKey, chosenBachelorAssets.fullbodyPath);
         this.load.image(chosenBachelorAssets.expressionKey, chosenBachelorAssets.expressionPath);
 
-        // Tambahkan event 'filecomplete' untuk membuat gambar begitu ia selesai dimuat
+       
         this.load.on('filecomplete-image-minigame_background_preload', (key) => {
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             if (isMobile) {
@@ -130,7 +128,7 @@ class PreloaderScene extends Phaser.Scene {
         });
 
 
-        // Muat sisa aset game
+        
         AssetLoader.loadGame(this);
         AssetLoader.loadMiniGame(this)
 
