@@ -821,11 +821,11 @@ export class MiniGameManager {
     }
 
     createEndingPanel() {
-        const centerX = this.scene.scale.width / 2;
-        const centerY = this.scene.scale.height / 2;
-
-        let scoreTextColor;
-        let heartTexture;
+        const poki = this.scene.plugins.get('poki');
+        if (poki) {
+            console.log("Poki SDK: Firing gameplayStop event.");
+            poki.gameplayStop();
+        }
         let headerText;
         if (this.scene.statTracker.getStatPoints() >= 6) {
             headerText = 'Good Ending'
