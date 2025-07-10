@@ -1,11 +1,12 @@
 import Phaser from 'phaser';
-
+import { SaveManager } from '../SaveManager.js';
 class BootScene extends Phaser.Scene {
     constructor() {
         super({ key: 'BootScene' });
     }
 
     preload() {
+        
         const bachelorPreloadData = {
             Azril: { fullbodyKey: 'azrilFullbody', expressionKey: 'AzrilNeutral', fullbodyPath: 'Asset/Character/ekspresi/Azril/Azril_portrait_casual.png', expressionPath: 'Asset/Character/ekspresi/Azril/Azril_expression_normal.png' },
             Angga: { fullbodyKey: 'anggaFullbody_preload', expressionKey: 'anggaExpression_neutral_preload', fullbodyPath: 'Asset/Character/ekspresi/angga/Angga_casual.png', expressionPath: 'Asset/Character/ekspresi/angga/Angga_netral.png ' },
@@ -16,25 +17,33 @@ class BootScene extends Phaser.Scene {
         const bachelorNames = Object.keys(bachelorPreloadData);
 
         
-        let currentIndex = 0;
-        const gameRestarted = this.registry.get('gameRestarted');
-        if (!gameRestarted) {
-            currentIndex = Math.floor(Math.random() * bachelorNames.length);
-            this.registry.set('currentBachelorIndex', currentIndex);
+        
+
+        // 1. Coba muat data simpanan
+        const savedData = SaveManager.loadGame();
+        let chosenBachelorName;
+
+        if (savedData && savedData.bachelor?.chosenName) {
+            // 2. Jika ada, gunakan nama dari data simpanan
+            chosenBachelorName = savedData.bachelor.chosenName;
+            console.log(`[BootScene] Found saved bachelor: ${chosenBachelorName}`);
         } else {
-            this.registry.set('gameRestarted', false);
-            currentIndex = this.registry.get('currentBachelorIndex');
+            // 3. Jika tidak, jalankan logika acak
+            let currentIndex = Math.floor(Math.random() * bachelorNames.length);
+            this.registry.set('currentBachelorIndex', currentIndex);
+            chosenBachelorName = bachelorNames[currentIndex];
+            console.log(`[BootScene] No save file. Loading random bachelor: ${chosenBachelorName}`);
         }
         
-        const chosenBachelorName = bachelorNames[currentIndex];
+        // Dapatkan aset berdasarkan nama yang terpilih
         const chosenBachelorAssets = bachelorPreloadData[chosenBachelorName];
-
         
+        // Simpan semua data yang dibutuhkan untuk dikirim ke scene berikutnya
         this.preloaderData = {
             bachelorName: chosenBachelorName,
-            bachelorAssets: chosenBachelorAssets
+            bachelorAssets: chosenBachelorAssets,
+            savedData: savedData // Kirim juga seluruh data simpanan
         };
-
         
         this.load.image('minigame_background_preload', 'Asset/Background/Cisini_UI_DressUp_Background.png');
         this.load.image('logo_cisini', "Asset/UI/Logo Cisni.png");

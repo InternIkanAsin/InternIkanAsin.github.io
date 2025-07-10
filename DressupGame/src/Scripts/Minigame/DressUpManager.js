@@ -27,22 +27,42 @@ export class DressUpManager {
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);
 
-            // --- LOGIKA BARU YANG MENYELESAIKAN KEDUA BUG ---
+            
             const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
             const oldButtonInstance = currentSelectedEntry?.current;
 
-            // Bandingkan berdasarkan nama, karena instance objeknya berbeda
+            
             if (oldButtonInstance && oldButtonInstance.name === name) {
-                // 1. Tampilkan highlight pada tombol BARU
+                
                 button.highlightImage.setVisible(true);
 
-                // 2. "Pindahkan" referensi gambar dari tombol LAMA ke tombol BARU
+                
                 button.displayedOutfit = oldButtonInstance.displayedOutfit;
 
-                // 3. Sekarang aman untuk memperbarui state agar menunjuk ke tombol BARU
+                
                 currentSelectedEntry.current = button;
             }
-            // --- AKHIR LOGIKA BARU ---
+            
+            const currentSelectedOutfit = scene.OutfitButton.selectedOutfits[outfitType]?.current;
+            if (currentSelectedOutfit && currentSelectedOutfit.name === name) {
+                button.highlightImage.setVisible(true);
+                scene.OutfitButton.selectedOutfits[outfitType].current = button;
+
+                // Buat ulang visual outfit
+                console.log(`[Setup] Re-rendering visual for ${outfitType}: ${name}`);
+                const textureInfo = currentSelectedOutfit.textureAnime;
+                const manualOffset = layout.outfit.manualOffsets[textureInfo] || { x: 0, y: 0 };
+                const finalX = button.outfitX + manualOffset.x;
+                const finalY = button.outfitY + manualOffset.y;
+
+                const newOutfitImage = scene.add.image(finalX, finalY, textureInfo);
+                newOutfitImage.setDepth({ "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 }[outfitType] || 1);
+                newOutfitImage.setScale(1.2); // atau skala yang sesuai
+
+                // Simpan referensi visual baru
+                button.displayedOutfit = newOutfitImage;
+                scene.OutfitButton.selectedOutfits[outfitType].current.displayedOutfit = newOutfitImage;
+            }
 
             if (!scene.outfitButtons[outfitType]) {
                 scene.outfitButtons[outfitType] = [];

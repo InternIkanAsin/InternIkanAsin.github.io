@@ -454,6 +454,9 @@ export class InteractiveMakeupSystem {
                 this.scene.faceContainer.sort('depth');
             }
             console.log(`[InteractiveMakeup] ${typeFinalizing} applied.`);
+            if (this.scene.SaveManager) {
+                this.scene.SaveManager.saveGame(this.scene);
+            }
         } else {
             this.revertToPreviousState(typeFinalizing); // This will destroy imageThatWasColored if it's temporary
         }

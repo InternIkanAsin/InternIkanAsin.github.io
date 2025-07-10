@@ -21,6 +21,8 @@ import { UIManager } from './UI/UIManager.js'
 // Mini Game Manager Class
 import { MiniGameManager } from './Minigame/MiniGameManager.js'
 
+import { SaveManager } from './SaveManager.js';
+
 // Mini Game Manager Class
 import { TutorialManager } from './Minigame/TutorialManager.js'
 
@@ -31,7 +33,7 @@ import { DressUpManager } from './Minigame/DressUpManager.js'
 import { MakeUpManager } from './Minigame/MakeUpManager.js'
 
 // OutfitButton Class
-import { OutfitButton } from './UI/UIButton.js'
+import { OutfitButton, MakeUpButton } from './UI/UIButton.js'
 
 //DialogueManager Class
 import { DialogueManager } from './Dialogue System/DialogueManager.js'
@@ -107,6 +109,22 @@ class Main extends Phaser.Scene {
         this.areHairLoaded = false;
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
+        const savedData = this.SaveManager.loadGame();
+        if (savedData) {
+            // Pulihkan data sederhana
+            this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
+            this.makeUpFinished = savedData.progress?.makeUpFinished || false;
+            this.dressUpFinished = savedData.progress?.dressUpFinished || false;
+        
+            // --- UBAH DUA BARIS INI ---
+            // Akses properti statis langsung melalui nama KELAS, bukan 'this'
+            OutfitButton.selectedOutfits = savedData.playerAppearance?.outfits || {};
+            MakeUpButton.selectedMakeUp = savedData.playerAppearance?.makeup || {};
+            // -------------------------
+            
+            console.log("Restored state from save file.");
+        }
+    
         this.state = GameState.MAKEUP;
         const poki = this.plugins.get('poki');
         poki.runWhenInitialized((poki) => {
@@ -319,6 +337,7 @@ class Main extends Phaser.Scene {
         this.statTracker = new statTracker(this);
         this.AudioManager = new AudioManager(this);
         this.OutfitButton = OutfitButton;
+        this.SaveManager = SaveManager;
         this.AudioManager.initializeSounds();
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);

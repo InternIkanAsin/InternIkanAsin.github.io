@@ -3,6 +3,7 @@ import { BaseButton } from "./BaseButton.js";
 import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
+
 export default class UIButton extends BaseButton {
     constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, textureYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
 
@@ -671,6 +672,10 @@ export class OutfitButton extends BaseButton {
         };
 
         this.highlightImage.setVisible(true);
+
+        if (scene.SaveManager) {
+            scene.SaveManager.saveGame(scene);
+        }
     }
 
 }
@@ -1053,6 +1058,10 @@ export class MakeUpButton extends BaseButton {
 
             MakeUpButton.selectedMakeUp[makeupType] = { previous: currentGlobalEquippedInfo, current: this };
             if (this.highlightImage) this.highlightImage.setVisible(true);
+
+            if (scene.SaveManager) {
+                scene.SaveManager.saveGame(scene);
+            }
         }
     }
 }
