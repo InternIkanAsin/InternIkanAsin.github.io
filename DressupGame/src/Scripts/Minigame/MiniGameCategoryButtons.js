@@ -100,6 +100,26 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
     return buttons;
 }
 
+export function disableCategoryButtonsInteraction(scene) {
+    scene.makeUpCategoryButtons?.forEach(button => {
+        if (button?.scene?.sys) button.disableInteractive();
+    });
+
+    scene.dressUpCategoryButtons?.forEach(button => {
+        if (button?.scene?.sys) button.disableInteractive();
+    });
+}
+
+export function enableCategoryButtonsInteraction(scene) {
+    scene.makeUpCategoryButtons?.forEach(button => {
+        if (button?.scene?.sys) button.setInteractive();
+    });
+
+    scene.dressUpCategoryButtons?.forEach(button => {
+        if (button?.scene?.sys) button.setInteractive();
+    });
+}
+
 
 export function createDressUpCategoryButtons(scene, audioManager) {
     const buttons = [
