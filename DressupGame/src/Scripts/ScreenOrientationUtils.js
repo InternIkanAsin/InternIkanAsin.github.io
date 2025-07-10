@@ -515,7 +515,7 @@ const PORTRAIT = {
     removeAllButton: {
         x: 70,
         y: 250,
-        buttonScale: 0.8 * 2, // 
+        buttonScale: 0.8 * 2, 
         iconScale: 0.7 * 2
     },
 
@@ -604,7 +604,6 @@ const PORTRAIT = {
         buttonScale: 0.5 * 2,
     },
 
-    //-------
     applyMakeUpPanel: {
         x: 0,
         y: 0,
