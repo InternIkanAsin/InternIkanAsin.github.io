@@ -384,15 +384,12 @@ const config = {
         global: [
             {
                 plugin: PokiPlugin,
-                key: 'poki',      // Kunci untuk mengakses plugin nanti
-                start: true,      // Harus true agar plugin dimuat
+                key: 'poki',      
+                start: true,      
                 data: {
-                    // Gunakan key scene Anda yang sebenarnya
                     loadingSceneKey: 'PreloaderScene',
                     gameplaySceneKey: 'MainScene',
-
-                    // Ini akan otomatis menampilkan iklan saat MainScene dimulai.
-                    // Biarkan true untuk monetisasi yang lebih baik.
+                    
                     autoCommercialBreak: true
                 }
             }
