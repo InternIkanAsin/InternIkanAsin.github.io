@@ -1,6 +1,8 @@
 //Loading logic
 import PreloaderScene from './Loading Scene/PreloaderScene.js';
 
+import BootScene from './Loading Scene/BootScene.js';
+
 import UIButton from './UI/UIButton.js';
 
 //Asset Loader Class
@@ -395,7 +397,7 @@ const config = {
             }
         ]
     },
-    scene: [PreloaderScene, Main]
+    scene: [BootScene, PreloaderScene, Main]
 };
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
