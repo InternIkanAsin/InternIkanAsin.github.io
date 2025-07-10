@@ -1,0 +1,195 @@
+{
+	"frames": {
+		"kaoskaki_05.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_10.png": {
+			"frame": {
+				"x": 263,
+				"y": 1,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_17.png": {
+			"frame": {
+				"x": 525,
+				"y": 1,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_18.png": {
+			"frame": {
+				"x": 787,
+				"y": 1,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_22.png": {
+			"frame": {
+				"x": 1,
+				"y": 529,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_28.png": {
+			"frame": {
+				"x": 263,
+				"y": 529,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_29.png": {
+			"frame": {
+				"x": 525,
+				"y": 529,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_in.png": {
+			"frame": {
+				"x": 787,
+				"y": 529,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		},
+		"kaoskaki_short.png": {
+			"frame": {
+				"x": 1049,
+				"y": 1,
+				"w": 260,
+				"h": 526
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 260,
+				"h": 526
+			},
+			"sourceSize": {
+				"w": 260,
+				"h": 526
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1310,
+			"h": 1056
+		},
+		"scale": "1"
+	}
+}

@@ -1,0 +1,135 @@
+{
+	"frames": {
+		"dress reward prereg.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"kebaya1.png": {
+			"frame": {
+				"x": 947,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"kebaya2.png": {
+			"frame": {
+				"x": 1893,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"kebaya3.png": {
+			"frame": {
+				"x": 2839,
+				"y": 1,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"skate.png": {
+			"frame": {
+				"x": 1,
+				"y": 1503,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		},
+		"terusan biru rample.png": {
+			"frame": {
+				"x": 947,
+				"y": 1503,
+				"w": 944,
+				"h": 1500
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 944,
+				"h": 1500
+			},
+			"sourceSize": {
+				"w": 944,
+				"h": 1500
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 3784,
+			"h": 3004
+		},
+		"scale": "1"
+	}
+}

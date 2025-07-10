@@ -1,0 +1,415 @@
+{
+	"frames": {
+		"sepatu_07.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_08.png": {
+			"frame": {
+				"x": 317,
+				"y": 1,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_12.png": {
+			"frame": {
+				"x": 633,
+				"y": 1,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_14.png": {
+			"frame": {
+				"x": 949,
+				"y": 1,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_16.png": {
+			"frame": {
+				"x": 1,
+				"y": 305,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_18.png": {
+			"frame": {
+				"x": 317,
+				"y": 305,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_21.png": {
+			"frame": {
+				"x": 633,
+				"y": 305,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_26.png": {
+			"frame": {
+				"x": 949,
+				"y": 305,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_28.png": {
+			"frame": {
+				"x": 1,
+				"y": 609,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_29.png": {
+			"frame": {
+				"x": 317,
+				"y": 609,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_30.png": {
+			"frame": {
+				"x": 633,
+				"y": 609,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_34.png": {
+			"frame": {
+				"x": 949,
+				"y": 609,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_36.png": {
+			"frame": {
+				"x": 1,
+				"y": 913,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_barista.png": {
+			"frame": {
+				"x": 317,
+				"y": 913,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_dance.png": {
+			"frame": {
+				"x": 633,
+				"y": 913,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_hangout.png": {
+			"frame": {
+				"x": 949,
+				"y": 913,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_prom.png": {
+			"frame": {
+				"x": 1265,
+				"y": 1,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_school.png": {
+			"frame": {
+				"x": 1265,
+				"y": 305,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_sport.png": {
+			"frame": {
+				"x": 1265,
+				"y": 609,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		},
+		"sepatu_summer.png": {
+			"frame": {
+				"x": 1265,
+				"y": 913,
+				"w": 314,
+				"h": 302
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 314,
+				"h": 302
+			},
+			"sourceSize": {
+				"w": 314,
+				"h": 302
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1580,
+			"h": 1216
+		},
+		"scale": "1"
+	}
+}

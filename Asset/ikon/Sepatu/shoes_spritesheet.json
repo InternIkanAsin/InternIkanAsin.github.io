@@ -1,0 +1,275 @@
+{
+	"frames": {
+		"sepatu_07.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_08.png": {
+			"frame": {
+				"x": 131,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_12.png": {
+			"frame": {
+				"x": 261,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_14.png": {
+			"frame": {
+				"x": 1,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_16.png": {
+			"frame": {
+				"x": 131,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_18.png": {
+			"frame": {
+				"x": 261,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_21.png": {
+			"frame": {
+				"x": 1,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_26.png": {
+			"frame": {
+				"x": 131,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_28.png": {
+			"frame": {
+				"x": 261,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_29.png": {
+			"frame": {
+				"x": 391,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_30.png": {
+			"frame": {
+				"x": 391,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_34.png": {
+			"frame": {
+				"x": 391,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"sepatu_36.png": {
+			"frame": {
+				"x": 1,
+				"y": 391,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 520,
+			"h": 520
+		},
+		"scale": "1"
+	}
+}

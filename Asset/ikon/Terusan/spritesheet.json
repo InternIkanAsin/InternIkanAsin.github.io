@@ -1,0 +1,375 @@
+{
+	"frames": {
+		"Kebaya_1.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"Kebaya_2.png": {
+			"frame": {
+				"x": 131,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"Kebaya_3.png": {
+			"frame": {
+				"x": 261,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"skate.png": {
+			"frame": {
+				"x": 391,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan biru rample.png": {
+			"frame": {
+				"x": 1,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan05.png": {
+			"frame": {
+				"x": 131,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan07.png": {
+			"frame": {
+				"x": 261,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan09.png": {
+			"frame": {
+				"x": 391,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan10.png": {
+			"frame": {
+				"x": 1,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan13.png": {
+			"frame": {
+				"x": 131,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan14.png": {
+			"frame": {
+				"x": 261,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan17.png": {
+			"frame": {
+				"x": 391,
+				"y": 261,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan18.png": {
+			"frame": {
+				"x": 1,
+				"y": 391,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan_Valentine.png": {
+			"frame": {
+				"x": 131,
+				"y": 391,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan_dansa.png": {
+			"frame": {
+				"x": 261,
+				"y": 391,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan_gamis lebaran.png": {
+			"frame": {
+				"x": 391,
+				"y": 391,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan_prom.png": {
+			"frame": {
+				"x": 521,
+				"y": 1,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		},
+		"terusan_summer.png": {
+			"frame": {
+				"x": 521,
+				"y": 131,
+				"w": 128,
+				"h": 128
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 128
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 128
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 650,
+			"h": 520
+		},
+		"scale": "1"
+	}
+}
