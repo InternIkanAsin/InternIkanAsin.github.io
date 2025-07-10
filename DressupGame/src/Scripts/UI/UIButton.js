@@ -69,12 +69,10 @@ export default class UIButton extends BaseButton {
 
     disableInteractive() {
         this.button.disableInteractive();
-        this.button.setAlpha(0.7);
     }
 
     setInteractive() {
         this.button.setInteractive();
-        this.button.setAlpha(1);
     }
 }
 
@@ -94,33 +92,33 @@ export class ItemPanelButton extends BaseButton {
             color: '#000000'
         }).setOrigin(0.5, 0.5);
 
-        
+
         super(scene, x, y, [buttonBg, iconImg, textLbl]);
 
-        
+
         this.button = buttonBg;
         this.icon = iconImg;
         this.text = textLbl;
         this.onClickCallback = callback;
         this.AudioManager = AudioManager;
 
-        
+
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
         const tapThreshold = 10;
 
-        this.addHoverEffect(buttonBg, AudioManager); 
+        this.addHoverEffect(buttonBg, AudioManager);
 
-        
+
         buttonBg.on("pointerdown", (pointer) => {
-            buttonBg.setAlpha(0.5); 
+            buttonBg.setAlpha(0.5);
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
         });
 
         buttonBg.on("pointerup", (pointer) => {
-            buttonBg.setAlpha(1); 
+            buttonBg.setAlpha(1);
             if (!buttonBg.input || !buttonBg.active) {
                 this.isDragging = false;
                 return;
@@ -133,7 +131,7 @@ export class ItemPanelButton extends BaseButton {
                 if (this.onClickCallback) {
                     this.onClickCallback();
                 }
-                this.AudioManager?.playSFX?.("buttonClick"); 
+                this.AudioManager?.playSFX?.("buttonClick");
             }
             this.isDragging = false;
         });
@@ -156,7 +154,7 @@ export class ItemPanelButton extends BaseButton {
         });
     }
 
-   
+
     showHighlight() {
         if (this.highlightImage) this.highlightImage.setVisible(true);
     }
@@ -227,27 +225,27 @@ export class CategoryButton extends BaseButton {
         const button = scene.add.image(0, 0, textureButton)
             .setInteractive()
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.8);
-        const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false); 
+        const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
         const icon = scene.add.image(0, 0, textureIcon)
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6);
 
         super(scene, x, y, [button, buttonHighlighted, icon]);
 
-        
+
         this.onClickCallback = onClick;
         this.AudioManager = AudioManager;
+        this.button = button;
 
-        
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
-        const tapThreshold = 10; 
+        const tapThreshold = 10;
 
-        
+
         this.addHoverEffect(button, AudioManager);
 
 
         button.on("pointerdown", (pointer) => {
-            button.setAlpha(0.5); 
+            button.setAlpha(0.5);
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
@@ -257,7 +255,7 @@ export class CategoryButton extends BaseButton {
         button.on("pointerup", (pointer) => {
             button.setAlpha(1);
 
-            
+
             if (!button.input || !button.active) {
                 this.isDragging = false;
                 return;
@@ -267,20 +265,20 @@ export class CategoryButton extends BaseButton {
             const dy = Math.abs(pointer.y - this.pointerDownPos.y);
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            
-             if (distance <= tapThreshold && !this.isDragging && !scene.isCategoryLocked) {
-                
-               
+
+            if (distance <= tapThreshold && !this.isDragging && !scene.isCategoryLocked) {
+
+
                 scene.isCategoryLocked = true;
                 console.log("Category buttons LOCKED.");
 
-                
+
                 if (this.onClickCallback) {
                     this.onClickCallback();
                     this.AudioManager?.playSFX?.("buttonClick");
                 }
-                
-                
+
+
                 scene.time.delayedCall(300, () => {
                     scene.isCategoryLocked = false;
                     console.log("Category buttons UNLOCKED.");
@@ -289,7 +287,7 @@ export class CategoryButton extends BaseButton {
             this.isDragging = false;
         });
 
-        
+
         button.on("pointerout", () => {
             if (button.input && button.input.isDown) {
                 button.setAlpha(1);
@@ -297,7 +295,7 @@ export class CategoryButton extends BaseButton {
             this.isDragging = false;
         });
 
-        
+
         button.on("pointermove", (pointer) => {
             if (button.input && button.input.isDown) {
                 const dx = Math.abs(pointer.x - this.pointerDownPos.x);
@@ -323,24 +321,24 @@ export class CategoryButton extends BaseButton {
 
 export class LepasButton extends BaseButton {
     constructor(scene, AudioManager,
-        panelContext, 
-        activeType,   
-        itemButtonsForType 
+        panelContext,
+        activeType,
+        itemButtonsForType
     ) {
 
-       
-        const textureBgKey = 'button1'; 
+
+        const textureBgKey = 'button1';
         const displayWidth = 150;
         const displayHeight = 200;
 
-        const iconTextureKey = 'xMark'; 
-        const iconYOffset = -15;        
-        const iconScale = 0.85;         
+        const iconTextureKey = 'xMark';
+        const iconYOffset = -15;
+        const iconScale = 0.85;
 
-        const labelText = 'Remove';    
+        const labelText = 'Remove';
         const labelFontSize = '22px';
-        const labelYOffset = 70;        
-        
+        const labelYOffset = 70;
+
         const bgImage = scene.add.image(0, 0, textureBgKey)
             .setDisplaySize(displayWidth, displayHeight)
             .setInteractive();
@@ -351,17 +349,17 @@ export class LepasButton extends BaseButton {
             color: '#000000'
         }).setOrigin(0.5);
 
-        super(scene, 0, 0, [bgImage, iconImg, textLbl]); 
+        super(scene, 0, 0, [bgImage, iconImg, textLbl]);
 
-        this.buttonElement = bgImage; 
+        this.buttonElement = bgImage;
         this.AudioManager = AudioManager;
 
-        
+
         let pointerDownPos = { x: 0, y: 0 };
         let isDragging = false;
         const tapThreshold = 10;
 
-        this.addHoverEffect(bgImage, AudioManager); 
+        this.addHoverEffect(bgImage, AudioManager);
 
         bgImage.on("pointerdown", (pointer) => {
             bgImage.setAlpha(0.5);
@@ -378,18 +376,18 @@ export class LepasButton extends BaseButton {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance <= tapThreshold && !isDragging) {
-                
+
                 console.log(`[LepasButton] Clicked for Panel: ${panelContext}, Type: ${activeType}`);
                 this.AudioManager?.playSFX?.("buttonClick");
 
                 if (panelContext === 'Makeup') {
                     if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === activeType) {
-                        scene.interactiveMakeupSystem.stopColoringSession(activeType, true); 
+                        scene.interactiveMakeupSystem.stopColoringSession(activeType, true);
                     }
 
                     const currentEntry = MakeUpButton.selectedMakeUp[activeType];
                     const currentEquipped = currentEntry?.current;
-                    let helperButton = itemButtonsForType?.[0]; 
+                    let helperButton = itemButtonsForType?.[0];
 
                     if (!helperButton && scene.makeUpButtons) { // Fallback
                         const flatButtons = Object.values(scene.makeUpButtons).flat();
@@ -417,7 +415,7 @@ export class LepasButton extends BaseButton {
 
                 } else if (panelContext === 'Outfit') {
                     const currentEntry = OutfitButton.selectedOutfits[activeType];
-                    const equippedButtonInstance = currentEntry?.current; 
+                    const equippedButtonInstance = currentEntry?.current;
 
                     if (equippedButtonInstance && equippedButtonInstance instanceof OutfitButton) {
                         if (equippedButtonInstance.displayedOutfit) {
@@ -428,7 +426,7 @@ export class LepasButton extends BaseButton {
                         if (equippedButtonInstance.highlightImage) {
                             equippedButtonInstance.highlightImage.setVisible(false);
                         }
-                        
+
                         if (activeType === "Dress") {
                             OutfitButton.clearHighlightsForType(scene, "Shirt");
                             OutfitButton.clearHighlightsForType(scene, "Lower");
@@ -437,7 +435,7 @@ export class LepasButton extends BaseButton {
                         console.log(`[LepasButton] No ${activeType} item currently equipped to remove.`);
                     }
                 }
-                
+
             }
             isDragging = false;
         });
@@ -473,39 +471,39 @@ export class OutfitButton extends BaseButton {
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
 
         this.setDepth(12);
-        this.button = buttonBg; 
-        this.icon = iconImg;    
+        this.button = buttonBg;
+        this.icon = iconImg;
         this.AudioManager = AudioManager;
         this.name = name;
         this.outfitType = outfitType;
-        this.outfitX = outfitX;         
-        this.outfitY = outfitY;         
+        this.outfitX = outfitX;
+        this.outfitY = outfitY;
         this.textureAnime = textureAnime;
-        this.displayedOutfit = null;    
-        this.offsetX = 0;               
+        this.displayedOutfit = null;
+        this.offsetX = 0;
         this.offsetY = 0;
-        this.highlightImage = highlightImg;           
+        this.highlightImage = highlightImg;
 
-        
+
         const outfitCustomSizes = layout.outfit.customSizes;
         const outfitManualOffsets = layout.outfit.manualOffsets;
 
         const baseManualOffset = outfitManualOffsets[this.name] || { x: 0, y: 0 };
-        this.baseWorldOutfitX = outfitX + baseManualOffset.x; 
-        this.baseWorldOutfitY = outfitY + baseManualOffset.y; 
+        this.baseWorldOutfitX = outfitX + baseManualOffset.x;
+        this.baseWorldOutfitY = outfitY + baseManualOffset.y;
         this.usesCustomSize = !!outfitCustomSizes[this.name];
         if (this.usesCustomSize) {
             const custom = outfitCustomSizes[this.name];
             this.dressUpViewDisplayWidth = custom.width;
             this.dressUpViewDisplayHeight = custom.height;
-            this.baseScaleXAfterCustomSize = 1; 
+            this.baseScaleXAfterCustomSize = 1;
             this.baseScaleYAfterCustomSize = 1;
         } else if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
-            this.dressUpViewScale = 0.6; 
+            this.dressUpViewScale = 0.6;
         } else {
-            this.dressUpViewScale = 1.2; 
+            this.dressUpViewScale = 1.2;
         }
-        this.offsetXInDressUpView = 0; 
+        this.offsetXInDressUpView = 0;
         this.offsetYInDressUpView = 0;
 
         // --- Tap vs. Drag listeners (from your "before changes" version) ---
@@ -570,11 +568,11 @@ export class OutfitButton extends BaseButton {
     }
 
     static createStatContainer(scene, statValue, columns = 3, spacing = 20) {
-        
+
         const heartContainer = scene.add.container(0, 35);
         const numHeartsAbs = Math.abs(statValue);
         const rows = Math.ceil(numHeartsAbs / columns);
-        const statColor = statValue >= 0 ? 0xffd700 : 0x808080; 
+        const statColor = statValue >= 0 ? 0xffd700 : 0x808080;
         const numHeartsToShow = Math.min(numHeartsAbs, 9);
         const itemsInLastRow = numHeartsToShow % columns;
         const columnsInLastRow = (itemsInLastRow === 0 && numHeartsToShow > 0) ? columns : itemsInLastRow;
@@ -606,7 +604,7 @@ export class OutfitButton extends BaseButton {
         const unequip = (type) => {
             const equippedImage = OutfitButton.selectedOutfits[type];
             const entry = OutfitButton.selectedOutfits[type];
-           
+
             const equippedButton = entry?.current;
             if (equippedButton && equippedButton.displayedOutfit) {
                 equippedButton.displayedOutfit.destroy();
@@ -616,10 +614,10 @@ export class OutfitButton extends BaseButton {
 
         };
 
-       
+
         OutfitButton.clearAllOutfitHighlights(scene);
 
-        
+
         if (outfitType === "Dress") {
             unequip("Shirt");
             unequip("Lower");
@@ -628,16 +626,16 @@ export class OutfitButton extends BaseButton {
             unequip("Dress");
         }
 
-        
+
         if (currentEntry && currentEntry.current === this) {
             unequip(outfitType);
             return;
         }
 
-        
+
         unequip(outfitType);
 
-        
+
         const outfitManualOffsets = layout.outfit.manualOffsets;
         const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
         const finalX = this.outfitX + manualOffset.x;
@@ -666,7 +664,7 @@ export class OutfitButton extends BaseButton {
             newOutfitImage.setData('baseScaleY', this.dressUpViewScale);
         }
 
-        
+
         OutfitButton.selectedOutfits[outfitType] = {
             current: this,
             previous: currentEntry?.current || currentEntry?.previous || null
@@ -684,46 +682,46 @@ export class MakeUpButton extends BaseButton {
         "Eyebrows": 2.4, "Eyelashes": 2.5, "Lips": 2.6, "Sticker": 2.7
     };
 
-    constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager) { 
+    constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager) {
 
-       
+
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.makeUpButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false)
-            .setDepth(-1)    
+            .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
-       
 
-        
+
+
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
-        
+
         this.setDepth(12);
-        
-        this.button = buttonBg; 
-        this.highlightImage = highlightImg; 
+
+        this.button = buttonBg;
+        this.highlightImage = highlightImg;
         this.name = name;
         this.makeupType = makeupType;
         this.textureAnime = textureAnime;
         this.AudioManager = AudioManager;
-        this.displayedMakeUp = null; 
+        this.displayedMakeUp = null;
 
-        
+
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
         const tapThreshold = 10;
 
-        
+
         buttonBg.on("pointerdown", (pointer) => {
-            buttonBg.setAlpha(0.5); 
+            buttonBg.setAlpha(0.5);
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
-            
+
         });
 
         buttonBg.on("pointerup", (pointer) => {
-            buttonBg.setAlpha(1); 
+            buttonBg.setAlpha(1);
             if (!buttonBg.input || !buttonBg.active) {
                 this.isDragging = false;
                 return;
@@ -733,15 +731,15 @@ export class MakeUpButton extends BaseButton {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance <= tapThreshold && !this.isDragging) {
-                this.toggleMakeUp(); 
-                this.AudioManager?.playSFX?.("buttonClick"); 
+                this.toggleMakeUp();
+                this.AudioManager?.playSFX?.("buttonClick");
             }
             this.isDragging = false;
         });
 
         buttonBg.on("pointerout", () => {
             if (buttonBg.input && buttonBg.input.isDown) {
-                buttonBg.setAlpha(1); 
+                buttonBg.setAlpha(1);
             }
             this.isDragging = false;
         });
@@ -765,7 +763,7 @@ export class MakeUpButton extends BaseButton {
         if (this.button) this.button.setInteractive();
     }
 
-    
+
     static clearMakeupHighlightsForType(scene, makeupType) {
         if (scene.makeUpButtons && scene.makeUpButtons[makeupType]) {
             scene.makeUpButtons[makeupType].forEach(btn => {
@@ -896,11 +894,11 @@ export class MakeUpButton extends BaseButton {
 
         const colorableTypes = ['Lips', 'Blush', 'Eyeshadow', 'Eyeliner'];
 
-        
+
         if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType !== makeupType) {
             scene.interactiveMakeupSystem.stopColoringSession(scene.interactiveMakeupSystem.activeMakeupType, true);
         }
-        
+
         else if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeupType && currentGlobalEquippedInfo !== this) {
             scene.interactiveMakeupSystem.stopColoringSession(makeupType, true);
         }
@@ -909,24 +907,24 @@ export class MakeUpButton extends BaseButton {
 
         if (colorableTypes.includes(makeupType)) {
             // --- COLORABLE TYPE ---
-            if (currentGlobalEquippedInfo === this) { 
+            if (currentGlobalEquippedInfo === this) {
                 if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeupType) {
-                    
+
                     console.log(`[MakeUpButton] Colorable ${name} clicked while its session is active. Stopping and reverting.`);
-                    scene.interactiveMakeupSystem.stopColoringSession(makeupType, true); 
-                    
+                    scene.interactiveMakeupSystem.stopColoringSession(makeupType, true);
+
                     return;
                 } else {
-                    
+
                     console.log(`[MakeUpButton] Unequipping completed colorable ${name}`);
                     if (makeupType === 'Lips') {
-                        
+
                     } else if (this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {
-                        
+
                         this.displayedMakeUp.destroy();
                     }
                     this.displayedMakeUp = null;
-                    this._equipDefaultMakeUp(makeupType, this); 
+                    this._equipDefaultMakeUp(makeupType, this);
                     return;
                 }
             } else {
@@ -962,7 +960,7 @@ export class MakeUpButton extends BaseButton {
             }
         } else {
             // --- INSTANTLY APPLICABLE TYPE ---
-            
+
             if (currentGlobalEquippedInfo === this) {
                 if (makeupType === 'Sticker' && this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {
                     this.displayedMakeUp.destroy();
@@ -972,21 +970,21 @@ export class MakeUpButton extends BaseButton {
             if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) {
                 const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
 
-                
+
                 if (prevType === 'Sticker' || prevType === 'Blush' || prevType === 'Eyeshadow' || prevType === 'Eyeliner') {
                     if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
                         console.log(`[MakeUpButton] Destroying previous ${prevType}: ${currentGlobalEquippedInfo.name}`);
                         currentGlobalEquippedInfo.displayedMakeUp.destroy();
                     }
                 }
-               
+
                 if (currentGlobalEquippedInfo instanceof MakeUpButton) {
                     currentGlobalEquippedInfo.displayedMakeUp = null;
                 }
             }
-            
+
             if (colorableTypes.includes(makeupType)) {
-                
+
                 if (scene.interactiveMakeupSystem) {
                     scene.interactiveMakeupSystem.startColoringSession(makeupType, textureAnime, this);
                     if (this.highlightImage) this.highlightImage.setVisible(true);
@@ -1000,7 +998,7 @@ export class MakeUpButton extends BaseButton {
                 scene.hairBack.setTexture(hairTextures.back.atlas, hairTextures.back.frame).setVisible(true);
                 scene.hairFront.setTexture(hairTextures.front.atlas, hairTextures.front.frame).setVisible(true);
 
-                
+
                 this.displayedMakeUp = [scene.hairBack, scene.hairFront];
             }
 
@@ -1019,14 +1017,14 @@ export class MakeUpButton extends BaseButton {
                         scene.pupils.setTexture(textureData.atlas, textureData.frame).setVisible(true);
                         newImage = scene.pupils;
                         break;
-                    
+
                     case 'Sticker':
-                        
+
                         if (typeof this.textureAnime === 'object' && this.textureAnime.atlas) {
-                            
+
                             newImage = scene.add.image(pos.x, pos.y, this.textureAnime.atlas, this.textureAnime.frame);
                         } else {
-                            
+
                             newImage = scene.add.image(pos.x, pos.y, this.textureAnime);
                         }
                         if (scene.faceContainer) {
@@ -1039,7 +1037,7 @@ export class MakeUpButton extends BaseButton {
                 this.displayedMakeUp = newImage;
             }
 
-            
+
             if (makeupType === 'Hair') {
                 this.displayedMakeUp.forEach(img => img.setScale(1.6 * 256 / 225));
 

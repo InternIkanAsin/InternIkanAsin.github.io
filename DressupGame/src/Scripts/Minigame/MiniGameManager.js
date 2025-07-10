@@ -2,7 +2,7 @@
 import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
 
 //MakeUp and DressUp Category Buttons
-import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableDressUpMakeUpCategoryButtons, enableDressUpMakeUpCategoryButtons } from './MiniGameCategoryButtons.js'
+import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
 
 //Costume Data Class
 
@@ -428,6 +428,7 @@ export class MiniGameManager {
         this.scene.finishMiniGameButton?.disableInteractive(); // Ini adalah baris yang menyebabkan error
         this.scene.miniGameButton?.disableInteractive();
 
+        disableCategoryButtonsInteraction(this.scene);
         const minigameButtons = this.buttonGrid ? this.buttonGrid.getAllChildren() : [];
         minigameButtons.forEach(buttons => buttons?.disableInteractive());
 
@@ -452,6 +453,7 @@ export class MiniGameManager {
         this.scene.finishMiniGameButton?.setInteractive();
         this.scene.miniGameButton?.setInteractive();
 
+        enableCategoryButtonsInteraction(this.scene);
         const minigameButtons = this.buttonGrid ? this.buttonGrid.getAllChildren() : [];
         minigameButtons.forEach(buttons => buttons?.setInteractive());
 
@@ -823,12 +825,6 @@ export class MiniGameManager {
     }
 
     createEndingPanel() {
-        const poki = this.scene.plugins.get('poki');
-        if (poki) {
-            console.log("Poki SDK: Firing gameplayStop event.");
-            poki.gameplayStop();
-        }
-
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.nextLevelButton.x,
             y: layout.nextLevelButton.y,
@@ -876,17 +872,17 @@ export class MiniGameManager {
 
     restartGame(isRestarted = false) {
         const poki = this.scene.plugins.get('poki');
-        if (poki) {
-            console.log("Poki SDK: Firing gameplayStop event.");
-            poki.commercialBreak();
-        }
+
+
+
         if (isRestarted) this.scene.registry.set('gameRestarted', true);
         this.scene.AudioManager.stopMusic('cutsceneMusic');
 
         this.scene.cameras.main.fadeOut(2000);
 
-        this.scene.cameras.main.once('camerafadeoutcomplete', () => {
-            this.scene.scene.start('BootScene');
+        this.scene.cameras.main.once('camerafadeoutcomplete', async () => {
+            await poki.commercialBreak();
+            this.scene.scene.start('PreloaderScene');
         });
 
     }
