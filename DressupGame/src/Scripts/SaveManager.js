@@ -64,4 +64,26 @@ export class SaveManager {
         }
         return cleanedData;
     }
+    static clearSave() {
+        try {
+            
+            localStorage.removeItem(SAVE_KEY);
+            console.log("Save data cleared from localStorage.");
+
+           
+            OutfitButton.selectedOutfits = {};
+            MakeUpButton.selectedMakeUp = {};
+            console.log("In-memory static state (selectedOutfits, selectedMakeUp) has been reset.");
+
+            if (scene && scene.registry) {
+                
+                scene.registry.remove('gameRestarted');
+                scene.registry.remove('currentBachelorIndex');
+                console.log("Phaser registry 'gameRestarted' and 'currentBachelorIndex' cleared.");
+            }
+
+        } catch (error) {
+            console.error("Failed to clear save data:", error);
+        }
+    }
 }
