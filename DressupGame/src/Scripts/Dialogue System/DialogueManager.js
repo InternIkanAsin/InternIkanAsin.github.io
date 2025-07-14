@@ -48,6 +48,15 @@ export class DialogueManager {
         this.nextLine();
 
         this.scene.input.on('pointerdown', () => {
+             if (!this.scene.gameplayHasStarted) {
+                const poki = this.scene.plugins.get('poki');
+                poki.runWhenInitialized(() => {
+                    poki.gameplayStart();
+                    console.log("[Poki SDK] gameplayStart() fired on first player interaction.");
+                });
+                
+                this.scene.gameplayHasStarted = true;
+            }
             if (this.isTyping) {
                 this.skipTyping();
             } else {

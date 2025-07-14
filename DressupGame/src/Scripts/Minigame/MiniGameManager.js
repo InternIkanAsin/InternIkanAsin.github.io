@@ -879,7 +879,10 @@ export class MiniGameManager {
     restartGame(isRestarted = false) {
         const poki = this.scene.plugins.get('poki');
 
-
+        poki.runWhenInitialized(() => {
+            poki.gameplayStop();
+            console.log("[Poki SDK] gameplayStop() has been fired.");
+        });
 
         if (isRestarted) this.scene.registry.set('gameRestarted', true);
         this.scene.AudioManager.stopMusic('cutsceneMusic');

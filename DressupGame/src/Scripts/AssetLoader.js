@@ -50,12 +50,12 @@ export default class AssetLoader {
   static loadRexUIPlugin(scene) {
     scene.load.scenePlugin({
       key: 'rexuiplugin',
-      url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+      url: "Asset/Plugin/rexuiplugin.min.js",
       sceneKey: 'rexUI'
     });
 
     scene.load.plugin('rexbbcodetextplugin',
-      'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbbcodetextplugin.min.js',
+      "Asset/Plugin/rexbbcodetextplugin.min.js",
       true);
   }
   static loadUIAssets(scene) {

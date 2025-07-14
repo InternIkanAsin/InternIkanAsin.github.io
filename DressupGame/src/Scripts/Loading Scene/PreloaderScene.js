@@ -63,8 +63,13 @@ class PreloaderScene extends Phaser.Scene {
             percentText.setText(parseInt(value * 100) + '%');
         });
         this.load.on('fileprogress', (file) => assetText.setText('Loading: ' + file.key));
+        const poki = this.plugins.get('poki');
         this.load.on('complete', () => {
-             this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+            poki.runWhenInitialized(() => {
+                poki.gameLoadingFinished();
+                console.log("[Poki SDK] gameLoadingFinished() has been fired.");
+            });
+            this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
         });
 
         

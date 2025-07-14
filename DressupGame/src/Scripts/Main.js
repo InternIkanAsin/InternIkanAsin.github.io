@@ -126,12 +126,8 @@ class Main extends Phaser.Scene {
         }
     
         this.state = GameState.MAKEUP;
-        const poki = this.plugins.get('poki');
-        poki.runWhenInitialized((poki) => {
-            poki.gameplayStart();
-            this.startGameFlow();
-        });
-
+        
+        this.startGameFlow();
         //this.setUpMiniGame();
         //this.BachelorManager.setUpBachelorChoice();
     }

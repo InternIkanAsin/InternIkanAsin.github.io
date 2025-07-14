@@ -43,26 +43,7 @@ export class DressUpManager {
                 currentSelectedEntry.current = button;
             }
             
-            const currentSelectedOutfit = scene.OutfitButton.selectedOutfits[outfitType]?.current;
-            if (currentSelectedOutfit && currentSelectedOutfit.name === name) {
-                button.highlightImage.setVisible(true);
-                scene.OutfitButton.selectedOutfits[outfitType].current = button;
-
-                // Buat ulang visual outfit
-                console.log(`[Setup] Re-rendering visual for ${outfitType}: ${name}`);
-                const textureInfo = currentSelectedOutfit.textureAnime;
-                const manualOffset = layout.outfit.manualOffsets[textureInfo] || { x: 0, y: 0 };
-                const finalX = button.outfitX + manualOffset.x;
-                const finalY = button.outfitY + manualOffset.y;
-
-                const newOutfitImage = scene.add.image(finalX, finalY, textureInfo);
-                newOutfitImage.setDepth({ "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 }[outfitType] || 1);
-                newOutfitImage.setScale(1.2); // atau skala yang sesuai
-
-                // Simpan referensi visual baru
-                button.displayedOutfit = newOutfitImage;
-                scene.OutfitButton.selectedOutfits[outfitType].current.displayedOutfit = newOutfitImage;
-            }
+            
 
             if (!scene.outfitButtons[outfitType]) {
                 scene.outfitButtons[outfitType] = [];

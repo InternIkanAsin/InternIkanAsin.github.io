@@ -75,12 +75,7 @@ export class SaveManager {
             MakeUpButton.selectedMakeUp = {};
             console.log("In-memory static state (selectedOutfits, selectedMakeUp) has been reset.");
 
-            if (scene && scene.registry) {
-                
-                scene.registry.remove('gameRestarted');
-                scene.registry.remove('currentBachelorIndex');
-                console.log("Phaser registry 'gameRestarted' and 'currentBachelorIndex' cleared.");
-            }
+            
 
         } catch (error) {
             console.error("Failed to clear save data:", error);
