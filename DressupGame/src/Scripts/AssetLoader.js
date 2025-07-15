@@ -282,7 +282,6 @@ export default class AssetLoader {
   }
 
   static loadBlush(scene){
-    scene.load.image('blushdefault', "Asset/makeup/MakeupAnime/blush/mc_blush default.png");
     scene.load.image('blushanime', "Asset/makeup/MakeupAnime/blush/mc_blush anime.png");
     scene.load.image('blushfever', "Asset/makeup/MakeupAnime/blush/mc_blush fever.png");
     scene.load.image('blushfrackles', "Asset/makeup/MakeupAnime/blush/mc_blush frackles.png");
@@ -303,7 +302,7 @@ export default class AssetLoader {
   }
 
   static loadEyeliner(scene){
-    scene.load.image('eyelinernormaldefault', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er default_normal.png");
+    
     scene.load.image('eyelinernormal1', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 1_normal.png");
     scene.load.image('eyelinernormal2', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 2_normal.png");
     scene.load.image('eyelinernormal3', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 3_normal.png");
@@ -312,8 +311,7 @@ export default class AssetLoader {
     scene.load.start();
   }
 
-  static loadEyeShadow(scene){
-    scene.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
+  static loadEyeShadow(scene){  
     scene.load.image('eyeshadownormalbrown', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es brown_normal.png");
     scene.load.image('eyeshadownormaldragon', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es dragon_normal.png");
     scene.load.image('eyeshadownormalfairy', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es fairy_normal.png");
