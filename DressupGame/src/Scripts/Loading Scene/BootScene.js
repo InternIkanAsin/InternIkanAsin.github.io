@@ -21,7 +21,7 @@ class BootScene extends Phaser.Scene {
 
 
 
-        // 1. Coba muat data simpanan
+        
         const savedData = SaveManager.loadGame();
         let chosenBachelorName;
         
