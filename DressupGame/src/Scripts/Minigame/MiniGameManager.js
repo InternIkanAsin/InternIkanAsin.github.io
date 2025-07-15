@@ -834,10 +834,10 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame();SaveManager.clearSave(); 
+            callback: () => { this.handleGameEnd(false); 
                 
                 // Mulai ulang tanpa mempertahankan bachelor
-                ; restartButton.disableInteractive(); nextLevelButton.disableInteractive(); },
+                 restartButton.disableInteractive(); nextLevelButton.disableInteractive(); },
             buttonText: 'Next Level',
             textSize: 60,
             textYPosition: 0,
@@ -856,7 +856,7 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame(true);SaveManager.clearSave(); 
+            callback: () => { this.handleGameEnd(false); 
                 
                 // Mulai ulang tanpa mempertahankan bachelor
                 this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive(); },
@@ -876,23 +876,41 @@ export class MiniGameManager {
         })
     }
 
-    restartGame(isRestarted = false) {
+    handleGameEnd(isRestart) {
+        // 1. Hapus save data SEKARANG JUGA
+        SaveManager.clearSave();
+        console.log("Save data has been cleared on game end.");
+        
+        // 2. Jika ini restart, set registry untuk memilih bachelor yang sama
+        if (isRestart) {
+            // Kita harus menyimpan nama bachelor saat ini ke registry SEBELUM restart
+            this.scene.registry.set('chosenBachelorNameForRestart', this.scene.chosenBachelorName);
+        } else {
+            // Jika "Next Level", pastikan kita menghapus registry ini agar bachelor-nya acak
+            this.scene.registry.remove('chosenBachelorNameForRestart');
+        }
+
+        // 3. Panggil restartGame untuk menangani transisi scene
+        this.restartGame();
+    }
+
+     restartGame() {
         const poki = this.scene.plugins.get('poki');
 
+        // Panggil gameplayStop() di sini, sebelum transisi
         poki.runWhenInitialized(() => {
             poki.gameplayStop();
             console.log("[Poki SDK] gameplayStop() has been fired.");
         });
 
-        if (isRestarted) this.scene.registry.set('gameRestarted', true);
         this.scene.AudioManager.stopMusic('cutsceneMusic');
-
         this.scene.cameras.main.fadeOut(2000);
 
         this.scene.cameras.main.once('camerafadeoutcomplete', async () => {
             await poki.commercialBreak();
-            this.scene.scene.start('PreloaderScene');
-        });
+            // Kita akan memulai BootScene, bukan PreloaderScene, agar logika pemilihan bachelor berjalan
+            this.scene.scene.start('BootScene');
 
+        });
     }
 }
