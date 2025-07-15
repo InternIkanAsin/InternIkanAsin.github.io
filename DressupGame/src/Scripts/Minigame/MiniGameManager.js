@@ -1,6 +1,6 @@
 //UI Button Class
 import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
-import { SaveManager } from '../SaveManager.js';
+import { SaveManager } from '../Save System/SaveManager.js';
 //MakeUp and DressUp Category Buttons
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
 
@@ -834,10 +834,12 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.handleGameEnd(false); 
-                
+            callback: () => {
+                this.handleGameEnd(false);
+
                 // Mulai ulang tanpa mempertahankan bachelor
-                 restartButton.disableInteractive(); nextLevelButton.disableInteractive(); },
+                restartButton.disableInteractive(); nextLevelButton.disableInteractive();
+            },
             buttonText: 'Next Level',
             textSize: 60,
             textYPosition: 0,
@@ -856,10 +858,12 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.handleGameEnd(false); 
-                
+            callback: () => {
+                this.handleGameEnd(false);
+
                 // Mulai ulang tanpa mempertahankan bachelor
-                this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive(); },
+                this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive();
+            },
             buttonText: 'Restart',
             textSize: 60,
             textYPosition: 0,
@@ -881,6 +885,8 @@ export class MiniGameManager {
         SaveManager.clearSave();
         console.log("Save data has been cleared on game end.");
         
+
+        // 2. Jika ini restart, set registry untuk memilih bachelor yang sama
         if (isRestart) {
            
             this.scene.registry.set('chosenBachelorNameForRestart', this.scene.chosenBachelorName);
@@ -895,7 +901,7 @@ export class MiniGameManager {
         this.restartGame();
     }
 
-     restartGame() {
+    restartGame() {
         const poki = this.scene.plugins.get('poki');
 
        

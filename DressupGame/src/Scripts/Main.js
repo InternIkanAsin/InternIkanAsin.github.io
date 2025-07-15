@@ -21,7 +21,7 @@ import { UIManager } from './UI/UIManager.js'
 // Mini Game Manager Class
 import { MiniGameManager } from './Minigame/MiniGameManager.js'
 
-import { SaveManager } from './SaveManager.js';
+import { SaveManager } from './Save System/SaveManager.js';
 
 // Mini Game Manager Class
 import { TutorialManager } from './Minigame/TutorialManager.js'
@@ -115,18 +115,18 @@ class Main extends Phaser.Scene {
             this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
             this.makeUpFinished = savedData.progress?.makeUpFinished || false;
             this.dressUpFinished = savedData.progress?.dressUpFinished || false;
-        
+
             // --- UBAH DUA BARIS INI ---
             // Akses properti statis langsung melalui nama KELAS, bukan 'this'
             OutfitButton.selectedOutfits = savedData.playerAppearance?.outfits || {};
             MakeUpButton.selectedMakeUp = savedData.playerAppearance?.makeup || {};
             // -------------------------
-            
+
             console.log("Restored state from save file.");
         }
-    
+
         this.state = GameState.MAKEUP;
-        
+
         this.startGameFlow();
         //this.setUpMiniGame();
         //this.BachelorManager.setUpBachelorChoice();
@@ -401,12 +401,12 @@ const config = {
         global: [
             {
                 plugin: PokiPlugin,
-                key: 'poki',      
-                start: true,      
+                key: 'poki',
+                start: true,
                 data: {
                     loadingSceneKey: 'PreloaderScene',
                     gameplaySceneKey: 'MainScene',
-                    
+
                     autoCommercialBreak: true
                 }
             }

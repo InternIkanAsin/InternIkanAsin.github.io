@@ -3,7 +3,7 @@ import { costumeData } from '../Outfit Data/CostumeData.js'
 
 // UI Buttons Class
 import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
-import AssetLoader from '../AssetLoader.js'; 
+import AssetLoader from '../AssetLoader.js';
 
 import { layout } from '../ScreenOrientationUtils.js';
 
@@ -20,30 +20,30 @@ export class DressUpManager {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
 
-        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, stat }) => {
+        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked }) => {
             const { x: outfitX, y: outfitY } = outfitPositions[outfitType] || { x: 0, y: 0 };
-            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, stat, scene.statTracker, scene.AudioManager);
+            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, scene.AudioManager, isLocked);
 
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);
 
-            
+
             const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
             const oldButtonInstance = currentSelectedEntry?.current;
 
-            
+
             if (oldButtonInstance && oldButtonInstance.name === name) {
-                
+
                 button.highlightImage.setVisible(true);
 
-                
+
                 button.displayedOutfit = oldButtonInstance.displayedOutfit;
 
-                
+
                 currentSelectedEntry.current = button;
             }
-            
-            
+
+
 
             if (!scene.outfitButtons[outfitType]) {
                 scene.outfitButtons[outfitType] = [];
@@ -283,13 +283,13 @@ export class DressUpManager {
         //    AssetLoader.loadDressAndShirt(scene);
         //    return;
         //}
-        
 
-        
+
+
         if (outfitType === 'Outer' && !scene.areOutersLoaded) {
             scene.UIManager.showLoadingOverlay('Loading Outers...');
             scene.MiniGameManager.disableInteraction();
-            
+
             scene.load.once('complete', () => {
                 console.log('Outer assets loaded!');
                 scene.areOutersLoaded = true;
@@ -297,17 +297,17 @@ export class DressUpManager {
                 scene.MiniGameManager.enableInteraction();
                 this.displayDressUpButtons('Outer', scene);
             });
-            
+
             AssetLoader.loadOuter(scene);
             return;
         }
-        
-        
-        
+
+
+
         if (outfitType === 'Lower' && !scene.areLowersLoaded) {
             scene.UIManager.showLoadingOverlay('Loading Lowers...');
             scene.MiniGameManager.disableInteraction();
-            
+
             scene.load.once('complete', () => {
                 console.log('Lower assets loaded!');
                 scene.areLowersLoaded = true;
@@ -315,17 +315,17 @@ export class DressUpManager {
                 scene.MiniGameManager.enableInteraction();
                 this.displayDressUpButtons('Lower', scene);
             });
-            
+
             AssetLoader.loadLower(scene);
             return;
         }
-       
 
-        
+
+
         if (outfitType === 'Socks' && !scene.areSocksLoaded) {
             scene.UIManager.showLoadingOverlay('Loading Socks...');
             scene.MiniGameManager.disableInteraction();
-            
+
             scene.load.once('complete', () => {
                 console.log('Socks assets loaded!');
                 scene.areSocksLoaded = true;
@@ -333,7 +333,7 @@ export class DressUpManager {
                 scene.MiniGameManager.enableInteraction();
                 this.displayDressUpButtons('Socks', scene);
             });
-            
+
             AssetLoader.loadSocks(scene);
             return;
         }
@@ -346,11 +346,11 @@ export class DressUpManager {
                 scene.areShoesLoaded = true;
                 scene.UIManager.hideLoadingOverlay();
                 scene.MiniGameManager.enableInteraction();
-                this.displayDressUpButtons('Shoes', scene); 
+                this.displayDressUpButtons('Shoes', scene);
             });
-            
+
             AssetLoader.loadShoes(scene);
-            return; 
+            return;
         }
 
         // Ensure MiniGameManager and its backButton exist before trying to use them
@@ -371,7 +371,7 @@ export class DressUpManager {
         if (outfitType === 'Shirt') {
             headerText = 'Dress'; // Saat di kategori Shirt, header tetap "Dress"
         } else if (outfitType === 'Underwear') {
-             headerText = 'Lower'; // Mengganti nama header
+            headerText = 'Lower'; // Mengganti nama header
         }
 
         if (scene.sidePanelHeaderText) {

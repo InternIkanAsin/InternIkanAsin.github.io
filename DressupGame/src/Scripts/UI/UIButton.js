@@ -3,6 +3,7 @@ import { BaseButton } from "./BaseButton.js";
 import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
+import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
     constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, textureYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
@@ -461,13 +462,14 @@ export class LepasButton extends BaseButton {
 export class OutfitButton extends BaseButton {
     static selectedOutfits = {};
 
-    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager) {
+    constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
 
         // --- Elements for the button UI itself ---
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
+        if (isLocked) iconImg.setAlpha(0.5);
 
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
 
@@ -484,7 +486,7 @@ export class OutfitButton extends BaseButton {
         this.offsetX = 0;
         this.offsetY = 0;
         this.highlightImage = highlightImg;
-
+        this.isLocked = isLocked;
 
         const outfitCustomSizes = layout.outfit.customSizes;
         const outfitManualOffsets = layout.outfit.manualOffsets;
@@ -530,7 +532,8 @@ export class OutfitButton extends BaseButton {
             const distance = Math.sqrt(dx * dx + dy * dy);
             if (distance <= tapThreshold && !this.isDragging) {
                 // Pass the original outfitX, outfitY from constructor to toggleOutfit
-                this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType);
+                if (!this.isLocked) { this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType); }
+                else { this.playRewardedAd(scene); }
             }
             this.isDragging = false;
         });
@@ -553,6 +556,18 @@ export class OutfitButton extends BaseButton {
         this.button.setInteractive();
     }
 
+    playRewardedAd(scene) {
+        const poki = scene.plugins.get('poki');
+
+        poki.gameplayStop();
+        poki.rewardedBreak().then(() => {
+            poki.gameplayStart();
+            this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType);
+            this.icon.setAlpha(1);
+            unlockDress(this.name);
+            scene.SaveManager.saveGame(scene);
+        });
+    }
     static clearHighlightsForType(scene, outfitType) {
         if (scene.outfitButtons && scene.outfitButtons[outfitType]) {
             scene.outfitButtons[outfitType].forEach(btn => {
@@ -687,8 +702,7 @@ export class MakeUpButton extends BaseButton {
         "Eyebrows": 2.4, "Eyelashes": 2.5, "Lips": 2.6, "Sticker": 2.7
     };
 
-    constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager) {
-
+    constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
 
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.makeUpButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
@@ -696,7 +710,7 @@ export class MakeUpButton extends BaseButton {
             .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
-
+        if (isLocked) iconImg.setAlpha(0.5);
 
 
         super(scene, x, y, [buttonBg, highlightImg, iconImg]);
@@ -705,12 +719,13 @@ export class MakeUpButton extends BaseButton {
 
         this.button = buttonBg;
         this.highlightImage = highlightImg;
+        this.icon = iconImg;
         this.name = name;
         this.makeupType = makeupType;
         this.textureAnime = textureAnime;
         this.AudioManager = AudioManager;
         this.displayedMakeUp = null;
-
+        this.isLocked = isLocked;
 
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
@@ -736,7 +751,8 @@ export class MakeUpButton extends BaseButton {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance <= tapThreshold && !this.isDragging) {
-                this.toggleMakeUp();
+                if (!this.isLocked) { this.toggleMakeUp(); }
+                else { this.playRewardedAd(scene); }
                 this.AudioManager?.playSFX?.("buttonClick");
             }
             this.isDragging = false;
@@ -768,6 +784,17 @@ export class MakeUpButton extends BaseButton {
         if (this.button) this.button.setInteractive();
     }
 
+    playRewardedAd(scene) {
+        const poki = scene.plugins.get('poki');
+
+        poki.gameplayStop();
+        poki.rewardedBreak().then(() => {
+            poki.gameplayStart();
+            this.toggleMakeUp();
+            this.icon.setAlpha(1);
+            this.isLocked = false;
+        });
+    }
 
     static clearMakeupHighlightsForType(scene, makeupType) {
         if (scene.makeUpButtons && scene.makeUpButtons[makeupType]) {

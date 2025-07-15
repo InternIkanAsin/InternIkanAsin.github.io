@@ -1,11 +1,11 @@
 export class Costume {
-    constructor(name, outfitType, textureAnime, textureButton, textureIcon) {
+    constructor(name, outfitType, textureAnime, textureButton, textureIcon, isLocked = false) {
         this.name = name;
         this.outfitType = outfitType;
         this.textureAnime = textureAnime;
         this.textureButton = textureButton;
         this.textureIcon = textureIcon;
-
+        this.isLocked = isLocked;
     }
 }
 
