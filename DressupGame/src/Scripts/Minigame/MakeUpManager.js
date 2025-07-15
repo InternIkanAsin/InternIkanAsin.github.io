@@ -20,56 +20,56 @@ export class MakeUpManager {
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
         makeUpData.forEach(makeupItem => {
-            const { name, makeUpType, textureAnime, textureButton, textureIcon } = makeupItem;
+            const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked } = makeupItem;
             if (textureButton && textureIcon) {
-                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
-            
+                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, isLocked);
+
                 button.setSize(150, 200);
                 button.setData('instance', button);
-            
+
                 const currentSelectedMakeup = MakeUpButton.selectedMakeUp[makeUpType]?.current;
                 if (currentSelectedMakeup && currentSelectedMakeup.name === name) {
                     button.highlightImage.setVisible(true);
                     MakeUpButton.selectedMakeUp[makeUpType].current = button;
-                    
+
                     if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeUpType)) {
-                        
+
                         const oldVisual = currentSelectedMakeup.displayedMakeUp;
-                        
+
                         if (oldVisual && oldVisual.scene) {
-                        
+
                             console.log(`[Setup] Visual for ${name} already exists. Re-linking.`);
                             button.displayedMakeUp = oldVisual;
                         } else {
-                            
+
                             console.log(`[Setup] Visual for ${name} not found. Re-rendering.`);
                             const pos = MakeUpPositions[makeUpType] || { x: 0, y: 0 };
                             const newImage = scene.add.image(pos.x, pos.y, textureAnime);
-                            
+
                             if (['Blush', 'Eyeliner', 'Sticker'].includes(makeUpType)) {
                                 newImage.setScale(0.55 * 2);
-                            } else { 
+                            } else {
                                 newImage.setScale(0.9 * 2);
                             }
                             newImage.setDepth(MakeUpButton.DEPTH_VALUES[makeUpType] || 2.7);
-                            
+
                             if (scene.faceContainer) {
                                 scene.faceContainer.add(newImage);
                             }
-                            
+
                             button.displayedMakeUp = newImage;
                             MakeUpButton.selectedMakeUp[makeUpType].current.displayedMakeUp = newImage;
                         }
                     }
                 }
-            
+
                 if (!scene.makeUpButtons[makeUpType]) {
                     scene.makeUpButtons[makeUpType] = [];
                 }
                 scene.makeUpButtons[makeUpType].push(button);
             }
         });
-        
+
         if (scene.faceContainer) {
             scene.faceContainer.sort('depth');
         }
@@ -80,21 +80,21 @@ export class MakeUpManager {
     updateMakeUpButtons(makeUpType) {
         const scene = this.scene;
         if (!scene.makeUpButtons[makeUpType]) {
-        console.log(`[Update] Button instances for '${makeUpType}' not found. Creating them now...`);
-        scene.makeUpButtons[makeUpType] = []; 
-        
-        const itemsToCreate = makeUpData.filter(item => item.makeUpType === makeUpType);
-        
-        itemsToCreate.forEach(makeupItem => {
-            const { name, textureAnime, textureButton, textureIcon } = makeupItem;
-            if (textureButton && textureIcon) {
-                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
-                button.setSize(150, 200);
-                button.setData('instance', button);
-                scene.makeUpButtons[makeUpType].push(button);
-            }
-        });
-    }
+            console.log(`[Update] Button instances for '${makeUpType}' not found. Creating them now...`);
+            scene.makeUpButtons[makeUpType] = [];
+
+            const itemsToCreate = makeUpData.filter(item => item.makeUpType === makeUpType);
+
+            itemsToCreate.forEach(makeupItem => {
+                const { name, textureAnime, textureButton, textureIcon } = makeupItem;
+                if (textureButton && textureIcon) {
+                    const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager);
+                    button.setSize(150, 200);
+                    button.setData('instance', button);
+                    scene.makeUpButtons[makeUpType].push(button);
+                }
+            });
+        }
         const itemButtonsForType = scene.makeUpButtons[makeUpType] || [];
         let allButtonContainersForPanel = [];
 
@@ -105,52 +105,52 @@ export class MakeUpManager {
 
         const noRemoveButtonCategories = ['Hair', 'Pupil'];
 
-    if (!noRemoveButtonCategories.includes(makeUpType)) {
-        
-        const lepasButton = new ItemPanelButton(
-            scene,
-            scene.AudioManager,
-            0, 0,
-            'buttonIcon2',
-            'xMark',
-            -15,
-            'Remove',
-            '30px',
-            () => { 
-                console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
-                if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeUpType) {
-                    scene.interactiveMakeupSystem.stopColoringSession(makeUpType, true);
-                }
-                const currentEntry = MakeUpButton.selectedMakeUp[makeUpType];
-                const currentEquipped = currentEntry?.current;
-                let helperButton = itemButtonsForType[0];
-                if (!helperButton && scene.makeUpButtons && Object.values(scene.makeUpButtons).flat().length > 0) {
-                    helperButton = Object.values(scene.makeUpButtons).flat()[0];
-                }
+        if (!noRemoveButtonCategories.includes(makeUpType)) {
 
-                if (helperButton && helperButton instanceof MakeUpButton) {
-                    if (currentEquipped && currentEquipped.displayedMakeUp) {
-                        const typeOfEquipped = currentEquipped.makeupType || makeUpType;
-                        if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(typeOfEquipped)) {
-                            if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
-                                currentEquipped.displayedMakeUp.destroy();
+            const lepasButton = new ItemPanelButton(
+                scene,
+                scene.AudioManager,
+                0, 0,
+                'buttonIcon2',
+                'xMark',
+                -15,
+                'Remove',
+                '30px',
+                () => {
+                    console.log(`[LepasButton] Clicked for MakeUp Type: ${makeUpType}`);
+                    if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeUpType) {
+                        scene.interactiveMakeupSystem.stopColoringSession(makeUpType, true);
+                    }
+                    const currentEntry = MakeUpButton.selectedMakeUp[makeUpType];
+                    const currentEquipped = currentEntry?.current;
+                    let helperButton = itemButtonsForType[0];
+                    if (!helperButton && scene.makeUpButtons && Object.values(scene.makeUpButtons).flat().length > 0) {
+                        helperButton = Object.values(scene.makeUpButtons).flat()[0];
+                    }
+
+                    if (helperButton && helperButton instanceof MakeUpButton) {
+                        if (currentEquipped && currentEquipped.displayedMakeUp) {
+                            const typeOfEquipped = currentEquipped.makeupType || makeUpType;
+                            if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(typeOfEquipped)) {
+                                if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
+                                    currentEquipped.displayedMakeUp.destroy();
+                                }
+                            }
+                            if (currentEquipped instanceof MakeUpButton) {
+                                currentEquipped.displayedMakeUp = null;
                             }
                         }
-                        if (currentEquipped instanceof MakeUpButton) {
-                            currentEquipped.displayedMakeUp = null;
-                        }
+                        helperButton._equipDefaultMakeUp(makeUpType, currentEquipped || null);
+                    } else {
+                        console.error(`[LepasButton] Could not find a MakeUpButton instance for unequip: ${makeUpType}`);
                     }
-                    helperButton._equipDefaultMakeUp(makeUpType, currentEquipped || null);
-                } else {
-                    console.error(`[LepasButton] Could not find a MakeUpButton instance for unequip: ${makeUpType}`);
+                    MakeUpButton.clearMakeupHighlightsForType(scene, makeUpType);
                 }
-                MakeUpButton.clearMakeupHighlightsForType(scene, makeUpType);
-            }
-        );
+            );
 
-        lepasButton.setSize(150, 200);
-        allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
-    }
+            lepasButton.setSize(150, 200);
+            allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
+        }
 
         if (scene.sidePanelHeaderText) {
             scene.tweens.add({
@@ -179,7 +179,7 @@ export class MakeUpManager {
             const children = scene.MiniGameManager.buttonGrid.getAllChildren();
 
             children.forEach(childGameObject => {
-                
+
                 const instance = childGameObject.getData ? childGameObject.getData('instance') : null;
 
                 if (instance instanceof MakeUpButton) {
@@ -220,12 +220,12 @@ export class MakeUpManager {
     }
 
     displayMakeUpButtons(makeUpType, scene) {
-       
+
         const loadAndDisplay = (flag, loaderFunc, type) => {
             if (!scene[flag]) {
                 scene.UIManager.showLoadingOverlay(`Loading ${type}...`);
                 scene.MiniGameManager.disableInteraction();
-                
+
                 scene.load.once('complete', () => {
                     console.log(`${type} assets loaded!`);
                     scene[flag] = true;
@@ -233,16 +233,16 @@ export class MakeUpManager {
                     scene.MiniGameManager.enableInteraction();
                     this.displayMakeUpButtons(type, scene);
                 });
-                
+
                 loaderFunc(scene);
                 return true;
             }
             return false;
         };
 
-        
+
         let isLoading = false;
-        
+
         if (makeUpType !== 'Eyebrows') {
             switch (makeUpType) {
                 case 'Eyelashes':
@@ -272,17 +272,17 @@ export class MakeUpManager {
             }
         }
 
-       
+
         if (isLoading) {
             return;
         }
 
-        if (scene.miniGameButton) { 
+        if (scene.miniGameButton) {
             scene.miniGameButton.disableInteractive();
         }
 
         if (scene.interactiveMakeupSystem?.isActive) {
-            scene.interactiveMakeupSystem.stopColoringSession(true); 
+            scene.interactiveMakeupSystem.stopColoringSession(true);
         }
         if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
             scene.MiniGameManager.backButton.disableInteractive();
@@ -326,7 +326,7 @@ export class MakeUpManager {
                     case 'Pupil': iconKey = 'eyeColorIcon'; break;
                     case 'Blush': iconKey = 'blushIcon'; break;
                     case 'Hair': iconKey = 'hairIcon'; break;
-                    case 'Sticker': iconKey = 'stickerIcon'; break; 
+                    case 'Sticker': iconKey = 'stickerIcon'; break;
                     default:
                         console.warn(`No specific header icon found for makeUpType: ${makeUpType}. Using default '${iconKey}'.`);
                         break;
@@ -334,7 +334,7 @@ export class MakeUpManager {
                 if (scene.selectedButtonIcon) scene.selectedButtonIcon.setTexture(iconKey);
                 if (scene.selectedButtonText) scene.selectedButtonText.setText(makeUpType.toString());
 
-                if (scene.MiniGameManager) { 
+                if (scene.MiniGameManager) {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
@@ -391,9 +391,9 @@ export class MakeUpManager {
             height: 250,
             scrollMode: 0,
 
-            scrollDetectionMode: 1,           
+            scrollDetectionMode: 1,
             scroller: {
-                pointerOutRelease: false,      
+                pointerOutRelease: false,
                 rectBoundsInteractive: false
             },
 
@@ -463,31 +463,31 @@ export class MakeUpManager {
         }
         const scene = this.scene;
         const makeupTypes = Object.keys(MakeUpButton.selectedMakeUp);
-    
+
         console.log("[RemoveAll] Starting to remove all makeup...");
-    
+
         for (const makeupType of makeupTypes) {
             const entry = MakeUpButton.selectedMakeUp[makeupType];
             const currentEquipped = entry?.current;
-        
-            if (currentEquipped) { 
-                
-                
+
+            if (currentEquipped) {
+
+
                 if (currentEquipped.displayedMakeUp && !['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeupType)) {
                     if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
                         console.log(`[RemoveAll] Destroying visual for ${makeupType}: ${currentEquipped.name}`);
                         currentEquipped.displayedMakeUp.destroy();
                     }
                 }
-            
+
                 let helperButton = scene.makeUpButtons[makeupType]?.[0] || Object.values(scene.makeUpButtons || {}).flat()[0];
                 if (helperButton) {
                     helperButton._equipDefaultMakeUp(makeupType, currentEquipped);
                 }
             }
         }
-    
-        MakeUpButton.clearAllMakeUpHighlights(scene); 
+
+        MakeUpButton.clearAllMakeUpHighlights(scene);
         console.log("[RemoveAll] Finished removing makeup.");
     }
 

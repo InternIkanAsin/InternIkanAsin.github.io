@@ -20,9 +20,9 @@ const costumeData = [
     new Costume("Dress 15", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan05.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan05.png' }),
     new Costume("Dress 16", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan10.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan10.png' }),
     new Costume("Dress 17", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan13.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan13.png' }),
-    new Costume("Dress 18", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan18.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan18.png' }),
-    new Costume("Dress 19", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan19.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_Valentine.png' }),
-    new Costume("Dress 20", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan20.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_gamis lebaran.png' }),
+    new Costume("Dress 18", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan18.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan18.png' }, true),
+    new Costume("Dress 19", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan19.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_Valentine.png' }, true),
+    new Costume("Dress 20", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan20.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_gamis lebaran.png' }, true),
 
     // Shirt Data
     new Costume("Shirt 1", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_20.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_20.png' }),
@@ -42,9 +42,9 @@ const costumeData = [
     new Costume("Shirt 14", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_31.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_31.png' }),
     new Costume("Shirt 15", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_32.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_32.png' }),
     new Costume("Shirt 16", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_33.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_33.png' }),
-    new Costume("Shirt 17", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_34.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_34.png' }),
-    new Costume("Shirt 18", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_35.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_35.png' }),
-    new Costume("Shirt 19", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_37.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_37.png' }),
+    new Costume("Shirt 17", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_34.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_34.png' }, true),
+    new Costume("Shirt 18", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_35.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_35.png' }, true),
+    new Costume("Shirt 19", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_37.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_37.png' }, true),
 
     //Outer
     new Costume("Outer 1", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_16.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_16.png' }),
@@ -59,9 +59,9 @@ const costumeData = [
     new Costume("Outer 10", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_coklat.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_coklat.png' }),
     new Costume("Outer 11", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_flower.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_flower.png' }),
     new Costume("Outer 12", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_purple.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_purple.png' }),
-    new Costume("Outer 13", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_red.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_red.png' }),
-    new Costume("Outer 14", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_sport.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_sport.png' }),
-    new Costume("Outer 15", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_sweater.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_sweater.png' }),
+    new Costume("Outer 13", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_red.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_red.png' }, true),
+    new Costume("Outer 14", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_sport.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_sport.png' }, true),
+    new Costume("Outer 15", "Outer", { atlas: 'Outer_spritesheet', frame: 'jaket_sweater.png' }, "buttonIcon2", { atlas: 'outerIcon_spritesheet', frame: 'jaket_sweater.png' }, true),
 
 
     // Underwear
@@ -72,9 +72,9 @@ const costumeData = [
     new Costume("Underwear 5", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_19.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_19.png' }),
     new Costume("Underwear 6", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_23.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_23.png' }),
     new Costume("Underwear 7", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_32.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_32.png' }),
-    new Costume("Underwear 8", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_34.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_34.png' }),
-    new Costume("Underwear 9", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_36.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_36.png' }),
-    new Costume("Underwear 10", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_hangout.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_hangout.png' }),
+    new Costume("Underwear 8", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_34.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_34.png' }, true),
+    new Costume("Underwear 9", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_36.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_36.png' }, true),
+    new Costume("Underwear 10", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_hangout.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_hangout.png' }, true),
 
     //Socks
     new Costume("Socks 1", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_29.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_29.png' }),
@@ -83,9 +83,9 @@ const costumeData = [
     new Costume("Socks 4", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_17.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_17.png' }),
     new Costume("Socks 5", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_18.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_18.png' }),
     new Costume("Socks 6", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_22.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_22.png' }),
-    new Costume("Socks 7", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_28.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_28.png' }),
-    new Costume("Socks 8", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_in.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_in.png' }),
-    new Costume("Socks 9", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_short.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_short.png' }),
+    new Costume("Socks 7", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_28.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_28.png' }, true),
+    new Costume("Socks 8", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_in.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_in.png' }, true),
+    new Costume("Socks 9", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_short.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_short.png' }, true),
 
     // Shoes
     new Costume("Shoes 1", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_14.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_14.png' }),
@@ -98,9 +98,9 @@ const costumeData = [
     new Costume("Shoes 8", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_26.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_26.png' }),
     new Costume("Shoes 9", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_28.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_28.png' }),
     new Costume("Shoes 10", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_29.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_29.png' }),
-    new Costume("Shoes 11", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_30.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_36.png' }),
-    new Costume("Shoes 12", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_34.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_34.png' }),
-    new Costume("Shoes 13", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_36.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_30.png' })
+    new Costume("Shoes 11", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_30.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_36.png' }, true),
+    new Costume("Shoes 12", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_34.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_34.png' }, true),
+    new Costume("Shoes 13", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_36.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_30.png' }, true)
 ];
 
 

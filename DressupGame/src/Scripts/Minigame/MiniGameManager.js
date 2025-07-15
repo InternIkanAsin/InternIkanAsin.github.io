@@ -1,6 +1,6 @@
 //UI Button Class
 import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
-import { SaveManager } from '../SaveManager.js';
+import { SaveManager } from '../Save System/SaveManager.js';
 //MakeUp and DressUp Category Buttons
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
 
@@ -834,10 +834,12 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame();SaveManager.clearSave(); 
-                
+            callback: () => {
+                this.restartGame(); SaveManager.clearSave();
+
                 // Mulai ulang tanpa mempertahankan bachelor
-                ; restartButton.disableInteractive(); nextLevelButton.disableInteractive(); },
+                ; restartButton.disableInteractive(); nextLevelButton.disableInteractive();
+            },
             buttonText: 'Next Level',
             textSize: 60,
             textYPosition: 0,
@@ -856,10 +858,12 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            callback: () => { this.restartGame(true);SaveManager.clearSave(); 
-                
+            callback: () => {
+                this.restartGame(true); SaveManager.clearSave();
+
                 // Mulai ulang tanpa mempertahankan bachelor
-                this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive(); },
+                this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive();
+            },
             buttonText: 'Restart',
             textSize: 60,
             textYPosition: 0,
