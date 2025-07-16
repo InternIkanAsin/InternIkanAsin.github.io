@@ -10,6 +10,8 @@ import AssetLoader from './AssetLoader.js'
 
 import { PokiPlugin } from '@poki/phaser-3';
 
+import { progressManager } from './Save System/ProgressManager.js';
+
 import Phaser from 'phaser';
 
 //Tweening Utils Class
@@ -110,11 +112,13 @@ class Main extends Phaser.Scene {
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         const savedData = this.SaveManager.loadGame();
+        this.makeUpFinished = progressManager.makeUpFinished;
+        this.dressUpFinished = progressManager.dressUpFinished;
         if (savedData) {
             // Pulihkan data sederhana
             this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
-            this.makeUpFinished = savedData.progress?.makeUpFinished || false;
-            this.dressUpFinished = savedData.progress?.dressUpFinished || false;
+            this.makeUpFinished = progressManager.makeUpFinished;
+            this.dressUpFinished = progressManager.dressUpFinished;
 
             // --- UBAH DUA BARIS INI ---
             // Akses properti statis langsung melalui nama KELAS, bukan 'this'
@@ -347,8 +351,7 @@ class Main extends Phaser.Scene {
     }
 
     startGameFlow() {
-        this.makeUpFinished = false;
-        this.dressUpFinished = false;
+        
         // Minta BachelorManager untuk menyiapkan dan memilih bachelor yang ditentukan
         const bachelorData = this.BachelorManager.initializeAndSelectBachelor(this.chosenBachelorName);
 

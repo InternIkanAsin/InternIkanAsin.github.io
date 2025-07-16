@@ -5,7 +5,7 @@ import { SaveManager } from '../Save System/SaveManager.js';
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
 import { unlockManager } from '../Save System/UnlockManager.js';
 //Costume Data Class
-
+import { progressManager } from '../Save System/ProgressManager.js';
 
 //Game State Class
 import { GameState } from '../Main.js';
@@ -333,10 +333,20 @@ export class MiniGameManager {
         return container.setDepth(151).setScale(0);
     }
     finishMiniGame(gameState) {
-        this.closeConfirmationPanel();
+        this.closeConfirmationPanel(); 
+         if (gameState === GameState.MAKEUP) {
+            // Set status di scene untuk UI (tick mark)
+            this.scene.makeUpFinished = true;
+            // Panggil manajer untuk menyimpan progres secara permanen
+            progressManager.completeMakeUp();
+        } else if (gameState === GameState.DRESSUP) {
+            // Set status di scene untuk UI
+            this.scene.dressUpFinished = true;
+            // Panggil manajer untuk menyimpan
+            progressManager.completeDressUp();
+        }
         this.scene.TweeningUtils.transitionBackToSelection();
-        if (gameState === GameState.MAKEUP) this.scene.makeUpFinished = true;
-        else if (gameState === GameState.DRESSUP) this.scene.dressUpFinished = true;
+        
     }
 
     transitionMiniGame() {
@@ -883,7 +893,9 @@ export class MiniGameManager {
     handleGameEnd(isRestart) {
         unlockManager.clearAllUnlocks();
         SaveManager.clearSave();
+        progressManager.clearProgress();
         console.log("Save data has been cleared on game end.");
+        
         
 
         // 2. Jika ini restart, set registry untuk memilih bachelor yang sama
