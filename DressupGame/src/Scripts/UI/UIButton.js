@@ -562,6 +562,7 @@ export class OutfitButton extends BaseButton {
         poki.gameplayStop();
         poki.rewardedBreak().then(() => {
             poki.gameplayStart();
+            this.isLocked = false;
             this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType);
             this.icon.setAlpha(1);
             unlockDress(this.name);
