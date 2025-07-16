@@ -3,6 +3,7 @@ import { BaseButton } from "./BaseButton.js";
 import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
+import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
@@ -559,13 +560,13 @@ export class OutfitButton extends BaseButton {
     playRewardedAd(scene) {
         const poki = scene.plugins.get('poki');
 
-        poki.gameplayStop();
+        poki.runWhenInitialized(() => poki.gameplayStop());
         poki.rewardedBreak().then(() => {
-            poki.gameplayStart();
+            poki.runWhenInitialized(() => poki.gameplayStart());
             this.isLocked = false;
             this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType);
             this.icon.setAlpha(1);
-            unlockDress(this.name);
+            unlockManager.unlockItem(this.name);
             scene.SaveManager.saveGame(scene);
         });
     }
@@ -788,12 +789,14 @@ export class MakeUpButton extends BaseButton {
     playRewardedAd(scene) {
         const poki = scene.plugins.get('poki');
 
-        poki.gameplayStop();
+        poki.runWhenInitialized(() => poki.gameplayStop());
         poki.rewardedBreak().then(() => {
-            poki.gameplayStart();
+            poki.runWhenInitialized(() => poki.gameplayStart());
             this.toggleMakeUp();
             this.icon.setAlpha(1);
             this.isLocked = false;
+            unlockManager.unlockItem(this.name);
+            scene.SaveManager.saveGame(scene);
         });
     }
 

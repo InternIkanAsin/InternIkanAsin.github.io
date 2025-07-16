@@ -3,7 +3,7 @@ import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
 //MakeUp and DressUp Category Buttons
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
-
+import { unlockManager } from '../Save System/UnlockManager.js';
 //Costume Data Class
 
 
@@ -881,7 +881,7 @@ export class MiniGameManager {
     }
 
     handleGameEnd(isRestart) {
-        
+        unlockManager.clearAllUnlocks();
         SaveManager.clearSave();
         console.log("Save data has been cleared on game end.");
         

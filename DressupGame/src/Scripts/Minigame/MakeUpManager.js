@@ -5,6 +5,7 @@ import { MakeUpButton, ItemPanelButton } from '../UI/UIButton.js'
 import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 
 import AssetLoader from '../AssetLoader.js';
+import { unlockManager } from '../Save System/UnlockManager.js';
 
 
 export class MakeUpManager {
@@ -20,9 +21,11 @@ export class MakeUpManager {
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
         makeUpData.forEach(makeupItem => {
-            const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked } = makeupItem;
+            const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus } = makeupItem;
             if (textureButton && textureIcon) {
-                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, isLocked);
+                const isCurrentlyLocked = defaultLockStatus && !unlockManager.isItemUnlocked(name);
+
+                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, isCurrentlyLocked);
 
                 button.setSize(150, 200);
                 button.setData('instance', button);
