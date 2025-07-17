@@ -151,75 +151,75 @@ export default class AssetLoader {
   }
 
   static loadShoes(scene) {
-        scene.load.atlas(
-          'Shoes_spritesheet',
-          'Asset/Outfit/Sepatu/shoes_spritesheet.png',
-          'Asset/Outfit/Sepatu/shoes_spritesheet.json'
-        );
-        scene.load.start();
-    }
+    scene.load.atlas(
+      'Shoes_spritesheet',
+      'Asset/Outfit/Shoes/Shoes_spritesheet.png',
+      'Asset/Outfit/Shoes/Shoes_spritesheet.json'
+    );
+    scene.load.start();
+  }
 
   static loadSocks(scene) {
-        scene.load.atlas(
-          'Socks_spritesheet',
-          'Asset/Outfit/Kaos Kaki/socks_spritesheet.png',
-          'Asset/Outfit/Kaos Kaki/socks_spritesheet.json'
-        );
-        scene.load.start();
-    }
+    scene.load.atlas(
+      'Socks_spritesheet',
+      'Asset/Outfit/Socks/Socks_spritesheet.png',
+      'Asset/Outfit/Socks/Socks_spritesheet.json'
+    );
+    scene.load.start();
+  }
 
- 
+
 
   static loadLower(scene) {
     scene.load.atlas(
       'Lower_spritesheet',
-      'Asset/Outfit/Bawahan/lower_spritesheet.png',
-      'Asset/Outfit/Bawahan/lower_spritesheet.json'
+      'Asset/Outfit/Lower/Lower_spritesheet.png',
+      'Asset/Outfit/Lower/Lower_spritesheet.json'
     );
-        scene.load.start();
+    scene.load.start();
   }
 
   static loadOuter(scene) {
     scene.load.atlas(
       'Outer_spritesheet',
-      'Asset/Outfit/Jaket/outer_spritesheet.png',
-      'Asset/Outfit/Jaket/outer_spritesheet.json'
+      'Asset/Outfit/Outer/Outer_spritesheet.png',
+      'Asset/Outfit/Outer/Outer_spritesheet.json'
     );
-        scene.load.start();
+    scene.load.start();
   }
 
   static loadOutfitAssets(scene) {
-    
+
 
     //Dress & shirt
     scene.load.atlas(
-        'Dress_spritesheet1',
-        'Asset/Outfit/Terusan/dress_spritesheet.png',
-        'Asset/Outfit/Terusan/spritesheet.json'
-      );
+      'Dress_spritesheet1',
+      'Asset/Outfit/Dress/Dress_spritesheet1.png',
+      'Asset/Outfit/Dress/Dress_spritesheet1.json'
+    );
 
-      scene.load.atlas(
-        'Dress_spritesheet2',
-        'Asset/Outfit/Terusan/dress_spritesheet(1).png',
-        'Asset/Outfit/Terusan/spritesheet (1).json'
-      );
+    scene.load.atlas(
+      'Dress_spritesheet2',
+      'Asset/Outfit/Dress/Dress_spritesheet2.png',
+      'Asset/Outfit/Dress/Dress_spritesheet2.json'
+    );
 
-      scene.load.atlas(
-        'Dress_spritesheet3',
-        'Asset/Outfit/Terusan/dress_spritesheet(2).png',
-        'Asset/Outfit/Terusan/spritesheet (2).json'
-      );
+    scene.load.atlas(
+      'Dress_spritesheet3',
+      'Asset/Outfit/Dress/Dress_spritesheet3.png',
+      'Asset/Outfit/Dress/Dress_spritesheet3.json'
+    );
 
-      scene.load.atlas(
-        'Shirt_spritesheet',
-        'Asset/Outfit/Baju/shirt_spritesheet.png',
-        'Asset/Outfit/Baju/shirt_spritesheet.json'
-      );
-
-    
+    scene.load.atlas(
+      'Shirt_spritesheet',
+      'Asset/Outfit/Shirt/Shirt_spritesheet.png',
+      'Asset/Outfit/Shirt/Shirt_spritesheet.json'
+    );
 
 
-    
+
+
+
 
     //Outfit Icons
     //Dress
@@ -264,24 +264,24 @@ export default class AssetLoader {
       'Asset/ikon/Jaket/spritesheet (2).json'
     );
   }
-  static loadHair(scene){
+  static loadHair(scene) {
     scene.load.atlas('hair_front_01', "Asset/Outfit/Hairs_upscaled/spritesheet_F.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F.json");
     scene.load.atlas('hair_back_01', "Asset/Outfit/Hairs_upscaled/spritesheet_B.png", " Asset/Outfit/Hairs_upscaled/spritesheet_B.json");
 
-    
+
     scene.load.atlas('hair_front_02', "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 2.json");
     scene.load.atlas('hair_back_02', "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 2.json");
 
-    
+
     scene.load.atlas('hair_front_03', "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_F 3.json");
     scene.load.atlas('hair_back_03', "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.png", "Asset/Outfit/Hairs_upscaled/spritesheet_B 3.json");
 
-    
+
     scene.load.image('01blackB', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
     scene.load.start();
   }
 
-  static loadBlush(scene){
+  static loadBlush(scene) {
     scene.load.image('blushanime', "Asset/makeup/MakeupAnime/blush/mc_blush anime.png");
     scene.load.image('blushfever', "Asset/makeup/MakeupAnime/blush/mc_blush fever.png");
     scene.load.image('blushfrackles', "Asset/makeup/MakeupAnime/blush/mc_blush frackles.png");
@@ -293,16 +293,16 @@ export default class AssetLoader {
     scene.load.start();
   }
 
-  static loadEyelash(scene){
-    
+  static loadEyelash(scene) {
+
     scene.load.image('EyelashesNormalDefault', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
     scene.load.atlas('eyelashes_spritesheet', "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.png", "Asset/makeup/MakeupAnime/eyeleashes/normal/spritesheet_Eyebrow.json");
 
     scene.load.start();
   }
 
-  static loadEyeliner(scene){
-    
+  static loadEyeliner(scene) {
+
     scene.load.image('eyelinernormal1', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 1_normal.png");
     scene.load.image('eyelinernormal2', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 2_normal.png");
     scene.load.image('eyelinernormal3', "Asset/makeup/MakeupAnime/eyeliner/normal/mc_er 3_normal.png");
@@ -311,7 +311,7 @@ export default class AssetLoader {
     scene.load.start();
   }
 
-  static loadEyeShadow(scene){  
+  static loadEyeShadow(scene) {
     scene.load.image('eyeshadownormalbrown', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es brown_normal.png");
     scene.load.image('eyeshadownormaldragon', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es dragon_normal.png");
     scene.load.image('eyeshadownormalfairy', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es fairy_normal.png");
@@ -325,7 +325,7 @@ export default class AssetLoader {
     scene.load.start();
   }
 
-  static loadLip(scene){
+  static loadLip(scene) {
     scene.load.image('lipnormalbrown', "Asset/makeup/MakeupAnime/lips/normal/mc_lips brown_normal.png");
     scene.load.image('lipnormalcherry', "Asset/makeup/MakeupAnime/lips/normal/mc_lips cherry_normal.png");
     scene.load.image('lipnormalorange', "Asset/makeup/MakeupAnime/lips/normal/mc_lips orange_normal.png");
@@ -337,13 +337,13 @@ export default class AssetLoader {
     scene.load.start();
   }
 
-  static loadPupil(scene){
+  static loadPupil(scene) {
     scene.load.atlas('pupil_spritesheet', "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.png", "Asset/makeup/MakeupAnime/pupil/normal/spritesheet_Pupil.json");
 
     scene.load.start();
   }
 
-  static loadSticker(scene){
+  static loadSticker(scene) {
     //sticker
     scene.load.atlas(
       'sticker_spritesheet',
@@ -368,7 +368,7 @@ export default class AssetLoader {
     scene.load.image('eyeColorIcon', "Asset/UI/Eye_Color_Icon.png");
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
-    
+
     //eyebrow
     //normal
     scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");

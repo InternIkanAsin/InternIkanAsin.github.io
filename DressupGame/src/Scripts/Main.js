@@ -88,7 +88,6 @@ class Main extends Phaser.Scene {
     preload() {
         loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
         loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
-
         AssetLoader.loadRexUIPlugin(this);
     }
 
@@ -120,8 +119,9 @@ class Main extends Phaser.Scene {
             // Akses properti statis langsung melalui nama KELAS, bukan 'this'
             OutfitButton.selectedOutfits = savedData.playerAppearance?.outfits || {};
             MakeUpButton.selectedMakeUp = savedData.playerAppearance?.makeup || {};
-            // -------------------------
+            console.log(savedData.playerAppearance?.outfits.Dress.current.textureAnime);
 
+            console.log(OutfitButton.selectedOutfits)
             console.log("Restored state from save file.");
         }
 

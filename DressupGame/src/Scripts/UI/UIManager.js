@@ -19,7 +19,7 @@ export class UIManager {
      * @method setupScene - Setup the scene by setting background and character
      */
     setupScene(scene) {
-       
+
 
         const bgLayout = layout.background;
 
@@ -31,7 +31,7 @@ export class UIManager {
             .setOrigin(bgLayout.originX, bgLayout.originY)
             .setScale(bgLayout.scale);
 
-        
+
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
             .setScale(layout.character.scale)
             .setOrigin(0.5)
@@ -40,51 +40,88 @@ export class UIManager {
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
 
 
-        
+
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back)
             .setScale(0.5 * 256 / 225)
             .setOrigin(0.5)
             .setDepth(0.9);
 
-        
+
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
             .setScale(0.5 * 256 / 225)
             .setOrigin(0.5)
             .setDepth(7);
 
-        
+
         scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
         scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
 
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
+        //Load Assets yang diperlukan untuk dressup
+        Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, outfit]) => {
+            scene.load.atlas(
+                outfit.current.textureAnime.atlas,
+                `Asset/Outfit/${outfitType}/${outfit.current.textureAnime.atlas}.png`,
+                `Asset/Outfit/${outfitType}/${outfit.current.textureAnime.atlas}.json`
+            );
+            console.log(outfit.current.textureAnime.atlas);
+        });
 
-       
-        MakeUpButton.selectedMakeUp = {}; 
+        // Wait for all to finish loading, then run a callback
+        scene.load.once('complete', () => {
+            console.log('All outfit atlases loaded!');
 
-        
+            // You can now safely apply textures
+            Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
+                const textureAnime = equippedOutfit?.current?.textureAnime;
+
+                let outfitScale;
+                if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
+                    outfitScale = 0.6;
+                } else {
+                    outfitScale = 1.2
+                }
+
+                const outfitManualOffsets = layout.outfit.manualOffsets;
+
+                const baseManualOffset = outfitManualOffsets[textureAnime.name] || { x: 0, y: 0 };
+                if (textureAnime) {
+                    //To Do: possibly refactor function in OutfitButton to handle this
+                    scene.add.image(layout.outfit.positions[outfitType].x + baseManualOffset.x, layout.outfit.positions[outfitType].y + baseManualOffset.y, textureAnime.atlas, textureAnime.frame).setScale(outfitScale).setDepth(100);
+                }
+            });
+        });
+
+        scene.load.start(); // Important to start the dynamic load
+
+
+
+        MakeUpButton.selectedMakeUp = {};
+
+
         const registerInitialFacialFeature = (makeupType, initialTextureKey, gameObject) => {
-            
+
             const defaultMakeUpItemData = makeUpData.find(
                 item => item.makeUpType === makeupType && item.textureAnime === initialTextureKey
             );
 
             if (defaultMakeUpItemData) {
                 MakeUpButton.selectedMakeUp[makeupType] = {
-                    current: { 
+                    current: {
                         name: defaultMakeUpItemData.name,
                         makeupType: defaultMakeUpItemData.makeUpType,
                         textureAnime: defaultMakeUpItemData.textureAnime,
-                        displayedMakeUp: gameObject, 
-                        isDefault: true 
+                        displayedMakeUp: gameObject,
+                        isDefault: true
                     },
                     previous: null
                 };
                 console.log(`Registered initial state for ${makeupType}: ${defaultMakeUpItemData.name} using texture ${initialTextureKey}`);
             } else {
-                
-                
+
+
                 MakeUpButton.selectedMakeUp[makeupType] = {
                     current: {
                         name: `Initial ${makeupType}`,
@@ -98,12 +135,12 @@ export class UIManager {
             }
         };
 
-        
+
         registerInitialFacialFeature('Pupil', 'PupilNormalBlue', scene.pupils);
         registerInitialFacialFeature('Lips', 'LipNormalDefault', scene.lips);
         registerInitialFacialFeature('Eyebrows', 'EyebrowNormalDefault', scene.eyebrows);
         registerInitialFacialFeature('Eyelashes', 'EyelashesNormalDefault', scene.eyelashes);
-        
+
         MakeUpButton.selectedMakeUp['Hair'] = {
             current: {
                 name: 'Default Hair',
@@ -120,15 +157,15 @@ export class UIManager {
 
     showLoadingOverlay(text = 'Loading...') {
         const scene = this.scene;
-        this.hideLoadingOverlay(); 
-        
+        this.hideLoadingOverlay();
+
         if (!scene.darkOverlay) {
             scene.darkOverlay = scene.add.rectangle(
                 scene.scale.width / 2, scene.scale.height / 2,
                 scene.scale.width, scene.scale.height, 0x000000, 0.7
             ).setDepth(200);
         }
-        scene.darkOverlay.setVisible(true).setInteractive(); 
+        scene.darkOverlay.setVisible(true).setInteractive();
 
         this.loadingText = scene.add.text(
             scene.scale.width / 2, scene.scale.height / 2,
@@ -182,17 +219,17 @@ export class UIManager {
         scene.rightDrape?.destroy();
         scene.finishMiniGameButton?.destroy();
         if (OutfitButton.selectedOutfits) {
-            
+
             Object.values(OutfitButton.selectedOutfits).forEach(entry => {
                 const currentButton = entry?.current;
-                
+
                 if (currentButton && currentButton.displayedOutfit && typeof currentButton.displayedOutfit.destroy === 'function') {
-                    
+
                     currentButton.displayedOutfit.destroy();
                 }
             });
         }
-        
+
         OutfitButton.selectedOutfits = {};
 
         if (scene.outfitButtons) {
@@ -210,18 +247,18 @@ export class UIManager {
                 if (Array.isArray(item.displayedMakeUp)) {
                     item.displayedMakeUp.forEach(img => img?.destroy());
                 } else if (item.displayedMakeUp && !item.isDefault) {
-                    
+
                     item.displayedMakeUp?.destroy();
                 }
             });
         }
 
-        
+
         MakeUpButton.selectedMakeUp = {};
 
-        
+
         scene.statPanelContainer?.destroy();
-        scene.sidePanel?.destroy(); 
+        scene.sidePanel?.destroy();
 
         if (scene.MiniGameManager) {
             scene.MiniGameManager.backButton?.destroy();
@@ -243,7 +280,7 @@ export class UIManager {
     }
 
     destroySidePanel(scene) {
-        
+
         if (scene.sidePanel) {
             try {
                 scene.sidePanel.iterate(child => {
@@ -251,13 +288,13 @@ export class UIManager {
                         child.disableInteractive();
                     }
                 });
-                scene.sidePanel.removeAllListeners(); 
+                scene.sidePanel.removeAllListeners();
             } catch (e) {
                 console.warn("Failed to disable interactivity:", e);
             }
         }
 
-       
+
         if (scene.buttons) {
             Object.values(scene.buttons).flat().forEach(button => {
                 button?.clearMask?.(true);
@@ -266,14 +303,14 @@ export class UIManager {
             scene.buttons = null;
         }
 
-        
+
         this.buttonGrid?.destroy();
         this.buttonGrid = null;
 
         this.innerSizer?.destroy();
         this.innerSizer = null;
 
-        
+
         scene.sidePanel?.destroy(true);
         scene.sidePanel = null;
 
