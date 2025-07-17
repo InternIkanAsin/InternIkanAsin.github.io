@@ -9,7 +9,6 @@ export class Costume {
     }
 }
 
-//Stat tracker class to track stats with the outfit equipped
 export class statTracker {
     constructor(scene) {
         this.scene = scene;
@@ -20,7 +19,7 @@ export class statTracker {
     setStat(amount, isAdded) {
         statTracker.currentStat += isAdded ? amount : -amount;
         console.log(statTracker.currentStat);
-        //this.scene.currentStatText.setText(statTracker.currentStat.toString());
+        
     }
 
     setupStatPanel(scene) {

@@ -11,7 +11,7 @@ export class CutsceneSystem {
         const { width, height } = this.scene.sys.game.config;
 
         this.scene.backgroundCutscene1 = this.scene.add.image(layout.cutsceneBG.x, layout.cutsceneBG.y, bachelorName + datePlace).setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
-        // Fade in cutscene
+        
         this.scene.add.existing(bachelorChoice);
 
         bachelorChoice.x = width / 2;
@@ -21,12 +21,12 @@ export class CutsceneSystem {
         this.scene.cameras.main.fadeIn(3000);
         this.scene.AudioManager.playMusic('cutsceneMusic');
         this.scene.AudioManager.fadeInMusic('cutsceneMusic');
-        // Create and display dialogue after fade-in
+       
         this.scene.cameras.main.once('camerafadeincomplete', () => {
 
             const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
             this.scene.DialogueManager.showDialogue(bachelorDialogue, () => {
-                // Fade out when dialogue is done
+                
                 this.scene.cameras.main.fadeOut(2000);
                 this.scene.SceneManager.TransitionCutscene1();
             });
@@ -49,7 +49,7 @@ export class CutsceneSystem {
         this.scene.backgroundCutscene2 = this.scene.add.image(layout.cutsceneBG.x, layout.cutsceneBG.y, bachelorName + datePlace).setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
 
         console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
-        // Dialogue choices depending on your choice of outfit
+        
 
         this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
         const randomIndex = Math.floor(Math.random() * 5);
@@ -81,7 +81,7 @@ export class CutsceneSystem {
 
         this.selectedDialogue = bachelorDialoguesContainer["AfterHangout"][randomIndex].getDialogue();
         this.selectedDialogue[0].speakerName = bachelorName;
-        // Start cutscene
+       
         bachelorChoice.x = width / 2;
         bachelorChoice.y = height / 2 * 1.1;
         bachelorChoice.setVisible(true);
@@ -89,7 +89,7 @@ export class CutsceneSystem {
         this.scene.cameras.main.fadeIn(3000);
         this.scene.AudioManager.playMusic('cutsceneMusic');
 
-        // Create and display dialogue after fade-in
+       
         this.scene.cameras.main.once('camerafadeincomplete', () => {
             this.scene.DialogueManager.showDialogue(this.selectedDialogue, () => {
                 this.scene.darkOverlay.setVisible(true);

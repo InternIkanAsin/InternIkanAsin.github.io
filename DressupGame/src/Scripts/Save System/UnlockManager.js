@@ -33,31 +33,18 @@ class UnlockManager {
         }
     }
 
-    /**
-     * Menambahkan item baru ke daftar yang sudah di-unlock dan langsung menyimpannya.
-     * @param {string} itemName Nama unik dari item (contoh: "Dress 18").
-     */
     unlockItem(itemName) {
         if (!this.unlockedItems.has(itemName)) {
             this.unlockedItems.add(itemName);
-            this.saveUnlockedItems(); // Langsung simpan perubahan
+            this.saveUnlockedItems(); 
             console.log(`[UnlockManager] Item unlocked and saved: ${itemName}`);
         }
     }
 
-    /**
-     * Memeriksa apakah sebuah item sudah ada di dalam daftar yang di-unlock.
-     * @param {string} itemName Nama unik dari item.
-     * @returns {boolean} True jika item sudah di-unlock, false jika belum.
-     */
     isItemUnlocked(itemName) {
         return this.unlockedItems.has(itemName);
     }
 
-    /**
-     * Menghapus semua data item yang sudah di-unlock.
-     * Dipanggil saat pemain menekan "Next Level" atau "Restart".
-     */
     clearAllUnlocks() {
         this.unlockedItems.clear();
         localStorage.removeItem(UNLOCKED_ITEMS_KEY);
@@ -65,5 +52,4 @@ class UnlockManager {
     }
 }
 
-// Buat satu instance global dari UnlockManager yang akan kita gunakan di seluruh game.
 export const unlockManager = new UnlockManager();

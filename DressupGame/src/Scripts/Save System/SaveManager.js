@@ -33,7 +33,6 @@ export class SaveManager {
         }
     }
 
-    // Fungsi helper untuk membersihkan data dari referensi Phaser
     static cleanSaveData(selectedItems) {
         const cleanedData = {};
         for (const type in selectedItems) {

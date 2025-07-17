@@ -13,7 +13,7 @@ export function SaveData(scene, prevData = {}) {
             dressUpFinished: scene.dressUpFinished
         },
         playerAppearance: {
-            // Kita panggil fungsi helper untuk membersihkan data
+            
             outfits: SaveManager.cleanSaveData(OutfitButton.selectedOutfits),
             makeup: SaveManager.cleanSaveData(MakeUpButton.selectedMakeUp)
         },

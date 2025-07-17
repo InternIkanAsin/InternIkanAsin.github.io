@@ -25,9 +25,6 @@ import { MiniGameManager } from './Minigame/MiniGameManager.js'
 
 import { SaveManager } from './Save System/SaveManager.js';
 
-// Mini Game Manager Class
-import { TutorialManager } from './Minigame/TutorialManager.js'
-
 // Dress Up Manager Class
 import { DressUpManager } from './Minigame/DressUpManager.js'
 
@@ -352,14 +349,14 @@ class Main extends Phaser.Scene {
 
     startGameFlow() {
         
-        // Minta BachelorManager untuk menyiapkan dan memilih bachelor yang ditentukan
+        
         const bachelorData = this.BachelorManager.initializeAndSelectBachelor(this.chosenBachelorName);
 
-        // Simpan referensi ke objek bachelor yang dikembalikan untuk digunakan di seluruh scene
+        
         this.chosenBachelor = bachelorData.bachelorSprite;
         this.chosenBachelorExpression = bachelorData.bachelorExpression;
 
-        // Create a dark overlay if needed
+       
         this.darkOverlay = this.add.rectangle(
             this.scale.width / 2,
             this.scale.height / 2,
@@ -368,20 +365,19 @@ class Main extends Phaser.Scene {
             0x000000,
             0.5
         ).setDepth(150).setVisible(false);
-        // Buat UI dialog
+        
         this.DialogueManager.createDialogueUI();
 
-        // Mulai Cutscene 1 dengan data bachelor yang sudah siap
-        //this.MiniGameManager.transitionToCutscene();
+        
         this.CutsceneSystem.initiateCutscene1(this.chosenBachelor, this.chosenBachelorName, "Hangout1");
     }
 
     setUpMiniGame() {
-        //this.UIManager.setupScene(this);
+
         this.MakeUpManager.setupMakeUpButtons(this);
         this.DressUpManager.setupCostumeButtons(this);
         this.MiniGameManager.setUpGame(this);
-        //this.TutorialManager.startTutorial();
+        
     }
 
 
