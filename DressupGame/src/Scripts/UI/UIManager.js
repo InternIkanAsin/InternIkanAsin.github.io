@@ -76,7 +76,6 @@ export class UIManager {
             // You can now safely apply textures
             Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
                 const textureAnime = equippedOutfit?.current?.textureAnime;
-
                 let outfitScale;
                 if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
                     outfitScale = 0.6;
@@ -89,7 +88,7 @@ export class UIManager {
                 const baseManualOffset = outfitManualOffsets[textureAnime.name] || { x: 0, y: 0 };
                 if (textureAnime) {
                     //To Do: possibly refactor function in OutfitButton to handle this
-                    scene.add.image(layout.outfit.positions[outfitType].x + baseManualOffset.x, layout.outfit.positions[outfitType].y + baseManualOffset.y, textureAnime.atlas, textureAnime.frame).setScale(outfitScale).setDepth(100);
+                    scene[outfitType] = scene.add.image(layout.outfit.positions[outfitType].x + baseManualOffset.x, layout.outfit.positions[outfitType].y + baseManualOffset.y, textureAnime.atlas, textureAnime.frame).setScale(outfitScale).setDepth(100);
                 }
             });
         });

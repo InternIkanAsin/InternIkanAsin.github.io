@@ -40,7 +40,6 @@ export class DressUpManager {
 
                 button.displayedOutfit = oldButtonInstance.displayedOutfit;
 
-
                 currentSelectedEntry.current = button;
             }
 

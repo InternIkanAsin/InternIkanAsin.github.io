@@ -510,29 +510,29 @@ export class OutfitButton extends BaseButton {
         this.offsetXInDressUpView = 0;
         this.offsetYInDressUpView = 0;
 
-        
+
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
         const tapThreshold = 10;
 
         buttonBg.on("pointerout", () => {
-            buttonBg.setAlpha(1); 
+            buttonBg.setAlpha(1);
             this.isDragging = false;
         });
         buttonBg.on("pointerdown", (pointer) => {
-            buttonBg.setAlpha(0.5); 
+            buttonBg.setAlpha(0.5);
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
         });
         buttonBg.on("pointerup", (pointer) => {
-            buttonBg.setAlpha(1); 
+            buttonBg.setAlpha(1);
             if (!buttonBg.input || !buttonBg.active) { this.isDragging = false; return; }
             const dx = Math.abs(pointer.x - this.pointerDownPos.x);
             const dy = Math.abs(pointer.y - this.pointerDownPos.y);
             const distance = Math.sqrt(dx * dx + dy * dy);
             if (distance <= tapThreshold && !this.isDragging) {
-                
+
                 if (!this.isLocked) { this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType); }
                 else { this.playRewardedAd(scene); }
             }
@@ -630,6 +630,10 @@ export class OutfitButton extends BaseButton {
             }
             OutfitButton.selectedOutfits[type] = { current: null, previous: equippedButton || entry?.previous || null };
 
+            if (scene[outfitType]) {
+                scene[outfitType].destroy();
+                scene[outfitType] = null;
+            }
         };
 
 
@@ -942,7 +946,7 @@ export class MakeUpButton extends BaseButton {
         MakeUpButton.clearMakeupHighlightsForType(scene, makeupType);
 
         if (colorableTypes.includes(makeupType)) {
-            
+
             if (currentGlobalEquippedInfo === this) {
                 if (scene.interactiveMakeupSystem?.isActive && scene.interactiveMakeupSystem.activeMakeupType === makeupType) {
 
@@ -995,7 +999,7 @@ export class MakeUpButton extends BaseButton {
                 }
             }
         } else {
-            
+
 
             if (currentGlobalEquippedInfo === this) {
                 if (makeupType === 'Sticker' && this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {

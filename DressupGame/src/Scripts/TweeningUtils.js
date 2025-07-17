@@ -305,14 +305,15 @@ export default class TweenUtils {
         this.scene.tweens.add({ targets: [this.scene.hairBack, this.scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: 500, ease: 'Sine.easeInOut' });
 
 
-        Object.values(OutfitButton.selectedOutfits).forEach(entry => {
+        Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
             const equippedButton = entry?.current;
+            console.log(equippedButton);
+            if (equippedButton && equippedButton.displayedOutfit) {
 
-            if (equippedButton && equippedButton.displayedOutfit && equippedButton.displayedOutfit.active) {
-
-                this.tweenOutfitImage(equippedButton.displayedOutfit, targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, 500, 'Sine.easeInOut');
+                this.tweenOutfitImage(equippedButton.displayedOutfit || scene[outfitType], targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, 500, 'Sine.easeInOut');
             }
         });
+
     }
 
     async zoomOut() {

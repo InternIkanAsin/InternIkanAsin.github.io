@@ -120,9 +120,6 @@ class Main extends Phaser.Scene {
             // Akses properti statis langsung melalui nama KELAS, bukan 'this'
             OutfitButton.selectedOutfits = savedData.playerAppearance?.outfits || {};
             MakeUpButton.selectedMakeUp = savedData.playerAppearance?.makeup || {};
-            console.log(savedData.playerAppearance?.outfits.Dress.current.textureAnime);
-
-            console.log(OutfitButton.selectedOutfits)
             console.log("Restored state from save file.");
         }
 
@@ -326,6 +323,8 @@ class Main extends Phaser.Scene {
                 this.isTransitioning = false;
             });
         });
+        console.log(OutfitButton.selectedOutfits['Dress']);
+        console.log(OutfitButton.selectedOutfits['Shoes']);
     }
 
     initializeSystems() {
@@ -339,7 +338,7 @@ class Main extends Phaser.Scene {
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
         this.DressUpManager = new DressUpManager(this, this.AudioManager);
-        
+
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
         this.TweeningUtils = new TweenUtils(this);
@@ -348,15 +347,15 @@ class Main extends Phaser.Scene {
     }
 
     startGameFlow() {
-        
-        
+
+
         const bachelorData = this.BachelorManager.initializeAndSelectBachelor(this.chosenBachelorName);
 
-        
+
         this.chosenBachelor = bachelorData.bachelorSprite;
         this.chosenBachelorExpression = bachelorData.bachelorExpression;
 
-       
+
         this.darkOverlay = this.add.rectangle(
             this.scale.width / 2,
             this.scale.height / 2,
@@ -365,10 +364,10 @@ class Main extends Phaser.Scene {
             0x000000,
             0.5
         ).setDepth(150).setVisible(false);
-        
+
         this.DialogueManager.createDialogueUI();
 
-        
+
         this.CutsceneSystem.initiateCutscene1(this.chosenBachelor, this.chosenBachelorName, "Hangout1");
     }
 
@@ -377,7 +376,7 @@ class Main extends Phaser.Scene {
         this.MakeUpManager.setupMakeUpButtons(this);
         this.DressUpManager.setupCostumeButtons(this);
         this.MiniGameManager.setUpGame(this);
-        
+
     }
 
 
