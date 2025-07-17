@@ -86,9 +86,12 @@ export class UIManager {
                 const outfitManualOffsets = layout.outfit.manualOffsets;
 
                 const baseManualOffset = outfitManualOffsets[textureAnime.name] || { x: 0, y: 0 };
+                const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
                 if (textureAnime) {
                     //To Do: possibly refactor function in OutfitButton to handle this
-                    scene[outfitType] = scene.add.image(layout.outfit.positions[outfitType].x + baseManualOffset.x, layout.outfit.positions[outfitType].y + baseManualOffset.y, textureAnime.atlas, textureAnime.frame).setScale(outfitScale).setDepth(100);
+                    scene[outfitType] = scene.add.image(layout.outfit.positions[outfitType].x + baseManualOffset.x, layout.outfit.positions[outfitType].y + baseManualOffset.y, textureAnime.atlas, textureAnime.frame)
+                        .setScale(outfitScale)
+                        .setDepth(depthValues[outfitType] || 1);
                 }
             });
         });

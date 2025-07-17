@@ -73,6 +73,8 @@ export class DressUpManager {
 
         typesToRemove.forEach(outfitType => {
             const entry = OutfitButton.selectedOutfits[outfitType];
+            this.scene[outfitType].destroy();
+            this.scene[outfitType] = null;
             const currentOutfitButton = entry?.current; // 'current' refers to button instance
 
             if (currentOutfitButton && currentOutfitButton instanceof OutfitButton) { // Check if it's an OutfitButton instance
@@ -86,6 +88,7 @@ export class DressUpManager {
             // 3. Clear the entry in the selectedOutfits registry for this type
             OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfitButton || entry?.previous || null };
         });
+
 
         console.log("[DressUpManager] All outfits removed. Current selection:", scene.OutfitButton.selectedOutfits);
     }
@@ -193,7 +196,10 @@ export class DressUpManager {
                 } else {
                     console.log(`[LepasButton] No ${typeToUnequipActually} item currently equipped to remove.`);
                 }
-
+                if (scene[outfitType]) {
+                    scene[outfitType].destroy();
+                    scene[outfitType] = null;
+                }
             }
 
         );
