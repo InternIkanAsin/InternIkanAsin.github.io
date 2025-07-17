@@ -339,7 +339,7 @@ class Main extends Phaser.Scene {
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
         this.DressUpManager = new DressUpManager(this, this.AudioManager);
-        this.TutorialManager = new TutorialManager(this);
+        
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
         this.TweeningUtils = new TweenUtils(this);
