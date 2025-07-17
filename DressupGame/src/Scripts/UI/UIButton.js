@@ -618,27 +618,23 @@ export class OutfitButton extends BaseButton {
         const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
         const currentEntry = OutfitButton.selectedOutfits[outfitType];
 
-
         const unequip = (type) => {
-            const equippedImage = OutfitButton.selectedOutfits[type];
             const entry = OutfitButton.selectedOutfits[type];
-
             const equippedButton = entry?.current;
+
             if (equippedButton && equippedButton.displayedOutfit) {
                 equippedButton.displayedOutfit.destroy();
                 equippedButton.displayedOutfit = null;
             }
             OutfitButton.selectedOutfits[type] = { current: null, previous: equippedButton || entry?.previous || null };
 
-            if (scene[outfitType]) {
-                scene[outfitType].destroy();
-                scene[outfitType] = null;
+            if (scene[type]) {
+                scene[type].destroy();
+                scene[type] = null;
             }
         };
 
-
         OutfitButton.clearAllOutfitHighlights(scene);
-
 
         if (outfitType === "Dress") {
             unequip("Shirt");
@@ -648,44 +644,51 @@ export class OutfitButton extends BaseButton {
             unequip("Dress");
         }
 
-
         if (currentEntry && currentEntry.current === this) {
             unequip(outfitType);
             return;
         }
 
-
         unequip(outfitType);
-
 
         const outfitManualOffsets = layout.outfit.manualOffsets;
         const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
         const finalX = this.outfitX + manualOffset.x;
         const finalY = this.outfitY + manualOffset.y;
         let newOutfitImage;
-        if (textureAnime.atlas && textureAnime.frame) newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame);
-        else newOutfitImage = scene.add.image(finalX, finalY, textureAnime);
+
+        if (textureAnime.atlas && textureAnime.frame) {
+            newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame);
+        } else {
+            newOutfitImage = scene.add.image(finalX, finalY, textureAnime);
+        }
 
         newOutfitImage.setDepth(depthValues[outfitType] || 1);
         this.displayedOutfit = newOutfitImage;
 
-        // metadata 
-        newOutfitImage.setData('buttonName', name);
-        newOutfitImage.setData('stat', stat);
-        newOutfitImage.setData('baseWorldOutfitX', this.baseWorldOutfitX);
-        newOutfitImage.setData('baseWorldOutfitY', this.baseWorldOutfitY);
-        newOutfitImage.setData('usesCustomSize', this.usesCustomSize);
-
+        // --- Atur Skala dan Simpan Metadata yang Tepat ---
         if (this.usesCustomSize) {
             newOutfitImage.setDisplaySize(this.dressUpViewDisplayWidth, this.dressUpViewDisplayHeight);
-            newOutfitImage.setData('baseScaleX', newOutfitImage.scaleX);
-            newOutfitImage.setData('baseScaleY', newOutfitImage.scaleY);
         } else {
             newOutfitImage.setScale(this.dressUpViewScale);
-            newOutfitImage.setData('baseScaleX', this.dressUpViewScale);
-            newOutfitImage.setData('baseScaleY', this.dressUpViewScale);
         }
 
+        newOutfitImage.setData('buttonName', name);
+        newOutfitImage.setData('usesCustomSize', this.usesCustomSize);
+
+        // Simpan posisi absolut outfit saat dibuat
+        newOutfitImage.setData('baseWorldOutfitX', finalX);
+        newOutfitImage.setData('baseWorldOutfitY', finalY);
+
+        // Simpan skala absolut outfit saat dibuat
+        newOutfitImage.setData('initialScaleX', newOutfitImage.scaleX);
+        newOutfitImage.setData('initialScaleY', newOutfitImage.scaleY);
+
+        // Simpan posisi dan skala tubuh saat outfit dipasang sebagai referensi
+        newOutfitImage.setData('refBodyX', scene.body.x);
+        newOutfitImage.setData('refBodyY', scene.body.y);
+        newOutfitImage.setData('refBodyScale', scene.body.scale);
+        // ------------------------------------------------
 
         OutfitButton.selectedOutfits[outfitType] = {
             current: this,

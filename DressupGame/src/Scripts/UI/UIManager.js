@@ -75,7 +75,12 @@ export class UIManager {
 
             // You can now safely apply textures
             Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
-                const textureAnime = equippedOutfit?.current?.textureAnime;
+                
+                if (!equippedOutfit?.current) return;
+
+                const textureAnime = equippedOutfit.current.textureAnime;
+                const itemName = equippedOutfit.current.name;
+
                 let outfitScale;
                 if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
                     outfitScale = 0.6;
@@ -84,14 +89,38 @@ export class UIManager {
                 }
 
                 const outfitManualOffsets = layout.outfit.manualOffsets;
-
-                const baseManualOffset = outfitManualOffsets[textureAnime.name] || { x: 0, y: 0 };
+                const baseManualOffset = outfitManualOffsets[itemName] || { x: 0, y: 0 };
                 const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
+
                 if (textureAnime) {
-                    //To Do: possibly refactor function in OutfitButton to handle this
-                    scene[outfitType] = scene.add.image(layout.outfit.positions[outfitType].x + baseManualOffset.x, layout.outfit.positions[outfitType].y + baseManualOffset.y, textureAnime.atlas, textureAnime.frame)
-                        .setScale(outfitScale)
-                        .setDepth(depthValues[outfitType] || 1);
+                    const newOutfitImage = scene.add.image(
+                        layout.outfit.positions[outfitType].x + baseManualOffset.x, 
+                        layout.outfit.positions[outfitType].y + baseManualOffset.y, 
+                        textureAnime.atlas, 
+                        textureAnime.frame
+                    )
+                    .setScale(outfitScale)
+                    .setDepth(depthValues[outfitType] || 1);
+
+                    // --- Perbaikan dan Penambahan Metadata ---
+                    scene[outfitType] = newOutfitImage;
+                    equippedOutfit.current.displayedOutfit = newOutfitImage;
+
+                    const baseScaleX = newOutfitImage.scaleX / scene.body.scaleX;
+                    const baseScaleY = newOutfitImage.scaleY / scene.body.scaleY;
+
+                    newOutfitImage.setData('baseWorldOutfitX', layout.outfit.positions[outfitType].x + baseManualOffset.x);
+                    newOutfitImage.setData('baseWorldOutfitY', layout.outfit.positions[outfitType].y + baseManualOffset.y);
+                    newOutfitImage.setData('initialScaleX', newOutfitImage.scaleX);
+                    newOutfitImage.setData('initialScaleY', newOutfitImage.scaleY);
+                    newOutfitImage.setData('refBodyX', scene.body.x);
+                    newOutfitImage.setData('refBodyY', scene.body.y);
+                    
+                    // **TAMBAHKAN BARIS INI** - Ini adalah kunci yang hilang.
+                    newOutfitImage.setData('refBodyScale', scene.body.scale);
+                    // ------------------------------------------
+
+                    console.log(`[UIManager] Restored, linked, and added full metadata for '${itemName}'`);
                 }
             });
         });

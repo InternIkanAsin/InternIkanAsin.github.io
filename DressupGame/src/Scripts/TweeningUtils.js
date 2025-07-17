@@ -187,53 +187,7 @@ export default class TweenUtils {
             ease: 'Power2',
         });
     }
-    transitionMiniGame() {
-        const actualPreviousState = this.scene.state;
-
-
-        // 1. Stop any active coloring session if coming from MAKEUP
-        if (actualPreviousState === GameState.MAKEUP && this.scene.interactiveMakeupSystem?.isActive) {
-            this.scene.interactiveMakeupSystem.stopColoringSession(this.scene.interactiveMakeupSystem.activeMakeupType, true);
-        }
-
-        // 2. Hide selected item header immediately
-        if (this.scene.selectedButtonHeader) {
-            this.scene.tweens.killTweensOf(this.scene.selectedButtonHeader);
-            this.scene.selectedButtonHeader.setAlpha(0);
-            // console.log("Header alpha forced to 0 by transitionMiniGame");
-        }
-
-        // 3. Hide and disable back button immediately
-        if (this.scene.MiniGameManager && this.scene.MiniGameManager.backButton) {
-            this.scene.tweens.killTweensOf(this.scene.MiniGameManager.backButton); // Kill position tweens
-            this.scene.MiniGameManager.backButton.setX(this.scene.scale.width / 2 * 2.3); // Move off-screen immediately
-            this.scene.MiniGameManager.backButton.disableInteractive();
-            // console.log("Back button moved off-screen and disabled by transitionMiniGame");
-        }
-
-
-        // 4. Toggle the game state
-        this.scene.state = (actualPreviousState === GameState.MAKEUP) ? GameState.DRESSUP : GameState.MAKEUP;
-        console.log(`[TweenUtils] Transitioning from ${actualPreviousState} to ${this.scene.state}`);
-
-        // 5. Perform the zoom animations for the new view
-        this.setUpMiniGame(this.scene.state, actualPreviousState); // Your orchestrator for zoomIn/zoomOut
-
-        // 6. Update the main mode toggle button text/icon
-        if (this.scene.state === GameState.DRESSUP) {
-            this.scene.sidePanelHeaderText?.setText("Dress Up");
-            this.scene.sidePanelHeaderText?.setTexture('dressButtonIcon2');
-        } else { // GameState.MAKEUP
-            this.scene.sidePanelHeaderText?.setText("Make Up");
-            this.scene.sidePanelHeaderText?.setTexture('makeUpButtonIcon2');
-        }
-
-        // 7. Update the side panel to show the correct CATEGORIES for the new state
-        // This will also handle tweening the sidePanel itself.
-        if (this.scene.MiniGameManager) {
-            this.scene.MiniGameManager.updatePanelCategory(this.scene);
-        }
-    }
+    
 
 
 
@@ -245,32 +199,46 @@ export default class TweenUtils {
         }
     }
 
-    tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, referenceBodyScale, duration, ease) {
+    tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, ease) {
         if (!outfitImage || !outfitImage.active) return;
 
+        // Langkah 1: Ambil semua data referensi dari metadata gambar
+        const baseWorldOutfitX = outfitImage.getData('baseWorldOutfitX');
+        const baseWorldOutfitY = outfitImage.getData('baseWorldOutfitY');
+        const refBodyX = outfitImage.getData('refBodyX');
+        const refBodyY = outfitImage.getData('refBodyY');
+        const refBodyScale = outfitImage.getData('refBodyScale');
+        const initialScaleX = outfitImage.getData('initialScaleX');
+        const initialScaleY = outfitImage.getData('initialScaleY');
 
-        const baseWorldX = outfitImage.getData('baseWorldOutfitX');
-        const baseWorldY = outfitImage.getData('baseWorldOutfitY');
-        const usesCustomSize = outfitImage.getData('usesCustomSize');
-        const baseScaleX = outfitImage.getData('baseScaleX');
-        const baseScaleY = outfitImage.getData('baseScaleY');
+        // Validasi: Pastikan semua data yang dibutuhkan ada
+        if (refBodyX === undefined || refBodyScale === undefined || initialScaleX === undefined) {
+            console.error("Outfit image is missing critical reference data. Cannot tween accurately.", outfitImage.texture.key);
+            // Coba atur posisi dan skala secara langsung sebagai fallback
+            outfitImage.x = targetBodyX;
+            outfitImage.y = targetBodyY;
+            outfitImage.scale = targetBodyScale;
+            return;
+        }
 
+        // --- LOGIKA PERHITUNGAN BARU YANG AKURAT ---
 
-        const scaleChangeFactor = targetBodyScale / referenceBodyScale;
+        // Langkah 2: Hitung offset (jarak) outfit dari tubuh pada kondisi referensi (saat dipasang)
+        const offsetX = baseWorldOutfitX - refBodyX;
+        const offsetY = baseWorldOutfitY - refBodyY;
+        
+        // Langkah 3: Hitung posisi tujuan outfit
+        // Posisinya adalah: Posisi Tujuan Tubuh + (Jarak Awal * (Skala Tujuan Tubuh / Skala Referensi Tubuh))
+        const scaleRatio = targetBodyScale / refBodyScale;
+        const targetOutfitX = targetBodyX + (offsetX * scaleRatio);
+        const targetOutfitY = targetBodyY + (offsetY * scaleRatio);
 
+        // Langkah 4: Hitung skala tujuan outfit
+        // Skalanya adalah: Skala Awal Outfit * (Skala Tujuan Tubuh / Skala Referensi Tubuh)
+        const targetScaleX = initialScaleX * scaleRatio;
+        const targetScaleY = initialScaleY * scaleRatio;
 
-        const initialBodyX = this.scene.scale.width / 2 / 1.1;
-        const initialBodyY = this.scene.scale.height / 2 / 0.9;
-
-        const offsetXInDressUpView = baseWorldX - initialBodyX;
-        const offsetYInDressUpView = baseWorldY - initialBodyY;
-
-        const targetOutfitX = targetBodyX + (offsetXInDressUpView * scaleChangeFactor);
-        const targetOutfitY = targetBodyY + (offsetYInDressUpView * scaleChangeFactor);
-
-        const targetScaleX = baseScaleX * scaleChangeFactor;
-        const targetScaleY = baseScaleY * scaleChangeFactor;
-
+        // ------------------------------------------
 
         this.scene.tweens.add({
             targets: outfitImage,
@@ -279,15 +247,12 @@ export default class TweenUtils {
             scaleX: targetScaleX,
             scaleY: targetScaleY,
             duration: duration,
-            ease: ease,
-            onStart: () => { if (outfitImage) outfitImage.setVisible(true); }
+            ease: ease
         });
     }
 
     zoomIn(comingFromState = GameState.DRESSUP) {
-        const centerX = this.scene.scale.width / 2;
-        const centerY = this.scene.scale.height / 2;
-
+        const scene = this.scene;
         const targetBodyX = layout.character.zoomInX;
         const targetBodyY = layout.character.zoomInY;
         const targetBodyScale = this.bodyScaleMakeupView;
@@ -306,23 +271,18 @@ export default class TweenUtils {
 
 
         Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
-            const equippedButton = entry?.current;
-            console.log(equippedButton);
-            if (equippedButton && equippedButton.displayedOutfit) {
-
-                this.tweenOutfitImage(equippedButton.displayedOutfit || scene[outfitType], targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, 500, 'Sine.easeInOut');
+            // Logika sekarang bersih karena metadata sudah dijamin ada
+            const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
+            
+            if (outfitImage) {
+                this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, 500, 'Sine.easeInOut');
             }
         });
-
     }
 
     async zoomOut() {
-        // Return sebuah Promise baru
         return new Promise(resolve => {
             const scene = this.scene;
-            const centerX = scene.scale.width / 2;
-            const centerY = scene.scale.height / 2;
-
             const targetBodyX = layout.character.x;
             const targetBodyY = layout.character.y;
             const targetBodyScale = this.bodyScaleDressUpView;
@@ -335,25 +295,24 @@ export default class TweenUtils {
             const targetHairY = layout.Hair.zoomOutHairY;
             const targetHairScale = layout.Hair.zoomOutHairScale;
 
-            const duration = 500; // Definisikan durasi
+            const duration = 500;
 
-            // Tambahkan tween untuk body, face, dan hair
             scene.tweens.add({ targets: [scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.hairBack, scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: duration, ease: 'Sine.easeInOut' });
-
-            // Tween untuk semua outfit yang sedang dipakai
-            Object.values(OutfitButton.selectedOutfits).forEach(entry => {
-                const equippedButton = entry?.current;
-                if (equippedButton && equippedButton.displayedOutfit && equippedButton.displayedOutfit.active) {
-                    this.tweenOutfitImage(equippedButton.displayedOutfit, targetBodyX, targetBodyY, targetBodyScale, this.bodyScaleDressUpView, duration, 'Sine.easeInOut');
-                }
+            
+            Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
+                 // Gunakan logika yang sama persis dengan zoomIn
+                 const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
+                 
+                 if (outfitImage && outfitImage.active) {
+                    this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, 'Sine.easeInOut');
+                 }
             });
 
-            // Gunakan timer untuk menunggu tween selesai. Ini adalah cara sederhana dan efektif.
             scene.time.delayedCall(duration, () => {
                 console.log("[TweenUtils] zoomOut animation complete.");
-                resolve(); // Selesaikan Promise setelah durasi tween berakhir
+                resolve();
             });
         });
     }
