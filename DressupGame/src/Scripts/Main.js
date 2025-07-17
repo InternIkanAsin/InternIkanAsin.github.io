@@ -10,6 +10,8 @@ import AssetLoader from './AssetLoader.js'
 
 import { PokiPlugin } from '@poki/phaser-3';
 
+import { progressManager } from './Save System/ProgressManager.js';
+
 import Phaser from 'phaser';
 
 //Tweening Utils Class
@@ -22,9 +24,6 @@ import { UIManager } from './UI/UIManager.js'
 import { MiniGameManager } from './Minigame/MiniGameManager.js'
 
 import { SaveManager } from './Save System/SaveManager.js';
-
-// Mini Game Manager Class
-import { TutorialManager } from './Minigame/TutorialManager.js'
 
 // Dress Up Manager Class
 import { DressUpManager } from './Minigame/DressUpManager.js'
@@ -109,11 +108,13 @@ class Main extends Phaser.Scene {
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         const savedData = this.SaveManager.loadGame();
+        this.makeUpFinished = progressManager.makeUpFinished;
+        this.dressUpFinished = progressManager.dressUpFinished;
         if (savedData) {
             // Pulihkan data sederhana
             this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
-            this.makeUpFinished = savedData.progress?.makeUpFinished || false;
-            this.dressUpFinished = savedData.progress?.dressUpFinished || false;
+            this.makeUpFinished = progressManager.makeUpFinished;
+            this.dressUpFinished = progressManager.dressUpFinished;
 
             // --- UBAH DUA BARIS INI ---
             // Akses properti statis langsung melalui nama KELAS, bukan 'this'
@@ -338,7 +339,7 @@ class Main extends Phaser.Scene {
         this.UIManager = new UIManager(this, this.AudioManager);
         this.MiniGameManager = new MiniGameManager(this, this.AudioManager);
         this.DressUpManager = new DressUpManager(this, this.AudioManager);
-        this.TutorialManager = new TutorialManager(this);
+        
         this.MakeUpManager = new MakeUpManager(this, this.AudioManager);
         this.SceneManager = new SceneManager(this);
         this.TweeningUtils = new TweenUtils(this);
@@ -347,16 +348,15 @@ class Main extends Phaser.Scene {
     }
 
     startGameFlow() {
-        this.makeUpFinished = false;
-        this.dressUpFinished = false;
-        // Minta BachelorManager untuk menyiapkan dan memilih bachelor yang ditentukan
+        
+        
         const bachelorData = this.BachelorManager.initializeAndSelectBachelor(this.chosenBachelorName);
 
-        // Simpan referensi ke objek bachelor yang dikembalikan untuk digunakan di seluruh scene
+        
         this.chosenBachelor = bachelorData.bachelorSprite;
         this.chosenBachelorExpression = bachelorData.bachelorExpression;
 
-        // Create a dark overlay if needed
+       
         this.darkOverlay = this.add.rectangle(
             this.scale.width / 2,
             this.scale.height / 2,
@@ -365,20 +365,19 @@ class Main extends Phaser.Scene {
             0x000000,
             0.5
         ).setDepth(150).setVisible(false);
-        // Buat UI dialog
+        
         this.DialogueManager.createDialogueUI();
 
-        // Mulai Cutscene 1 dengan data bachelor yang sudah siap
-        //this.MiniGameManager.transitionToCutscene();
+        
         this.CutsceneSystem.initiateCutscene1(this.chosenBachelor, this.chosenBachelorName, "Hangout1");
     }
 
     setUpMiniGame() {
-        //this.UIManager.setupScene(this);
+
         this.MakeUpManager.setupMakeUpButtons(this);
         this.DressUpManager.setupCostumeButtons(this);
         this.MiniGameManager.setUpGame(this);
-        //this.TutorialManager.startTutorial();
+        
     }
 
 

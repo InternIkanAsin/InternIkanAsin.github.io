@@ -4,7 +4,7 @@ import { costumeData } from '../Outfit Data/CostumeData.js'
 // UI Buttons Class
 import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
 import AssetLoader from '../AssetLoader.js';
-
+import { unlockManager } from '../Save System/UnlockManager.js';
 import { layout } from '../ScreenOrientationUtils.js';
 
 export class DressUpManager {
@@ -20,9 +20,10 @@ export class DressUpManager {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
 
-        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked }) => {
+        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus }) => {
+            const isCurrentlyLocked = defaultLockStatus && !unlockManager.isItemUnlocked(name);
             const { x: outfitX, y: outfitY } = outfitPositions[outfitType] || { x: 0, y: 0 };
-            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, scene.AudioManager, isLocked);
+            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, scene.AudioManager, isCurrentlyLocked);
 
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);
