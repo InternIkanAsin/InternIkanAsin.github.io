@@ -845,7 +845,7 @@ export class MiniGameManager {
             iconYPosition: 0,
             iconScale: 1.5,
             callback: () => {
-                this.handleGameEnd(false);
+                this.handleGameEnd(true);
                 this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive();
             },
             buttonText: 'Restart',
