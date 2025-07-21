@@ -13,15 +13,15 @@ export function SaveData(scene, prevData = {}) {
             dressUpFinished: scene.dressUpFinished
         },
         playerAppearance: {
-            
+
             outfits: SaveManager.cleanSaveData(OutfitButton.selectedOutfits),
             makeup: SaveManager.cleanSaveData(MakeUpButton.selectedMakeUp)
         },
-        lockedButtonStatus: prevData.lockedButtonStatus || {
-            'Dress 18': { isLocked: true },
-            'Dress 19': { isLocked: true },
-            'Dress 20': { isLocked: true }
-        }
+        lockedOutfitButtonStatus: prevData.lockedOutfitButtonStatus || {},
+        lockedOutfitButtonLength: prevData.lockedOutfitButtonLength || 0,
+
+        lockedMakeupButtonStatus: prevData.lockedMakeupButtonStatus || {},
+        lockedMakeupButtonLength: prevData.lockedMakeupButtonLength || 0
     }
 
     return savedData;

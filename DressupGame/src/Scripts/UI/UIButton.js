@@ -470,13 +470,18 @@ export class OutfitButton extends BaseButton {
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
-        if (isLocked) iconImg.setAlpha(0.5);
-
-        super(scene, x, y, [buttonBg, highlightImg, iconImg]);
+        const iconLocked = scene.add.image(70, 60, 'lockIcon').setVisible(false).setScale(1.3);
+        if (isLocked) {
+            iconImg.setTint(0x999999);
+            buttonBg.setTint(0x999999);
+            iconLocked.setVisible(true);
+        }
+        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLocked]);
 
         this.setDepth(12);
         this.button = buttonBg;
         this.icon = iconImg;
+        this.buttonLocked = iconLocked;
         this.AudioManager = AudioManager;
         this.name = name;
         this.outfitType = outfitType;
@@ -568,6 +573,11 @@ export class OutfitButton extends BaseButton {
             this.icon.setAlpha(1);
             unlockManager.unlockItem(this.name);
             scene.SaveManager.saveGame(scene);
+
+            //Unlock visuals
+            this.icon.setTint(0xFFFFFF);
+            this.button.setTint(0xFFFFFF);
+            this.buttonLocked.setVisible(false);
         });
     }
     static clearHighlightsForType(scene, outfitType) {
@@ -719,16 +729,21 @@ export class MakeUpButton extends BaseButton {
             .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
-        if (isLocked) iconImg.setAlpha(0.5);
+        const iconLocked = scene.add.image(70, 65, 'lockIcon').setVisible(false).setScale(1.3);
+        if (isLocked) {
+            iconImg.setTint(0x999999);
+            buttonBg.setTint(0x999999);
+            iconLocked.setVisible(true);
+        }
 
-
-        super(scene, x, y, [buttonBg, highlightImg, iconImg]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLocked]);
 
         this.setDepth(12);
 
         this.button = buttonBg;
         this.highlightImage = highlightImg;
         this.icon = iconImg;
+        this.buttonLocked = iconLocked;
         this.name = name;
         this.makeupType = makeupType;
         this.textureAnime = textureAnime;
@@ -804,6 +819,10 @@ export class MakeUpButton extends BaseButton {
             this.isLocked = false;
             unlockManager.unlockItem(this.name);
             scene.SaveManager.saveGame(scene);
+
+            this.icon.setTint(0x000000);
+            this.button.setTint(0x000000);
+            this.buttonLocked.setVisible(false);
         });
     }
 

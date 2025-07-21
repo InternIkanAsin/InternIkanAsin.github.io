@@ -15,17 +15,12 @@ class BootScene extends Phaser.Scene {
             Keenan: { fullbodyKey: 'keenanFullbody_preload', expressionKey: 'keenanExpression_neutral_preload', fullbodyPath: 'Asset/Character/ekspresi/keenan/Keenan_portrait_casual.png', expressionPath: 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png' }
         };
         const allBachelorNames = Object.keys(bachelorPreloadData);
-        
+
         const bachelorNames = Object.keys(bachelorPreloadData);
 
-
-
-
-        
-        const savedData = SaveManager.loadGame();
         let chosenBachelorName;
-        
-       
+
+
         const bachelorToRestart = this.registry.get('chosenBachelorNameForRestart');
 
         if (bachelorToRestart) {
@@ -33,30 +28,29 @@ class BootScene extends Phaser.Scene {
             console.log(`[BootScene] Restarting with same bachelor: ${chosenBachelorName}`);
             this.registry.remove('chosenBachelorNameForRestart');
         } else {
-           
             const savedData = SaveManager.loadGame();
             if (savedData && savedData.bachelor?.chosenName) {
                 chosenBachelorName = savedData.bachelor.chosenName;
                 console.log(`[BootScene] Found saved bachelor: ${chosenBachelorName}`);
             } else {
-                
+
                 const lastBachelor = this.registry.get('lastBachelorName');
                 let candidateNames = allBachelorNames;
 
                 if (lastBachelor) {
-                    
+
                     candidateNames = allBachelorNames.filter(name => name !== lastBachelor);
                     console.log(`[BootScene] Excluding last bachelor: ${lastBachelor}. Candidates are:`, candidateNames);
-                    
+
                     this.registry.remove('lastBachelorName');
                 }
-                
+
                 let currentIndex = Math.floor(Math.random() * candidateNames.length);
                 chosenBachelorName = candidateNames[currentIndex];
                 console.log(`[BootScene] Randomly selected new bachelor: ${chosenBachelorName}`);
             }
         }
-        
+
         const chosenBachelorAssets = bachelorPreloadData[chosenBachelorName];
 
         this.registry.set('chosenBachelorName', chosenBachelorName);

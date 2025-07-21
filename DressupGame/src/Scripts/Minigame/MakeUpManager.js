@@ -6,7 +6,7 @@ import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
-
+import { SaveManager } from '../Save System/SaveManager.js';
 
 export class MakeUpManager {
     constructor(scene, AudioManager) {
@@ -20,6 +20,8 @@ export class MakeUpManager {
     */
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
+
+        this.randomizeLockedMakeup();
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus } = makeupItem;
             if (textureButton && textureIcon) {
@@ -76,6 +78,31 @@ export class MakeUpManager {
         if (scene.faceContainer) {
             scene.faceContainer.sort('depth');
         }
+    }
+
+    randomizeLockedMakeup() {
+        const groupedMakeupData = {};
+        const lockedMakeupSaveData = SaveManager.loadGame();
+        makeUpData.forEach(makeup => {
+            if (!groupedMakeupData[makeup.makeUpType]) {
+                groupedMakeupData[makeup.makeUpType] = [];
+            }
+            groupedMakeupData[makeup.makeUpType].push(makeup);
+        });
+
+        Object.keys(groupedMakeupData).forEach(makeupType => {
+            const makeups = groupedMakeupData[makeupType];
+            const lockedButtonNumber = Math.floor(makeups.length * 1 / 3) + 1;
+            for (let i = 0; i < lockedButtonNumber; i++) {
+                const randomIndex = Math.floor(Math.random() * makeups.length);
+                makeups[randomIndex].isLocked = true;
+                lockedMakeupSaveData.lockedMakeupButtonStatus[makeups[randomIndex].name] = {
+                    isLocked: true
+                };
+            }
+        });
+        lockedMakeupSaveData.lockedMakeupButtonLength = Object.keys(lockedMakeupSaveData.lockedMakeupButtonStatus).length;
+        SaveManager.saveGame(this.scene);
     }
     /**
     * @method updateMakeUpButtons - Updates makeup buttons of make up Panel

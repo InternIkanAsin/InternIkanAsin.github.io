@@ -65,6 +65,7 @@ export default class AssetLoader {
     //New Assets
     scene.load.image('buttonIcon', 'Asset/UI/Button_Released.png');
     scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');
+    scene.load.image('lockIcon', 'Asset/UI/Icon_Locked.png');
 
     scene.load.image('dressButtonIcon', 'Asset/UI/Wardrobe_Icon.png');
     scene.load.image('makeUpButtonIcon', 'Asset/UI/Makeup_Icon.png');

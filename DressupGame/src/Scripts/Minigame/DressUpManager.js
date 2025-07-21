@@ -3,6 +3,7 @@ import { costumeData } from '../Outfit Data/CostumeData.js'
 
 // UI Buttons Class
 import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
+import { SaveManager } from '../Save System/SaveManager.js';
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
 import { layout } from '../ScreenOrientationUtils.js';
@@ -19,6 +20,7 @@ export class DressUpManager {
     setupCostumeButtons(scene) {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
+        this.randomizeLockedOutfits();
 
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus }) => {
             const isCurrentlyLocked = defaultLockStatus && !unlockManager.isItemUnlocked(name);
@@ -52,6 +54,39 @@ export class DressUpManager {
         });
     }
 
+    randomizeLockedOutfits() {
+        const groupedCostumeData = {};
+        const lockedCostumeSaveData = SaveManager.loadGame();
+        console.log(lockedCostumeSaveData.lockedOutfitButtonLength);
+        costumeData.forEach(costume => {
+            if (!groupedCostumeData[costume.outfitType]) {
+                groupedCostumeData[costume.outfitType] = [];
+            }
+            groupedCostumeData[costume.outfitType].push(costume);
+        });
+
+        if (lockedCostumeSaveData.lockedOutfitButtonLength === 0) {
+            Object.keys(groupedCostumeData).forEach(outfitType => {
+                const costumes = groupedCostumeData[outfitType];
+                const lockedButtonNumber = Math.floor(costumes.length * 1 / 3) + 1;
+                for (let i = 0; i < lockedButtonNumber; i++) {
+                    const randomIndex = Math.floor(Math.random() * costumes.length);
+                    costumes[randomIndex].isLocked = true;
+                    lockedCostumeSaveData.lockedOutfitButtonStatus[costumes[randomIndex].name] = {
+                        isLocked: true
+                    };
+                }
+            });
+            lockedCostumeSaveData.lockedOutfitButtonLength = Object.keys(lockedCostumeSaveData.lockedOutfitButtonStatus).length;
+            SaveManager.saveGame(this.scene);
+        } else {
+            console.log(lockedCostumeSaveData.lockedOutfitButtonLength);
+            costumeData.forEach(costume => {
+                costume.isLocked = lockedCostumeSaveData.lockedOutfitButtonStatus[costume.name].isLocked || false;
+            });
+
+        }
+    }
     /**
      * @method removeAllOutfits
      * Unequips all currently equipped outfits.

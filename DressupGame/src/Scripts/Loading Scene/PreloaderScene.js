@@ -1,4 +1,4 @@
-import AssetLoader from '../AssetLoader.js'; 
+import AssetLoader from '../AssetLoader.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import Phaser from 'phaser';
 class PreloaderScene extends Phaser.Scene {
@@ -8,14 +8,14 @@ class PreloaderScene extends Phaser.Scene {
     }
 
     init(data) {
-        
+
         this.preloaderData = data;
     }
     preload() {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
-       
+
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const bg = this.add.image(width / 2, height / 2, 'minigame_background_preload');
         if (isMobile) {
@@ -26,10 +26,10 @@ class PreloaderScene extends Phaser.Scene {
             bg.setOrigin(0.5, 0.5).setScale(1);
         }
 
-        
+
         this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, 'logo_cisini').setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth);
-        
-        
+
+
         const bachelorAssets = this.preloaderData.bachelorAssets;
         const bachelorX = width * 0.30;
         const bachelorY = height * 0.85;
@@ -43,19 +43,19 @@ class PreloaderScene extends Phaser.Scene {
         this.add.container(bachelorX, bachelorY, [bachelorFullbody, bachelorExpression]).setScale(1.5);
 
 
-        
+
         const barLayout = { barWidth: 1300, barHeight: 60, barY: height * 0.85 };
         const barX = width / 2 - barLayout.barWidth / 2;
-        
+
         const progressBox = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
         progressBox.fillRect(barX, barLayout.barY, barLayout.barWidth, barLayout.barHeight);
-        
+
         const progressBar = this.add.graphics();
         const percentText = this.make.text({ x: width / 2, y: barLayout.barY + barLayout.barHeight / 2, text: '0%', style: { font: '18px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
         const assetText = this.make.text({ x: width / 2, y: barLayout.barY + barLayout.barHeight + 30, text: '', style: { font: '18px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
         this.make.text({ x: width / 2, y: barLayout.barY - 30, text: 'Loading...', style: { font: '20px monospace', fill: '#000000' } }).setOrigin(0.5, 0.5);
-        
+
         this.load.on('progress', (value) => {
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
@@ -72,7 +72,7 @@ class PreloaderScene extends Phaser.Scene {
             this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
         });
 
-        
+
         AssetLoader.loadGame(this);
         AssetLoader.loadMiniGame(this);
 
