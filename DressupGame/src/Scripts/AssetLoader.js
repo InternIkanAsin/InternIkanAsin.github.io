@@ -374,8 +374,9 @@ export default class AssetLoader {
     scene.load.image('hairIcon', "Asset/UI/Hair_Icon.png");
     //Anime texture
 
-    //eyebrow
-    //normal
+    //eyebrow (default)
+    scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
+  
     
 
     //icon makeup
