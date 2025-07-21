@@ -5,10 +5,10 @@ const SAVE_KEY = 'dressupGameSaveData';
 
 export class SaveManager {
 
-    static saveGame(scene, saveData = {}) {
+    static saveGame(scene) {
         try {
             const prevData = SaveManager.loadGame() || {};
-            const data = SaveData(scene, saveData || prevData);
+            const data = SaveData(scene, prevData);
             const jsonString = JSON.stringify(data);
             localStorage.setItem(SAVE_KEY, jsonString);
             console.log("Game Saved!", data);

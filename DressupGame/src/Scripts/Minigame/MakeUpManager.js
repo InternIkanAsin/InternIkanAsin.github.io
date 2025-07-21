@@ -22,7 +22,6 @@ export class MakeUpManager {
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
 
-        this.randomizeLockedMakeup();
         //this.randomizeLockedMakeup();
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus } = makeupItem;
