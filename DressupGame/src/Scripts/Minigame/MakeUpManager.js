@@ -22,7 +22,7 @@ export class MakeUpManager {
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
 
-        this.randomizeLockedMakeup();
+       
         //this.randomizeLockedMakeup();
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus } = makeupItem;
@@ -93,26 +93,19 @@ export class MakeUpManager {
             groupedMakeupData[makeup.makeUpType].push(makeup);
         });
 
-        if (lockedMakeupSaveData.lockedMakeupButtonLength === 0) {
-            Object.keys(groupedMakeupData).forEach(makeupType => {
-                const makeups = groupedMakeupData[makeupType];
-                const lockedButtonNumber = Math.floor(makeups.length * 1 / 3) + 1;
-                for (let i = 0; i < lockedButtonNumber; i++) {
-                    const randomIndex = Math.floor(Math.random() * makeups.length);
-                    makeups[randomIndex].isLocked = true;
-                    lockedMakeupSaveData.lockedMakeupButtonStatus[makeups[randomIndex].name] = {
-                        isLocked: true
-                    };
-                }
-            });
-            lockedMakeupSaveData.lockedMakeupButtonLength = Object.keys(lockedMakeupSaveData.lockedMakeupButtonStatus).length;
-            SaveManager.saveGame(this.scene, lockedMakeupSaveData);
-        } else {
-            makeUpData.forEach(costume => {
-                costume.isLocked = lockedMakeupSaveData.lockedMakeupButtonStatus[costume.name].isLocked || false;
-            });
-        }
-
+        Object.keys(groupedMakeupData).forEach(makeupType => {
+            const makeups = groupedMakeupData[makeupType];
+            const lockedButtonNumber = Math.floor(makeups.length * 1 / 3) + 1;
+            for (let i = 0; i < lockedButtonNumber; i++) {
+                const randomIndex = Math.floor(Math.random() * makeups.length);
+                makeups[randomIndex].isLocked = true;
+                lockedMakeupSaveData.lockedMakeupButtonStatus[makeups[randomIndex].name] = {
+                    isLocked: true
+                };
+            }
+        });
+        lockedMakeupSaveData.lockedMakeupButtonLength = Object.keys(lockedMakeupSaveData.lockedMakeupButtonStatus).length;
+        SaveManager.saveGame(this.scene);
     }
     /**
     * @method updateMakeUpButtons - Updates makeup buttons of make up Panel
