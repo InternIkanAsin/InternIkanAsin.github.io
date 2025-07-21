@@ -2,11 +2,12 @@
 import { costumeData } from '../Outfit Data/CostumeData.js'
 
 // UI Buttons Class
-import UIButton, { OutfitButton, GeneralButton, ItemPanelButton } from '../UI/UIButton.js'
+import UIButton, { OutfitButton, ItemPanelButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
 import { layout } from '../ScreenOrientationUtils.js';
+import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
 export class DressUpManager {
     constructor(scene, AudioManager) {
@@ -20,10 +21,11 @@ export class DressUpManager {
     setupCostumeButtons(scene) {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
-        this.randomizeLockedOutfits();
+        
 
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus }) => {
-            const isCurrentlyLocked = defaultLockStatus && !unlockManager.isItemUnlocked(name);
+            const isItemGloballyLocked = lockedItemsManager.isItemLocked(name);
+            const isCurrentlyLocked = isItemGloballyLocked && !unlockManager.isItemUnlocked(name);
             const { x: outfitX, y: outfitY } = outfitPositions[outfitType] || { x: 0, y: 0 };
             const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, scene.AudioManager, isCurrentlyLocked);
 
@@ -33,7 +35,7 @@ export class DressUpManager {
 
             const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
             const oldButtonInstance = currentSelectedEntry?.current;
-
+            
 
             if (oldButtonInstance && oldButtonInstance.name === name) {
 

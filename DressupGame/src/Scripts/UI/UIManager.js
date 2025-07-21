@@ -2,9 +2,10 @@ import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from './UIButton.
 
 import { GameState } from '../Main.js';
 
-import { makeUpData, defaultMakeUpSkins } from '../Makeup Data/MakeUpData.js';
+import { makeUpData, defaultMakeUpSkins, MakeUpPositions } from '../Makeup Data/MakeUpData.js';
 
 import { layout } from '../ScreenOrientationUtils.js';
+import AssetLoader from '../AssetLoader.js';
 
 
 export class UIManager {
@@ -19,171 +20,188 @@ export class UIManager {
      * @method setupScene - Setup the scene by setting background and character
      */
     setupScene(scene) {
-
-
         const bgLayout = layout.background;
-
-        scene.background = scene.add.image(
-            bgLayout.x,
-            bgLayout.y,
-            'background'
-        )
-            .setOrigin(bgLayout.originX, bgLayout.originY)
-            .setScale(bgLayout.scale);
-
-
-        scene.body = scene.add.image(layout.character.x, layout.character.y, 'player')
-            .setScale(layout.character.scale)
-            .setOrigin(0.5)
-            .setDepth(1);
+        scene.background = scene.add.image(bgLayout.x, bgLayout.y, 'background').setOrigin(bgLayout.originX, bgLayout.originY).setScale(bgLayout.scale);
+        scene.body = scene.add.image(layout.character.x, layout.character.y, 'player').setScale(layout.character.scale).setOrigin(0.5).setDepth(1);
 
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
-
-
-
-        scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back)
-            .setScale(0.5 * 256 / 225)
-            .setOrigin(0.5)
-            .setDepth(0.9);
-
-
-        scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front)
-            .setScale(0.5 * 256 / 225)
-            .setOrigin(0.5)
-            .setDepth(7);
-
-
+        scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9);
+        scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7);
+        
         scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
         scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
-
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
-        //Load Assets yang diperlukan untuk dressup
+
+        // --- PEMUATAN DINAMIS (SEKARANG AKAN BERFUNGSI) ---
+        let assetsToLoad = false;
+        
+        // 1. Antrekan Aset Outfit
         Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, outfit]) => {
-            scene.load.atlas(
-                outfit.current.textureAnime.atlas,
-                `Asset/Outfit/${outfitType}/${outfit.current.textureAnime.atlas}.png`,
-                `Asset/Outfit/${outfitType}/${outfit.current.textureAnime.atlas}.json`
-            );
-            console.log(outfit.current.textureAnime.atlas);
+            const atlasKey = outfit?.current?.textureAnime?.atlas;
+            if (atlasKey && !scene.textures.exists(atlasKey)) {
+                const path = `Asset/Outfit/${outfitType}/${atlasKey}`;
+                scene.load.atlas(atlasKey, `${path}.png`, `${path}.json`);
+                assetsToLoad = true;
+            }
         });
 
-        // Wait for all to finish loading, then run a callback
-        scene.load.once('complete', () => {
-            console.log('All outfit atlases loaded!');
-
-            // You can now safely apply textures
-            Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
-                
-                if (!equippedOutfit?.current) return;
-
-                const textureAnime = equippedOutfit.current.textureAnime;
-                const itemName = equippedOutfit.current.name;
-
-                let outfitScale;
-                if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
-                    outfitScale = 0.6;
-                } else {
-                    outfitScale = 1.2
+        // 2. Antrekan Aset Makeup
+        const loaderMap = {
+            'Eyelashes': { flag: 'areEyelashesLoaded', loader: AssetLoader.loadEyelash },
+                'Eyeliner':  { flag: 'areEyelinerLoaded', loader: AssetLoader.loadEyeliner },
+                'Eyeshadow': { flag: 'areEyeshadowsLoaded', loader: AssetLoader.loadEyeShadow },
+                'Lips':      { flag: 'areLipsLoaded', loader: AssetLoader.loadLip },
+                'Pupil':     { flag: 'arePupilsLoaded', loader: AssetLoader.loadPupil },
+                'Blush':     { flag: 'areBlushLoaded', loader: AssetLoader.loadBlush },
+                'Sticker':   { flag: 'areStickersLoaded', loader: AssetLoader.loadSticker },
+                'Hair':      { flag: 'areHairLoaded', loader: AssetLoader.loadHair },
+                'Eyebrows':  { flag: 'areEyebrowsLoaded', loader: AssetLoader.loadEyebrow },
+        };
+        Object.entries(MakeUpButton.selectedMakeUp).forEach(([makeupType, makeup]) => {
+            if (loaderMap[makeupType]) {
+                const mapEntry = loaderMap[makeupType];
+                const textureKey = makeup?.current?.textureAnime;
+                if (textureKey && !makeup.current.isDefault && !scene.textures.exists(textureKey.atlas || textureKey)) {
+                    mapEntry.loader(scene);
+                    assetsToLoad = true;
                 }
+            }
+        });
 
-                const outfitManualOffsets = layout.outfit.manualOffsets;
-                const baseManualOffset = outfitManualOffsets[itemName] || { x: 0, y: 0 };
-                const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
+        // 3. Callback setelah semua selesai dimuat
+        scene.load.once('complete', function() { // Gunakan fungsi biasa, bukan arrow function
+            console.log('All saved assets loaded!');
+            
+            // Di sini, `this` akan merujuk ke instance UIManager karena .bind(this)
+            this.restoreSavedOutfits(scene);
+            this.restoreSavedMakeup(scene);
+        }.bind(this));
+        
+        // 4. Mulai pemuatan jika ada
+        if (assetsToLoad) {
+            scene.load.start();
+        } else {
+            // Jika tidak ada yang dimuat, kita perlu menautkan objek default secara manual
+            this.linkDefaultMakeupObjects(scene);
+        }
+    }
 
-                if (textureAnime) {
-                    const newOutfitImage = scene.add.image(
-                        layout.outfit.positions[outfitType].x + baseManualOffset.x, 
-                        layout.outfit.positions[outfitType].y + baseManualOffset.y, 
-                        textureAnime.atlas, 
-                        textureAnime.frame
-                    )
+    // Tambahkan method `linkDefaultMakeupObjects` untuk menangani kasus tanpa save file
+    restoreSavedOutfits(scene) {
+        console.log("[UIManager] Applying restored outfits to the character.");
+        
+        Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
+            if (!equippedOutfit?.current) return;
+
+            const { name, textureAnime } = equippedOutfit.current;
+            const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
+            const outfitScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 : 1.2;
+            const manualOffset = layout.outfit.manualOffsets[name] || { x: 0, y: 0 };
+            const finalX = layout.outfit.positions[outfitType].x + manualOffset.x;
+            const finalY = layout.outfit.positions[outfitType].y + manualOffset.y;
+
+            if (textureAnime && scene.textures.exists(textureAnime.atlas)) {
+                const newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame)
                     .setScale(outfitScale)
                     .setDepth(depthValues[outfitType] || 1);
 
-                    // --- Perbaikan dan Penambahan Metadata ---
-                    scene[outfitType] = newOutfitImage;
-                    equippedOutfit.current.displayedOutfit = newOutfitImage;
+                scene[outfitType] = newOutfitImage;
+                equippedOutfit.current.displayedOutfit = newOutfitImage;
 
-                    const baseScaleX = newOutfitImage.scaleX / scene.body.scaleX;
-                    const baseScaleY = newOutfitImage.scaleY / scene.body.scaleY;
-
-                    newOutfitImage.setData('baseWorldOutfitX', layout.outfit.positions[outfitType].x + baseManualOffset.x);
-                    newOutfitImage.setData('baseWorldOutfitY', layout.outfit.positions[outfitType].y + baseManualOffset.y);
-                    newOutfitImage.setData('initialScaleX', newOutfitImage.scaleX);
-                    newOutfitImage.setData('initialScaleY', newOutfitImage.scaleY);
-                    newOutfitImage.setData('refBodyX', scene.body.x);
-                    newOutfitImage.setData('refBodyY', scene.body.y);
-                    
-                    // **TAMBAHKAN BARIS INI** - Ini adalah kunci yang hilang.
-                    newOutfitImage.setData('refBodyScale', scene.body.scale);
-                    // ------------------------------------------
-
-                    console.log(`[UIManager] Restored, linked, and added full metadata for '${itemName}'`);
-                }
-            });
-        });
-
-        scene.load.start(); // Important to start the dynamic load
-
-
-
-        MakeUpButton.selectedMakeUp = {};
-
-
-        const registerInitialFacialFeature = (makeupType, initialTextureKey, gameObject) => {
-
-            const defaultMakeUpItemData = makeUpData.find(
-                item => item.makeUpType === makeupType && item.textureAnime === initialTextureKey
-            );
-
-            if (defaultMakeUpItemData) {
-                MakeUpButton.selectedMakeUp[makeupType] = {
-                    current: {
-                        name: defaultMakeUpItemData.name,
-                        makeupType: defaultMakeUpItemData.makeUpType,
-                        textureAnime: defaultMakeUpItemData.textureAnime,
-                        displayedMakeUp: gameObject,
-                        isDefault: true
-                    },
-                    previous: null
-                };
-                console.log(`Registered initial state for ${makeupType}: ${defaultMakeUpItemData.name} using texture ${initialTextureKey}`);
-            } else {
-
-
-                MakeUpButton.selectedMakeUp[makeupType] = {
-                    current: {
-                        name: `Initial ${makeupType}`,
-                        makeupType: makeupType,
-                        textureAnime: initialTextureKey,
-                        displayedMakeUp: gameObject,
-                        isDefault: true
-                    },
-                    previous: null
-                };
+                newOutfitImage.setData({
+                    baseWorldOutfitX: finalX, baseWorldOutfitY: finalY,
+                    initialScaleX: newOutfitImage.scaleX, initialScaleY: newOutfitImage.scaleY,
+                    refBodyX: scene.body.x, refBodyY: scene.body.y, refBodyScale: scene.body.scale
+                });
             }
-        };
+        });
+    }
 
+    /**
+     * Menampilkan kembali makeup yang tersimpan.
+     * @param {Phaser.Scene} scene 
+     */
+    restoreSavedMakeup(scene) {
+        console.log("[UIManager] Applying restored makeup to the character.");
 
-        registerInitialFacialFeature('Pupil', 'PupilNormalBlue', scene.pupils);
-        registerInitialFacialFeature('Lips', 'LipNormalDefault', scene.lips);
-        registerInitialFacialFeature('Eyebrows', 'EyebrowNormalDefault', scene.eyebrows);
-        registerInitialFacialFeature('Eyelashes', 'EyelashesNormalDefault', scene.eyelashes);
+        Object.entries(MakeUpButton.selectedMakeUp).forEach(([makeupType, equippedMakeup]) => {
+            if (!equippedMakeup?.current) return;
 
-        MakeUpButton.selectedMakeUp['Hair'] = {
-            current: {
-                name: 'Default Hair',
-                makeupType: 'Hair',
-                textureAnime: defaultHairTextures,
-                displayedMakeUp: [scene.hairBack, scene.hairFront],
-                isDefault: true
-            },
-            previous: null
-        };
+            const { name, textureAnime } = equippedMakeup.current;
+            let imageToUpdate;
 
+            switch (makeupType) {
+                case 'Lips':
+                    imageToUpdate = scene.lips;
+                    // Cek jika textureAnime adalah string (default) atau objek (kustom)
+                    if (typeof textureAnime === 'string') {
+                        imageToUpdate.setTexture(textureAnime);
+                    } else {
+                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                    }
+                    break;
+                case 'Eyebrows':
+                    imageToUpdate = scene.eyebrows;
+                    if (typeof textureAnime === 'string') {
+                        imageToUpdate.setTexture(textureAnime);
+                    } else {
+                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                    }
+                    break;
+                case 'Eyelashes':
+                    imageToUpdate = scene.eyelashes;
+                    if (typeof textureAnime === 'string') {
+                        imageToUpdate.setTexture(textureAnime);
+                    } else {
+                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                    }
+                    break;
+                case 'Pupil':
+                    imageToUpdate = scene.pupils;
+                    if (typeof textureAnime === 'string') {
+                        imageToUpdate.setTexture(textureAnime);
+                    } else {
+                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                    }
+                    break;
+                case 'Hair':
+                    imageToUpdate = [scene.hairBack, scene.hairFront];
+                    // Logika rambut sudah menangani objek, jadi tidak perlu diubah
+                    scene.hairBack.setTexture(textureAnime.back.atlas || textureAnime.back, textureAnime.back.frame || null);
+                    scene.hairFront.setTexture(textureAnime.front.atlas || textureAnime.front, textureAnime.front.frame || null);
+                    break;
+                case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
+                    if (equippedMakeup.current.isDefault) break; // Jangan buat gambar untuk item aditif default (yang tidak ada)
+                    const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+                    imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
+                        .setScale(0.55 * 2)
+                        .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
+                    scene.faceContainer.add(imageToUpdate);
+                    break;
+            }
 
+            if (imageToUpdate) {
+                equippedMakeup.current.displayedMakeUp = imageToUpdate;
+            }
+        });
+        
+        if (scene.faceContainer) {
+            scene.faceContainer.sort('depth');
+        }
+    }
+
+    /**
+     * Menautkan objek visual makeup default ke struktur data saat tidak ada save file.
+     * @param {Phaser.Scene} scene 
+     */
+    linkDefaultMakeupObjects(scene) {
+        if (MakeUpButton.selectedMakeUp['Pupil']?.current) MakeUpButton.selectedMakeUp['Pupil'].current.displayedMakeUp = scene.pupils;
+        if (MakeUpButton.selectedMakeUp['Lips']?.current) MakeUpButton.selectedMakeUp['Lips'].current.displayedMakeUp = scene.lips;
+        if (MakeUpButton.selectedMakeUp['Eyebrows']?.current) MakeUpButton.selectedMakeUp['Eyebrows'].current.displayedMakeUp = scene.eyebrows;
+        if (MakeUpButton.selectedMakeUp['Eyelashes']?.current) MakeUpButton.selectedMakeUp['Eyelashes'].current.displayedMakeUp = scene.eyelashes;
+        if (MakeUpButton.selectedMakeUp['Hair']?.current) MakeUpButton.selectedMakeUp['Hair'].current.displayedMakeUp = [scene.hairBack, scene.hairFront];
     }
 
     showLoadingOverlay(text = 'Loading...') {

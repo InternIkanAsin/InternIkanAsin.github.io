@@ -343,6 +343,10 @@ export default class AssetLoader {
 
     scene.load.start();
   }
+  static loadEyebrow(scene){
+    scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
+    scene.load.start();
+  }
 
   static loadSticker(scene) {
     //sticker
@@ -372,7 +376,7 @@ export default class AssetLoader {
 
     //eyebrow
     //normal
-    scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
+    
 
     //icon makeup
     //Grup 1

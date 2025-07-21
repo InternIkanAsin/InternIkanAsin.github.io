@@ -13,6 +13,7 @@ import { GameState } from '../Main.js';
 import Phaser from 'phaser';
 
 import { layout } from '../ScreenOrientationUtils.js';
+import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
 
 
@@ -867,6 +868,7 @@ export class MiniGameManager {
         unlockManager.clearAllUnlocks();
         SaveManager.clearSave();
         progressManager.clearProgress();
+        lockedItemsManager.clearLockedItems();
         console.log("Save data has been cleared on game end.");
         if (isRestart) {
            

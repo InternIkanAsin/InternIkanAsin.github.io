@@ -14,6 +14,8 @@ import { progressManager } from './Save System/ProgressManager.js';
 
 import Phaser from 'phaser';
 
+import { defaultMakeUpSkins } from './Makeup Data/MakeUpData.js';
+
 //Tweening Utils Class
 import TweenUtils from './TweeningUtils.js'
 
@@ -100,6 +102,7 @@ class Main extends Phaser.Scene {
         this.areEyelashesLoaded = false;
         this.areEyelinerLoaded = false;
         this.areEyeshadowsLoaded = false;
+        this.areEyebrowsLoaded = false;
         this.areLipsLoaded = false;
         this.arePupilsLoaded = false;
         this.areBlushLoaded = false;
@@ -107,27 +110,42 @@ class Main extends Phaser.Scene {
         this.areHairLoaded = false;
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
+        //const savedData = this.SaveManager.loadGame();
+        this.makeUpFinished = progressManager.makeUpFinished;
+        this.dressUpFinished = progressManager.dressUpFinished;
+         MakeUpButton.selectedMakeUp = {}; 
+        const defaultHairTextures = defaultMakeUpSkins['Hair'];
+        const registerDefault = (type, name, texture) => {
+            MakeUpButton.selectedMakeUp[type] = {
+                current: { name, makeupType: type, textureAnime: texture, displayedMakeUp: null, isDefault: true },
+                previous: null
+            };
+        };
+        registerDefault('Pupil', 'Default Pupil', 'PupilNormalBlue');
+        registerDefault('Lips', 'Default Lips', 'LipNormalDefault');
+        registerDefault('Eyebrows', 'Default Eyebrows', 'EyebrowNormalDefault');
+        registerDefault('Eyelashes', 'Default Eyelashes', 'EyelashesNormalDefault');
+        registerDefault('Hair', 'Default Hair', defaultHairTextures);
+
+        // 2. Muat save data
         const savedData = this.SaveManager.loadGame();
         this.makeUpFinished = progressManager.makeUpFinished;
         this.dressUpFinished = progressManager.dressUpFinished;
-        if (savedData) {
-            // Pulihkan data sederhana
-            this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
-            this.makeUpFinished = progressManager.makeUpFinished;
-            this.dressUpFinished = progressManager.dressUpFinished;
 
-            // --- UBAH DUA BARIS INI ---
-            // Akses properti statis langsung melalui nama KELAS, bukan 'this'
-            OutfitButton.selectedOutfits = savedData.playerAppearance?.outfits || {};
-            MakeUpButton.selectedMakeUp = savedData.playerAppearance?.makeup || {};
-            console.log("Restored state from save file.");
+        if (savedData && savedData.playerAppearance) {
+            console.log("Save file found. Merging saved state over defaults.");
+            this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
+            
+            // 3. Gabungkan (merge) data yang tersimpan, jangan mengganti total.
+            // Gunakan Object.assign untuk menimpa kunci yang ada di state default dengan yang dari save file.
+            Object.assign(OutfitButton.selectedOutfits, savedData.playerAppearance.outfits || {});
+            Object.assign(MakeUpButton.selectedMakeUp, savedData.playerAppearance.makeup || {});
         }
 
         this.state = GameState.MAKEUP;
 
         this.startGameFlow();
-        //this.setUpMiniGame();
-        //this.BachelorManager.setUpBachelorChoice();
+        
     }
 
     createSelectionScreen() {

@@ -7,6 +7,7 @@ import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveManager } from '../Save System/SaveManager.js';
+import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
 export class MakeUpManager {
     constructor(scene, AudioManager) {
@@ -21,11 +22,12 @@ export class MakeUpManager {
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
 
-        this.randomizeLockedMakeup();
+        //this.randomizeLockedMakeup();
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus } = makeupItem;
             if (textureButton && textureIcon) {
-                const isCurrentlyLocked = defaultLockStatus && !unlockManager.isItemUnlocked(name);
+                const isItemGloballyLocked = lockedItemsManager.isItemLocked(name);
+                const isCurrentlyLocked = isItemGloballyLocked && !unlockManager.isItemUnlocked(name);
 
                 const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, isCurrentlyLocked);
 
