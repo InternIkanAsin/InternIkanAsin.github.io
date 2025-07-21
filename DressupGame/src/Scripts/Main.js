@@ -16,6 +16,8 @@ import Phaser from 'phaser';
 
 import { defaultMakeUpSkins } from './Makeup Data/MakeUpData.js';
 
+import { lockedItemsManager } from './Save System/LockedItemsManager.js';
+
 //Tweening Utils Class
 import TweenUtils from './TweeningUtils.js'
 
@@ -110,7 +112,7 @@ class Main extends Phaser.Scene {
         this.areHairLoaded = false;
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
-        //const savedData = this.SaveManager.loadGame();
+        lockedItemsManager.initialize();
         this.makeUpFinished = progressManager.makeUpFinished;
         this.dressUpFinished = progressManager.dressUpFinished;
          MakeUpButton.selectedMakeUp = {}; 

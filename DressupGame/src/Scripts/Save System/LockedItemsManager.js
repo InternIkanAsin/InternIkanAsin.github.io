@@ -5,7 +5,12 @@ const LOCKED_ITEMS_KEY = 'gameLockedItemStatus';
 
 class LockedItemsManager {
     constructor() {
+        // Hanya inisialisasi properti di constructor
         this.lockedItems = new Set();
+    }
+
+    // Buat method baru untuk inisialisasi yang bisa dipanggil kapan saja
+    initialize() {
         this.loadOrRandomizeLockedItems();
     }
 
@@ -13,11 +18,9 @@ class LockedItemsManager {
         try {
             const savedData = localStorage.getItem(LOCKED_ITEMS_KEY);
             if (savedData) {
-                // Jika sudah ada data, muat saja
                 this.lockedItems = new Set(JSON.parse(savedData));
                 console.log("[LockedItemsManager] Loaded locked item status from storage.");
             } else {
-                // Jika tidak ada data (game pertama kali main), buat secara acak
                 console.log("[LockedItemsManager] No locked item data found. Randomizing now...");
                 this.randomizeAndSave();
             }
@@ -30,25 +33,24 @@ class LockedItemsManager {
     randomizeAndSave() {
         this.lockedItems.clear();
 
-        // Logika randomisasi untuk Outfit
+        // ... (logika randomisasi Anda yang sudah ada tetap sama)
         const groupedCostumes = {};
         costumeData.forEach(c => {
             if (!groupedCostumes[c.outfitType]) groupedCostumes[c.outfitType] = [];
             groupedCostumes[c.outfitType].push(c);
         });
         Object.values(groupedCostumes).forEach(costumes => {
-            const numToLock = Math.floor(costumes.length / 3); // Kunci sekitar 1/3 item
+            const numToLock = Math.floor(costumes.length / 3);
             for (let i = 0; i < numToLock; i++) {
                 const randomIndex = Math.floor(Math.random() * costumes.length);
                 if (!this.lockedItems.has(costumes[randomIndex].name)) {
                     this.lockedItems.add(costumes[randomIndex].name);
                 } else {
-                    i--; // Coba lagi jika item sudah dipilih
+                    i--;
                 }
             }
         });
 
-        // Logika randomisasi untuk Makeup
         const groupedMakeup = {};
         makeUpData.forEach(m => {
             if (m.textureButton && !groupedMakeup[m.makeUpType]) groupedMakeup[m.makeUpType] = [];
@@ -66,7 +68,6 @@ class LockedItemsManager {
             }
         });
         
-        // Simpan hasilnya ke Local Storage
         localStorage.setItem(LOCKED_ITEMS_KEY, JSON.stringify(Array.from(this.lockedItems)));
         console.log("[LockedItemsManager] Randomized and saved locked items:", this.lockedItems);
     }
@@ -82,5 +83,5 @@ class LockedItemsManager {
     }
 }
 
-// Buat satu instance global
+// Instance global tetap ada, tetapi sekarang "pasif"
 export const lockedItemsManager = new LockedItemsManager();
