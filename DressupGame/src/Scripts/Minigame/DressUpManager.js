@@ -110,23 +110,33 @@ export class DressUpManager {
 
         typesToRemove.forEach(outfitType => {
             const entry = OutfitButton.selectedOutfits[outfitType];
-            this.scene[outfitType].destroy();
-            this.scene[outfitType] = null;
-            const currentOutfitButton = entry?.current; // 'current' refers to button instance
+            const currentOutfit = entry?.current;
 
-            if (currentOutfitButton && currentOutfitButton instanceof OutfitButton) { // Check if it's an OutfitButton instance
-                // console.log(`Removing ${outfitType}: ${currentOutfitButton.name}`);
-                if (currentOutfitButton.displayedOutfit && typeof currentOutfitButton.displayedOutfit.destroy === 'function') {
-                    currentOutfitButton.displayedOutfit.destroy();
-                    currentOutfitButton.displayedOutfit = null;
-                }
+           
+            let outfitImageDestroyed = false;
 
+            // Prioritas 1: Hancurkan melalui referensi `displayedOutfit` yang benar.
+            if (currentOutfit && currentOutfit.displayedOutfit && typeof currentOutfit.displayedOutfit.destroy === 'function') {
+                currentOutfit.displayedOutfit.destroy();
+                currentOutfit.displayedOutfit = null;
+                outfitImageDestroyed = true;
+            }
+
+            // Prioritas 2 (Fallback): Hancurkan melalui referensi di scene.
+            if (scene[outfitType] && typeof scene[outfitType].destroy === 'function') {
+                scene[outfitType].destroy();
+                scene[outfitType] = null;
+                outfitImageDestroyed = true;
+            }
+            
+            if (outfitImageDestroyed) {
+                 console.log(`[RemoveAll] Successfully removed visual for ${outfitType}`);
             }
             // 3. Clear the entry in the selectedOutfits registry for this type
-            OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfitButton || entry?.previous || null };
+            OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfit || entry?.previous || null };
         });
 
-
+        OutfitButton.clearAllOutfitHighlights(scene);
         console.log("[DressUpManager] All outfits removed. Current selection:", scene.OutfitButton.selectedOutfits);
     }
 
