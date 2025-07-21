@@ -74,6 +74,7 @@ export default class AssetLoader {
 
     scene.load.image('backButtonIcon', 'Asset/UI/Back_Button_Released.png');
     scene.load.image('backButtonIconPressed', 'Asset/UI/Back_Button_Pressed.png');
+    scene.load.image('yellowIcon', 'Asset/UI/Yellow_Button.png');
 
     scene.load.image('stitchedButtonIcon', 'Asset/UI/Stitched_Button.png');
     scene.load.image('StitchedButtonWithoutStitchIcon', "Asset/UI/Stitched_Button_WithoutStitch.png")
@@ -343,7 +344,7 @@ export default class AssetLoader {
 
     scene.load.start();
   }
-  static loadEyebrow(scene){
+  static loadEyebrow(scene) {
     scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
     scene.load.start();
   }
@@ -376,8 +377,8 @@ export default class AssetLoader {
 
     //eyebrow (default)
     scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
-  
-    
+
+
 
     //icon makeup
     //Grup 1

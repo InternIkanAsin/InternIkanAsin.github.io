@@ -470,18 +470,22 @@ export class OutfitButton extends BaseButton {
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
-        const iconLocked = scene.add.image(70, 60, 'lockIcon').setVisible(false).setScale(1.3);
+        const iconLockedBg = scene.add.image(72, 72, 'yellowIcon').setScale(0.5).setVisible(false);
+        const iconLocked = scene.add.image(72, 72, 'lockIcon').setVisible(false).setScale(1.3);
+
         if (isLocked) {
             iconImg.setTint(0x999999);
             buttonBg.setTint(0x999999);
             iconLocked.setVisible(true);
+            iconLockedBg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked]);
 
         this.setDepth(12);
         this.button = buttonBg;
         this.icon = iconImg;
         this.buttonLocked = iconLocked;
+        this.buttonLockedBg = iconLockedBg;
         this.AudioManager = AudioManager;
         this.name = name;
         this.outfitType = outfitType;
@@ -577,6 +581,7 @@ export class OutfitButton extends BaseButton {
             //Unlock visuals
             this.icon.setTint(0xFFFFFF);
             this.button.setTint(0xFFFFFF);
+            this.buttonLockedBg.setVisible(false);
             this.buttonLocked.setVisible(false);
         });
     }
@@ -729,14 +734,16 @@ export class MakeUpButton extends BaseButton {
             .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
-        const iconLocked = scene.add.image(70, 65, 'lockIcon').setVisible(false).setScale(1.3);
+        const iconLockedBg = scene.add.image(72, 72, 'yellowIcon').setScale(0.5).setVisible(false);
+        const iconLocked = scene.add.image(72, 72, 'lockIcon').setVisible(false).setScale(1.3);
+
         if (isLocked) {
             iconImg.setTint(0x999999);
             buttonBg.setTint(0x999999);
             iconLocked.setVisible(true);
+            iconLockedBg.setVisible(true);
         }
-
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked]);
 
         this.setDepth(12);
 
@@ -744,6 +751,7 @@ export class MakeUpButton extends BaseButton {
         this.highlightImage = highlightImg;
         this.icon = iconImg;
         this.buttonLocked = iconLocked;
+        this.buttonLockedBg = iconLockedBg;
         this.name = name;
         this.makeupType = makeupType;
         this.textureAnime = textureAnime;
@@ -823,6 +831,7 @@ export class MakeUpButton extends BaseButton {
             this.icon.setTint(0xFFFFFF);
             this.button.setTint(0xFFFFFF);
             this.buttonLocked.setVisible(false);
+            this.buttonLockedBg.setVisible(false);
         });
     }
 
