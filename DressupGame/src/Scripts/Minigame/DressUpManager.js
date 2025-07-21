@@ -21,7 +21,7 @@ export class DressUpManager {
     setupCostumeButtons(scene) {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
-        
+
 
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus }) => {
             const isItemGloballyLocked = lockedItemsManager.isItemLocked(name);
@@ -35,7 +35,7 @@ export class DressUpManager {
 
             const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
             const oldButtonInstance = currentSelectedEntry?.current;
-            
+
 
             if (oldButtonInstance && oldButtonInstance.name === name) {
 
@@ -59,7 +59,6 @@ export class DressUpManager {
     randomizeLockedOutfits() {
         const groupedCostumeData = {};
         const lockedCostumeSaveData = SaveManager.loadGame();
-        console.log(lockedCostumeSaveData.lockedOutfitButtonLength);
         costumeData.forEach(costume => {
             if (!groupedCostumeData[costume.outfitType]) {
                 groupedCostumeData[costume.outfitType] = [];
@@ -80,7 +79,7 @@ export class DressUpManager {
                 }
             });
             lockedCostumeSaveData.lockedOutfitButtonLength = Object.keys(lockedCostumeSaveData.lockedOutfitButtonStatus).length;
-            SaveManager.saveGame(this.scene);
+            SaveManager.saveGame(this.scene, lockedCostumeSaveData);
         } else {
             console.log(lockedCostumeSaveData.lockedOutfitButtonLength);
             costumeData.forEach(costume => {

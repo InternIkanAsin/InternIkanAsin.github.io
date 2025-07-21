@@ -820,8 +820,8 @@ export class MakeUpButton extends BaseButton {
             unlockManager.unlockItem(this.name);
             scene.SaveManager.saveGame(scene);
 
-            this.icon.setTint(0x000000);
-            this.button.setTint(0x000000);
+            this.icon.setTint(0xFFFFFF);
+            this.button.setTint(0xFFFFFF);
             this.buttonLocked.setVisible(false);
         });
     }
