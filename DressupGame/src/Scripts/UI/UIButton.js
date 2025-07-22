@@ -600,34 +600,6 @@ export class OutfitButton extends BaseButton {
         }
     }
 
-    static createStatContainer(scene, statValue, columns = 3, spacing = 20) {
-
-        const heartContainer = scene.add.container(0, 35);
-        const numHeartsAbs = Math.abs(statValue);
-        const rows = Math.ceil(numHeartsAbs / columns);
-        const statColor = statValue >= 0 ? 0xffd700 : 0x808080;
-        const numHeartsToShow = Math.min(numHeartsAbs, 9);
-        const itemsInLastRow = numHeartsToShow % columns;
-        const columnsInLastRow = (itemsInLastRow === 0 && numHeartsToShow > 0) ? columns : itemsInLastRow;
-
-        for (let i = 0; i < numHeartsToShow; i++) {
-            const currentRow = Math.floor(i / columns);
-            const currentCol = i % columns;
-            let columnsInThisRow = columns;
-            if (currentRow === rows - 1 && rows > 1) { columnsInThisRow = columnsInLastRow > 0 ? columnsInLastRow : columns; }
-            else if (rows === 1) { columnsInThisRow = numHeartsToShow; }
-            const totalWidthThisRow = (columnsInThisRow - 1) * spacing;
-            const x = currentCol * spacing - totalWidthThisRow / 2;
-            const y = currentRow * spacing;
-            const heart = scene.add.image(x, y, 'heartIcon').setScale(0.3).setOrigin(0.5);
-            heart.setTint(statColor);
-            heartContainer.add(heart);
-        }
-        if (rows > 1) { const totalHeight = (rows - 1) * spacing; heartContainer.y -= totalHeight / 2; }
-        return heartContainer;
-    }
-
-
     toggleOutfit() {
         const { scene, textureAnime, stat, outfitType, name } = this;
         const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
@@ -655,7 +627,7 @@ export class OutfitButton extends BaseButton {
             unequip("Shirt");
             unequip("Lower");
         }
-        if (outfitType === "Shirt" || outfitType === "Lower") {
+        if (outfitType === "Shirt" ) {
             unequip("Dress");
         }
 

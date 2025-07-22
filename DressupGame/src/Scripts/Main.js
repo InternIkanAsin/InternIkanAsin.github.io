@@ -84,6 +84,27 @@ class Main extends Phaser.Scene {
     }
 
     init(data) {
+        OutfitButton.selectedOutfits = {};
+        MakeUpButton.selectedMakeUp = {};
+        console.log("[Main.init] Static states (selectedOutfits, selectedMakeUp) have been reset.");
+
+        // 2. Reset flag-flag penting di scene
+        this.isTransitioning = false;
+        this.areShoesLoaded = false;
+        this.areSocksLoaded = false;
+        this.areLowersLoaded = false;
+        this.areOutersLoaded = false;
+        this.areEyelashesLoaded = false;
+        this.areEyebrowsLoaded = false;
+        this.areEyelinerLoaded = false;
+        this.areEyeshadowsLoaded = false;
+        this.areLipsLoaded = false;
+        this.arePupilsLoaded = false;
+        this.areBlushLoaded = false;
+        this.areStickersLoaded = false;
+        this.areHairLoaded = false;
+        this.areDressesAndShirtsLoaded = false;
+        console.log("[Main.init] Scene flags have been reset.");
         this.chosenBachelorName = data.bachelorName;
         console.log(`MainScene: Memulai game dengan bachelor: ${this.chosenBachelorName}`);
     }
@@ -113,6 +134,8 @@ class Main extends Phaser.Scene {
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         lockedItemsManager.initialize();
+        OutfitButton.selectedOutfits = {};
+        MakeUpButton.selectedMakeUp = {};
         this.makeUpFinished = progressManager.makeUpFinished;
         this.dressUpFinished = progressManager.dressUpFinished;
          MakeUpButton.selectedMakeUp = {}; 

@@ -56,39 +56,7 @@ export class DressUpManager {
         });
     }
 
-    randomizeLockedOutfits() {
-        const groupedCostumeData = {};
-        const lockedCostumeSaveData = SaveManager.loadGame();
-        console.log(lockedCostumeSaveData.lockedOutfitButtonLength);
-        costumeData.forEach(costume => {
-            if (!groupedCostumeData[costume.outfitType]) {
-                groupedCostumeData[costume.outfitType] = [];
-            }
-            groupedCostumeData[costume.outfitType].push(costume);
-        });
-
-        if (lockedCostumeSaveData.lockedOutfitButtonLength === 0) {
-            Object.keys(groupedCostumeData).forEach(outfitType => {
-                const costumes = groupedCostumeData[outfitType];
-                const lockedButtonNumber = Math.floor(costumes.length * 1 / 3) + 1;
-                for (let i = 0; i < lockedButtonNumber; i++) {
-                    const randomIndex = Math.floor(Math.random() * costumes.length);
-                    costumes[randomIndex].isLocked = true;
-                    lockedCostumeSaveData.lockedOutfitButtonStatus[costumes[randomIndex].name] = {
-                        isLocked: true
-                    };
-                }
-            });
-            lockedCostumeSaveData.lockedOutfitButtonLength = Object.keys(lockedCostumeSaveData.lockedOutfitButtonStatus).length;
-            SaveManager.saveGame(this.scene);
-        } else {
-            console.log(lockedCostumeSaveData.lockedOutfitButtonLength);
-            costumeData.forEach(costume => {
-                costume.isLocked = lockedCostumeSaveData.lockedOutfitButtonStatus[costume.name].isLocked || false;
-            });
-
-        }
-    }
+    
     /**
      * @method removeAllOutfits
      * Unequips all currently equipped outfits.
@@ -165,12 +133,7 @@ export class DressUpManager {
         }
 
         let allButtonContainersForPanel = [];
-        // ... (rest of the method for creating Lepas button and populating the grid) ...
-        // Make sure when creating the Lepas button, its callback correctly targets
-        // "Dress" or "Shirt" for un-equipping if the panel shows combined items.
-        // The 'activeType' passed to the LepasButton constructor should be smart.
-
-        // For the "Lepas" button logic when outfitType is "Dress" (showing Dress+Shirt):
+        
         const lepasButtonCallbackType = (outfitType === "Dress" || outfitType === "DressShirt") ? "DressShirt" : outfitType;
 
 
