@@ -28,7 +28,7 @@ export class UIManager {
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9);
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7);
-        
+
         scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
         scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
@@ -37,7 +37,7 @@ export class UIManager {
 
         // --- PEMUATAN DINAMIS (SEKARANG AKAN BERFUNGSI) ---
         let assetsToLoad = false;
-        
+
         // 1. Antrekan Aset Outfit
         Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, outfit]) => {
             const atlasKey = outfit?.current?.textureAnime?.atlas;
@@ -51,14 +51,14 @@ export class UIManager {
         // 2. Antrekan Aset Makeup
         const loaderMap = {
             'Eyelashes': { flag: 'areEyelashesLoaded', loader: AssetLoader.loadEyelash },
-                'Eyeliner':  { flag: 'areEyelinerLoaded', loader: AssetLoader.loadEyeliner },
-                'Eyeshadow': { flag: 'areEyeshadowsLoaded', loader: AssetLoader.loadEyeShadow },
-                'Lips':      { flag: 'areLipsLoaded', loader: AssetLoader.loadLip },
-                'Pupil':     { flag: 'arePupilsLoaded', loader: AssetLoader.loadPupil },
-                'Blush':     { flag: 'areBlushLoaded', loader: AssetLoader.loadBlush },
-                'Sticker':   { flag: 'areStickersLoaded', loader: AssetLoader.loadSticker },
-                'Hair':      { flag: 'areHairLoaded', loader: AssetLoader.loadHair },
-                'Eyebrows':  { flag: 'areEyebrowsLoaded', loader: AssetLoader.loadEyebrow },
+            'Eyeliner': { flag: 'areEyelinerLoaded', loader: AssetLoader.loadEyeliner },
+            'Eyeshadow': { flag: 'areEyeshadowsLoaded', loader: AssetLoader.loadEyeShadow },
+            'Lips': { flag: 'areLipsLoaded', loader: AssetLoader.loadLip },
+            'Pupil': { flag: 'arePupilsLoaded', loader: AssetLoader.loadPupil },
+            'Blush': { flag: 'areBlushLoaded', loader: AssetLoader.loadBlush },
+            'Sticker': { flag: 'areStickersLoaded', loader: AssetLoader.loadSticker },
+            'Hair': { flag: 'areHairLoaded', loader: AssetLoader.loadHair },
+            'Eyebrows': { flag: 'areEyebrowsLoaded', loader: AssetLoader.loadEyebrow },
         };
         Object.entries(MakeUpButton.selectedMakeUp).forEach(([makeupType, makeup]) => {
             if (loaderMap[makeupType]) {
@@ -72,14 +72,14 @@ export class UIManager {
         });
 
         // 3. Callback setelah semua selesai dimuat
-        scene.load.once('complete', function() { // Gunakan fungsi biasa, bukan arrow function
+        scene.load.once('complete', function () { // Gunakan fungsi biasa, bukan arrow function
             console.log('All saved assets loaded!');
-            
+
             // Di sini, `this` akan merujuk ke instance UIManager karena .bind(this)
             this.restoreSavedOutfits(scene);
             this.restoreSavedMakeup(scene);
         }.bind(this));
-        
+
         // 4. Mulai pemuatan jika ada
         if (assetsToLoad) {
             scene.load.start();
@@ -91,7 +91,7 @@ export class UIManager {
 
     cleanupOrphanedOutfits(scene) {
         console.log("[UIManager] Running cleanup for orphaned outfit images...");
-        
+
         // 1. Buat daftar semua gambar outfit yang "sah" menurut state kita.
         const validOutfitImages = new Set();
         Object.values(OutfitButton.selectedOutfits).forEach(entry => {
@@ -126,13 +126,20 @@ export class UIManager {
     // Tambahkan method `linkDefaultMakeupObjects` untuk menangani kasus tanpa save file
     restoreSavedOutfits(scene) {
         console.log("[UIManager] Applying restored outfits to the character.");
-        
+
         Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
             if (!equippedOutfit?.current) return;
 
             const { name, textureAnime } = equippedOutfit.current;
             const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
             const outfitScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 : 1.2;
+            const outfitCustomSizes = layout.outfit.customSizes;
+            const usesCustomSize = !!outfitCustomSizes[name];
+            if (usesCustomSize) {
+                const custom = outfitCustomSizes[name];
+                this.dressUpViewDisplayWidth = custom.width;
+                this.dressUpViewDisplayHeight = custom.height;
+            }
             const manualOffset = layout.outfit.manualOffsets[name] || { x: 0, y: 0 };
             const finalX = layout.outfit.positions[outfitType].x + manualOffset.x;
             const finalY = layout.outfit.positions[outfitType].y + manualOffset.y;
@@ -240,7 +247,7 @@ export class UIManager {
                 equippedMakeup.current.displayedMakeUp = imageToUpdate;
             }
         });
-        
+
         if (scene.faceContainer) {
             scene.faceContainer.sort('depth');
         }
