@@ -138,7 +138,7 @@ class Main extends Phaser.Scene {
         MakeUpButton.selectedMakeUp = {};
         this.makeUpFinished = progressManager.makeUpFinished;
         this.dressUpFinished = progressManager.dressUpFinished;
-         MakeUpButton.selectedMakeUp = {}; 
+        MakeUpButton.selectedMakeUp = {};
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
         const registerDefault = (type, name, texture) => {
             MakeUpButton.selectedMakeUp[type] = {
@@ -160,7 +160,7 @@ class Main extends Phaser.Scene {
         if (savedData && savedData.playerAppearance) {
             console.log("Save file found. Merging saved state over defaults.");
             this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
-            
+
             // 3. Gabungkan (merge) data yang tersimpan, jangan mengganti total.
             // Gunakan Object.assign untuk menimpa kunci yang ada di state default dengan yang dari save file.
             Object.assign(OutfitButton.selectedOutfits, savedData.playerAppearance.outfits || {});
@@ -170,7 +170,7 @@ class Main extends Phaser.Scene {
         this.state = GameState.MAKEUP;
 
         this.startGameFlow();
-        
+
     }
 
     createSelectionScreen() {
@@ -457,7 +457,7 @@ const config = {
 };
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
+//const isMobile = true;
 
 if (isMobile) {
     // Untuk mobile, kita paksa mode portrait

@@ -40,7 +40,7 @@ class LockedItemsManager {
             groupedCostumes[c.outfitType].push(c);
         });
         Object.values(groupedCostumes).forEach(costumes => {
-            const numToLock = Math.floor(costumes.length / 3);
+            const numToLock = Math.ceil(costumes.length / 3);
             for (let i = 0; i < numToLock; i++) {
                 const randomIndex = Math.floor(Math.random() * costumes.length);
                 if (!this.lockedItems.has(costumes[randomIndex].name)) {
@@ -60,14 +60,14 @@ class LockedItemsManager {
             const numToLock = Math.floor(makeups.length / 3);
             for (let i = 0; i < numToLock; i++) {
                 const randomIndex = Math.floor(Math.random() * makeups.length);
-                 if (!this.lockedItems.has(makeups[randomIndex].name)) {
+                if (!this.lockedItems.has(makeups[randomIndex].name)) {
                     this.lockedItems.add(makeups[randomIndex].name);
                 } else {
                     i--;
                 }
             }
         });
-        
+
         localStorage.setItem(LOCKED_ITEMS_KEY, JSON.stringify(Array.from(this.lockedItems)));
         console.log("[LockedItemsManager] Randomized and saved locked items:", this.lockedItems);
     }
