@@ -471,7 +471,7 @@ export class OutfitButton extends BaseButton {
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
         const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
-        const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconBg);
+        const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconScale);
 
         if (isLocked) {
             iconImg.setTint(0x999999);
@@ -767,8 +767,8 @@ export class MakeUpButton extends BaseButton {
             .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
-        const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
-        const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconBg);
+        const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.makeUpButton.lockedIconBgScale).setVisible(false);
+        const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.makeUpButton.lockedIconScale);
 
         if (isLocked) {
             iconImg.setTint(0x999999);

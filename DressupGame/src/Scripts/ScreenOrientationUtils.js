@@ -243,7 +243,7 @@ const LANDSCAPE = {
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
-        lockedIconScale: 1.3
+        lockedIconScale: 1.5
     },
     outfitButton: {
         iconLockedX: 72,
@@ -252,7 +252,7 @@ const LANDSCAPE = {
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
-        lockedIconScale: 1.3
+        lockedIconScale: 1.5
     },
     //Dressup Category
     dressUpCategoryButtons: {
