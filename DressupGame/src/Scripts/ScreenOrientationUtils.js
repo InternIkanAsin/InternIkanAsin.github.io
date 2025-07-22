@@ -1,5 +1,5 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
+//const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -28,7 +28,7 @@ const LANDSCAPE = {
             Shoes: { x: 922, y: 917 }
         },
         customSizes: {
-            'Dress 18': { width: 944, height: 900 }, 
+            'Dress 18': { width: 944, height: 900 },
             'Dress 19': { width: 944, height: 900 },
             'Dress 20': { width: 944, height: 900 },
             'Outer 8': { width: 555, height: 565 }
@@ -103,7 +103,7 @@ const LANDSCAPE = {
         depth: -1,
         width: 1920,
         height: 1080,
-        
+
     },
     //Tirai
     drapes: {
@@ -237,14 +237,22 @@ const LANDSCAPE = {
         buttonScale: 0.6 * 2
     },
     makeUpButton: {
+        iconLockedX: 72,
+        iconLockedY: 72,
         iconScale: 1.2,
         highlightImg: 0.8 * 2,
-        buttonScale: 0.8 * 2
+        buttonScale: 0.8 * 2,
+        lockedIconBgScale: 0.5,
+        lockedIconScale: 1.3
     },
     outfitButton: {
+        iconLockedX: 72,
+        iconLockedY: 72,
         iconScale: 1.2,
         highlightImg: 0.8 * 2,
-        buttonScale: 0.8 * 2
+        buttonScale: 0.8 * 2,
+        lockedIconBgScale: 0.5,
+        lockedIconScale: 1.3
     },
     //Dressup Category
     dressUpCategoryButtons: {
@@ -384,7 +392,7 @@ const PORTRAIT = {
         depth: -1,
         width: 720 * 2.2,
         height: 1280,
-        
+
     },
 
     //Tirai
@@ -515,7 +523,7 @@ const PORTRAIT = {
     removeAllButton: {
         x: 70,
         y: 250,
-        buttonScale: 0.8 * 2, 
+        buttonScale: 0.8 * 2,
         iconScale: 0.7 * 2
     },
 
@@ -582,15 +590,23 @@ const PORTRAIT = {
         },
     },
     outfitButton: {
+        iconLockedX: 54,
+        iconLockedY: 54,
         iconScale: 1,
         highlightImg: 0.6 * 2,
-        buttonScale: 0.6 * 2
+        buttonScale: 0.6 * 2,
+        lockedIconBgScale: 0.4,
+        lockedIconScale: 1.3
     },
 
     makeUpButton: {
+        iconLockedX: 52,
+        iconLockedY: 52,
         iconScale: 1,
         highlightImg: 0.6 * 2,
-        buttonScale: 0.6 * 2
+        buttonScale: 0.6 * 2,
+        lockedIconBgScale: 0.4,
+        lockedIconScale: 1.3
     },
 
     itemPanelButton: {

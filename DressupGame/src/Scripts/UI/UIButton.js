@@ -470,8 +470,8 @@ export class OutfitButton extends BaseButton {
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
-        const iconLockedBg = scene.add.image(72, 72, 'yellowIcon').setScale(0.5).setVisible(false);
-        const iconLocked = scene.add.image(72, 72, 'lockIcon').setVisible(false).setScale(1.3);
+        const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
+        const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconBg);
 
         if (isLocked) {
             iconImg.setTint(0x999999);
@@ -620,18 +620,18 @@ export class OutfitButton extends BaseButton {
                 }
             }
         }
-        
+
         if (scene[type]) {
             scene[type].destroy();
             scene[type] = null;
         }
-        
-       
+
+
         OutfitButton.selectedOutfits[type] = { current: null, previous: equippedButtonData };
     }
 
 
-    
+
 
     toggleOutfit() {
         const { scene, textureAnime, stat, outfitType, name } = this;
@@ -674,7 +674,7 @@ export class OutfitButton extends BaseButton {
             unequip("Shirt");
             unequip("Lower");
         }
-        if (outfitType === "Shirt" ) {
+        if (outfitType === "Shirt") {
             unequip("Dress");
         }
 
@@ -764,8 +764,8 @@ export class MakeUpButton extends BaseButton {
             .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
-        const iconLockedBg = scene.add.image(72, 72, 'yellowIcon').setScale(0.5).setVisible(false);
-        const iconLocked = scene.add.image(72, 72, 'lockIcon').setVisible(false).setScale(1.3);
+        const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
+        const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconBg);
 
         if (isLocked) {
             iconImg.setTint(0x999999);
