@@ -138,9 +138,28 @@ export class UIManager {
             const finalY = layout.outfit.positions[outfitType].y + manualOffset.y;
 
             if (textureAnime && scene.textures.exists(textureAnime.atlas)) {
+                const outfitPositions = layout.outfit.positions;
+                const outfitCustomSizes = layout.outfit.customSizes;
+                const outfitManualOffsets = layout.outfit.manualOffsets;
+                
+                const basePosition = outfitPositions[outfitType] || { x: 0, y: 0 };
+                const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
+                const finalX = basePosition.x + manualOffset.x;
+                const finalY = basePosition.y + manualOffset.y;
+
                 const newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame)
-                    .setScale(outfitScale)
                     .setDepth(depthValues[outfitType] || 1);
+
+                const usesCustomSize = !!outfitCustomSizes[name];
+                if (usesCustomSize) {
+                    
+                    const custom = outfitCustomSizes[name];
+                    newOutfitImage.setDisplaySize(custom.width, custom.height);
+                } else {
+                    
+                    const defaultScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 : 1.2;
+                    newOutfitImage.setScale(defaultScale);
+                }
 
                 scene[outfitType] = newOutfitImage;
                 equippedOutfit.current.displayedOutfit = newOutfitImage;
