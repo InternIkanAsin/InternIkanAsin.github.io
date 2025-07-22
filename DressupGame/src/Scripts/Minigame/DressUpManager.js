@@ -64,48 +64,15 @@ export class DressUpManager {
     removeAllOutfits() {
         console.log("[DressUpManager] Removing all outfits...");
         const scene = this.scene;
-
-        if (!OutfitButton.selectedOutfits) {
-            console.error("[DressUpManager] OutfitButton.selectedOutfits not found!");
-            return;
-        }
-        if (!scene.statTracker) {
-            console.error("[DressUpManager] StatTracker not found!");
-            return;
-        }
-
         const typesToRemove = Object.keys(OutfitButton.selectedOutfits);
 
         typesToRemove.forEach(outfitType => {
-            const entry = OutfitButton.selectedOutfits[outfitType];
-            const currentOutfit = entry?.current;
-
-           
-            let outfitImageDestroyed = false;
-
-            // Prioritas 1: Hancurkan melalui referensi `displayedOutfit` yang benar.
-            if (currentOutfit && currentOutfit.displayedOutfit && typeof currentOutfit.displayedOutfit.destroy === 'function') {
-                currentOutfit.displayedOutfit.destroy();
-                currentOutfit.displayedOutfit = null;
-                outfitImageDestroyed = true;
-            }
-
-            // Prioritas 2 (Fallback): Hancurkan melalui referensi di scene.
-            if (scene[outfitType] && typeof scene[outfitType].destroy === 'function') {
-                scene[outfitType].destroy();
-                scene[outfitType] = null;
-                outfitImageDestroyed = true;
-            }
-            
-            if (outfitImageDestroyed) {
-                 console.log(`[RemoveAll] Successfully removed visual for ${outfitType}`);
-            }
-            // 3. Clear the entry in the selectedOutfits registry for this type
-            OutfitButton.selectedOutfits[outfitType] = { current: null, previous: currentOutfit || entry?.previous || null };
+            // Panggil method unequip statis yang sudah berisi Ghost Buster
+            OutfitButton.unequip(scene, outfitType);
         });
 
         OutfitButton.clearAllOutfitHighlights(scene);
-        console.log("[DressUpManager] All outfits removed. Current selection:", scene.OutfitButton.selectedOutfits);
+        console.log("[DressUpManager] All outfits removed.");
     }
 
 
@@ -165,51 +132,16 @@ export class DressUpManager {
             'Remove',                     // Text ("Lepas" or "Remove")
             '30px',                       // Text size (matches MakeUpButton textLbl)
             () => { // Callback for "Lepas Outfit"
-                console.log(`[LepasButton] Clicked for Outfit Type: ${outfitType}`);
-
                 let typeToUnequipActually = outfitType;
-                // Special handling for "DressShirt" if it's a combined category view
                 if (outfitType === "Shirt" || outfitType === "Dress") {
-
-                    if (OutfitButton.selectedOutfits["Dress"]?.current) {
-                        typeToUnequipActually = "Dress"; // Prioritize Dress
-                    } else if (OutfitButton.selectedOutfits["Shirt"]?.current) {
-                        typeToUnequipActually = "Shirt";
-                    } else {
-                        // Nothing from Dress/Shirt to unequip if DressShirt was a filter and nothing selected
-                        scene.AudioManager?.playSFX?.("buttonClick");
-                        return;
-                    }
+                    if (OutfitButton.selectedOutfits["Dress"]?.current) typeToUnequipActually = "Dress";
+                    else if (OutfitButton.selectedOutfits["Shirt"]?.current) typeToUnequipActually = "Shirt";
+                    else { return; }
                 }
 
-                const currentEntry = OutfitButton.selectedOutfits[typeToUnequipActually];
-                const equippedButtonInstance = currentEntry?.current;
-
-                if (equippedButtonInstance && equippedButtonInstance instanceof OutfitButton) {
-                    // Unequip it: destroy visual, update stat, clear selection in registry
-                    if (equippedButtonInstance.displayedOutfit) {
-                        equippedButtonInstance.displayedOutfit.destroy();
-                        equippedButtonInstance.displayedOutfit = null;
-                    }
-
-                    OutfitButton.selectedOutfits[typeToUnequipActually] = { current: null, previous: equippedButtonInstance };
-
-                    // Clear highlight for this specific button
-                    if (equippedButtonInstance.highlightImage) {
-                        equippedButtonInstance.highlightImage.setVisible(false);
-                    }
-                    // If Dress was unequipped, also clear highlights for dependent types
-                    if (typeToUnequipActually === "Dress") {
-                        OutfitButton.clearHighlightsForType(scene, "Shirt");
-                        OutfitButton.clearHighlightsForType(scene, "Lower");
-                    }
-                } else {
-                    console.log(`[LepasButton] No ${typeToUnequipActually} item currently equipped to remove.`);
-                }
-                if (scene[outfitType]) {
-                    scene[outfitType].destroy();
-                    scene[outfitType] = null;
-                }
+                // Panggil method unequip statis yang sudah berisi Ghost Buster
+                OutfitButton.unequip(scene, typeToUnequipActually);
+                OutfitButton.clearAllOutfitHighlights(scene);
             }
 
         );

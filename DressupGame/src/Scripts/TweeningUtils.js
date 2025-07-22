@@ -75,6 +75,10 @@ export default class TweenUtils {
         const scene = this.scene;
         console.log("[TweenUtils] Transitioning back to selection screen.");
 
+        if (scene.UIManager) {
+            scene.UIManager.cleanupOrphanedOutfits(scene);
+        }
+
         this.scene.MiniGameManager.disableInteraction();
         if (scene.interactiveMakeupSystem && scene.interactiveMakeupSystem.isActive) {
             console.log("[Back Transition] Coloring session active. Stopping and discarding.");

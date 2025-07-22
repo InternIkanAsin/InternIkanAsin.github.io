@@ -3,6 +3,7 @@ import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from './UIButton.
 import { GameState } from '../Main.js';
 
 import { makeUpData, defaultMakeUpSkins, MakeUpPositions } from '../Makeup Data/MakeUpData.js';
+import { costumeData } from '../Outfit Data/CostumeData.js';
 
 import { layout } from '../ScreenOrientationUtils.js';
 import AssetLoader from '../AssetLoader.js';
@@ -85,6 +86,40 @@ export class UIManager {
         } else {
             // Jika tidak ada yang dimuat, kita perlu menautkan objek default secara manual
             this.linkDefaultMakeupObjects(scene);
+        }
+    }
+
+    cleanupOrphanedOutfits(scene) {
+        console.log("[UIManager] Running cleanup for orphaned outfit images...");
+        
+        // 1. Buat daftar semua gambar outfit yang "sah" menurut state kita.
+        const validOutfitImages = new Set();
+        Object.values(OutfitButton.selectedOutfits).forEach(entry => {
+            if (entry?.current?.displayedOutfit) {
+                validOutfitImages.add(entry.current.displayedOutfit);
+            }
+        });
+
+        // 2. Kumpulkan semua atlas yang digunakan oleh outfit untuk identifikasi.
+        const outfitAtlasKeys = new Set();
+        costumeData.forEach(item => {
+            if (item.textureAnime.atlas) {
+                outfitAtlasKeys.add(item.textureAnime.atlas);
+            }
+        });
+
+        // 3. Iterasi semua objek di layar.
+        for (let i = scene.children.list.length - 1; i >= 0; i--) {
+            const child = scene.children.list[i];
+
+            // Cek apakah ini adalah gambar outfit
+            if (child.type === 'Image' && child.texture && outfitAtlasKeys.has(child.texture.key)) {
+                // Cek apakah gambar ini TIDAK ADA di dalam daftar gambar yang sah.
+                if (!validOutfitImages.has(child)) {
+                    console.warn(`[Cleanup] Found and destroyed an orphaned ghost image with texture: ${child.texture.key}`);
+                    child.destroy();
+                }
+            }
         }
     }
 

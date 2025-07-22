@@ -599,6 +599,39 @@ export class OutfitButton extends BaseButton {
             });
         }
     }
+    static unequip(scene, type) {
+        const entry = OutfitButton.selectedOutfits[type];
+        if (!entry || !entry.current) {
+            return; // Tidak ada yang perlu dilepas
+        }
+
+        const equippedButtonData = entry.current;
+
+        // --- GHOST BUSTER TERPUSAT ---
+        if (equippedButtonData.textureAnime) {
+            const ghostAtlas = equippedButtonData.textureAnime.atlas;
+            const ghostFrame = equippedButtonData.textureAnime.frame;
+
+            for (let i = scene.children.list.length - 1; i >= 0; i--) {
+                const child = scene.children.list[i];
+                if (child.type === 'Image' && child.texture.key === ghostAtlas && child.frame.name === ghostFrame) {
+                    console.warn(`[Unequip] Found and destroyed image for: ${equippedButtonData.name}`);
+                    child.destroy();
+                }
+            }
+        }
+        
+        if (scene[type]) {
+            scene[type].destroy();
+            scene[type] = null;
+        }
+        
+       
+        OutfitButton.selectedOutfits[type] = { current: null, previous: equippedButtonData };
+    }
+
+
+    
 
     toggleOutfit() {
         const { scene, textureAnime, stat, outfitType, name } = this;
@@ -608,6 +641,20 @@ export class OutfitButton extends BaseButton {
         const unequip = (type) => {
             const entry = OutfitButton.selectedOutfits[type];
             const equippedButton = entry?.current;
+
+            if (equippedButton && equippedButton.textureAnime) {
+                const ghostAtlas = equippedButton.textureAnime.atlas;
+                const ghostFrame = equippedButton.textureAnime.frame;
+
+                // Iterasi dan hancurkan semua gambar yang cocok, termasuk yang "sah" dan "hantu".
+                for (let i = scene.children.list.length - 1; i >= 0; i--) {
+                    const child = scene.children.list[i];
+                    if (child.type === 'Image' && child.texture.key === ghostAtlas && child.frame.name === ghostFrame) {
+                        console.warn(`[Unequip/Ghost Buster] Found and destroyed an image for: ${equippedButton.name}`);
+                        child.destroy();
+                    }
+                }
+            }
 
             if (equippedButton && equippedButton.displayedOutfit) {
                 equippedButton.displayedOutfit.destroy();
@@ -634,6 +681,17 @@ export class OutfitButton extends BaseButton {
         if (currentEntry && currentEntry.current === this) {
             unequip(outfitType);
             return;
+        }
+
+        const targetAtlas = textureAnime.atlas;
+        const targetFrame = textureAnime.frame;
+
+        for (let i = scene.children.list.length - 1; i >= 0; i--) {
+            const child = scene.children.list[i];
+            if (child.type === 'Image' && child.texture.key === targetAtlas && child.frame.name === targetFrame) {
+                console.warn(`[Ghost Buster] Found and destroyed a ghost image for: ${name}`);
+                child.destroy();
+            }
         }
 
         unequip(outfitType);
