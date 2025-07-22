@@ -83,6 +83,33 @@ class Main extends Phaser.Scene {
         super({ key: 'MainScene' });
     }
 
+    shutdown() {
+        this.input.removeAllListeners();
+        this.events.removeAllListeners();
+
+        this.tweens.killAll();
+        this.time.removeAllEvents();
+
+        this.darkOverlay?.destroy();
+        this.leftDrape?.destroy();
+        this.rightDrape?.destroy();
+        this.leftCurtain?.destroy();
+        this.rightCurtain?.destroy();
+        
+        if (this.UIManager) {
+            this.UIManager.clearMinigameScene(this);
+        }
+
+        OutfitButton.selectedOutfits = {};
+        MakeUpButton.selectedMakeUp = {};
+        
+        unlockManager.clearAllUnlocks(); 
+        progressManager.clearProgress(); 
+        lockedItemsManager.clearLockedItems(); 
+
+        
+    }
+
     init(data) {
         OutfitButton.selectedOutfits = {};
         MakeUpButton.selectedMakeUp = {};
