@@ -32,15 +32,13 @@ class LockedItemsManager {
 
     randomizeAndSave() {
         this.lockedItems.clear();
-
-        // ... (logika randomisasi Anda yang sudah ada tetap sama)
         const groupedCostumes = {};
         costumeData.forEach(c => {
             if (!groupedCostumes[c.outfitType]) groupedCostumes[c.outfitType] = [];
             groupedCostumes[c.outfitType].push(c);
         });
         Object.values(groupedCostumes).forEach(costumes => {
-            const numToLock = Math.ceil(costumes.length / 3);
+            const numToLock = Math.round(costumes.length / 3);
             for (let i = 0; i < numToLock; i++) {
                 const randomIndex = Math.floor(Math.random() * costumes.length);
                 if (!this.lockedItems.has(costumes[randomIndex].name)) {
@@ -57,7 +55,7 @@ class LockedItemsManager {
             if (m.textureButton) groupedMakeup[m.makeUpType].push(m);
         });
         Object.values(groupedMakeup).forEach(makeups => {
-            const numToLock = Math.floor(makeups.length / 3);
+            const numToLock = Math.round(makeups.length / 3);
             for (let i = 0; i < numToLock; i++) {
                 const randomIndex = Math.floor(Math.random() * makeups.length);
                 if (!this.lockedItems.has(makeups[randomIndex].name)) {
