@@ -58,8 +58,17 @@ export default class UIButton extends BaseButton {
             if (icon) icon.y -= 5;
 
         });
-    }
 
+        
+    }
+    resetVisuals() {
+        // Mengatur alpha dari container dan gambar di dalamnya ke 1.
+        this.setAlpha(1);
+        if (this.button) {
+            this.button.setAlpha(1);
+        }
+        console.log("[UIButton] Visuals reset.");
+    }
     setIconTexture(newTextureKey) {
         console.log('Before:', this.icon.texture.key);
         this.icon.setTexture(newTextureKey);

@@ -200,6 +200,9 @@ export class MiniGameManager {
         
         this.enableInteraction();
 
+        this.scene.finishButton.setAlpha(1);
+        this.scene.finishButton?.resetVisuals();
+
         if (this.activeConfirmationPanel || this.incompletePanel) {
             this.scene.tweens.add({
                 targets: this.incompletePanel || this.activeConfirmationPanel,
@@ -209,10 +212,13 @@ export class MiniGameManager {
                 onComplete: () => {
                     this.incompletePanel?.destroy();
                     this.activeConfirmationPanel?.destroy();
+                    this.activeConfirmationPanel = null; 
+                    this.incompletePanel = null; 
                     if (callback) callback();
                 }
             });
         }
+        
     }
     createConfirmationPanel() {
         const { state, darkOverlay, finishButton, removeAllButton, backToSelectionButton, scale } = this.scene;
