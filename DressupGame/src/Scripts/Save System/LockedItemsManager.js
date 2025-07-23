@@ -81,5 +81,4 @@ class LockedItemsManager {
     }
 }
 
-// Instance global tetap ada, tetapi sekarang "pasif"
 export const lockedItemsManager = new LockedItemsManager();

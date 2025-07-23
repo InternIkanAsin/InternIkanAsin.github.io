@@ -132,7 +132,6 @@ export class UIManager {
 
             const { name, textureAnime } = equippedOutfit.current;
             const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
-            const outfitScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 : 1.2;
             const outfitCustomSizes = layout.outfit.customSizes;
             const usesCustomSize = !!outfitCustomSizes[name];
             if (usesCustomSize) {
@@ -140,9 +139,6 @@ export class UIManager {
                 this.dressUpViewDisplayWidth = custom.width;
                 this.dressUpViewDisplayHeight = custom.height;
             }
-            const manualOffset = layout.outfit.manualOffsets[name] || { x: 0, y: 0 };
-            const finalX = layout.outfit.positions[outfitType].x + manualOffset.x;
-            const finalY = layout.outfit.positions[outfitType].y + manualOffset.y;
 
             if (textureAnime && scene.textures.exists(textureAnime.atlas)) {
                 const outfitPositions = layout.outfit.positions;
@@ -196,7 +192,7 @@ export class UIManager {
             switch (makeupType) {
                 case 'Lips':
                     imageToUpdate = scene.lips;
-                    // Cek jika textureAnime adalah string (default) atau objek (kustom)
+                    
                     if (typeof textureAnime === 'string') {
                         imageToUpdate.setTexture(textureAnime);
                     } else {
@@ -229,12 +225,12 @@ export class UIManager {
                     break;
                 case 'Hair':
                     imageToUpdate = [scene.hairBack, scene.hairFront];
-                    // Logika rambut sudah menangani objek, jadi tidak perlu diubah
+                    
                     scene.hairBack.setTexture(textureAnime.back.atlas || textureAnime.back, textureAnime.back.frame || null);
                     scene.hairFront.setTexture(textureAnime.front.atlas || textureAnime.front, textureAnime.front.frame || null);
                     break;
                 case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
-                    if (equippedMakeup.current.isDefault) break; // Jangan buat gambar untuk item aditif default (yang tidak ada)
+                    if (equippedMakeup.current.isDefault) break; 
                     const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
                     imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
                         .setScale(0.55 * 2)

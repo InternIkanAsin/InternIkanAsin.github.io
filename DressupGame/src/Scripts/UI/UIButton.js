@@ -62,7 +62,6 @@ export default class UIButton extends BaseButton {
 
     }
     resetVisuals() {
-        // Mengatur alpha dari container dan gambar di dalamnya ke 1.
         this.setAlpha(1);
         if (this.button) {
             this.button.setAlpha(1);
@@ -335,8 +334,6 @@ export class OutfitButton extends BaseButton {
     static selectedOutfits = {};
 
     constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
-
-        // --- Elements for the button UI itself ---
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
@@ -449,7 +446,6 @@ export class OutfitButton extends BaseButton {
             unlockManager.unlockItem(this.name);
             scene.SaveManager.saveGame(scene);
 
-            //Unlock visuals
             this.icon.setTint(0xFFFFFF);
             this.button.setTint(0xFFFFFF);
             this.buttonLockedBg.setVisible(false);
@@ -473,7 +469,7 @@ export class OutfitButton extends BaseButton {
     static unequip(scene, type) {
         const entry = OutfitButton.selectedOutfits[type];
         if (!entry || !entry.current) {
-            return; // Tidak ada yang perlu dilepas
+            return;
         }
 
         const equippedButtonData = entry.current;
@@ -517,7 +513,7 @@ export class OutfitButton extends BaseButton {
                 const ghostAtlas = equippedButton.textureAnime.atlas;
                 const ghostFrame = equippedButton.textureAnime.frame;
 
-                // Iterasi dan hancurkan semua gambar yang cocok, termasuk yang "sah" dan "hantu".
+                
                 for (let i = scene.children.list.length - 1; i >= 0; i--) {
                     const child = scene.children.list[i];
                     if (child.type === 'Image' && child.texture.key === ghostAtlas && child.frame.name === ghostFrame) {
@@ -585,7 +581,7 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setDepth(depthValues[outfitType] || 1);
         this.displayedOutfit = newOutfitImage;
 
-        // --- Atur Skala dan Simpan Metadata yang Tepat ---
+        
         if (this.usesCustomSize) {
             newOutfitImage.setDisplaySize(this.dressUpViewDisplayWidth, this.dressUpViewDisplayHeight);
         } else {
@@ -595,19 +591,19 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setData('buttonName', name);
         newOutfitImage.setData('usesCustomSize', this.usesCustomSize);
 
-        // Simpan posisi absolut outfit saat dibuat
+        
         newOutfitImage.setData('baseWorldOutfitX', finalX);
         newOutfitImage.setData('baseWorldOutfitY', finalY);
 
-        // Simpan skala absolut outfit saat dibuat
+        
         newOutfitImage.setData('initialScaleX', newOutfitImage.scaleX);
         newOutfitImage.setData('initialScaleY', newOutfitImage.scaleY);
 
-        // Simpan posisi dan skala tubuh saat outfit dipasang sebagai referensi
+        
         newOutfitImage.setData('refBodyX', scene.body.x);
         newOutfitImage.setData('refBodyY', scene.body.y);
         newOutfitImage.setData('refBodyScale', scene.body.scale);
-        // ------------------------------------------------
+        
 
         OutfitButton.selectedOutfits[outfitType] = {
             current: this,
@@ -631,7 +627,6 @@ export class MakeUpButton extends BaseButton {
     };
 
     constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
-
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.makeUpButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false)

@@ -200,8 +200,9 @@ export class MiniGameManager {
         
         this.enableInteraction();
 
-        this.scene.finishButton.setAlpha(1);
+        
         this.scene.finishButton?.resetVisuals();
+        this.scene.finishMiniGameButton?.resetVisuals();
 
         if (this.activeConfirmationPanel || this.incompletePanel) {
             this.scene.tweens.add({
