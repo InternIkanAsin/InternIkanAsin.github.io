@@ -1,5 +1,4 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -275,7 +274,6 @@ const LANDSCAPE = {
         hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
     },
 
-    //-------
     applyMakeUpPanel: {
         x: 0,
         y: 0,

@@ -1,11 +1,9 @@
-//Loading logic
 import PreloaderScene from './Loading Scene/PreloaderScene.js';
 
 import BootScene from './Loading Scene/BootScene.js';
 
 import UIButton from './UI/UIButton.js';
 
-//Asset Loader Class
 import AssetLoader from './AssetLoader.js'
 
 import { PokiPlugin } from '@poki/phaser-3';
@@ -18,50 +16,36 @@ import { defaultMakeUpSkins } from './Makeup Data/MakeUpData.js';
 
 import { lockedItemsManager } from './Save System/LockedItemsManager.js';
 
-//Tweening Utils Class
 import TweenUtils from './TweeningUtils.js'
 
-// UI Manager Class
 import { UIManager } from './UI/UIManager.js'
 
-// Mini Game Manager Class
 import { MiniGameManager } from './Minigame/MiniGameManager.js'
 
 import { SaveManager } from './Save System/SaveManager.js';
 
-// Dress Up Manager Class
 import { DressUpManager } from './Minigame/DressUpManager.js'
 
-// Make Up Manager Class
 import { MakeUpManager } from './Minigame/MakeUpManager.js'
 
-// OutfitButton Class
 import { OutfitButton, MakeUpButton } from './UI/UIButton.js'
 
-//DialogueManager Class
 import { DialogueManager } from './Dialogue System/DialogueManager.js'
 
-//CutsceneSystem Class
 import { CutsceneSystem } from './Scene System/CutsceneSystem.js'
 
-//SceneManager Class
 import { SceneManager } from './Scene System/SceneManager.js'
 
-//Stat Tracker Class
 import { statTracker } from './Outfit Data/CostumeManager.js'
 
-//Audio Manager Class
 import { AudioManager } from './Audio System/AudioManager.js'
 
-//interactive makeupsystem
 import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
 
-//Bachelor Manager Class
 import { BachelorManager } from './Bachelor/bachelorManager.js'
 
 import { layout } from './ScreenOrientationUtils.js';
-
-//Loading font from game 
+ 
 function loadFont(name, url) {
     const newFont = new FontFace(name, `url(${url})`);
     newFont.load().then(function (loaded) {
@@ -71,13 +55,13 @@ function loadFont(name, url) {
         console.error(`Failed to load font "${name}":`, error);
     });
 }
-// Game State (Make Up or Dress Up)
+
 export const GameState = Object.freeze({
     MAKEUP: 'MAKEUP',
     DRESSUP: 'DRESSUP'
 });
 
-// Main Game Scene
+
 class Main extends Phaser.Scene {
     constructor() {
         super({ key: 'MainScene' });
@@ -114,8 +98,6 @@ class Main extends Phaser.Scene {
         OutfitButton.selectedOutfits = {};
         MakeUpButton.selectedMakeUp = {};
         console.log("[Main.init] Static states (selectedOutfits, selectedMakeUp) have been reset.");
-
-        // 2. Reset flag-flag penting di scene
         this.isTransitioning = false;
         this.areShoesLoaded = false;
         this.areSocksLoaded = false;
@@ -179,7 +161,6 @@ class Main extends Phaser.Scene {
         registerDefault('Eyelashes', 'Default Eyelashes', 'EyelashesNormalDefault');
         registerDefault('Hair', 'Default Hair', defaultHairTextures);
 
-        // 2. Muat save data
         const savedData = this.SaveManager.loadGame();
         this.makeUpFinished = progressManager.makeUpFinished;
         this.dressUpFinished = progressManager.dressUpFinished;
@@ -188,8 +169,6 @@ class Main extends Phaser.Scene {
             console.log("Save file found. Merging saved state over defaults.");
             this.chosenBachelorName = savedData.bachelor?.chosenName || this.chosenBachelorName;
 
-            // 3. Gabungkan (merge) data yang tersimpan, jangan mengganti total.
-            // Gunakan Object.assign untuk menimpa kunci yang ada di state default dengan yang dari save file.
             Object.assign(OutfitButton.selectedOutfits, savedData.playerAppearance.outfits || {});
             Object.assign(MakeUpButton.selectedMakeUp, savedData.playerAppearance.makeup || {});
         }
@@ -203,12 +182,8 @@ class Main extends Phaser.Scene {
     createSelectionScreen() {
         console.log("[Main.js] Creating Minigame Selection Screen.");
         const scene = this;
-        const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
-
         scene.UIManager.setupScene(scene);
-        // First Curtain is closed
-        const drapeWidth = scene.scale.width / 2;
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101).setScale(2);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101).setScale(2);
 
@@ -229,22 +204,19 @@ class Main extends Phaser.Scene {
             layout.curtain.rightTexture
         ).setDepth(102).setScale(2);
 
-        // fix button size and position
-        const buttonXOffset = 350;
-
         this.createSelectionButtons();
 
         this.MiniGameManager.disableInteraction();
-        // LANGKAH 3: Panggil animasi untuk MEMBUKA tirai setengah
+        
         scene.cameras.main.once('camerafadeincomplete', () => {
-            // Animasi openDrapesHalfway sekarang akan menggeser tirai dari tengah ke samping
+            
             this.TweeningUtils.openDrapesHalfway(1000);
         });
     }
 
     createSelectionButtons() {
         const scene = this;
-        const btnLayout = layout.selectionButtons; // Ambil layout tombol untuk kemudahan akses
+        const btnLayout = layout.selectionButtons; 
 
         this.dressUpButton = new UIButton(scene, scene.AudioManager, {
             x: btnLayout.dressUpX,
@@ -268,7 +240,7 @@ class Main extends Phaser.Scene {
                 this.transitionToMinigame(GameState.DRESSUP);
             },
             buttonText: '',
-            buttonScale: btnLayout.scale, // Gunakan skala dari layout
+            buttonScale: btnLayout.scale, 
         }).setDepth(99);
 
         if (this.dressUpFinished && this.MiniGameManager.canContinueToScene2()) {
@@ -302,7 +274,7 @@ class Main extends Phaser.Scene {
                 this.transitionToMinigame(GameState.MAKEUP);
             },
             buttonText: '',
-            buttonScale: btnLayout.scale, // Gunakan skala dari layout
+            buttonScale: btnLayout.scale, 
         }).setDepth(99);
 
         if (this.makeUpFinished) {
@@ -336,19 +308,11 @@ class Main extends Phaser.Scene {
 
 
     transitionToMinigame(gameState) {
-        // Make sure transition only happened once
         this.dressUpButton.disableInteractive();
         this.makeUpButton.disableInteractive();
-
-
-        this.state = gameState; // Set state game
+        this.state = gameState; 
         console.log(`[Main.js] Transitioning to ${gameState} mode.`);
-
-        // Close curtain, while close setup minigame then open it again
         this.TweeningUtils.closeDrapes(500, async () => {
-
-
-            // destroy selection screen
             if (this.dressUpButton) this.dressUpButton.destroy();
             if (this.makeUpButton) this.makeUpButton.destroy();
             if (this.dressUpTickMark) this.dressUpTickMark.destroy();
@@ -378,16 +342,11 @@ class Main extends Phaser.Scene {
             }
 
             this.setUpMiniGame();
-
-            // Setup UI minigame (panel kategori di samping, tombol finish, dll
             if (gameState === GameState.DRESSUP) {
                 this.DressUpManager.displayDressUpButtons('Dress', this);
             } else {
                 this.MakeUpManager.displayMakeUpButtons('Eyebrows', this);
             }
-
-
-            // Buka tirai sepenuhnya
             this.TweeningUtils.openDrapes(1000, () => {
                 console.log("[Transition] Lock released.");
                 this.isTransitioning = false;
@@ -484,14 +443,12 @@ const config = {
 };
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
 
 if (isMobile) {
-    // Untuk mobile, kita paksa mode portrait
     config.scale.width = PORTRAIT_WIDTH;
     config.scale.height = PORTRAIT_HEIGHT;
 } else {
-    // Untuk desktop, kita gunakan landscape
+    
     config.scale.width = LANDSCAPE_WIDTH;
     config.scale.height = LANDSCAPE_HEIGHT;
 }
