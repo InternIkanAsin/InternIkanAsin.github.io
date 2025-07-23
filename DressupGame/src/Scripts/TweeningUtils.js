@@ -37,7 +37,7 @@ export default class TweenUtils {
             return;
         }
 
-        const centerX = scene.scale.width / 2;
+        
         scene.tweens.add({
             targets: scene.leftDrape,
             x: layout.drapes.closed.leftX,
@@ -84,7 +84,7 @@ export default class TweenUtils {
             console.log("[Back Transition] Coloring session active. Stopping and discarding.");
             scene.interactiveMakeupSystem.stopColoringSession(
                 scene.interactiveMakeupSystem.activeMakeupType,
-                true // force discard
+                true 
             );
         }
         await this.zoomOut();
@@ -160,13 +160,13 @@ export default class TweenUtils {
 
         scene.tweens.add({
             targets: scene.leftDrape,
-            x: targetLeftX, // move from middle sideways
+            x: targetLeftX, 
             duration: duration,
             ease: 'Power2'
         });
         scene.tweens.add({
             targets: scene.rightDrape,
-            x: targetRightX, // move from middle sideways
+            x: targetRightX, 
             duration: duration,
             ease: 'Power2',
             onComplete: () => {
@@ -206,7 +206,7 @@ export default class TweenUtils {
     tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, ease) {
         if (!outfitImage || !outfitImage.active) return;
 
-        // Langkah 1: Ambil semua data referensi dari metadata gambar
+        
         const baseWorldOutfitX = outfitImage.getData('baseWorldOutfitX');
         const baseWorldOutfitY = outfitImage.getData('baseWorldOutfitY');
         const refBodyX = outfitImage.getData('refBodyX');
@@ -215,34 +215,32 @@ export default class TweenUtils {
         const initialScaleX = outfitImage.getData('initialScaleX');
         const initialScaleY = outfitImage.getData('initialScaleY');
 
-        // Validasi: Pastikan semua data yang dibutuhkan ada
+        
         if (refBodyX === undefined || refBodyScale === undefined || initialScaleX === undefined) {
             console.error("Outfit image is missing critical reference data. Cannot tween accurately.", outfitImage.texture.key);
-            // Coba atur posisi dan skala secara langsung sebagai fallback
+            
             outfitImage.x = targetBodyX;
             outfitImage.y = targetBodyY;
             outfitImage.scale = targetBodyScale;
             return;
         }
 
-        // --- LOGIKA PERHITUNGAN BARU YANG AKURAT ---
+        
 
-        // Langkah 2: Hitung offset (jarak) outfit dari tubuh pada kondisi referensi (saat dipasang)
+        
         const offsetX = baseWorldOutfitX - refBodyX;
         const offsetY = baseWorldOutfitY - refBodyY;
         
-        // Langkah 3: Hitung posisi tujuan outfit
-        // Posisinya adalah: Posisi Tujuan Tubuh + (Jarak Awal * (Skala Tujuan Tubuh / Skala Referensi Tubuh))
+        
         const scaleRatio = targetBodyScale / refBodyScale;
         const targetOutfitX = targetBodyX + (offsetX * scaleRatio);
         const targetOutfitY = targetBodyY + (offsetY * scaleRatio);
 
-        // Langkah 4: Hitung skala tujuan outfit
-        // Skalanya adalah: Skala Awal Outfit * (Skala Tujuan Tubuh / Skala Referensi Tubuh)
+        
         const targetScaleX = initialScaleX * scaleRatio;
         const targetScaleY = initialScaleY * scaleRatio;
 
-        // ------------------------------------------
+        
 
         this.scene.tweens.add({
             targets: outfitImage,
@@ -275,7 +273,7 @@ export default class TweenUtils {
 
 
         Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
-            // Logika sekarang bersih karena metadata sudah dijamin ada
+            
             const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
             
             if (outfitImage) {
@@ -306,7 +304,7 @@ export default class TweenUtils {
             scene.tweens.add({ targets: [scene.hairBack, scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: duration, ease: 'Sine.easeInOut' });
             
             Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
-                 // Gunakan logika yang sama persis dengan zoomIn
+                 
                  const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
                  
                  if (outfitImage && outfitImage.active) {
@@ -413,7 +411,7 @@ export default class TweenUtils {
                         if (button) button.setVisible(false);
                     });
 
-                    // Create promises for all tweens
+                    
                     const panelTweenPromise = new Promise((panelResolve) => {
                         this.scene.tweens.add({
                             targets: [this.scene.categoryButtonsPanel],
@@ -461,7 +459,7 @@ export default class TweenUtils {
                             ease: 'Sine.easeInOut',
                             onComplete: playerResolve
                         });
-                        // Tween all selected outfits to follow the player
+                        
                         Object.values(this.scene.outfitButtons).flat().forEach(outfitButton => {
                             outfitButton.tweenOutfit(newPlayerX, this.scene.body.y, 500, 'Sine.easeInOut');
                         });
@@ -478,7 +476,7 @@ export default class TweenUtils {
                         });
                     });
 
-                    // Wait for all tweens to complete before resolving
+                    
                     Promise.all([
                         panelTweenPromise,
                         openButtonTweenPromise,
@@ -494,8 +492,6 @@ export default class TweenUtils {
     }
 
     async displayButtons(outfitType, target) {
-        const isDressSelected = !!this.scene.OutfitButton.selectedOutfits["Dress"];
-
         let buttonsToShow = [];
 
         this.scene.activePanel = "outfit";
@@ -507,7 +503,6 @@ export default class TweenUtils {
             this.scene.continueButton.getAt(0).disableInteractive();
         }
 
-        // Hide other outfit types
         const typesToHide = outfitType === "DressShirt"
             ? Object.keys(this.scene.outfitButtons).filter(type => type !== "Dress" && type !== "Shirt")
             : Object.keys(this.scene.outfitButtons).filter(type => type !== outfitType);
@@ -517,8 +512,6 @@ export default class TweenUtils {
         });
 
         await this.hideSideButtons();
-
-        // Determine which buttons to show
         buttonsToShow = outfitType === "DressShirt"
             ? [...(this.scene.outfitButtons["Dress"] || []), ...(this.scene.outfitButtons["Shirt"] || [])]
             : this.scene.outfitButtons[outfitType] || [];
@@ -529,7 +522,7 @@ export default class TweenUtils {
             button.icon.setAlpha(0);
         });
 
-        // Tween background, player, hair, and expression positions
+        
         const newPlayerY = this.scene.scale.height - 800;
         const tweensToMove = [
             { targets: this.scene.background, y: this.scene.scale.height / 2.06 },
@@ -547,10 +540,10 @@ export default class TweenUtils {
             });
         });
 
-        // Disable continue button if exists
+        
         this.scene.continueButton?.getAt(0)?.disableInteractive();
 
-        // Tween button containers
+        
         const buttonContainers = buttonsToShow.map(button => button.container);
         this.scene.tweens.add({
             targets: buttonContainers,
@@ -576,7 +569,7 @@ export default class TweenUtils {
             }
         });
 
-        // Move outfit buttons
+        
         Object.values(this.scene.outfitButtons).flat().forEach(button =>
             button.tweenOutfit(this.scene.body.x, newPlayerY, 500, 'Sine.easeInOut')
         );
@@ -683,7 +676,6 @@ export default class TweenUtils {
                     panelTweenPromise,
                     containersTweenPromise
                 ]).then(() => {
-                    // Re-enable the ContinueButton
                     if (this.scene.continueButton) {
                         this.scene.continueButton.getAt(0).setInteractive();
                     }
