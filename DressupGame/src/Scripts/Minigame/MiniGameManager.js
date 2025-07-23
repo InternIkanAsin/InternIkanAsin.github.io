@@ -200,7 +200,7 @@ export class MiniGameManager {
         
         this.enableInteraction();
 
-        this.scene.finishButton.setAlpha(1);
+        
         this.scene.finishButton?.resetVisuals();
 
         if (this.activeConfirmationPanel || this.incompletePanel) {
