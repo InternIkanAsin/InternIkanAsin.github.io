@@ -5,7 +5,6 @@ const costumeData = [
     // Dress Data
     new Costume("Dress 1", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan17.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan17.png' }),
     new Costume("Dress 2", "Dress", { atlas: 'Dress_spritesheet3', frame: 'kebaya1.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'Kebaya_1.png' }),
-    // new Costume("Dress3", "Dress", "dress2", "buttonIcon2", "dress2Icon", 2), // nggak ada iconnya
     new Costume("Dress 4", "Dress", { atlas: 'Dress_spritesheet3', frame: 'kebaya2.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'Kebaya_2.png' }),
     new Costume("Dress 5", "Dress", { atlas: 'Dress_spritesheet3', frame: 'kebaya3.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'Kebaya_3.png' }),
     new Costume("Dress 6", "Dress", { atlas: 'Dress_spritesheet3', frame: 'skate.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'skate.png' }),
@@ -13,7 +12,6 @@ const costumeData = [
     new Costume("Dress 8", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan_07.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan07.png' }),
     new Costume("Dress 9", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan_09.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan09.png' }),
     new Costume("Dress 10", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan_14.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan14.png' }),
-    // new Costume("Dress11", "Dress", "dress11", "buttonIcon2", "dress11Icon", 5), // nggak ada iconnya
     new Costume("Dress 12", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan_dance.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_dansa.png' }),
     new Costume("Dress 13", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan_prom.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_prom.png' }),
     new Costume("Dress 14", "Dress", { atlas: 'Dress_spritesheet2', frame: 'terusan_summer.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_summer.png' }),
@@ -28,7 +26,6 @@ const costumeData = [
     new Costume("Shirt 1", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_20.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_20.png' }),
     new Costume("Shirt 2", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_01.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_01.png' }),
     new Costume("Shirt 3", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'atasan_school.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_school.png' }),
-    // new Costume("Shirt4", "Shirt", "shirt4", "buttonIcon2", "shirt4Icon", 0), // nggak ada iconnya
     new Costume("Shirt 4", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_03.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_03.png' }),
     new Costume("Shirt 5", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_04.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_04.png' }),
     new Costume("Shirt 6", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_06.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_06.png' }),
@@ -66,8 +63,6 @@ const costumeData = [
 
     // Underwear
     new Costume("Underwear 1", "Lower", { atlas: 'Lower_spritesheet', frame: 'celana_33.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'celana33.png' }),
-    // new Costume("Underwear2", "Underwear", "underwear2", "buttonIcon2", "underwear2Icon", 2), // nggak ada iconnya
-    // new Costume("Underwear3", "Underwear", "underwear3", "buttonIcon2", "underwear3Icon", 2), // nggak ada iconnya
     new Costume("Underwear 4", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_06.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_06.png' }),
     new Costume("Underwear 5", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_19.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_19.png' }),
     new Costume("Underwear 6", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_23.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_23.png' }),
