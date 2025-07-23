@@ -420,7 +420,7 @@ class Main extends Phaser.Scene {
 
 
         const bachelorData = this.BachelorManager.initializeAndSelectBachelor(this.chosenBachelorName);
-
+        this.SaveManager.saveBachelorChoice(this.chosenBachelorName);
 
         this.chosenBachelor = bachelorData.bachelorSprite;
         this.chosenBachelorExpression = bachelorData.bachelorExpression;

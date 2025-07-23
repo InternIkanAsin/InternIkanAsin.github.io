@@ -18,6 +18,29 @@ export class SaveManager {
         }
     }
 
+    static saveBachelorChoice(bachelorName) {
+        if (!bachelorName) {
+            console.error("[SaveManager] Attempted to save bachelor choice with no name.");
+            return;
+        }
+
+        try {
+            const existingData = SaveManager.loadGame() || {
+                version: "1.2.0",
+                bachelor: {},
+                progress: {},
+                playerAppearance: { outfits: {}, makeup: {} }
+            };
+            existingData.bachelor.chosenName = bachelorName;
+            const jsonString = JSON.stringify(existingData);
+            localStorage.setItem(SAVE_KEY, jsonString);
+            console.log(`[SaveManager] Bachelor choice saved: ${bachelorName}`);
+
+        } catch (error) {
+            console.error("Failed to save bachelor choice:", error);
+        }
+    }
+
     static loadGame() {
         try {
             const jsonString = localStorage.getItem(SAVE_KEY);
