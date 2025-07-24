@@ -85,6 +85,9 @@ export class InteractiveMakeupSystem {
         
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
         this.activeOutlineGraphics = this.scene.add.graphics();
+        if (this.scene.faceContainer) {
+            this.scene.faceContainer.add(this.activeOutlineGraphics);
+        }
         
         if (makeupType === 'Lips') {
             
@@ -103,6 +106,8 @@ export class InteractiveMakeupSystem {
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
         }
+         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); }
+        this.activeOutlineGraphics = this.scene.add.graphics();
 
 
         const sourceTexture = this.scene.textures.get(textureKey);
@@ -118,7 +123,7 @@ export class InteractiveMakeupSystem {
                 originalTextureWidth,
                 originalTextureHeight,
                 this.activeMakeupImage.scale,
-                10000
+                999
             );
         }
        
@@ -159,6 +164,9 @@ export class InteractiveMakeupSystem {
         
         if (itemButtonInstance instanceof MakeUpButton) {
             itemButtonInstance.displayedMakeUp = this.activeMakeupImage;
+        }
+         if (this.scene.faceContainer) {
+            this.scene.faceContainer.sort('depth');
         }
     }
 

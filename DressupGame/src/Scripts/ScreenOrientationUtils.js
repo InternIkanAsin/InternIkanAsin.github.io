@@ -640,12 +640,12 @@ const PORTRAIT = {
 
     nextLevelButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT / 2.7
+        y: PORTRAIT_HEIGHT / 2.4
     },
 
     restartButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT / 1.6
+        y: PORTRAIT_HEIGHT / 1.9
     },
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
