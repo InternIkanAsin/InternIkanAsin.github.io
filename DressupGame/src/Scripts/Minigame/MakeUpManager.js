@@ -346,6 +346,9 @@ export class MakeUpManager {
                 if (scene.MiniGameManager) {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
+                const panel = scene.sidePanel;
+                if (!panel) return;
+
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
                 scene.tweens.add({
@@ -354,6 +357,21 @@ export class MakeUpManager {
                     duration: 200,
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
+
+                        if (panel.isOverflow && !scene.animatedCategories.has(makeUpType)) {
+                            console.log(`[AutoScroll] Triggering for new category: ${makeUpType}`);
+                            
+                            scene.animatedCategories.add(makeUpType);
+                            
+                            scene.tweens.add({
+                                targets: panel,
+                                t: 1,
+                                duration: 1200,
+                                ease: 'Cubic.easeInOut',
+                                yoyo: true,
+                                delay: 300
+                            });
+                        }
 
                         if (scene.MiniGameManager && scene.MiniGameManager.backButton) {
                             scene.MiniGameManager.backButton.setInteractive();
