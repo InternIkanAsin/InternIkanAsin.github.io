@@ -350,6 +350,14 @@ export class OutfitButton extends BaseButton {
         const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconScale);
 
+        const nameText = scene.add.text(0, layout.outfitButton.textYPosition || 70, name, {
+            fontFamily: 'pixelFont',
+            fontSize: layout.outfitButton.textSize || '22px',
+            color: '#000000',
+            align: 'center',
+            wordWrap: { width: buttonBg.displayWidth - 10 } // Agar teks tidak keluar dari tombol
+        }).setOrigin(0.5);
+
         if (isLocked) {
             iconLocked.setVisible(true);
             iconLockedBg.setVisible(true);
@@ -365,6 +373,7 @@ export class OutfitButton extends BaseButton {
         this.buttonLockedBg = iconLockedBg;
         this.AudioManager = AudioManager;
         this.name = name;
+        this.nameText = nameText;
         this.outfitType = outfitType;
         this.outfitX = outfitX;
         this.outfitY = outfitY;
@@ -413,6 +422,7 @@ export class OutfitButton extends BaseButton {
         });
         buttonBg.on("pointerup", (pointer) => {
             buttonBg.setAlpha(1);
+
             if (!buttonBg.input || !buttonBg.active) { this.isDragging = false; return; }
             const dx = Math.abs(pointer.x - this.pointerDownPos.x);
             const dy = Math.abs(pointer.y - this.pointerDownPos.y);
@@ -421,6 +431,7 @@ export class OutfitButton extends BaseButton {
 
                 if (!this.isLocked) { this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType); }
                 else { this.playRewardedAd(scene); }
+                this.AudioManager?.playSFX?.('outfitmakeupButttonSFX');
             }
             this.isDragging = false;
         });
@@ -645,6 +656,14 @@ export class MakeUpButton extends BaseButton {
         const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.makeUpButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.makeUpButton.lockedIconScale);
 
+        const nameText = scene.add.text(0, layout.makeUpButton.textYPosition || 70, name, {
+            fontFamily: 'pixelFont',
+            fontSize: layout.makeUpButton.textSize || '22px',
+            color: '#000000',
+            align: 'center',
+            wordWrap: { width: buttonBg.displayWidth - 10 }
+        }).setOrigin(0.5);
+
         if (isLocked) {
             lockedImg.setVisible(true);
             iconLocked.setVisible(true);
@@ -661,6 +680,7 @@ export class MakeUpButton extends BaseButton {
         this.buttonLocked = iconLocked;
         this.buttonLockedBg = iconLockedBg;
         this.name = name;
+        this.nameText = nameText;
         this.makeupType = makeupType;
         this.textureAnime = textureAnime;
         this.AudioManager = AudioManager;
@@ -686,6 +706,7 @@ export class MakeUpButton extends BaseButton {
                 this.isDragging = false;
                 return;
             }
+
             const dx = Math.abs(pointer.x - this.pointerDownPos.x);
             const dy = Math.abs(pointer.y - this.pointerDownPos.y);
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -693,7 +714,7 @@ export class MakeUpButton extends BaseButton {
             if (distance <= tapThreshold && !this.isDragging) {
                 if (!this.isLocked) { this.toggleMakeUp(); }
                 else { this.playRewardedAd(scene); }
-                this.AudioManager?.playSFX?.("buttonClick");
+                this.AudioManager?.playSFX?.('outfitmakeupButttonSFX');
             }
             this.isDragging = false;
         });

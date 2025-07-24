@@ -97,6 +97,7 @@ class Main extends Phaser.Scene {
     init(data) {
         OutfitButton.selectedOutfits = {};
         MakeUpButton.selectedMakeUp = {};
+        this.animatedCategories = new Set();
         console.log("[Main.init] Static states (selectedOutfits, selectedMakeUp) have been reset.");
         this.isTransitioning = false;
         this.areShoesLoaded = false;
@@ -140,6 +141,7 @@ class Main extends Phaser.Scene {
         this.areBlushLoaded = false;
         this.areStickersLoaded = false;
         this.areHairLoaded = false;
+        this.animatedCategories = new Set();
         this.areDressesAndShirtsLoaded = false;
         this.initializeSystems();
         lockedItemsManager.initialize();

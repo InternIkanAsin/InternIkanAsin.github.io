@@ -902,7 +902,7 @@ export class MiniGameManager {
             console.log("[Poki SDK] gameplayStop() has been fired.");
         });
 
-        this.scene.AudioManager.stopMusic('cutsceneMusic');
+        this.scene.AudioManager.stopMusic('cutsceneMusic2');
         this.scene.cameras.main.fadeOut(2000);
 
         this.scene.cameras.main.once('camerafadeoutcomplete', async () => {

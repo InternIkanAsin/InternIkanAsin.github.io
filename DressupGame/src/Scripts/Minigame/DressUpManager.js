@@ -84,8 +84,8 @@ export class DressUpManager {
         const scene = this.scene;
         let itemButtonsForType = [];
 
-        if (outfitType === "Dress") { // <<<< MODIFIED HERE
-            // When "Dress" category is selected, show both Dress and Shirt items
+        if (outfitType === "Dress") {
+
             itemButtonsForType = [
                 ...(scene.outfitButtons["Dress"] || []),
                 ...(scene.outfitButtons["Shirt"] || [])
@@ -400,6 +400,8 @@ export class DressUpManager {
                 if (scene.MiniGameManager.updatePanelLayout) {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
+                const panel = scene.sidePanel;
+                if (!panel) return;
 
                 // 6. Tween the panel (now with new items) back into view
                 scene.tweens.add({
@@ -408,6 +410,22 @@ export class DressUpManager {
                     duration: 200,
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
+                        if (panel.isOverflow && !scene.animatedCategories.has(outfitType)) {
+                            console.log(`[AutoScroll] Triggering for new category: ${outfitType}`);
+
+
+                            scene.animatedCategories.add(outfitType);
+
+
+                            scene.tweens.add({
+                                targets: panel,
+                                t: 1,
+                                duration: 1200,
+                                ease: 'Cubic.easeInOut',
+                                yoyo: true,
+                                delay: 300
+                            });
+                        }
                         if (scene.miniGameButton) scene.miniGameButton.setInteractive();
                         if (scene.MiniGameManager.backButton) scene.MiniGameManager.backButton.setInteractive();
                     }

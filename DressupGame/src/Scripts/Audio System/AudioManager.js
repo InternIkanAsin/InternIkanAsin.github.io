@@ -16,10 +16,12 @@ export class AudioManager {
         const sound = this.scene.sound;
 
         //Music
+        this.music['cutsceneMusic2'] = sound.add('cutsceneMusic2', { loop: true, volume: 0 })
         this.music['cutsceneMusic'] = sound.add('cutsceneMusic', { loop: true, volume: 0 });
         this.music['minigameMusic'] = sound.add('minigameMusic', { loop: true, volume: 0 });
 
         //SFX
+        this.sfx['outfitmakeupButttonSFX'] = sound.add('outfitmakeupButttonSFX', { volume: 1 });
         this.sfx['buttonClick'] = sound.add('buttonClickSFX', { volume: 1 });
         this.sfx['hoverButton'] = sound.add('hoverButtonSFX', { volume: 1 });
         this.sfx['openPanel'] = sound.add('openPanelSFX', { volume: 1 });

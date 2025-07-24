@@ -242,7 +242,9 @@ const LANDSCAPE = {
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
-        lockedIconScale: 1.5
+        lockedIconScale: 1.5,
+        textYPosition: 75,
+        textSize: '24px'
     },
     outfitButton: {
         iconLockedX: 68,
@@ -251,7 +253,9 @@ const LANDSCAPE = {
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
-        lockedIconScale: 1.5
+        lockedIconScale: 1.5,
+        textYPosition: 75,
+        textSize: '24px'
     },
     //Dressup Category
     dressUpCategoryButtons: {
@@ -594,7 +598,9 @@ const PORTRAIT = {
         highlightImg: 0.6 * 2,
         buttonScale: 0.6 * 2,
         lockedIconBgScale: 0.4,
-        lockedIconScale: 1.3
+        lockedIconScale: 1.3,
+        textYPosition: 60,
+        textSize: '20px'
     },
 
     makeUpButton: {
@@ -604,7 +610,9 @@ const PORTRAIT = {
         highlightImg: 0.6 * 2,
         buttonScale: 0.6 * 2,
         lockedIconBgScale: 0.4,
-        lockedIconScale: 1.3
+        lockedIconScale: 1.3,
+        textYPosition: 60,
+        textSize: '20px'
     },
 
     itemPanelButton: {
@@ -640,13 +648,14 @@ const PORTRAIT = {
 
     nextLevelButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT / 2.7
+        y: PORTRAIT_HEIGHT / 2.4
     },
 
     restartButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT / 1.6
+        y: PORTRAIT_HEIGHT / 1.9
     },
+    
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
 export const orientation = { isPortrait, isMobile };

@@ -30,8 +30,8 @@ export class SceneManager {
     TransitionCutscene2(scene, onComplete = () => { }) {
         this.scene.cameras.main.fadeOut(2000);
         this.scene.AudioManager.fadeOutMusic('miniGameMusic', 1000, () => {
-            this.scene.AudioManager.playMusic('cutsceneMusic');
-            this.scene.AudioManager.fadeInMusic('cutsceneMusic', 1000);
+            this.scene.AudioManager.playMusic('cutsceneMusic2');
+            this.scene.AudioManager.fadeInMusic('cutsceneMusic2', 1000);
         });
         this.scene.cameras.main.once('camerafadeoutcomplete', () => {
             onComplete();
