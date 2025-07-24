@@ -404,6 +404,7 @@ export class OutfitButton extends BaseButton {
         });
         buttonBg.on("pointerup", (pointer) => {
             buttonBg.setAlpha(1);
+            
             if (!buttonBg.input || !buttonBg.active) { this.isDragging = false; return; }
             const dx = Math.abs(pointer.x - this.pointerDownPos.x);
             const dy = Math.abs(pointer.y - this.pointerDownPos.y);
@@ -412,6 +413,7 @@ export class OutfitButton extends BaseButton {
 
                 if (!this.isLocked) { this.toggleOutfit(this.outfitX, this.outfitY, this.outfitType); }
                 else { this.playRewardedAd(scene); }
+                this.AudioManager?.playSFX?.('outfitmakeupButttonSFX');
             }
             this.isDragging = false;
         });
@@ -677,6 +679,7 @@ export class MakeUpButton extends BaseButton {
                 this.isDragging = false;
                 return;
             }
+            
             const dx = Math.abs(pointer.x - this.pointerDownPos.x);
             const dy = Math.abs(pointer.y - this.pointerDownPos.y);
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -684,7 +687,7 @@ export class MakeUpButton extends BaseButton {
             if (distance <= tapThreshold && !this.isDragging) {
                 if (!this.isLocked) { this.toggleMakeUp(); }
                 else { this.playRewardedAd(scene); }
-                this.AudioManager?.playSFX?.("buttonClick");
+                this.AudioManager?.playSFX?.('outfitmakeupButttonSFX');
             }
             this.isDragging = false;
         });

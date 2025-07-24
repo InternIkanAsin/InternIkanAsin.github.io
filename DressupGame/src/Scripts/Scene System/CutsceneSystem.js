@@ -87,7 +87,8 @@ export class CutsceneSystem {
         bachelorChoice.setVisible(true);
 
         this.scene.cameras.main.fadeIn(3000);
-        this.scene.AudioManager.playMusic('cutsceneMusic');
+        this.scene.AudioManager.playMusic('cutsceneMusic2');
+        this.scene.AudioManager.fadeInMusic('cutsceneMusic2');
 
        
         this.scene.cameras.main.once('camerafadeincomplete', () => {

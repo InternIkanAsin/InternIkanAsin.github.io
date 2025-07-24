@@ -419,10 +419,20 @@ export default class AssetLoader {
       'Asset/Audio/Music/musikIndoor01-rainy-date-cosy-relaxed-soft-j.wav'
     ]);
 
+    scene.load.audio('cutsceneMusic2', [
+      'Asset/Audio/Music/cutsceneRomantis-sunset-kiss-romantic-sentiment.ogg',
+      'Asset/Audio/Music/cutsceneRomantis-sunset-kiss-romantic-sentiment.wav'
+    ]);
+
+
     //SFX assets
     scene.load.audio('buttonClickSFX', [
       'Asset/Audio/SFX/audio_ui_click - succes.ogg',
       'Asset/Audio/SFX/audio_ui_click - succes.wav'
+    ]);
+    scene.load.audio('outfitmakeupButttonSFX', [
+      'Asset/Audio/SFX/mixkit-modern-technology-select-3124.ogg',
+      'Asset/Audio/SFX/mixkit-modern-technology-select-3124.wav'
     ]);
     scene.load.audio('hoverButtonSFX', [
       'Asset/Audio/SFX/Hover over button sound 29.ogg',
