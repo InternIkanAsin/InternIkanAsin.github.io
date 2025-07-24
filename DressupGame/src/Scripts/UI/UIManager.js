@@ -123,62 +123,57 @@ export class UIManager {
         }
     }
 
-         playGlitterExplosion(targetImage) {
-        // Validasi: Pastikan targetImage dan sumber teksturnya ada.
+    playGlitterExplosion(targetImage) {
+        // Validasi: Pastikan gambar dan sumber teksturnya ada dan sudah dimuat.
         if (!targetImage || !targetImage.scene || !targetImage.texture.source || !targetImage.texture.source[0].image) {
-            console.warn("Cannot create particle explosion: targetImage or its texture source is invalid.");
+            console.warn("Cannot create particle explosion: targetImage or its texture source is not ready.");
             return;
         }
 
         const scene = this.scene;
 
-        // Dapatkan posisi dunia dari gambar target untuk menempatkan partikel dengan benar
-        const worldMatrix = targetImage.getWorldTransformMatrix();
-        const worldX = worldMatrix.tx;
-        const worldY = worldMatrix.ty;
-        const worldScale = worldMatrix.scaleX; // Asumsikan skala seragam
+        // --- INI CARA YANG BENAR UNTUK MENGGUNAKAN BitmapZone ---
 
-        // --- INI ADALAH SINTAKS PHASER 3.60+ YANG BENAR ---
-
-        // 1. Buat zona emisi terlebih dahulu.
+        // 1. Buat zona emisi dari sumber gambar tekstur.
+        // Ini adalah objek konfigurasi yang akan dipahami oleh Phaser.
         const emitZone = {
-            source: targetImage.texture.getSourceImage(),
-            type: 'edge',
-            quantity: 80 // Tingkatkan kepadatan untuk hasil yang lebih baik
+            source: targetImage.texture.getSourceImage(), // Memberikan elemen <canvas> atau <img>
+            type: 'edge', // 'edge' untuk pinggiran, 'random' untuk seluruh area
+            quantity: 120 // Kepadatan titik di sepanjang tepi (semakin tinggi, semakin detail)
         };
 
-        // 2. Buat Particle Emitter langsung dari `scene.add.particles`.
-        // Konfigurasi emitter dimasukkan sebagai argumen keempat.
-        const particles = scene.add.particles(
-            worldX, // Atur posisi X emitter
-            worldY, // Atur posisi Y emitter
-            'particle_star', // Kunci tekstur partikel
-            {
-                // Ini adalah objek konfigurasi emitter
-                speed: { min: 80, max: 250 },
-                angle: { min: 0, max: 360 },
-                scale: { start: worldScale * 0.4, end: 0 },
-                lifespan: { min: 400, max: 700 },
-                blendMode: 'ADD',
-                
-                // Masukkan zona emisi di sini
-                emitZone: emitZone,
+        // 2. Buat Particle Emitter. Perhatikan kita tidak mengatur posisi x/y di sini.
+        const particles = scene.add.particles(0, 0, 'particle_star', {
+            speed: { min: 60, max: 150 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.6, end: 0 },
+            lifespan: { min: 400, max: 700 },
+            blendMode: 'ADD',
+            
+            // Terapkan zona emisi yang sudah kita buat
+            emitZone: emitZone,
 
-                // Kita ingin ledakan satu kali, bukan aliran terus-menerus
-                emitting: false 
-            }
-        );
+            emitting: false // Jangan mulai menembak secara otomatis
+        });
         
-        // ----------------------------------------------------
+        // 3. Posisikan dan skalakan emitter agar pas di atas gambar target.
+        // Dapatkan transformasi dunia (posisi, skala, rotasi) dari gambar target.
+        const matrix = targetImage.getWorldTransformMatrix();
+        particles.x = matrix.tx; // Atur posisi X emitter
+        particles.y = matrix.ty; // Atur posisi Y emitter
+        particles.scaleX = matrix.scaleX; // Atur skala X emitter
+        particles.scaleY = matrix.scaleY; // Atur skala Y emitter
+        particles.rotation = matrix.rotation; // Atur rotasi emitter
 
+        // 4. Atur depth dan picu ledakan.
         particles.setDepth(targetImage.depth + 1);
+        particles.explode(50); // Ledakkan 50 partikel dari zona yang sudah di-transformasi.
 
-        // Memicu ledakan satu kali dari semua titik di zona emisi
-        particles.explode(50); // Ledakkan 50 partikel
-
-        // Hancurkan sistem partikel setelah tidak lagi dibutuhkan
+        // 5. Hancurkan sistem partikel setelah tidak lagi dibutuhkan.
         scene.time.delayedCall(1500, () => {
-            particles.destroy();
+            if (particles.active) { // Cek jika belum dihancurkan
+                particles.destroy();
+            }
         });
     }
 

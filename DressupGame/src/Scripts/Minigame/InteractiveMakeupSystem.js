@@ -392,6 +392,7 @@ export class InteractiveMakeupSystem {
         const imageThatWasColored = this.activeMakeupImage;
 
         if (applyToCharacter) {
+            let finalImageForEffect = null;
             if (imageThatWasColored) imageThatWasColored.clearMask();
 
             if (typeFinalizing === 'Lips') {
@@ -401,12 +402,21 @@ export class InteractiveMakeupSystem {
                 if (imageThatWasColored && imageThatWasColored !== this.scene.lips) { 
                     imageThatWasColored.destroy();
                 }
+
+                finalImageForEffect = this.scene.lips;
                 
                 const lipButton = MakeUpButton.selectedMakeUp['Lips']?.current;
                 if (lipButton instanceof MakeUpButton) {
                     lipButton.displayedMakeUp = this.scene.lips;
                 }
-            } 
+            }
+            else {
+                finalImageForEffect = imageThatWasColored;
+            }
+            
+             if (finalImageForEffect && this.scene.UIManager) {
+                this.scene.UIManager.playGlitterExplosion(finalImageForEffect);
+            }
 
             if (this.scene.faceContainer) {
                 this.scene.faceContainer.sort('depth');
