@@ -28,7 +28,8 @@ export class MiniGameManager {
         this.minigameButtons = [];
         this.categoryButtons = scene.state === GameState.DRESSUP ? createDressUpCategoryButtons(scene, scene.AudioManager) : createMakeUpCategoryButtons(scene, scene.AudioManager);
 
-        scene.selectedCategory = { current: scene.dressButton || scene.eyebrowsButton, previous: null }
+        const currentButton = scene.state === GameState.DRESSUP ? scene.dressButton : scene.eyebrowsButton;
+        scene.selectedCategory = { current: currentButton, previous: null }
         console.log(scene.selectedCategory)
         this.backButton = new UIButton(scene, scene.AudioManager, {
             x: layout.backButton.x,
