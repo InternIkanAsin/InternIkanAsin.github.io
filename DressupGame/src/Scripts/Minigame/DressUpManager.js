@@ -83,8 +83,8 @@ export class DressUpManager {
         const scene = this.scene;
         let itemButtonsForType = [];
 
-        if (outfitType === "Dress") { // <<<< MODIFIED HERE
-            // When "Dress" category is selected, show both Dress and Shirt items
+        if (outfitType === "Dress") { 
+           
             itemButtonsForType = [
                 ...(scene.outfitButtons["Dress"] || []),
                 ...(scene.outfitButtons["Shirt"] || [])
@@ -216,24 +216,6 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
-        //if ((outfitType === 'Dress' || outfitType === 'Shirt') && !scene.areDressesAndShirtsLoaded) {
-        //    scene.UIManager.showLoadingOverlay('Loading Dresses & Shirts...');
-        //    scene.MiniGameManager.disableInteraction();
-        //    
-        //    scene.load.once('complete', () => {
-        //        console.log('Dress and Shirt assets loaded!');
-        //        scene.areDressesAndShirtsLoaded = true;
-        //        scene.UIManager.hideLoadingOverlay();
-        //        scene.MiniGameManager.enableInteraction();
-        //        this.displayDressUpButtons(outfitType, scene); 
-        //    });
-        //    
-        //    AssetLoader.loadDressAndShirt(scene);
-        //    return;
-        //}
-
-
-
         if (outfitType === 'Outer' && !scene.areOutersLoaded) {
             scene.UIManager.showLoadingOverlay('Loading Outers...');
             scene.MiniGameManager.disableInteraction();
