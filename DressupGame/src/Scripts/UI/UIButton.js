@@ -341,13 +341,21 @@ export class OutfitButton extends BaseButton {
         const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconScale);
 
+        const nameText = scene.add.text(0, layout.outfitButton.textYPosition || 70, name, {
+            fontFamily: 'pixelFont',
+            fontSize: layout.outfitButton.textSize || '22px',
+            color: '#000000',
+            align: 'center',
+            wordWrap: { width: buttonBg.displayWidth - 10 } // Agar teks tidak keluar dari tombol
+        }).setOrigin(0.5);
+
         if (isLocked) {
             iconImg.setTint(0x999999);
             buttonBg.setTint(0x999999);
             iconLocked.setVisible(true);
             iconLockedBg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked, nameText]);
 
         this.setDepth(12);
         this.button = buttonBg;
@@ -356,6 +364,7 @@ export class OutfitButton extends BaseButton {
         this.buttonLockedBg = iconLockedBg;
         this.AudioManager = AudioManager;
         this.name = name;
+        this.nameText = nameText;
         this.outfitType = outfitType;
         this.outfitX = outfitX;
         this.outfitY = outfitY;
@@ -638,13 +647,21 @@ export class MakeUpButton extends BaseButton {
         const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.makeUpButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.makeUpButton.lockedIconScale);
 
+        const nameText = scene.add.text(0, layout.makeUpButton.textYPosition || 70, name, {
+            fontFamily: 'pixelFont',
+            fontSize: layout.makeUpButton.textSize || '22px',
+            color: '#000000',
+            align: 'center',
+            wordWrap: { width: buttonBg.displayWidth - 10 }
+        }).setOrigin(0.5);
+
         if (isLocked) {
             iconImg.setTint(0x999999);
             buttonBg.setTint(0x999999);
             iconLocked.setVisible(true);
             iconLockedBg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked, nameText]);
 
         this.setDepth(12);
 
@@ -654,6 +671,7 @@ export class MakeUpButton extends BaseButton {
         this.buttonLocked = iconLocked;
         this.buttonLockedBg = iconLockedBg;
         this.name = name;
+        this.nameText = nameText;
         this.makeupType = makeupType;
         this.textureAnime = textureAnime;
         this.AudioManager = AudioManager;
