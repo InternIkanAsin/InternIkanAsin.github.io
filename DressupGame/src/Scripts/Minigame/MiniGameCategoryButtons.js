@@ -6,7 +6,7 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyebrowsButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyebrowsButton.x, layout.makeUpCategoryButtons.eyebrowsButton.y,
             'Eyebrows',
             null,
-            'stitchedButtonIcon',
+            'stitchedButtonIconYellow',
             'categoryButtonHighlighted',
             'eyebrowsIcon',
             () => {
@@ -123,13 +123,13 @@ export function enableCategoryButtonsInteraction(scene) {
 
 export function createDressUpCategoryButtons(scene, audioManager) {
     const buttons = [
-        scene.dressButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.dressButton.x, layout.dressUpCategoryButtons.dressButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => {
+        scene.dressButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.dressButton.x, layout.dressUpCategoryButtons.dressButton.y, '', null, 'stitchedButtonIconYellow', 'categoryButtonHighlighted', 'dressIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Dress', scene);
         }),
         scene.outerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.outerButton.x, layout.dressUpCategoryButtons.outerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'outerIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Outer', scene);
         }),
-        scene.LowerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.LowerButton.x, layout.dressUpCategoryButtons.LowerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'LowerIcon', () => {
+        scene.lowerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.LowerButton.x, layout.dressUpCategoryButtons.LowerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'LowerIcon', () => {
             scene.DressUpManager.displayDressUpButtons('Lower', scene);
         }),
         scene.socksButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.socksButton.x, layout.dressUpCategoryButtons.socksButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'socksIcon', () => {

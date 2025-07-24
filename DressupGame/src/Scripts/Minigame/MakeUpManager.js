@@ -22,7 +22,7 @@ export class MakeUpManager {
     setupMakeUpButtons(scene) {
         this.scene.makeUpButtons = {};
 
-        
+
         makeUpData.forEach(makeupItem => {
             const { name, makeUpType, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus } = makeupItem;
             if (textureButton && textureIcon) {
@@ -82,7 +82,7 @@ export class MakeUpManager {
         }
     }
 
-    
+
     /**
     * @method updateMakeUpButtons - Updates makeup buttons of make up Panel
     */
@@ -251,36 +251,57 @@ export class MakeUpManager {
 
 
         let isLoading = false;
-
+        if (makeUpType === 'Eyebrows') {
+            scene.selectedCategory.previous = scene.selectedCategory.current;
+            scene.selectedCategory.current = scene.eyebrowsButton;
+        }
         if (makeUpType !== 'Eyebrows') {
             switch (makeUpType) {
                 case 'Eyelashes':
                     isLoading = loadAndDisplay('areEyelashesLoaded', AssetLoader.loadEyelash, 'Eyelashes');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.eyelashesButton;
                     break;
                 case 'Eyeliner':
                     isLoading = loadAndDisplay('areEyelinerLoaded', AssetLoader.loadEyeliner, 'Eyeliner');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.eyelinerButton;
                     break;
                 case 'Eyeshadow':
                     isLoading = loadAndDisplay('areEyeshadowsLoaded', AssetLoader.loadEyeShadow, 'Eyeshadow');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.eyeshadowButton;
                     break;
                 case 'Lips':
                     isLoading = loadAndDisplay('areLipsLoaded', AssetLoader.loadLip, 'Lips');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.lipstickButton;
                     break;
                 case 'Pupil':
                     isLoading = loadAndDisplay('arePupilsLoaded', AssetLoader.loadPupil, 'Pupil');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.eyecolorButton;
                     break;
                 case 'Blush':
                     isLoading = loadAndDisplay('areBlushLoaded', AssetLoader.loadBlush, 'Blush');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.blushButton;
                     break;
                 case 'Sticker':
                     isLoading = loadAndDisplay('areStickersLoaded', AssetLoader.loadSticker, 'Sticker');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.stickerButton;
                     break;
                 case 'Hair':
                     isLoading = loadAndDisplay('areHairLoaded', AssetLoader.loadHair, 'Hair');
+                    scene.selectedCategory.previous = scene.selectedCategory.current;
+                    scene.selectedCategory.current = scene.hairButton;
                     break;
             }
         }
 
+        scene.selectedCategory.previous.deselectButton();
+        scene.selectedCategory.current.selectButton();
 
         if (isLoading) {
             return;

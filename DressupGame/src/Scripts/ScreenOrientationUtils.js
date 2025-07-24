@@ -236,8 +236,8 @@ const LANDSCAPE = {
         buttonScale: 0.6 * 2
     },
     makeUpButton: {
-        iconLockedX: 72,
-        iconLockedY: 72,
+        iconLockedX: 68,
+        iconLockedY: 64,
         iconScale: 1.2,
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2,
@@ -245,8 +245,8 @@ const LANDSCAPE = {
         lockedIconScale: 1.5
     },
     outfitButton: {
-        iconLockedX: 72,
-        iconLockedY: 72,
+        iconLockedX: 68,
+        iconLockedY: 64,
         iconScale: 1.2,
         highlightImg: 0.8 * 2,
         buttonScale: 0.8 * 2,

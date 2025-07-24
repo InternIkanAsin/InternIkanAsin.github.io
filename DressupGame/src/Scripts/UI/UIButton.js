@@ -328,6 +328,14 @@ export class CategoryButton extends BaseButton {
     setInteractive() {
         this.button.setInteractive();
     }
+
+    selectButton() {
+        this.button.setTexture('stitchedButtonIconYellow');
+    }
+
+    deselectButton() {
+        this.button.setTexture('stitchedButtonIcon');
+    }
 }
 
 export class OutfitButton extends BaseButton {
@@ -337,21 +345,22 @@ export class OutfitButton extends BaseButton {
         const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false).setScale(layout.outfitButton.highlightImg);
+        const lockedImg = scene.add.image(0, 0, 'buttonIconLocked').setVisible(false).setScale(layout.outfitButton.highlightImg)
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
         const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconScale);
 
         if (isLocked) {
-            iconImg.setTint(0x999999);
-            buttonBg.setTint(0x999999);
             iconLocked.setVisible(true);
             iconLockedBg.setVisible(true);
+            lockedImg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked]);
 
         this.setDepth(12);
         this.button = buttonBg;
         this.icon = iconImg;
+        this.lockedIcon = lockedImg;
         this.buttonLocked = iconLocked;
         this.buttonLockedBg = iconLockedBg;
         this.AudioManager = AudioManager;
@@ -446,10 +455,9 @@ export class OutfitButton extends BaseButton {
             unlockManager.unlockItem(this.name);
             scene.SaveManager.saveGame(scene);
 
-            this.icon.setTint(0xFFFFFF);
-            this.button.setTint(0xFFFFFF);
             this.buttonLockedBg.setVisible(false);
             this.buttonLocked.setVisible(false);
+            this.lockedIcon.setVisible(false)
         });
     }
     static clearHighlightsForType(scene, outfitType) {
@@ -513,7 +521,7 @@ export class OutfitButton extends BaseButton {
                 const ghostAtlas = equippedButton.textureAnime.atlas;
                 const ghostFrame = equippedButton.textureAnime.frame;
 
-                
+
                 for (let i = scene.children.list.length - 1; i >= 0; i--) {
                     const child = scene.children.list[i];
                     if (child.type === 'Image' && child.texture.key === ghostAtlas && child.frame.name === ghostFrame) {
@@ -581,7 +589,7 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setDepth(depthValues[outfitType] || 1);
         this.displayedOutfit = newOutfitImage;
 
-        
+
         if (this.usesCustomSize) {
             newOutfitImage.setDisplaySize(this.dressUpViewDisplayWidth, this.dressUpViewDisplayHeight);
         } else {
@@ -591,19 +599,19 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setData('buttonName', name);
         newOutfitImage.setData('usesCustomSize', this.usesCustomSize);
 
-        
+
         newOutfitImage.setData('baseWorldOutfitX', finalX);
         newOutfitImage.setData('baseWorldOutfitY', finalY);
 
-        
+
         newOutfitImage.setData('initialScaleX', newOutfitImage.scaleX);
         newOutfitImage.setData('initialScaleY', newOutfitImage.scaleY);
 
-        
+
         newOutfitImage.setData('refBodyX', scene.body.x);
         newOutfitImage.setData('refBodyY', scene.body.y);
         newOutfitImage.setData('refBodyScale', scene.body.scale);
-        
+
 
         OutfitButton.selectedOutfits[outfitType] = {
             current: this,
@@ -632,23 +640,24 @@ export class MakeUpButton extends BaseButton {
             .setVisible(false)
             .setDepth(-1)
             .setScale(layout.makeUpButton.highlightImg);
+        const lockedImg = scene.add.image(0, 0, 'buttonIconLocked').setVisible(false).setScale(layout.outfitButton.highlightImg)
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
         const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.makeUpButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.makeUpButton.lockedIconScale);
 
         if (isLocked) {
-            iconImg.setTint(0x999999);
-            buttonBg.setTint(0x999999);
+            lockedImg.setVisible(true);
             iconLocked.setVisible(true);
             iconLockedBg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, iconImg, iconLockedBg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked]);
 
         this.setDepth(12);
 
         this.button = buttonBg;
         this.highlightImage = highlightImg;
         this.icon = iconImg;
+        this.lockedIcon = lockedImg;
         this.buttonLocked = iconLocked;
         this.buttonLockedBg = iconLockedBg;
         this.name = name;
@@ -731,6 +740,7 @@ export class MakeUpButton extends BaseButton {
             this.button.setTint(0xFFFFFF);
             this.buttonLocked.setVisible(false);
             this.buttonLockedBg.setVisible(false);
+            this.lockedIcon.setVisible(false);
         });
     }
 
