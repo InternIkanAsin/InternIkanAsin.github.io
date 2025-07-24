@@ -21,7 +21,8 @@ export class DressUpManager {
     setupCostumeButtons(scene) {
         this.scene.outfitButtons = {};
         const outfitPositions = layout.outfit.positions;
-        
+
+
 
         costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus }) => {
             const isItemGloballyLocked = lockedItemsManager.isItemLocked(name);
@@ -35,7 +36,7 @@ export class DressUpManager {
 
             const currentSelectedEntry = OutfitButton.selectedOutfits[outfitType];
             const oldButtonInstance = currentSelectedEntry?.current;
-            
+
 
             if (oldButtonInstance && oldButtonInstance.name === name) {
 
@@ -56,7 +57,7 @@ export class DressUpManager {
         });
     }
 
-    
+
     /**
      * @method removeAllOutfits
      * Unequips all currently equipped outfits.
@@ -83,8 +84,8 @@ export class DressUpManager {
         const scene = this.scene;
         let itemButtonsForType = [];
 
-        if (outfitType === "Dress") { 
-           
+        if (outfitType === "Dress") {
+
             itemButtonsForType = [
                 ...(scene.outfitButtons["Dress"] || []),
                 ...(scene.outfitButtons["Shirt"] || [])
@@ -100,7 +101,7 @@ export class DressUpManager {
         }
 
         let allButtonContainersForPanel = [];
-        
+
         const lepasButtonCallbackType = (outfitType === "Dress" || outfitType === "DressShirt") ? "DressShirt" : outfitType;
 
 
@@ -216,73 +217,118 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
-        if (outfitType === 'Outer' && !scene.areOutersLoaded) {
-            scene.UIManager.showLoadingOverlay('Loading Outers...');
-            scene.MiniGameManager.disableInteraction();
+        //if ((outfitType === 'Dress' || outfitType === 'Shirt') && !scene.areDressesAndShirtsLoaded) {
+        //    scene.UIManager.showLoadingOverlay('Loading Dresses & Shirts...');
+        //    scene.MiniGameManager.disableInteraction();
+        //    
+        //    scene.load.once('complete', () => {
+        //        console.log('Dress and Shirt assets loaded!');
+        //        scene.areDressesAndShirtsLoaded = true;
+        //        scene.UIManager.hideLoadingOverlay();
+        //        scene.MiniGameManager.enableInteraction();
+        //        this.displayDressUpButtons(outfitType, scene); 
+        //    });
+        //    
+        //    AssetLoader.loadDressAndShirt(scene);
+        //    return;
+        //}
 
-            scene.load.once('complete', () => {
-                console.log('Outer assets loaded!');
-                scene.areOutersLoaded = true;
-                scene.UIManager.hideLoadingOverlay();
-                scene.MiniGameManager.enableInteraction();
-                this.displayDressUpButtons('Outer', scene);
-            });
+        if (outfitType === 'Dress') {
+            scene.selectedCategory.previous = scene.selectedCategory.current;
+            scene.selectedCategory.current = scene.dressButton;
+        }
 
-            AssetLoader.loadOuter(scene);
-            return;
+        if (outfitType === 'Outer') {
+            if (!scene.areOutersLoaded) {
+                scene.UIManager.showLoadingOverlay('Loading Outers...');
+                scene.MiniGameManager.disableInteraction();
+
+                scene.load.once('complete', () => {
+                    console.log('Outer assets loaded!');
+                    scene.areOutersLoaded = true;
+                    scene.UIManager.hideLoadingOverlay();
+                    scene.MiniGameManager.enableInteraction();
+                    this.displayDressUpButtons('Outer', scene);
+                });
+                AssetLoader.loadOuter(scene);
+
+                return;
+            }
+
+            scene.selectedCategory.previous = scene.selectedCategory.current;
+            scene.selectedCategory.current = scene.outerButton;
         }
 
 
 
-        if (outfitType === 'Lower' && !scene.areLowersLoaded) {
-            scene.UIManager.showLoadingOverlay('Loading Lowers...');
-            scene.MiniGameManager.disableInteraction();
+        if (outfitType === 'Lower') {
+            if (!scene.areLowersLoaded) {
+                scene.UIManager.showLoadingOverlay('Loading Lowers...');
+                scene.MiniGameManager.disableInteraction();
 
-            scene.load.once('complete', () => {
-                console.log('Lower assets loaded!');
-                scene.areLowersLoaded = true;
-                scene.UIManager.hideLoadingOverlay();
-                scene.MiniGameManager.enableInteraction();
-                this.displayDressUpButtons('Lower', scene);
-            });
+                scene.load.once('complete', () => {
+                    console.log('Lower assets loaded!');
+                    scene.areLowersLoaded = true;
+                    scene.UIManager.hideLoadingOverlay();
+                    scene.MiniGameManager.enableInteraction();
+                    this.displayDressUpButtons('Lower', scene);
+                });
 
-            AssetLoader.loadLower(scene);
-            return;
+                AssetLoader.loadLower(scene);
+                return;
+            }
+
+            scene.selectedCategory.previous = scene.selectedCategory.current;
+            scene.selectedCategory.current = scene.lowerButton;
         }
 
 
 
-        if (outfitType === 'Socks' && !scene.areSocksLoaded) {
-            scene.UIManager.showLoadingOverlay('Loading Socks...');
-            scene.MiniGameManager.disableInteraction();
+        if (outfitType === 'Socks') {
+            if (!scene.areSocksLoaded) {
+                scene.UIManager.showLoadingOverlay('Loading Socks...');
+                scene.MiniGameManager.disableInteraction();
 
-            scene.load.once('complete', () => {
-                console.log('Socks assets loaded!');
-                scene.areSocksLoaded = true;
-                scene.UIManager.hideLoadingOverlay();
-                scene.MiniGameManager.enableInteraction();
-                this.displayDressUpButtons('Socks', scene);
-            });
+                scene.load.once('complete', () => {
+                    console.log('Socks assets loaded!');
+                    scene.areSocksLoaded = true;
+                    scene.UIManager.hideLoadingOverlay();
+                    scene.MiniGameManager.enableInteraction();
+                    this.displayDressUpButtons('Socks', scene);
+                });
 
-            AssetLoader.loadSocks(scene);
-            return;
+                AssetLoader.loadSocks(scene);
+                return;
+            }
+
+            scene.selectedCategory.previous = scene.selectedCategory.current;
+            scene.selectedCategory.current = scene.socksButton;
         }
 
-        if (outfitType === 'Shoes' && !scene.areShoesLoaded) {
-            scene.UIManager.showLoadingOverlay('Loading Shoes...');
-            scene.MiniGameManager.disableInteraction();
-            scene.load.once('complete', () => {
-                console.log('Shoes assets loaded!');
-                scene.areShoesLoaded = true;
-                scene.UIManager.hideLoadingOverlay();
-                scene.MiniGameManager.enableInteraction();
-                this.displayDressUpButtons('Shoes', scene);
-            });
+        if (outfitType === 'Shoes') {
+            if (!scene.areShoesLoaded) {
+                scene.UIManager.showLoadingOverlay('Loading Shoes...');
+                scene.MiniGameManager.disableInteraction();
+                scene.load.once('complete', () => {
+                    console.log('Shoes assets loaded!');
+                    scene.areShoesLoaded = true;
+                    scene.UIManager.hideLoadingOverlay();
+                    scene.MiniGameManager.enableInteraction();
+                    this.displayDressUpButtons('Shoes', scene);
+                });
 
-            AssetLoader.loadShoes(scene);
-            return;
+                AssetLoader.loadShoes(scene);
+                return;
+            }
+
+            scene.selectedCategory.previous = scene.selectedCategory.current;
+            scene.selectedCategory.current = scene.shoesButton;
         }
 
+        scene.selectedCategory.previous.deselectButton();
+        scene.selectedCategory.current.selectButton();
+
+        console.log(scene.selectedCategory);
         // Ensure MiniGameManager and its backButton exist before trying to use them
         if (!scene.MiniGameManager || !scene.MiniGameManager.backButton) {
             console.error("Critical: MiniGameManager or its backButton not found in displayDressUpButtons!");
@@ -364,20 +410,20 @@ export class DressUpManager {
                     duration: 200,
                     ease: 'Sine.easeInOut',
                     onComplete: () => {
-                         if (panel.isOverflow && !scene.animatedCategories.has(outfitType)) {
+                        if (panel.isOverflow && !scene.animatedCategories.has(outfitType)) {
                             console.log(`[AutoScroll] Triggering for new category: ${outfitType}`);
-                            
-                            
+
+
                             scene.animatedCategories.add(outfitType);
-                            
-                            
+
+
                             scene.tweens.add({
                                 targets: panel,
-                                t: 1, 
+                                t: 1,
                                 duration: 1200,
                                 ease: 'Cubic.easeInOut',
-                                yoyo: true, 
-                                delay: 300 
+                                yoyo: true,
+                                delay: 300
                             });
                         }
                         if (scene.miniGameButton) scene.miniGameButton.setInteractive();

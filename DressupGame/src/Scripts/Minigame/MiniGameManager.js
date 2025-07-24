@@ -23,11 +23,14 @@ export class MiniGameManager {
         this.AudioManager = AudioManager;
     }
 
-    
+
     setUpGame(scene) {
         this.minigameButtons = [];
         this.categoryButtons = scene.state === GameState.DRESSUP ? createDressUpCategoryButtons(scene, scene.AudioManager) : createMakeUpCategoryButtons(scene, scene.AudioManager);
-        
+
+        const currentButton = scene.state === GameState.DRESSUP ? scene.dressButton : scene.eyebrowsButton;
+        scene.selectedCategory = { current: currentButton, previous: null }
+        console.log(scene.selectedCategory)
         this.backButton = new UIButton(scene, scene.AudioManager, {
             x: layout.backButton.x,
             y: layout.backButton.y,
@@ -42,7 +45,7 @@ export class MiniGameManager {
             },
             buttonText: '',
             buttonScale: layout.backButton.scale,
-        }).setDepth(99); 
+        }).setDepth(99);
 
         const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
@@ -73,7 +76,7 @@ export class MiniGameManager {
             textSize: 24,
             textYPosition: 60,
             buttonScale: 0.7 * 2,
-        }).setDepth(99); 
+        }).setDepth(99);
 
         scene.finishButton = new UIButton(scene, this.AudioManager, {
             x: layout.minigameFinishButton.x,
@@ -85,17 +88,17 @@ export class MiniGameManager {
             iconYPosition: 0,
             iconScale: 1.5,
             callback: () => {
-                
+
                 scene.finishButton.disableInteractive();
 
-                
+
                 if (this.scene.interactiveMakeupSystem && this.scene.interactiveMakeupSystem.isActive) {
                     this.scene.interactiveMakeupSystem.stopColoringSession(
                         this.scene.interactiveMakeupSystem.activeMakeupType, true
                     );
                 }
 
-                
+
                 if (this.scene.state === GameState.DRESSUP) {
                     if (this.canContinueToScene2()) {
 
@@ -197,10 +200,10 @@ export class MiniGameManager {
 
     closeConfirmationPanel(callback = null) {
         this.scene.darkOverlay.setVisible(false);
-        
+
         this.enableInteraction();
 
-        
+
         this.scene.finishButton?.resetVisuals();
         this.scene.finishMiniGameButton?.resetVisuals();
 
@@ -213,13 +216,13 @@ export class MiniGameManager {
                 onComplete: () => {
                     this.incompletePanel?.destroy();
                     this.activeConfirmationPanel?.destroy();
-                    this.activeConfirmationPanel = null; 
-                    this.incompletePanel = null; 
+                    this.activeConfirmationPanel = null;
+                    this.incompletePanel = null;
                     if (callback) callback();
                 }
             });
         }
-        
+
     }
     createConfirmationPanel() {
         const { state, darkOverlay, finishButton, removeAllButton, backToSelectionButton, scale } = this.scene;
@@ -234,13 +237,13 @@ export class MiniGameManager {
 
         const isDressUp = state === GameState.DRESSUP;
 
-        
+
         if (isDressUp && !this.canContinueToScene2()) {
             const incompleteContainer = this.createIncompletePanel();
             return incompleteContainer.setDepth(151).setScale(0);
         }
 
-       
+
         const questionText = isDressUp
             ? 'Are you sure about the outfit you chose?'
             : 'Are you sure about the make up you chose?';
@@ -286,7 +289,7 @@ export class MiniGameManager {
             wordWrap: { width: 600 }
         }).setOrigin(0.5).setDepth(151);
 
-        const panelWidth = Phaser.Math.Clamp(text.width + 20, 100, 200); 
+        const panelWidth = Phaser.Math.Clamp(text.width + 20, 100, 200);
         const panelHeight = 100;
         const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', panelWidth, panelHeight, 15, 15, 15, 12)
             .setDepth(151).setScale(3);
@@ -294,13 +297,13 @@ export class MiniGameManager {
         const okButton = new GeneralButton(this.scene, 0, 60, 'readyButtonIcon', null, 'OK',
             () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(151);
 
-       
-        const scaledWidth = panelWidth * 0.5 * 3; 
+
+        const scaledWidth = panelWidth * 0.5 * 3;
         const scaledHeight = panelHeight * 0.5 * 3;
 
         const closeButton = new UIButton(this.scene, this.AudioManager,
-            scaledWidth - 20, 
-            -scaledHeight + 20, 
+            scaledWidth - 20,
+            -scaledHeight + 20,
             'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
             () => this.closeConfirmationPanel()).setDepth(151);
 
@@ -341,20 +344,20 @@ export class MiniGameManager {
         return container.setDepth(151).setScale(0);
     }
     finishMiniGame(gameState) {
-        this.closeConfirmationPanel(); 
-         if (gameState === GameState.MAKEUP) {
-            
+        this.closeConfirmationPanel();
+        if (gameState === GameState.MAKEUP) {
+
             this.scene.makeUpFinished = true;
-           
+
             progressManager.completeMakeUp();
         } else if (gameState === GameState.DRESSUP) {
-            
+
             this.scene.dressUpFinished = true;
-            
+
             progressManager.completeDressUp();
         }
         this.scene.TweeningUtils.transitionBackToSelection();
-        
+
     }
 
     transitionMiniGame() {
@@ -406,12 +409,12 @@ export class MiniGameManager {
             return;
         }
 
-        
+
         if (this.activeConfirmationPanel) {
             this.activeConfirmationPanel.destroy();
             this.activeConfirmationPanel = null;
         }
-        
+
         if (this.scene.darkOverlay) this.scene.darkOverlay.setVisible(false);
 
 
@@ -422,10 +425,10 @@ export class MiniGameManager {
             console.log("[MiniGameManager] Fade out selesai. Memulai transisi ke Cutscene 2.");
 
             this.scene.TweeningUtils.openDrapes();
-            
+
             this.scene.UIManager.clearMinigameScene(this.scene);
 
-            
+
             console.log(`[MiniGameManager] Memulai Cutscene 2 untuk ${bachelorNameToUse}`);
             this.scene.CutsceneSystem.initiateCutscene2(
                 bachelorNameToUse,
@@ -435,14 +438,14 @@ export class MiniGameManager {
         });
     }
 
-    
+
     disableInteraction() {
         this.scene.removeAllButton?.disableInteractive();
         this.backButton?.disableInteractive();
         this.scene.finishButton?.disableInteractive();
         this.scene.makeUpButton?.disableInteractive();
         this.scene.dressUpButton?.disableInteractive();
-        this.scene.finishMiniGameButton?.disableInteractive(); 
+        this.scene.finishMiniGameButton?.disableInteractive();
         this.scene.miniGameButton?.disableInteractive();
 
         disableCategoryButtonsInteraction(this.scene);
@@ -459,7 +462,7 @@ export class MiniGameManager {
         }
     }
 
-    
+
     enableInteraction() {
         this.scene.removeAllButton?.setInteractive();
         this.backButton?.setInteractive();
@@ -527,12 +530,12 @@ export class MiniGameManager {
         this.outfitStatsGrid = this.scene.rexUI.add.gridSizer({
             row: row,
             column: column,
-            rowProportions: 1, 
+            rowProportions: 1,
             space: { column: 90, row: 100 },
             align: 'center',
         });
 
-        
+
         buttonList.forEach((btn, i) => {
             const r = Math.floor(i / column);
             const c = i % column;
@@ -541,7 +544,7 @@ export class MiniGameManager {
 
         this.outfitButtonStatGrid.add(this.outfitStatsGrid, index, 0, 'center', { top: 70, bottom: 70 }, false);
     }
-    
+
     setUpSidePanel(scene) {
         const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
@@ -550,31 +553,31 @@ export class MiniGameManager {
         scene.buttons = buttons;
         this.buttonList = buttons;
 
-        
+
         this.buttonGrid = scene.rexUI.add.gridSizer({
             row: this.buttonList.length,
             column: 1,
-            rowProportions: 1, 
+            rowProportions: 1,
             space: { column: 0, row: 125 },
             align: 'center'
         });
 
-       
+
         this.buttonList.forEach((btnContainer, index) => {
             this.buttonGrid.add(btnContainer, 0, index, '', 30, false);
         });
 
-        
+
         const sidePanel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 500, 667, 14, 14, 17, 10).setDepth(10).setScale(1.5);
 
         this.innerSizer = scene.rexUI.add.sizer({
-            orientation: 1, 
+            orientation: 1,
             space: { top: 70, bottom: 100, left: 60 }
         });
 
         this.innerSizer.add(this.buttonGrid, 0, 'center', {}, true);
 
-       
+
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({
             x: layout.sidePanel.x,
             y: layout.sidePanel.y,
@@ -675,7 +678,7 @@ export class MiniGameManager {
             duration: 500,
             ease: 'Sine.easeInOut',
             onComplete: () => {
-                
+
                 this.updateCategoryButtons(scene);
                 scene.tweens.add({
                     targets: scene.sidePanel,
@@ -687,7 +690,7 @@ export class MiniGameManager {
         });
     }
     updatePanelLayout(left = null, right = null, top = null, bottom = null) {
-        
+
         if (top !== null) this.innerSizer.space.top = top;
         if (bottom !== null) this.innerSizer.space.bottom = bottom;
         if (left !== null) this.innerSizer.space.left = left;
@@ -703,14 +706,14 @@ export class MiniGameManager {
 
     updateCategoryButtons(scene) {
         scene.buttons = (this.scene.state === GameState.MAKEUP) ? createMakeUpCategoryButtons(scene, this.AudioManager) : createDressUpCategoryButtons(scene, this.AudioManager);
-        
+
         this.buttonList = scene.buttons;
         this.buttonGrid.clear();
         this.innerSizer.clear();
         this.scene.MiniGameManager.buttonGrid = this.scene.rexUI.add.gridSizer({
             row: this.scene.MiniGameManager.buttonList.length,
             column: 1,
-            rowProportions: 1, 
+            rowProportions: 1,
             space: { column: 0, row: 200 },
             align: 'center',
         });
@@ -735,15 +738,15 @@ export class MiniGameManager {
             duration: 500,
             ease: 'Sine.easeInOut',
             onComplete: () => {
-                
+
                 if (this.buttonGrid) {
                     const children = this.buttonGrid.getAllChildren();
                     children.forEach(childGameObject => {
-                        
+
                         let isPersistentItemButton = false;
 
-                        
-                        if (scene.makeUpButtons && scene.state === GameState.MAKEUP) { 
+
+                        if (scene.makeUpButtons && scene.state === GameState.MAKEUP) {
                             for (const type in scene.makeUpButtons) {
                                 if (scene.makeUpButtons[type].includes(childGameObject)) {
                                     isPersistentItemButton = true;
@@ -751,8 +754,8 @@ export class MiniGameManager {
                                 }
                             }
                         }
-                        
-                        if (!isPersistentItemButton && scene.outfitButtons && scene.state === GameState.DRESSUP) { 
+
+                        if (!isPersistentItemButton && scene.outfitButtons && scene.state === GameState.DRESSUP) {
                             for (const type in scene.outfitButtons) {
                                 if (scene.outfitButtons[type].includes(childGameObject)) {
                                     isPersistentItemButton = true;
@@ -762,17 +765,17 @@ export class MiniGameManager {
                         }
 
                         if (isPersistentItemButton) {
-                            
-                            this.buttonGrid.remove(childGameObject, false); 
-                        } 
+
+                            this.buttonGrid.remove(childGameObject, false);
+                        }
                     });
-                   
+
                     this.buttonGrid.destroy();
                     this.buttonGrid = null;
                 }
 
                 if (this.innerSizer) {
-                    this.innerSizer.clear(true); 
+                    this.innerSizer.clear(true);
                 }
 
 
@@ -784,7 +787,7 @@ export class MiniGameManager {
                     column: 1,
                     row: this.buttonList.length || 1,
                     rowProportions: 1,
-                    space: { column: 0, row: 200 }, 
+                    space: { column: 0, row: 200 },
                     align: 'center'
                 });
 
@@ -795,7 +798,7 @@ export class MiniGameManager {
                     this.buttonGrid.add(buttonInstance, 0, index, 'center', 0, false);
                 });
 
-               
+
                 this.innerSizer.space.left = 90;
                 this.innerSizer.space.right = 70;
                 this.innerSizer.space.top = 80;
@@ -878,23 +881,23 @@ export class MiniGameManager {
         lockedItemsManager.clearLockedItems();
         console.log("Save data has been cleared on game end.");
         if (isRestart) {
-           
+
             this.scene.registry.set('chosenBachelorNameForRestart', this.scene.chosenBachelorName);
         } else {
-            
+
             this.scene.registry.set('lastBachelorName', this.scene.chosenBachelorName);
-            
+
             this.scene.registry.remove('chosenBachelorNameForRestart');
         }
 
-        
+
         this.restartGame();
     }
 
     restartGame() {
         const poki = this.scene.plugins.get('poki');
 
-       
+
         poki.runWhenInitialized(() => {
             poki.gameplayStop();
             console.log("[Poki SDK] gameplayStop() has been fired.");
@@ -905,7 +908,7 @@ export class MiniGameManager {
 
         this.scene.cameras.main.once('camerafadeoutcomplete', async () => {
             await poki.commercialBreak();
-            
+
             this.scene.scene.start('BootScene');
 
         });
