@@ -363,7 +363,7 @@ export class OutfitButton extends BaseButton {
             iconLockedBg.setVisible(true);
             lockedImg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked, nameText]);
 
         this.setDepth(12);
         this.button = buttonBg;
@@ -675,7 +675,7 @@ export class MakeUpButton extends BaseButton {
             iconLocked.setVisible(true);
             iconLockedBg.setVisible(true);
         }
-        super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked]);
+        super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked, nameText]);
 
         this.setDepth(12);
 
