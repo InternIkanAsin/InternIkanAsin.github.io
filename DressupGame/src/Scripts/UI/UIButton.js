@@ -592,6 +592,10 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setDepth(depthValues[outfitType] || 1);
         this.displayedOutfit = newOutfitImage;
 
+        if (scene.UIManager) {
+            scene.UIManager.playGlitterExplosion(newOutfitImage);
+        }
+
         
         if (this.usesCustomSize) {
             newOutfitImage.setDisplaySize(this.dressUpViewDisplayWidth, this.dressUpViewDisplayHeight);
@@ -991,6 +995,10 @@ export class MakeUpButton extends BaseButton {
 
 
                 this.displayedMakeUp = [scene.hairBack, scene.hairFront];
+                if (scene.UIManager) {
+                    scene.UIManager.playGlitterExplosion(scene.hairBack);
+                    scene.UIManager.playGlitterExplosion(scene.hairFront);
+                }
             }
 
             else {
@@ -1026,6 +1034,9 @@ export class MakeUpButton extends BaseButton {
                 }
                 if (!newImage) { return; }
                 this.displayedMakeUp = newImage;
+                if (newImage && scene.UIManager) {
+                    scene.UIManager.playGlitterExplosion(newImage);
+                }
             }
 
 

@@ -61,6 +61,7 @@ export default class AssetLoader {
   static loadUIAssets(scene) {
     scene.load.image('dialogueBox', 'Asset/UI/Text_Box.png');
     scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
+    scene.load.image('particle_star', 'Asset/UI/star_07.png');
 
     //New Assets
     scene.load.image('buttonIcon', 'Asset/UI/Button_Released.png');

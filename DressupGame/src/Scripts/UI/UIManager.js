@@ -123,7 +123,66 @@ export class UIManager {
         }
     }
 
-    // Tambahkan method `linkDefaultMakeupObjects` untuk menangani kasus tanpa save file
+         playGlitterExplosion(targetImage) {
+        // Validasi: Pastikan targetImage dan sumber teksturnya ada.
+        if (!targetImage || !targetImage.scene || !targetImage.texture.source || !targetImage.texture.source[0].image) {
+            console.warn("Cannot create particle explosion: targetImage or its texture source is invalid.");
+            return;
+        }
+
+        const scene = this.scene;
+
+        // Dapatkan posisi dunia dari gambar target untuk menempatkan partikel dengan benar
+        const worldMatrix = targetImage.getWorldTransformMatrix();
+        const worldX = worldMatrix.tx;
+        const worldY = worldMatrix.ty;
+        const worldScale = worldMatrix.scaleX; // Asumsikan skala seragam
+
+        // --- INI ADALAH SINTAKS PHASER 3.60+ YANG BENAR ---
+
+        // 1. Buat zona emisi terlebih dahulu.
+        const emitZone = {
+            source: targetImage.texture.getSourceImage(),
+            type: 'edge',
+            quantity: 80 // Tingkatkan kepadatan untuk hasil yang lebih baik
+        };
+
+        // 2. Buat Particle Emitter langsung dari `scene.add.particles`.
+        // Konfigurasi emitter dimasukkan sebagai argumen keempat.
+        const particles = scene.add.particles(
+            worldX, // Atur posisi X emitter
+            worldY, // Atur posisi Y emitter
+            'particle_star', // Kunci tekstur partikel
+            {
+                // Ini adalah objek konfigurasi emitter
+                speed: { min: 80, max: 250 },
+                angle: { min: 0, max: 360 },
+                scale: { start: worldScale * 0.4, end: 0 },
+                lifespan: { min: 400, max: 700 },
+                blendMode: 'ADD',
+                
+                // Masukkan zona emisi di sini
+                emitZone: emitZone,
+
+                // Kita ingin ledakan satu kali, bukan aliran terus-menerus
+                emitting: false 
+            }
+        );
+        
+        // ----------------------------------------------------
+
+        particles.setDepth(targetImage.depth + 1);
+
+        // Memicu ledakan satu kali dari semua titik di zona emisi
+        particles.explode(50); // Ledakkan 50 partikel
+
+        // Hancurkan sistem partikel setelah tidak lagi dibutuhkan
+        scene.time.delayedCall(1500, () => {
+            particles.destroy();
+        });
+    }
+
+   
     restoreSavedOutfits(scene) {
         console.log("[UIManager] Applying restored outfits to the character.");
 
