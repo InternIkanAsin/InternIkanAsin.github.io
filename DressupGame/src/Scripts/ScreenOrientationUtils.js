@@ -309,11 +309,11 @@ const LANDSCAPE = {
     },
 
     particleOffsets: {
-            Dress: { x: 0, y: 1000 }, 
+            Dress: { x: 0, y: -200 }, 
             Shirt: { x: 0, y: 0 },
-            Outer: { x: 0, y: 0 },
-            Lower: { x: 0, y: 0 },  
-            Socks: { x: 0, y: 0 },
+            Outer: { x: 0, y: -50 },
+            Lower: { x: 0, y: -90 },  
+            Socks: { x: 0, y: 130 },
             Shoes: { x: 0, y: 50 }   
         }
 };
@@ -666,15 +666,16 @@ const PORTRAIT = {
     },
 
     particleOffsets: {
-            Dress: { x: 0, y: 0 }, 
+            Dress: { x: 0, y: -200 }, 
             Shirt: { x: 0, y: 0 },
-            Outer: { x: 0, y: 0 },
-            Lower: { x: 0, y: 0 },   
-            Socks: { x: 0, y: 0 },
-            Shoes: { x: 0, y: 0 }   
+            Outer: { x: 0, y: -50 },
+            Lower: { x: 0, y: -90 },  
+            Socks: { x: 0, y: 130 },
+            Shoes: { x: 0, y: 50 }   
         }
     
 };
+
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
 export const orientation = { isPortrait, isMobile };
 

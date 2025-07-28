@@ -161,14 +161,21 @@ export class UIManager {
         // 3. Posisikan dan skalakan emitter agar pas di atas gambar target.
         // Dapatkan transformasi dunia (posisi, skala, rotasi) dari gambar target.
         const matrix = targetImage.getWorldTransformMatrix();
-        particles.x = matrix.tx; // Atur posisi X emitter
-        particles.y = matrix.ty; // Atur posisi Y emitter
+        // Ambil kategori dari data (misalnya "Dress", "Shirt", dll)
+        const outfitType = targetImage.getData('outfitType');
+
+        // Ambil offset berdasarkan kategori (default: {x: 0, y: 0})
+        const offset = layout.particleOffsets[outfitType] || { x: 0, y: 0 };
+
+        // Terapkan offset ke posisi world
+        particles.x = matrix.tx + offset.x;
+        particles.y = matrix.ty + offset.y; // Atur posisi Y emitter
         particles.scaleX = matrix.scaleX; // Atur skala X emitter
         particles.scaleY = matrix.scaleY; // Atur skala Y emitter
         particles.rotation = matrix.rotation; // Atur rotasi emitter
 
         // 4. Atur depth dan picu ledakan.
-        particles.setDepth(targetImage.depth + 1);
+        particles.setDepth(targetImage.depth + 1000);
         particles.explode(50); // Ledakkan 50 partikel dari zona yang sudah di-transformasi.
 
         // 5. Hancurkan sistem partikel setelah tidak lagi dibutuhkan.
@@ -177,6 +184,9 @@ export class UIManager {
                 particles.destroy();
             }
         });
+
+        console.log(`[ParticleOffset] ${outfitType}: x+${offset.x}, y+${offset.y}`);
+
     }
 
    

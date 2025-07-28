@@ -523,7 +523,7 @@ export class OutfitButton extends BaseButton {
         const { scene, textureAnime, stat, outfitType, name } = this;
         const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
         const currentEntry = OutfitButton.selectedOutfits[outfitType];
-
+        
         const unequip = (type) => {
             const entry = OutfitButton.selectedOutfits[type];
             const equippedButton = entry?.current;
@@ -553,7 +553,7 @@ export class OutfitButton extends BaseButton {
                 scene[type] = null;
             }
         };
-
+        
         OutfitButton.clearAllOutfitHighlights(scene);
 
         if (outfitType === "Dress") {
@@ -574,7 +574,7 @@ export class OutfitButton extends BaseButton {
 
         const targetAtlas = textureAnime.atlas;
         const targetFrame = textureAnime.frame;
-
+        
         for (let i = scene.children.list.length - 1; i >= 0; i--) {
             const child = scene.children.list[i];
             if (child.type === 'Image' && child.texture.key === targetAtlas && child.frame.name === targetFrame) {
@@ -600,9 +600,7 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setDepth(depthValues[outfitType] || 1);
         this.displayedOutfit = newOutfitImage;
 
-        if (scene.UIManager) {
-            scene.UIManager.playGlitterExplosion(newOutfitImage);
-        }
+        
 
        
 
@@ -612,10 +610,9 @@ export class OutfitButton extends BaseButton {
         } else {
             newOutfitImage.setScale(this.dressUpViewScale);
         }
-
+        newOutfitImage.setData('outfitType', outfitType);
         newOutfitImage.setData('buttonName', name);
         newOutfitImage.setData('usesCustomSize', this.usesCustomSize);
-
 
         newOutfitImage.setData('baseWorldOutfitX', finalX);
         newOutfitImage.setData('baseWorldOutfitY', finalY);
@@ -628,6 +625,10 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setData('refBodyX', scene.body.x);
         newOutfitImage.setData('refBodyY', scene.body.y);
         newOutfitImage.setData('refBodyScale', scene.body.scale);
+
+        if (scene.UIManager) {
+            scene.UIManager.playGlitterExplosion(newOutfitImage);
+        }
 
 
         OutfitButton.selectedOutfits[outfitType] = {
