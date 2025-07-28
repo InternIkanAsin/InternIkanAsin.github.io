@@ -4,41 +4,48 @@ import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from '../Makeup Data/
 export class InteractiveMakeupSystem {
     constructor(scene) {
         this.scene = scene;
-        this.AudioManager = scene.AudioManager; 
+        this.AudioManager = scene.AudioManager;
 
         this.isActive = false;
-        this.activeMakeupType = null;   
-        this.activeTextureKey = null;   
-        this.activeMakeupImage = null;  
-        this.drawingLayer = null;       
-        this.brushImage = null;         
-        this.brushRadius = 15;          
+        this.activeMakeupType = null;
+        this.activeTextureKey = null;
+        this.activeMakeupImage = null;
+        this.drawingLayer = null;
+        this.brushImage = null;
+        this.brushRadius = 15;
 
         this.isDrawing = false;
 
-        
-        this.targetPixelData = null;    
+
+        this.targetPixelData = null;
         this.totalTargetPixels = 0;
         this.checkingCompletion = false;
-        this.completionThreshold = 95;   
-        this.autoCompleteThreshold = 80; 
+        this.completionThreshold = 95;
+        this.autoCompleteThreshold = 80;
 
-        
+
         this.stateBeforeColoring = {};
 
-        
+
         this.boundOnPointerDown = this.onPointerDown.bind(this);
         this.boundOnPointerMove = this.onPointerMove.bind(this);
         this.boundOnPointerUp = this.onPointerUp.bind(this);
         this.activeOutlineGraphics = null;
 
-        
-        this.customCursor = scene.add.graphics({ fillStyle: { color: 0xffffff, alpha: 0.5 } }) 
+
+        this.customCursor = scene.add.graphics({ fillStyle: { color: 0xffffff, alpha: 0.5 } })
             .fillCircle(this.brushRadius, this.brushRadius, this.brushRadius)
             .setVisible(false)
-            .setDepth(1000); 
-        
+            .setDepth(1000);
+
         this.customCursorRadius = this.brushRadius;
+
+        this.tutorialShown = {
+            'Eyeliner': false,
+            'Eyeshadow': false,
+            'Lips': false,
+            'Blush': false,
+        };
     }
 
     startColoringSession(makeupType, textureKey, itemButtonInstance) {
@@ -46,16 +53,17 @@ export class InteractiveMakeupSystem {
         this.stateBeforeColoring[makeupType] = MakeUpButton.selectedMakeUp[makeupType]?.current || null;
         console.log(this.stateBeforeColoring[makeupType])
         if (this.isActive) {
-           
-            this.stopColoringSession(true); 
+
+            this.stopColoringSession(true);
         }
 
-        this.scene.input.setDefaultCursor('none'); 
+        if (!this.tutorialShown[makeupType]) this.triggerMakeUpTutorial(makeupType);
+        this.scene.input.setDefaultCursor('none');
         this.customCursor.clear();
-        this.customCursor.fillStyle(0xffffff, 0.5); 
-       
+        this.customCursor.fillStyle(0xffffff, 0.5);
+
         this.customCursor.fillCircle(this.brushRadius, this.brushRadius, this.brushRadius);
-        this.customCursor.x = this.scene.input.activePointer.worldX - this.brushRadius; 
+        this.customCursor.x = this.scene.input.activePointer.worldX - this.brushRadius;
         this.customCursor.y = this.scene.input.activePointer.worldY - this.brushRadius;
         this.customCursor.setVisible(true);
         this.customCursor.setDepth(this.scene.sys.game.config.height + 100);
@@ -66,39 +74,39 @@ export class InteractiveMakeupSystem {
         this.isActive = true;
         this.activeMakeupType = makeupType;
         this.activeTextureKey = textureKey;
-        this.isComplete = false; 
+        this.isComplete = false;
 
-        
+
         if (makeupType === 'Lips') {
-            const defaultLipTexture = defaultMakeUpSkins['Lips']; 
+            const defaultLipTexture = defaultMakeUpSkins['Lips'];
             if (this.scene.lips && defaultLipTexture) {
                 console.log("[InteractiveMakeup] Setting lips to default for coloring session.");
-                
+
                 this.scene.lips.setTexture(defaultLipTexture).setScale(0.55 * 2);
             }
         }
 
-        
-        const position = MakeUpPositions[makeupType] || { x: 0, y: 0 };
-        let scale = 0.55 * 2; 
 
-        
+        const position = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+        let scale = 0.55 * 2;
+
+
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
         this.activeOutlineGraphics = this.scene.add.graphics();
         if (this.scene.faceContainer) {
             this.scene.faceContainer.add(this.activeOutlineGraphics);
         }
-        
+
         if (makeupType === 'Lips') {
-            
-            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey) 
+
+            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(scale)
-                .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001) 
+                .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
-            
-        } else { 
+
+        } else {
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(scale)
                 .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.1)
@@ -106,7 +114,7 @@ export class InteractiveMakeupSystem {
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
         }
-         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); }
+        if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); }
         this.activeOutlineGraphics = this.scene.add.graphics();
 
 
@@ -115,7 +123,7 @@ export class InteractiveMakeupSystem {
         const originalTextureWidth = sourceTexture.getSourceImage().width;
         const originalTextureHeight = sourceTexture.getSourceImage().height;
 
-       
+
         if (this.activeOutlineGraphics && this.activeMakeupImage) {
             this.generateAndDrawOutline(
                 this.activeOutlineGraphics,
@@ -126,63 +134,63 @@ export class InteractiveMakeupSystem {
                 999
             );
         }
-       
 
-        const bounds = this.activeMakeupImage.getBounds(); 
+
+        const bounds = this.activeMakeupImage.getBounds();
         this.drawingLayer = this.scene.make.renderTexture({
             x: bounds.x,
             y: bounds.y,
             width: originalTextureWidth,
             height: originalTextureHeight,
-            add: false 
-        }, false).setOrigin(0, 0); 
-        
-        if (!this.brushImage) { 
+            add: false
+        }, false).setOrigin(0, 0);
+
+        if (!this.brushImage) {
             this.brushImage = this.scene.make.graphics({ fillStyle: { color: 0xffffff, alpha: 1 } }, false);
-            this.brushImage.fillCircle(this.brushRadius, this.brushRadius, this.brushRadius); 
+            this.brushImage.fillCircle(this.brushRadius, this.brushRadius, this.brushRadius);
         }
 
-        
+
         const revealMask = this.drawingLayer.createBitmapMask();
         this.activeMakeupImage.setMask(revealMask);
-        this.activeMakeupImage.alpha = 1; 
+        this.activeMakeupImage.alpha = 1;
 
-        
+
         this.calculateTargetPixels(textureKey, this.activeMakeupImage.width, this.activeMakeupImage.height);
 
-        
+
         this.scene.input.on('pointerdown', this.boundOnPointerDown);
         this.scene.input.on('pointermove', this.boundOnPointerMove);
         this.scene.input.on('pointerup', this.boundOnPointerUp);
-        this.scene.input.on('pointerupoutside', this.boundOnPointerUp); 
+        this.scene.input.on('pointerupoutside', this.boundOnPointerUp);
 
-        
+
         MakeUpButton.selectedMakeUp[this.activeMakeupType] = {
-            current: itemButtonInstance, 
+            current: itemButtonInstance,
             previous: this.stateBeforeColoring[makeupType]
         };
-        
+
         if (itemButtonInstance instanceof MakeUpButton) {
             itemButtonInstance.displayedMakeUp = this.activeMakeupImage;
         }
-         if (this.scene.faceContainer) {
+        if (this.scene.faceContainer) {
             this.scene.faceContainer.sort('depth');
         }
     }
 
     generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, scale, depth) {
-        graphics.clear(); 
+        graphics.clear();
         const worldPos = { x: 0, y: 0 };
         this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
-        graphics.setPosition(worldPos.x, worldPos.y);  
+        graphics.setPosition(worldPos.x, worldPos.y);
 
-        
+
         graphics.setPosition(worldPos.x, worldPos.y);
         const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
-        graphics.setScale(finalScale); 
+        graphics.setScale(finalScale);
         graphics.setDepth(depth);
-        graphics.lineStyle(18 / finalScale, 0xffffff, 0.8); 
-        
+        graphics.lineStyle(18 / finalScale, 0xffffff, 0.8);
+
         const sourceImageElement = sourceTexturePhaser.getSourceImage();
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = textureWidth;
@@ -192,11 +200,11 @@ export class InteractiveMakeupSystem {
         tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
         const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
 
-        const alphaThreshold = 20; 
+        const alphaThreshold = 20;
 
-        
+
         graphics.fillStyle(0xffffff, 0.6);
-        const dotSize = 2 / scale; 
+        const dotSize = 2 / scale;
 
         for (let y = 0; y < textureHeight; y++) {
             for (let x = 0; x < textureWidth; x++) {
@@ -204,12 +212,12 @@ export class InteractiveMakeupSystem {
                 const alpha = imageData[i + 3];
 
                 if (alpha > alphaThreshold) {
-                    
+
                     const neighbors = [
-                        (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0, 
-                        (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0, 
-                        (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0, 
-                        (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0  
+                        (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0,
+                        (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0,
+                        (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0,
+                        (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0
                     ];
 
                     let isEdge = false;
@@ -228,7 +236,7 @@ export class InteractiveMakeupSystem {
                 }
             }
         }
-        
+
         this.scene.tweens.add({
             targets: graphics,
             alpha: 0.3,
@@ -236,6 +244,69 @@ export class InteractiveMakeupSystem {
             yoyo: true,
             repeat: -1
         });
+    }
+
+    triggerMakeUpTutorial(makeUpType) {
+        const scene = this.scene;
+
+        scene.tutorialCursor = scene.add.image(scene.scale.width / 2.75, scene.scale.height / 2, 'fingerCursor')
+            .setDepth(100)
+            .setScale(0.3);
+
+        scene.tutorialTimeline = scene.add.timeline();
+
+        const makeupPaths = {
+            'Eyeliner': [
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 2.7 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.5 }
+            ],
+            'Eyeshadow': [
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 2.7 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.5 }
+            ],
+            'Lips': [
+                { x: scene.scale.width / 1.85, y: scene.scale.height / 2.1 },
+                { x: scene.scale.width / 1.95, y: scene.scale.height / 2.05 }
+            ],
+            'Blush': [
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
+            ]
+        };
+
+        const points = makeupPaths[makeUpType];
+        if (!points) return;
+
+        points.forEach((pt, index) => {
+            const eventName = `MOVE_POINT${index + 1}`;
+
+            // Register each move event
+            scene.tutorialTimeline.on(eventName, () => {
+                scene.tweens.add({
+                    targets: scene.tutorialCursor,
+                    x: pt.x,
+                    y: pt.y / 0.9,
+                    duration: 500,
+                    ease: 'Sine.easeInOut'
+                });
+            });
+        });
+
+        const timelineEvents = [];
+        let time = 0;
+        for (let i = 0; i < points.length; i++) {
+            timelineEvents.push({ at: time, event: `MOVE_POINT${i + 1}` });
+            time += 500;
+        }
+
+        timelineEvents.push({ at: time, event: `MOVE_POINT1` });
+
+        scene.tutorialTimeline.add(timelineEvents);
+
+        // 🔁 Loop and play
+        scene.tutorialTimeline.repeat().play();
     }
 
     onPointerDown(pointer) {
@@ -246,7 +317,7 @@ export class InteractiveMakeupSystem {
 
     onPointerMove(pointer) {
         if (!this.isActive || this.isComplete || !this.isDrawing || !pointer.isDown || !this.drawingLayer) {
-           
+
             if (!pointer.isDown && this.isDrawing) {
                 this.isDrawing = false;
                 if (!this.checkingCompletion) this.checkCompletion();
@@ -284,20 +355,20 @@ export class InteractiveMakeupSystem {
                 this.totalTargetPixels = 0; this.targetPixelData = null; return;
             }
             const source = texture.getSourceImage();
-            const width = source.width; 
+            const width = source.width;
             const height = source.height;
 
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = width; tempCanvas.height = height;
-            const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true }); 
+            const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
             if (!tempCtx) { console.error("[InteractiveMakeup] Could not create temp canvas context."); this.totalTargetPixels = 0; this.targetPixelData = null; return; }
 
             tempCtx.drawImage(source, 0, 0, width, height);
             const imageData = tempCtx.getImageData(0, 0, width, height);
-            this.targetPixelData = imageData; 
+            this.targetPixelData = imageData;
             this.totalTargetPixels = 0;
             for (let i = 0; i < imageData.data.length; i += 4) {
-                if (imageData.data[i + 3] > 0) this.totalTargetPixels++; 
+                if (imageData.data[i + 3] > 0) this.totalTargetPixels++;
             }
             console.log(`[InteractiveMakeup] Total target pixels for '${textureKey}': ${this.totalTargetPixels}`);
         } catch (error) {
@@ -328,7 +399,7 @@ export class InteractiveMakeupSystem {
                 const snapCtx = snapCanvas.getContext('2d', { willReadFrequently: true });
                 if (!snapCtx) { console.error("[InteractiveMakeup] Could not create snapshot canvas context."); this.checkingCompletion = false; return; }
 
-                const scale = this.activeMakeupImage.scaleX; 
+                const scale = this.activeMakeupImage.scaleX;
                 snapCtx.drawImage(
                     snapshotImage,
                     0, 0, rtWidth, rtHeight,
@@ -336,20 +407,20 @@ export class InteractiveMakeupSystem {
                 );
                 const snapshotData = snapCtx.getImageData(0, 0, rtWidth, rtHeight).data;
 
-                
+
                 const originalData = this.targetPixelData.data;
                 let revealedPixels = 0;
 
-                
+
                 if (snapshotData.length === originalData.length) {
                     for (let i = 0; i < snapshotData.length; i += 4) {
-                        if (originalData[i + 3] > 0 && snapshotData[i + 3] > 0) { 
+                        if (originalData[i + 3] > 0 && snapshotData[i + 3] > 0) {
                             revealedPixels++;
                         }
                     }
                 } else {
                     console.warn("[InteractiveMakeup] Snapshot and original texture data length mismatch. Completion check will be inaccurate.");
-                    
+
                 }
 
 
@@ -357,14 +428,14 @@ export class InteractiveMakeupSystem {
 
                 console.log(`[InteractiveMakeup] Completion for ${this.activeMakeupType} (${this.activeTextureKey}): ${percentage.toFixed(2)}% (${revealedPixels}/${this.totalTargetPixels})`)
                 if (percentage >= this.completionThreshold) {
-                    this.finalizeSession(true, "threshold"); 
+                    this.finalizeSession(true, "threshold");
                 } else if (percentage >= this.autoCompleteThreshold) {
                     if (!this.isComplete) {
                         console.log(percentage);
                         this.autoFillAndFinalize();
                     }
                 }
-                this.checkingCompletion = false; 
+                this.checkingCompletion = false;
             } catch (error) {
                 console.error("[InteractiveMakeup] Error during snapshot processing:", error);
                 this.checkingCompletion = false;
@@ -375,7 +446,7 @@ export class InteractiveMakeupSystem {
     autoFillAndFinalize() {
         if (this.isComplete || !this.drawingLayer || !this.activeMakeupImage) return;
         console.log("[InteractiveMakeup] Auto-filling and finalizing...");
-        this.drawingLayer.draw(this.activeMakeupImage, 0, 0, 1, 0xffffff); 
+        this.drawingLayer.draw(this.activeMakeupImage, 0, 0, 1, 0xffffff);
         this.finalizeSession(true, "auto-completed");
     }
 
@@ -386,6 +457,7 @@ export class InteractiveMakeupSystem {
         this.isDrawing = false;
         this.checkingCompletion = false;
 
+        this.tutorialShown[this.activeMakeupType] = true;
         console.log(`%c[InteractiveMakeup] Session finalized for ${this.activeMakeupType}. Reason: ${reason}. Apply: ${applyToCharacter}`, 'color: lightgreen; font-weight: bold;');
 
         const typeFinalizing = this.activeMakeupType;
@@ -396,15 +468,15 @@ export class InteractiveMakeupSystem {
             if (imageThatWasColored) imageThatWasColored.clearMask();
 
             if (typeFinalizing === 'Lips') {
-                
+
                 this.scene.lips.setTexture(this.activeTextureKey).setScale(0.55 * 2).setVisible(true);
-                
-                if (imageThatWasColored && imageThatWasColored !== this.scene.lips) { 
+
+                if (imageThatWasColored && imageThatWasColored !== this.scene.lips) {
                     imageThatWasColored.destroy();
                 }
 
                 finalImageForEffect = this.scene.lips;
-                
+
                 const lipButton = MakeUpButton.selectedMakeUp['Lips']?.current;
                 if (lipButton instanceof MakeUpButton) {
                     lipButton.displayedMakeUp = this.scene.lips;
@@ -413,8 +485,8 @@ export class InteractiveMakeupSystem {
             else {
                 finalImageForEffect = imageThatWasColored;
             }
-            
-             if (finalImageForEffect && this.scene.UIManager) {
+
+            if (finalImageForEffect && this.scene.UIManager) {
                 this.scene.UIManager.playGlitterExplosion(finalImageForEffect);
             }
 
@@ -426,15 +498,15 @@ export class InteractiveMakeupSystem {
                 this.scene.SaveManager.saveGame(this.scene);
             }
         } else {
-            this.revertToPreviousState(typeFinalizing); 
+            this.revertToPreviousState(typeFinalizing);
         }
 
         this.scene.TweeningUtils.hideApplyMakeUpPanel();
-        
+
         this.cleanupSessionObjects(applyToCharacter, typeFinalizing, applyToCharacter ? (typeFinalizing === 'Lips' ? this.scene.lips : imageThatWasColored) : null);
     }
 
-    
+
     stopColoringSession(makeupTypeToStop, forceDiscard = false) {
         if (!this.isActive || (makeupTypeToStop && this.activeMakeupType !== makeupTypeToStop)) return;
 
@@ -443,20 +515,20 @@ export class InteractiveMakeupSystem {
         console.log(`[InteractiveMakeup] Stopping session for ${typeEffectivelyStopping}. Discard: ${forceDiscard}, Completed: ${wasCompleted}`);
         this.isActive = false;
         this.scene.TweeningUtils.hideApplyMakeUpPanel();
-        const imageFromThisSession = this.activeMakeupImage; 
-        this.activeMakeupImage = null; 
+        const imageFromThisSession = this.activeMakeupImage;
+        this.activeMakeupImage = null;
 
-        this.cleanupInputAndVisuals(); 
+        this.cleanupInputAndVisuals();
 
         if (forceDiscard || !wasCompleted) {
-            
-            if (imageFromThisSession && imageFromThisSession !== this.scene.lips) { 
+
+            if (imageFromThisSession && imageFromThisSession !== this.scene.lips) {
                 console.log(`[InteractiveMakeup] Discarding: Destroying temp image for ${typeEffectivelyStopping}`);
                 imageFromThisSession.destroy();
             }
             this.revertToPreviousState(typeEffectivelyStopping);
-            this.resetSessionState(); 
-        } else { 
+            this.resetSessionState();
+        } else {
             this.resetSessionState();
         }
         console.log(`[InteractiveMakeup] Session for ${typeEffectivelyStopping} fully stopped.`);
@@ -465,31 +537,31 @@ export class InteractiveMakeupSystem {
     revertToPreviousState(makeupType) {
         if (!makeupType) return;
         console.log(`[InteractiveMakeup] Reverting ${makeupType}.`);
-        const previousStateStored = this.stateBeforeColoring[makeupType];
+        const previousStatutorialored = this.stateBeforeColoring[makeupType];
 
         let buttonForHelperCall = this.scene.makeUpButtons[makeupType]?.[0] || Object.values(this.scene.makeUpButtons || {}).flat()[0];
         if (!buttonForHelperCall) { return; }
 
-        
+
         if (makeupType === 'Lips') {
             if (!this.scene.lips || !this.scene.lips.active) { return; }
-            const targetTexture = (previousStateStored && previousStateStored.textureKey) ? previousStateStored.textureKey : defaultMakeUpSkins['Lips'];
-            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask(); 
+            const targetTexture = (previousStatutorialored && previousStatutorialored.textureKey) ? previousStatutorialored.textureKey : defaultMakeUpSkins['Lips'];
+            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask();
 
-            if (previousStateStored && previousStateStored.isDefault) {
-                MakeUpButton.selectedMakeUp.Lips = { current: previousStateStored, previous: null };
-            } else if (previousStateStored && previousStateStored.buttonInstance) {
-                MakeUpButton.selectedMakeUp.Lips = { current: previousStateStored.buttonInstance, previous: null };
-                previousStateStored.buttonInstance.displayedMakeUp = this.scene.lips;
-            } else { 
+            if (previousStatutorialored && previousStatutorialored.isDefault) {
+                MakeUpButton.selectedMakeUp.Lips = { current: previousStatutorialored, previous: null };
+            } else if (previousStatutorialored && previousStatutorialored.buttonInstance) {
+                MakeUpButton.selectedMakeUp.Lips = { current: previousStatutorialored.buttonInstance, previous: null };
+                previousStatutorialored.buttonInstance.displayedMakeUp = this.scene.lips;
+            } else {
                 if (buttonForHelperCall) buttonForHelperCall._equipDefaultMakeUp('Lips', null);
             }
-        } else { 
+        } else {
             if (!buttonForHelperCall) { MakeUpButton.selectedMakeUp[makeupType] = { current: null, previous: null }; return; }
-            if (previousStateStored && previousStateStored.buttonInstance) {
-                previousStateStored.buttonInstance.toggleMakeUp(); 
+            if (previousStatutorialored && previousStatutorialored.buttonInstance) {
+                previousStatutorialored.buttonInstance.toggleMakeUp();
             } else {
-                buttonForHelperCall._equipDefaultMakeUp(makeupType, previousStateStored); 
+                buttonForHelperCall._equipDefaultMakeUp(makeupType, previousStatutorialored);
             }
         }
         this.stateBeforeColoring[makeupType] = null;
@@ -500,42 +572,52 @@ export class InteractiveMakeupSystem {
             this.customCursor.x = pointer.worldX - this.brushRadius;
             this.customCursor.y = pointer.worldY - this.brushRadius;
         } else if (this.customCursor.visible) {
-            
+
             this.customCursor.setVisible(false);
             this.scene.input.setDefaultCursor('default');
         }
     }
 
     cleanupInputAndVisuals() {
+        const scene = this.scene;
         this.scene.input.off('pointerdown', this.boundOnPointerDown);
         this.scene.input.off('pointermove', this.boundOnPointerMove);
         this.scene.input.off('pointerup', this.boundOnPointerUp);
         this.scene.input.off('pointerupoutside', this.boundOnPointerUp);
-        if (this.customCursor) this.customCursor.setVisible(false); 
+        if (this.customCursor) this.customCursor.setVisible(false);
         this.scene.input.setDefaultCursor('default');
 
         if (this.drawingLayer) { this.drawingLayer.destroy(); this.drawingLayer = null; }
         if (this.activeOutlineGraphics) { this.scene.tweens.killTweensOf(this.activeOutlineGraphics); this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
+
+        scene.tutorialTimeline?.stop?.();
+        scene.tutorialTimeline?.clear?.();
+        scene.tutorialTimeline = null;
+        scene.point1?.destroy();
+        scene.point2?.destroy();
+        scene.point3?.destroy();
+        scene.point4?.destroy();
+        scene.tutorialCursor?.destroy();
     }
 
     resetSessionState() {
         this.isActive = false; this.activeMakeupType = null; this.activeTextureKey = null;
         this.targetPixelData = null; this.totalTargetPixels = 0;
         this.isDrawing = false; this.isComplete = false; this.checkingCompletion = false;
-        
+
     }
 
     cleanupSessionObjects(keepTemporaryActiveImage, makeupTypeCleaned) {
-        
+
         this.cleanupInputAndVisuals();
 
         if (this.activeMakeupImage) {
-           
+
             if (makeupTypeCleaned !== 'Lips') {
-                if (!keepTemporaryActiveImage) { 
+                if (!keepTemporaryActiveImage) {
                     this.activeMakeupImage.destroy();
                 } else if (keepTemporaryActiveImage && this.activeMakeupImage.mask) {
-                   
+
                     this.activeMakeupImage.clearMask();
                 }
             }
@@ -547,8 +629,8 @@ export class InteractiveMakeupSystem {
 
     cleanupAfterSession(wasAppliedAndKept) {
 
-        this.customCursor.setVisible(false); 
-        this.scene.input.setDefaultCursor('default'); 
+        this.customCursor.setVisible(false);
+        this.scene.input.setDefaultCursor('default');
         this.scene.input.off('pointermove', this.updateCustomCursorPosition, this);
         this.scene.input.off('pointerdown', this.boundOnPointerDown);
         this.scene.input.off('pointermove', this.boundOnPointerMove);
@@ -557,7 +639,7 @@ export class InteractiveMakeupSystem {
 
 
         if (this.activeOutlineGraphics) {
-            this.scene.tweens.killTweensOf(this.activeOutlineGraphics); 
+            this.scene.tweens.killTweensOf(this.activeOutlineGraphics);
             this.activeOutlineGraphics.destroy();
             this.activeOutlineGraphics = null;
         }
@@ -566,11 +648,11 @@ export class InteractiveMakeupSystem {
             this.drawingLayer.destroy();
             this.drawingLayer = null;
         }
-        if (this.activeMakeupImage && !wasAppliedAndKept) { 
+        if (this.activeMakeupImage && !wasAppliedAndKept) {
             this.activeMakeupImage.destroy();
         }
         if (wasAppliedAndKept && this.activeMakeupImage) {
-           
+
             this.activeMakeupImage.clearMask();
         }
 
