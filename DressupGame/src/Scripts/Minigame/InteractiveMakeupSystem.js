@@ -181,7 +181,7 @@ export class InteractiveMakeupSystem {
         const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
         graphics.setScale(finalScale); 
         graphics.setDepth(depth);
-        graphics.lineStyle(2 / finalScale, 0xffffff, 0.8); 
+        graphics.lineStyle(18 / finalScale, 0xffffff, 0.8); 
         
         const sourceImageElement = sourceTexturePhaser.getSourceImage();
         const tempCanvas = document.createElement('canvas');

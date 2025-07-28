@@ -449,6 +449,10 @@ export default class AssetLoader {
     scene.load.audio('successSFX', [
       'Asset/Audio/SFX/levelUp.ogg',
     ]);
+
+    scene.load.audio('glitterSFX', [
+      'Asset/Audio/SFX/mixkit-fairy-arcade-sparkle-866.wav',
+    ]);
   }
 
 

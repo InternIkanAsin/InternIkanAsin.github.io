@@ -26,6 +26,7 @@ export class AudioManager {
         this.sfx['hoverButton'] = sound.add('hoverButtonSFX', { volume: 1 });
         this.sfx['openPanel'] = sound.add('openPanelSFX', { volume: 1 });
         this.sfx['success'] = sound.add('successSFX', { volume: 1 });
+        this.sfx['glitterSFX'] = sound.add('glitterSFX', { volume: 1 });
     }
 
     playMusic(key, loop = true) {
