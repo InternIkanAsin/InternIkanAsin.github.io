@@ -45,7 +45,7 @@ import { InteractiveMakeupSystem } from './Minigame/InteractiveMakeupSystem.js';
 import { BachelorManager } from './Bachelor/bachelorManager.js'
 
 import { layout } from './ScreenOrientationUtils.js';
- 
+
 function loadFont(name, url) {
     const newFont = new FontFace(name, `url(${url})`);
     newFont.load().then(function (loaded) {
@@ -79,19 +79,19 @@ class Main extends Phaser.Scene {
         this.rightDrape?.destroy();
         this.leftCurtain?.destroy();
         this.rightCurtain?.destroy();
-        
+
         if (this.UIManager) {
             this.UIManager.clearMinigameScene(this);
         }
 
         OutfitButton.selectedOutfits = {};
         MakeUpButton.selectedMakeUp = {};
-        
-        unlockManager.clearAllUnlocks(); 
-        progressManager.clearProgress(); 
-        lockedItemsManager.clearLockedItems(); 
 
-        
+        unlockManager.clearAllUnlocks();
+        progressManager.clearProgress();
+        lockedItemsManager.clearLockedItems();
+
+
     }
 
     init(data) {
@@ -178,7 +178,6 @@ class Main extends Phaser.Scene {
         this.state = GameState.MAKEUP;
 
         this.startGameFlow();
-
     }
 
     createSelectionScreen() {
@@ -209,16 +208,16 @@ class Main extends Phaser.Scene {
         this.createSelectionButtons();
 
         this.MiniGameManager.disableInteraction();
-        
+
         scene.cameras.main.once('camerafadeincomplete', () => {
-            
+
             this.TweeningUtils.openDrapesHalfway(1000);
         });
     }
 
     createSelectionButtons() {
         const scene = this;
-        const btnLayout = layout.selectionButtons; 
+        const btnLayout = layout.selectionButtons;
 
         this.dressUpButton = new UIButton(scene, scene.AudioManager, {
             x: btnLayout.dressUpX,
@@ -242,7 +241,7 @@ class Main extends Phaser.Scene {
                 this.transitionToMinigame(GameState.DRESSUP);
             },
             buttonText: '',
-            buttonScale: btnLayout.scale, 
+            buttonScale: btnLayout.scale,
         }).setDepth(99);
 
         if (this.dressUpFinished && this.MiniGameManager.canContinueToScene2()) {
@@ -276,7 +275,7 @@ class Main extends Phaser.Scene {
                 this.transitionToMinigame(GameState.MAKEUP);
             },
             buttonText: '',
-            buttonScale: btnLayout.scale, 
+            buttonScale: btnLayout.scale,
         }).setDepth(99);
 
         if (this.makeUpFinished) {
@@ -312,7 +311,7 @@ class Main extends Phaser.Scene {
     transitionToMinigame(gameState) {
         this.dressUpButton.disableInteractive();
         this.makeUpButton.disableInteractive();
-        this.state = gameState; 
+        this.state = gameState;
         console.log(`[Main.js] Transitioning to ${gameState} mode.`);
         this.TweeningUtils.closeDrapes(500, async () => {
             if (this.dressUpButton) this.dressUpButton.destroy();
@@ -450,7 +449,7 @@ if (isMobile) {
     config.scale.width = PORTRAIT_WIDTH;
     config.scale.height = PORTRAIT_HEIGHT;
 } else {
-    
+
     config.scale.width = LANDSCAPE_WIDTH;
     config.scale.height = LANDSCAPE_HEIGHT;
 }
