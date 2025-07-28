@@ -154,7 +154,7 @@ export const defaultMakeUpSkins = {
 };
 
 const MakeUpPositions = {
-    Eyebrows: { x: 0, y: 0 },
+    Eyebrows: { x: 0, y: -15 },
     Eyelashes: { x: 0, y: 0 },
     Eyeliner: { x: 0, y: 0 },
     Eyeshadow: { x: 0, y: 0 },

@@ -307,6 +307,15 @@ const LANDSCAPE = {
         x: LANDSCAPE_WIDTH / 2.7,
         y: LANDSCAPE_CENTERY
     },
+
+    particleOffsets: {
+            Dress: { x: 0, y: 1000 }, 
+            Shirt: { x: 0, y: 0 },
+            Outer: { x: 0, y: 0 },
+            Lower: { x: 0, y: 0 },  
+            Socks: { x: 0, y: 0 },
+            Shoes: { x: 0, y: 50 }   
+        }
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -655,6 +664,15 @@ const PORTRAIT = {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_HEIGHT / 1.9
     },
+
+    particleOffsets: {
+            Dress: { x: 0, y: 0 }, 
+            Shirt: { x: 0, y: 0 },
+            Outer: { x: 0, y: 0 },
+            Lower: { x: 0, y: 0 },   
+            Socks: { x: 0, y: 0 },
+            Shoes: { x: 0, y: 0 }   
+        }
     
 };
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
