@@ -146,8 +146,8 @@ const LANDSCAPE = {
 
     face: {
 
-        zoomInFaceX: 1920 / 2 * 1.011,
-        zoomInFaceY: 1080 / 2 / 1.21,
+        zoomInFaceX: 1920 / 2 * 1.01,
+        zoomInFaceY: 1080 / 2 / 1.23,
         zoomInTargetFaceScale: 1,
 
         zoomOutFaceX: 1920 / 2 / 1.115,
