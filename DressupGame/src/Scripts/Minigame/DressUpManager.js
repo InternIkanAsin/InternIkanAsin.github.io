@@ -401,6 +401,7 @@ export class DressUpManager {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
                 const panel = scene.sidePanel;
+                panel.setT(1);
                 if (!panel) return;
 
                 // 6. Tween the panel (now with new items) back into view
@@ -419,10 +420,9 @@ export class DressUpManager {
 
                             scene.tweens.add({
                                 targets: panel,
-                                t: 1,
-                                duration: 1200,
+                                t: 0,
+                                duration: 400,
                                 ease: 'Cubic.easeInOut',
-                                yoyo: true,
                                 delay: 300
                             });
                         }
