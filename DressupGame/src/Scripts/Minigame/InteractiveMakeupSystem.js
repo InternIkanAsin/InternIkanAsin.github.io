@@ -12,7 +12,7 @@ export class InteractiveMakeupSystem {
         this.activeMakeupImage = null;
         this.drawingLayer = null;
         this.brushImage = null;
-        this.brushRadius = 15;
+        this.brushRadius = 30;
 
         this.isDrawing = false;
 
@@ -20,7 +20,7 @@ export class InteractiveMakeupSystem {
         this.targetPixelData = null;
         this.totalTargetPixels = 0;
         this.checkingCompletion = false;
-        this.completionThreshold = 95;
+        this.completionThreshold = 53;
         this.autoCompleteThreshold = 80;
 
 
@@ -488,6 +488,7 @@ export class InteractiveMakeupSystem {
 
             if (finalImageForEffect && this.scene.UIManager) {
                 this.scene.UIManager.playGlitterExplosion(finalImageForEffect);
+                 this.scene.AudioManager?.playSFX?.('glitterSFX');
             }
 
             if (this.scene.faceContainer) {

@@ -132,7 +132,7 @@ export class UIManager {
 
         const scene = this.scene;
 
-        scene.AudioManager?.playSFX?.('glitterSFX');
+        
 
         // --- INI CARA YANG BENAR UNTUK MENGGUNAKAN BitmapZone ---
 
