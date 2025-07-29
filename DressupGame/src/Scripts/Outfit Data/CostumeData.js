@@ -20,7 +20,7 @@ const costumeData = [
     new Costume("White minidress", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan13.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan13.png' }),
     new Costume("Corset dress", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan18.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan18.png' }),
     new Costume("Red heart white mini dress", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan19.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_Valentine.png' }),
-    new Costume("Holiday Dress", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan20.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_gamis lebaran.png' }),
+    new Costume("Holiday dress", "Dress", { atlas: 'Dress_spritesheet1', frame: 'terusan20.png' }, "buttonIcon2", { atlas: 'dressIcon_spritesheet', frame: 'terusan_gamis lebaran.png' }),
 
     // Shirt Data
     new Costume("Brown sleeveless top", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_20.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_20.png' }),

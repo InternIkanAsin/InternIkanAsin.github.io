@@ -29,13 +29,13 @@ const LANDSCAPE = {
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
             'Red heart white mini dress': { width: 944, height: 900 },
-            'Holiday Dress': { width: 944, height: 900 },
+            'Holiday dress': { width: 944, height: 900 },
             'Grey jacket': { width: 555, height: 565 }
         },
         manualOffsets: {
-            'Dress 5': { x: 1, y: 0 },
+            'Pink set': { x: 1, y: 0 },
             'Grey jacket': { x: 2, y: 0 },
-            'Outer 14': { x: 0, y: -40 },
+            'White Shirt': { x: 0, y: -40 },
             'Underwear 2': { x: 0, y: 0 },
             'Underwear 3': { x: 0, y: 0 },
             'Underwear 4': { x: -18, y: 20 },
@@ -357,12 +357,12 @@ const PORTRAIT = {
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
             'Red heart white mini dress': { width: 944, height: 900 },
-            'Holiday Dress': { width: 944, height: 900 },
+            'Holiday dress':{ width: 944, height: 900 },
             'Grey jacket': { width: 555, height: 565 }
         },
         manualOffsets: {
-            'Grey jacket': { x: 0, y: 0 },
-            'Outer 14': { x: 0, y: -40 },
+            'Pink set': { x: 0, y: 0 },
+            'White Shirt': { x: 0, y: -40 },
             'Underwear 2': { x: 0, y: 0 },
             'Underwear 3': { x: 0, y: 0 },
             'Underwear 4': { x: -15, y: 20 },
