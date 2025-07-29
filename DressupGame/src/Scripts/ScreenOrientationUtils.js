@@ -368,7 +368,6 @@ const PORTRAIT = {
             'Denim ruffled skirt': { x: -15, y: 20 },
             'Jewelled skirt': { x: -15, y: 20 },
             'Dark grey skirt': { x: -15, y: 20 },
-
         }
     },
 
