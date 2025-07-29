@@ -209,7 +209,7 @@ export class MakeUpManager {
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
             row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 0, row: 20 },
+            space: { column: 0, row: 40 },
             align: 'center',
         });
 

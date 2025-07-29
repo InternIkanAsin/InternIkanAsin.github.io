@@ -241,7 +241,7 @@ const LANDSCAPE = {
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
         lockedIconScale: 1.5,
-        textYPosition: 75,
+        textYPosition: 120,
         textSize: '24px'
     },
     outfitButton: {
@@ -252,7 +252,7 @@ const LANDSCAPE = {
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
         lockedIconScale: 1.5,
-        textYPosition: 75,
+        textYPosition: 120,
         textSize: '24px'
     },
     //Dressup Category
@@ -307,13 +307,13 @@ const LANDSCAPE = {
     },
 
     particleOffsets: {
-            Dress: { x: 0, y: -200 }, 
-            Shirt: { x: 0, y: 0 },
-            Outer: { x: 0, y: -50 },
-            Lower: { x: 0, y: -90 },  
-            Socks: { x: 0, y: 130 },
-            Shoes: { x: 0, y: 50 }   
-        }
+        Dress: { x: 0, y: -200 },
+        Shirt: { x: 0, y: 0 },
+        Outer: { x: 0, y: -50 },
+        Lower: { x: 0, y: -90 },
+        Socks: { x: 0, y: 130 },
+        Shoes: { x: 0, y: 50 }
+    }
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -662,14 +662,14 @@ const PORTRAIT = {
     },
 
     particleOffsets: {
-            Dress: { x: 0, y: -200 }, 
-            Shirt: { x: 0, y: 0 },
-            Outer: { x: 0, y: -50 },
-            Lower: { x: 0, y: -90 },  
-            Socks: { x: 0, y: 130 },
-            Shoes: { x: 0, y: 50 }   
-        }
-    
+        Dress: { x: 0, y: -200 },
+        Shirt: { x: 0, y: 0 },
+        Outer: { x: 0, y: -50 },
+        Lower: { x: 0, y: -90 },
+        Socks: { x: 0, y: 130 },
+        Shoes: { x: 0, y: 50 }
+    }
+
 };
 
 export const layout = isPortrait ? PORTRAIT : LANDSCAPE;
