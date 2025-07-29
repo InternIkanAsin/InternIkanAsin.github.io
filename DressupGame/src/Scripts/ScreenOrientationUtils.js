@@ -43,8 +43,8 @@ const LANDSCAPE = {
             'Denim ruffled skirt': { x: -15, y: 20 },
             'Jewelled skirt': { x: -15, y: 20 },
             'Dark grey skirt': { x: -15, y: 20 },
-            'Shoes 9': { x: 0, y: -5 },
-            'Shoes 12': { x: 0, y: -5 }
+            'Strapped open shoes': { x: 0, y: -5 },
+            'Red opened shoe': { x: 0, y: -5 }
         }
     },
 
