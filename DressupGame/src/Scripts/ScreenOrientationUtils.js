@@ -27,14 +27,14 @@ const LANDSCAPE = {
             Shoes: { x: 922, y: 917 }
         },
         customSizes: {
-            'Dress 18': { width: 944, height: 900 },
-            'Dress 19': { width: 944, height: 900 },
-            'Dress 20': { width: 944, height: 900 },
-            'Outer 8': { width: 555, height: 565 }
+            'Corset dress': { width: 944, height: 900 },
+            'Red heart white mini dress': { width: 944, height: 900 },
+            'Holiday Dress': { width: 944, height: 900 },
+            'Grey jacket': { width: 555, height: 565 }
         },
         manualOffsets: {
             'Dress 5': { x: 1, y: 0 },
-            'Outer 8': { x: 2, y: 0 },
+            'Grey jacket': { x: 2, y: 0 },
             'Outer 14': { x: 0, y: -40 },
             'Underwear 2': { x: 0, y: 0 },
             'Underwear 3': { x: 0, y: 0 },
@@ -355,13 +355,13 @@ const PORTRAIT = {
             Shoes: { x: 378, y: 1022 }
         },
         customSizes: {
-            'Dress 18': { width: 944, height: 900 },
-            'Dress 19': { width: 944, height: 900 },
-            'Dress 20': { width: 944, height: 900 },
-            'Outer 8': { width: 555, height: 565 }
+            'Corset dress': { width: 944, height: 900 },
+            'Red heart white mini dress': { width: 944, height: 900 },
+            'Holiday Dress': { width: 944, height: 900 },
+            'Grey jacket': { width: 555, height: 565 }
         },
         manualOffsets: {
-            'Outer 8': { x: 0, y: 0 },
+            'Grey jacket': { x: 0, y: 0 },
             'Outer 14': { x: 0, y: -40 },
             'Underwear 2': { x: 0, y: 0 },
             'Underwear 3': { x: 0, y: 0 },
