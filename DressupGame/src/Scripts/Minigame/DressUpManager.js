@@ -204,7 +204,7 @@ export class DressUpManager {
 
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1, row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 0, row: 20 }, align: 'center',
+            space: { column: 0, row: 40 }, align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
         scene.MiniGameManager.buttonList.forEach((btnContainer, index) => {
@@ -401,7 +401,9 @@ export class DressUpManager {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
                 const panel = scene.sidePanel;
-                panel.setT(1);
+                if (!scene.animatedCategories.has(outfitType)) panel.setT(1);
+                else panel.setT(0);
+
                 if (!panel) return;
 
                 // 6. Tween the panel (now with new items) back into view
