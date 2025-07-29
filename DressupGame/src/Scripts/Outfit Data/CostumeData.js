@@ -62,17 +62,17 @@ const costumeData = [
 
 
     // Underwear
-    new Costume("Underwear 1", "Lower", { atlas: 'Lower_spritesheet', frame: 'celana_33.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'celana33.png' }),
-    new Costume("Underwear 4", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_06.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_06.png' }),
-    new Costume("Underwear 5", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_19.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_19.png' }),
-    new Costume("Underwear 6", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_23.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_23.png' }),
-    new Costume("Underwear 7", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_32.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_32.png' }),
-    new Costume("Underwear 8", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_34.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_34.png' }),
-    new Costume("Underwear 9", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_36.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_36.png' }),
-    new Costume("Underwear 10", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_hangout.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_hangout.png' }),
+    new Costume("Wide legged jeans with ribbons", "Lower", { atlas: 'Lower_spritesheet', frame: 'celana_33.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'celana33.png' }),
+    new Costume("Mini A-line skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_06.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_06.png' }),
+    new Costume("Asymmetrical mini skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_19.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_19.png' }),
+    new Costume("High waist mini skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_23.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_23.png' }),
+    new Costume("Pleated A line skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_32.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_32.png' }),
+    new Costume("Denim ruffled skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_34.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_34.png' }),
+    new Costume("Jewelled skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_36.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_36.png' }),
+    new Costume("Dark grey skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_hangout.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_hangout.png' }),
 
     //Socks
-    new Costume("Socks 1", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_29.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_29.png' }),
+    new Costume("Thigh high socks", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_29.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_29.png' }),
     new Costume("Socks 2", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_05.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_05.png' }),
     new Costume("Socks 3", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_10.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_10.png' }),
     new Costume("Socks 4", "Socks", { atlas: 'Socks_spritesheet', frame: 'kaoskaki_17.png' }, "buttonIcon2", { atlas: 'socksIcon_spritesheet', frame: 'kaoskaki_17.png' }),
