@@ -276,6 +276,17 @@ const LANDSCAPE = {
         hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
     },
 
+    MakeupPosition:{
+        Pupil: { x: 0, y: 0 },
+        Lips: { x: 0, y: 0 },
+        Eyelashes: { x: 0, y: 0 },
+        Eyebrows: { x: 0, y: -15 },
+        Eyeliner: { x: 0, y: 0 },
+        Eyeshadow: { x: 0, y: 0 },
+        Sticker: { x: 0, y: 0 },
+        Blush: { x: 0, y: 0 },
+    },
+
     applyMakeUpPanel: {
         x: 0,
         y: 0,
@@ -594,6 +605,8 @@ const PORTRAIT = {
             x: 45,
             y: 1200
         },
+
+        
     },
     outfitButton: {
         iconLockedX: 54,
@@ -617,6 +630,17 @@ const PORTRAIT = {
         lockedIconScale: 1.3,
         textYPosition: 60,
         textSize: '20px'
+    },
+
+    MakeupPosition:{
+        Pupil: { x: 0, y: 0 },
+        Lips: { x: 0, y: 0 },
+        Eyelashes: { x: 0, y: 0 },
+        Eyebrows: { x: 0, y: 0 },
+        Eyeliner: { x: 0, y: 0 },
+        Eyeshadow: { x: 0, y: 0 },
+        Sticker: { x: 0, y: 0 },
+        Blush: { x: 0, y: 0 },
     },
 
     itemPanelButton: {

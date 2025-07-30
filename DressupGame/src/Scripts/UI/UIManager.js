@@ -29,10 +29,10 @@ export class UIManager {
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9);
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7);
 
-        scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
-        scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
-        scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
-        scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
+        scene.lips = scene.add.image(layout.MakeupPosition.Lips.x, layout.MakeupPosition.Lips.y, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.eyebrows = scene.add.image(layout.MakeupPosition.Eyebrows.x, layout.MakeupPosition.Eyebrows.y, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.eyelashes = scene.add.image(layout.MakeupPosition.Eyelashes.x, layout.MakeupPosition.Eyelashes.y, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
 
         // --- PEMUATAN DINAMIS (SEKARANG AKAN BERFUNGSI) ---
