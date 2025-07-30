@@ -285,7 +285,7 @@ export class UIManager {
                     imageToUpdate = scene.pupils;
                     if (typeof textureAnime === 'string') {
                         imageToUpdate.setTexture(textureAnime);
-                    } else {
+                    } else {    
                         imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
                     }
                     break;
@@ -297,7 +297,7 @@ export class UIManager {
                     break;
                 case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
                     if (equippedMakeup.current.isDefault) break; 
-                    const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+                    const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
                     imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
                         .setScale(0.55 * 2)
                         .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
