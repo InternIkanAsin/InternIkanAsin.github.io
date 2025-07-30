@@ -6,7 +6,7 @@ import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
-import { SaveManager } from '../Save System/SaveManager.js';
+
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 

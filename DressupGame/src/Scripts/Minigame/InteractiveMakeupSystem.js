@@ -257,16 +257,22 @@ export class InteractiveMakeupSystem {
 
         const makeupPaths = {
             'Eyeliner': [
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 2.7 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.5 }
+                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
             ],
             'Eyeshadow': [
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 2.7 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.5 }
+                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
             ],
             'Lips': [
-                { x: scene.scale.width / 1.85, y: scene.scale.height / 2.1 },
-                { x: scene.scale.width / 1.95, y: scene.scale.height / 2.05 }
+                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
             ],
             'Blush': [
                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
@@ -288,7 +294,7 @@ export class InteractiveMakeupSystem {
                     targets: scene.tutorialCursor,
                     x: pt.x,
                     y: pt.y / 0.9,
-                    duration: 500,
+                    duration: 750,
                     ease: 'Sine.easeInOut'
                 });
             });
@@ -298,7 +304,7 @@ export class InteractiveMakeupSystem {
         let time = 0;
         for (let i = 0; i < points.length; i++) {
             timelineEvents.push({ at: time, event: `MOVE_POINT${i + 1}` });
-            time += 500;
+            time += 750;
         }
 
         timelineEvents.push({ at: time, event: `MOVE_POINT1` });
