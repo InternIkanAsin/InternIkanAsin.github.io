@@ -252,7 +252,7 @@ export class InteractiveMakeupSystem {
 
         scene.tutorialCursor = scene.add.image(scene.scale.width / 2.75, scene.scale.height / 2, 'fingerCursor')
             .setDepth(100)
-            .setScale(0.3);
+            .setScale(1.2);
 
         scene.tutorialTimeline = scene.add.timeline();
 
