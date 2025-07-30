@@ -62,7 +62,7 @@ const costumeData = [
 
 
     // Underwear
-    new Costume("Wide legged jeans with ribbons", "Lower", { atlas: 'Lower_spritesheet', frame: 'celana_33.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'celana33.png' }),
+    new Costume("Wide jeans with ribbons", "Lower", { atlas: 'Lower_spritesheet', frame: 'celana_33.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'celana33.png' }),
     new Costume("Mini A-line skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_06.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_06.png' }),
     new Costume("Asymmetrical mini skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_19.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_19.png' }),
     new Costume("High waist mini skirt", "Lower", { atlas: 'Lower_spritesheet', frame: 'rok_23.png' }, "buttonIcon2", { atlas: 'underwearIcon_spritesheet', frame: 'rok_23.png' }),
