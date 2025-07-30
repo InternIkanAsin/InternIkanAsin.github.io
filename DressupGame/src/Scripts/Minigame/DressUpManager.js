@@ -100,6 +100,12 @@ export class DressUpManager {
             itemButtonsForType = scene.outfitButtons[outfitType] || [];
         }
 
+        itemButtonsForType.forEach(buttonInstance => {
+            if (buttonInstance.nameText) {
+                buttonInstance.nameText.setY(layout.outfitButton.textYPosition || 70);
+            }
+        });
+
         let allButtonContainersForPanel = [];
 
         const lepasButtonCallbackType = (outfitType === "Dress" || outfitType === "DressShirt") ? "DressShirt" : outfitType;
@@ -204,7 +210,7 @@ export class DressUpManager {
 
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1, row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 0, row: 40 }, align: 'center',
+            space: { column: 0, row: 55 }, align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
         scene.MiniGameManager.buttonList.forEach((btnContainer, index) => {
@@ -398,7 +404,7 @@ export class DressUpManager {
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
-                
+
                 // 6. Tween the panel (now with new items) back into view
                 scene.tweens.add({
                     targets: newButtons,

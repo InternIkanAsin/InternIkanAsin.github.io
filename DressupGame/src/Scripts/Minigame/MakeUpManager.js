@@ -7,6 +7,7 @@ import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveManager } from '../Save System/SaveManager.js';
+import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
 export class MakeUpManager {
@@ -106,6 +107,12 @@ export class MakeUpManager {
         }
         const itemButtonsForType = scene.makeUpButtons[makeUpType] || [];
         let allButtonContainersForPanel = [];
+
+        itemButtonsForType.forEach(buttonInstance => {
+            if (buttonInstance.nameText) {
+                buttonInstance.nameText.setY(layout.makeUpButton.textYPosition || 70);
+            }
+        });
 
         if (this.currentLepasButton && this.currentLepasButton.destroy) {
             this.currentLepasButton.destroy();
@@ -374,10 +381,8 @@ export class MakeUpManager {
                 const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(makeUpType);
 
                 if (needsAnimation) {
-                    // Jika ini pertama kali & bisa di-scroll, paksa mulai dari bawah.
                     panel.setT(1);
                 } else {
-                    // Jika tidak, selalu mulai dari atas.
                     panel.setT(0);
                 }
 

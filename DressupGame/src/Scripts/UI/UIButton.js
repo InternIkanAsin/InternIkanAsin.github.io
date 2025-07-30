@@ -350,12 +350,17 @@ export class OutfitButton extends BaseButton {
         const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconScale);
 
-        const nameText = scene.add.text(0, layout.outfitButton.textYPosition || 70, name, {
-            fontFamily: 'pixelFont',
-            fontSize: layout.outfitButton.textSize || '22px',
-            color: '#000000',
-            align: 'center',
-            wordWrap: { width: buttonBg.displayWidth - 10 } // Agar teks tidak keluar dari tombol
+        const nameText = scene.make.text({
+            x: 0, // Posisi lokal X di dalam container
+            y: 75, // Posisi lokal Y di dalam container
+            text: name,
+            style: {
+                fontFamily: 'pixelFont',
+                fontSize: layout.outfitButton.textSize || '22px',
+                color: '#000000',
+                align: 'center',
+                wordWrap: { width: buttonBg.displayWidth - 0 }
+            }
         }).setOrigin(0.5);
 
         if (isLocked) {
@@ -364,7 +369,7 @@ export class OutfitButton extends BaseButton {
             lockedImg.setVisible(true);
         }
         super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked, nameText]);
-
+        this.setSize(150, 240);
         this.setDepth(12);
         this.button = buttonBg;
         this.icon = iconImg;
@@ -663,12 +668,17 @@ export class MakeUpButton extends BaseButton {
         const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.makeUpButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.makeUpButton.lockedIconScale);
 
-        const nameText = scene.add.text(0, layout.makeUpButton.textYPosition || 70, name, {
-            fontFamily: 'pixelFont',
-            fontSize: layout.makeUpButton.textSize || '22px',
-            color: '#000000',
-            align: 'center',
-            wordWrap: { width: buttonBg.displayWidth - 10 }
+         const nameText = scene.make.text({
+            x: 0,
+            y: 75,
+            text: name,
+            style: {
+                fontFamily: 'pixelFont',
+                fontSize: layout.makeUpButton.textSize || '22px',
+                color: '#000000',
+                align: 'center',
+                wordWrap: { width: 150 - 20 }
+            }
         }).setOrigin(0.5);
 
         if (isLocked) {
@@ -679,7 +689,7 @@ export class MakeUpButton extends BaseButton {
         super(scene, x, y, [buttonBg, highlightImg, lockedImg, iconImg, iconLockedBg, iconLocked, nameText]);
 
         this.setDepth(12);
-
+        this.setSize(150, 240);
         this.button = buttonBg;
         this.highlightImage = highlightImg;
         this.icon = iconImg;
