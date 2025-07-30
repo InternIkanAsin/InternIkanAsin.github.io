@@ -371,6 +371,16 @@ export class MakeUpManager {
                 panel.setT(1);
                 if (!panel) return;
 
+                const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(makeUpType);
+
+                if (needsAnimation) {
+                    // Jika ini pertama kali & bisa di-scroll, paksa mulai dari bawah.
+                    panel.setT(1);
+                } else {
+                    // Jika tidak, selalu mulai dari atas.
+                    panel.setT(0);
+                }
+
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
                 scene.tweens.add({
