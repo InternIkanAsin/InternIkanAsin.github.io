@@ -1,5 +1,6 @@
 import { MakeUpButton } from '../UI/UIButton.js'; // For updating selectedMakeUp
-import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from '../Makeup Data/MakeUpData.js'; // For reverting
+import {  defaultMakeUpSkins} from '../Makeup Data/MakeUpData.js'; // For reverting
+import { layout } from '../ScreenOrientationUtils.js';
 
 export class InteractiveMakeupSystem {
     constructor(scene) {
@@ -87,7 +88,7 @@ export class InteractiveMakeupSystem {
         }
 
 
-        const position = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+        const position = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };   
         let scale = 0.55 * 2;
 
 

@@ -1,6 +1,6 @@
 
 import { BaseButton } from "./BaseButton.js";
-import { MakeUpPositions, defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
+import {  defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
@@ -851,7 +851,7 @@ export class MakeUpButton extends BaseButton {
                 }
             }
 
-            const position = MakeUpPositions[makeupTypeToRevert] || { x: 0, y: 0 };
+            const position = layout.MakeupPosition[makeupTypeToRevert] || { x: 0, y: 0 };
             let imageToUpdate;
 
             switch (makeupTypeToRevert) {
@@ -1009,7 +1009,7 @@ export class MakeUpButton extends BaseButton {
                 }
             }
 
-            let newImage; const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+            let newImage; const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
 
             if (makeupType === 'Hair') {
                 const hairTextures = this.textureAnime;

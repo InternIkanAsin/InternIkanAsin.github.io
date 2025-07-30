@@ -2,7 +2,7 @@ import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from './UIButton.
 
 import { GameState } from '../Main.js';
 
-import { makeUpData, defaultMakeUpSkins, MakeUpPositions } from '../Makeup Data/MakeUpData.js';
+import { makeUpData, defaultMakeUpSkins,  } from '../Makeup Data/MakeUpData.js';
 import { costumeData } from '../Outfit Data/CostumeData.js';
 
 import { layout } from '../ScreenOrientationUtils.js';
