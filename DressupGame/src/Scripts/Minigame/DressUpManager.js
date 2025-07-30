@@ -217,22 +217,6 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
-        //if ((outfitType === 'Dress' || outfitType === 'Shirt') && !scene.areDressesAndShirtsLoaded) {
-        //    scene.UIManager.showLoadingOverlay('Loading Dresses & Shirts...');
-        //    scene.MiniGameManager.disableInteraction();
-        //    
-        //    scene.load.once('complete', () => {
-        //        console.log('Dress and Shirt assets loaded!');
-        //        scene.areDressesAndShirtsLoaded = true;
-        //        scene.UIManager.hideLoadingOverlay();
-        //        scene.MiniGameManager.enableInteraction();
-        //        this.displayDressUpButtons(outfitType, scene); 
-        //    });
-        //    
-        //    AssetLoader.loadDressAndShirt(scene);
-        //    return;
-        //}
-
         if (outfitType === 'Dress') {
             scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;
@@ -378,9 +362,7 @@ export class DressUpManager {
                 // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
 
-                const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
-                newButtons.forEach(btn => btn.setAlpha(0));
-
+                
                 // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
                 switch (outfitType) {
@@ -405,7 +387,18 @@ export class DressUpManager {
                 else panel.setT(0);
 
                 if (!panel) return;
+                
+                 const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(outfitType);
 
+                if (needsAnimation) {
+                    panel.setT(1);
+                } else {
+                    panel.setT(0);
+                }
+
+                const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
+                newButtons.forEach(btn => btn.setAlpha(0));
+                
                 // 6. Tween the panel (now with new items) back into view
                 scene.tweens.add({
                     targets: newButtons,
