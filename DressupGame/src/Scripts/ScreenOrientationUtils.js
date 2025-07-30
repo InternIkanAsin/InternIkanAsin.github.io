@@ -278,7 +278,7 @@ const LANDSCAPE = {
 
     MakeupPosition:{
         Pupil: { x: 0, y: -10 },
-        Lips: { x: 0, y: 0 },
+        Lips: { x: 0, y: 0, scale: 0.6 },
         Eyelashes: { x: 0, y: -10 },
         Eyebrows: { x: 0, y: -15 },
         Eyeliner: { x: 0, y: -10 },
@@ -634,7 +634,7 @@ const PORTRAIT = {
 
     MakeupPosition:{
         Pupil: { x: 0, y: -5 },
-        Lips: { x: 0, y: 0 },
+        Lips: { x: 0, y: 0, scale: 0.6},
         Eyelashes: { x: 0, y: -5 },
         Eyebrows: { x: 0, y: -15 },
         Eyeliner: { x: 0, y: -5 },

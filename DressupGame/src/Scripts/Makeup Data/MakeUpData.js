@@ -153,16 +153,6 @@ export const defaultMakeUpSkins = {
     'Hair': { front: 'hair', back: '01blackB' }
 };
 
-const MakeUpPositions = {
-    Eyebrows: { x: 0, y: -15 },
-    Eyelashes: { x: 0, y: 0 },
-    Eyeliner: { x: 0, y: 0 },
-    Eyeshadow: { x: 0, y: 0 },
-    Lips: { x: 0, y: 0 },
-    Pupil: { x: 0, y: 0 },
-    Sticker: { x: 0, y: 0 },
-    Blush: { x: 0, y: 0 },
 
-}
 
-export { makeUpData, MakeUpPositions }
+export { makeUpData}
