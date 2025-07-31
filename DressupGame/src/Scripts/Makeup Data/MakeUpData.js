@@ -19,8 +19,8 @@ const makeUpData = [
     new MakeUp('classic Arch', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 1_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 1.png' }),
     new MakeUp('Bold Straight', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 2_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 2.png' }),
     new MakeUp('Fierce Arch', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 3_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 3.png' }),
-    new MakeUp('Delicate Curve', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 4_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 4.png' }),
-    new MakeUp('Vintage Round', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 5_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 5.png' }),
+    new MakeUp('Vintage Round', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 4_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 4.png' }),
+    new MakeUp('Delicate Curve', 'Eyebrows', { atlas: 'eyebrow_spritesheet', frame: 'mc_eb 5_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_eb 5.png' }),
 
     // Eyelashes Data
     new MakeUp('No Eyelash', 'Eyelashes', { atlas: 'eyelashes_spritesheet', frame: 'mc_el 1_normal.png' }, 'buttonIcon2', { atlas: 'makeup1_spritesheet', frame: 'mc_el 1.png' }),
