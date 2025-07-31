@@ -277,14 +277,14 @@ const LANDSCAPE = {
     },
 
     MakeupPosition: {
-        Pupil: { x: -5, y: -10 },
-        Lips: { x: 0, y: -2.5, scale: 0.6 },
-        Eyelashes: { x: -5, y: -10 },
-        Eyebrows: { x: -5, y: -15 },
-        Eyeliner: { x: -5, y: -10 },
-        Eyeshadow: { x: -5, y: -10 },
-        Sticker: { x: 0, y: 0 },
-        Blush: { x: 0, y: 0 },
+        Pupil: { x: -1, y: -10, scale: 0.59 },
+        Lips: { x: -1, y: -10, scale: 0.59 },
+        Eyelashes: { x: -1, y: -10, scale: 0.59 },
+        Eyebrows: { x: -5, y: -15, scale: 0.59 },
+        Eyeliner: { x: -5, y: -10, scale: 0.55 },
+        Eyeshadow: { x: -5, y: -10, scale: 0.59 },
+        Sticker: { x: 0, y: 0, scale: 0.55 },
+        Blush: { x: 0, y: 0, scale: 0.55 },
     },
 
     applyMakeUpPanel: {
@@ -318,19 +318,19 @@ const LANDSCAPE = {
     },
 
     particleOffsets: {
-        Dress: { x: 0, y: -200 },
+        Dress: { x: 0, y: 0 },
         Shirt: { x: 0, y: 0 },
-        Outer: { x: 0, y: -50 },
-        Lower: { x: 0, y: -90 },
-        Socks: { x: 0, y: 130 },
-        Shoes: { x: 0, y: 50 }
+        Outer: { x: 0, y: 0 },
+        Lower: { x: 0, y: 0 },
+        Socks: { x: 0, y: 200 },
+        Shoes: { x: 0, y: 100 }
     },
     particleSizeAdjustments: {
         Dress: { w: 0, h: 0 },
         Outer: { w: 0, h: 0 },
         Lower: { w: 0, h: 0 },
-        Socks: { w: 0, h: 0 },
-        Shoes: { w: 30, h: 0 },
+        Socks: { w: 0, h: -100 },
+        Shoes: { w: 0, h: 0 },
         Lips: { w: 0, h: 0 },
         Eyebrows: { w: 0, h: 0 },
         Eyelashes: { w: 0, h: 0 },
@@ -710,8 +710,8 @@ const PORTRAIT = {
         Dress: { w: 0, h: 0 },
         Outer: { w: 0, h: 0 },
         Lower: { w: 0, h: 0 },
-        Socks: { w: 0, h: 0 },
-        Shoes: { w: -100, h: 0 },
+        Socks: { w: 0, h: -20 },
+        Shoes: { w: 0, h: -20 },
         Lips: { w: 0, h: 0 },
         Eyebrows: { w: 0, h: 0 },
         Eyelashes: { w: 0, h: 0 },

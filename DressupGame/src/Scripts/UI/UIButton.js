@@ -632,7 +632,7 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setData('refBodyScale', scene.body.scale);
 
         if (scene.UIManager) {
-            scene.UIManager.playGlitterExplosion(newOutfitImage);
+            scene.UIManager.playGlitterExplosion(newOutfitImage, this.outfitType);
         }
 
 
@@ -874,10 +874,25 @@ export class MakeUpButton extends BaseButton {
 
             imageToUpdate.setTexture(defaultTextureKey).setVisible(true);
 
-            if (['Pupil', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupTypeToRevert)) {
-                imageToUpdate.setScale(0.55 * 2);
+            if (['Pupil'].includes(makeupTypeToRevert)) {
+                imageToUpdate.setScale(layout.MakeupPosition.Pupil.scale * 2)
             } else if(['Lips'].includes(makeupTypeToRevert)){
                 imageToUpdate.setScale(layout.MakeupPosition.Lips.scale * 2)
+            }
+            else if(['Eyebrows'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Eyebrows.scale * 2)
+            }
+            else if(['Eyelashes'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Eyelashes.scale * 2)
+            }
+            else if(['Sticker'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Sticker.scale * 2)
+            }
+            else if(['Blush'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Blush.scale * 2)
+            }
+            else if(['Eyeliner'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Eyeliner.scale * 2)
             }
             else {
                 imageToUpdate.setScale(0.9 * 2);
@@ -1061,7 +1076,7 @@ export class MakeUpButton extends BaseButton {
                 if (!newImage) { return; }
                 this.displayedMakeUp = newImage;
                 if (newImage && scene.UIManager) {
-                    scene.UIManager.playGlitterExplosion(newImage);
+                    scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                 }
             }
 
@@ -1071,9 +1086,24 @@ export class MakeUpButton extends BaseButton {
 
             } else {
 
-                if (['Pupil', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55 * 2); }
+                if (['Pupil'].includes(makeupType)) { this.displayedMakeUp.setScale(layout.MakeupPosition.Pupil.scale * 2); }
                 else if(['Lips'].includes(makeupType)){
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Lips.scale * 2);
+                }
+                else if(['Eyebrows'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Eyebrows.scale * 2);
+                }
+                else if(['Eyelashes'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Eyelashes.scale * 2);
+                }
+                else if(['Blush'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Blush.scale * 2);
+                }
+                else if(['Eyeliner'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Eyeliner.scale * 2);
+                }
+                else if(['Sticker'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Sticker.scale * 2);
                 }
                 else { this.displayedMakeUp.setScale(0.9 * 2); }
                 this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);

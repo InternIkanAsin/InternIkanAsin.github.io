@@ -29,11 +29,12 @@ export class UIManager {
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9).setRotation(Phaser.Math.DegToRad(0));
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7).setRotation(Phaser.Math.DegToRad(0));
 
-        scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
+        
+        scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(layout.MakeupPosition.Pupil.scale * 2).setDepth(2);
         scene.lips = scene.add.image(layout.MakeupPosition.Lips.x, layout.MakeupPosition.Lips.y, 'LipNormalDefault').setScale(layout.MakeupPosition.Lips.scale * 2).setDepth(2);
-        scene.eyebrows = scene.add.image(layout.MakeupPosition.Eyebrows.x, layout.MakeupPosition.Eyebrows.y, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
-        scene.eyelashes = scene.add.image(layout.MakeupPosition.Eyelashes.x, layout.MakeupPosition.Eyelashes.y, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
-        scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3).setRotation(Phaser.Math.DegToRad(-2.5));
+        scene.eyebrows = scene.add.image(layout.MakeupPosition.Eyebrows.x, layout.MakeupPosition.Eyebrows.y, 'EyebrowNormalDefault').setScale(layout.MakeupPosition.Eyebrows.scale * 2).setDepth(2);
+        scene.eyelashes = scene.add.image(layout.MakeupPosition.Eyelashes.x, layout.MakeupPosition.Eyelashes.y, 'EyelashesNormalDefault').setScale(layout.MakeupPosition.Eyelashes.scale * 2).setDepth(2);
+        scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3).setRotation(Phaser.Math.DegToRad(0));
 
         // --- PEMUATAN DINAMIS (SEKARANG AKAN BERFUNGSI) ---
         let assetsToLoad = false;
@@ -123,59 +124,72 @@ export class UIManager {
         }
     }
 
-    playGlitterExplosion(targetImage, itemType = null) {
-        // Validasi: Pastikan gambar dan sumber teksturnya ada dan sudah dimuat.
-        if (!targetImage || !targetImage.scene || !targetImage.texture.source || !targetImage.texture.source[0].image) {
-            console.warn("Cannot create particle explosion: targetImage or its texture source is not ready.");
+   playGlitterExplosion(targetImage, itemType = null) {
+        if (!targetImage || !targetImage.scene || !targetImage.active) {
+            console.warn("Cannot create particle explosion: targetImage is not valid or active.");
             return;
         }
 
         const scene = this.scene;
-        // --- INI CARA YANG BENAR UNTUK MENGGUNAKAN BitmapZone ---
+        scene.AudioManager?.playSFX?.('glitterSFX');
 
-        // 1. Buat zona emisi dari sumber gambar tekstur.
-        // Ini adalah objek konfigurasi yang akan dipahami oleh Phaser.
+        // 1. Dapatkan batasan visual (posisi dan ukuran) dari gambar di layar.
         const bounds = targetImage.getBounds();
 
-        // 2. Terapkan offset partikel jika ada.
-        if (itemType && layout.outfit.particleOffsets && layout.outfit.particleOffsets[itemType]) {
-            const offset = layout.outfit.particleOffsets[itemType];
+        // 2. Terapkan offset posisi jika ada.
+         if (itemType && layout.particleOffsets && layout.particleOffsets[itemType]) {
+            const offset = layout.particleOffsets[itemType];
             bounds.x += offset.x;
             bounds.y += offset.y;
+            console.log(`[Particle] Applying position offset for ${itemType}:`, offset);
         }
 
-        // 2. Buat Particle Emitter. Perhatikan kita tidak mengatur posisi x/y di sini.
-        const particles = scene.add.particles(0, 0, 'particle_star', {
-            speed: { min: 30, max: 70 },
-            angle: { min: 0, max: 360 },
-            scale: { start: 0.1, end: 0 },
-            lifespan: { min: 300, max: 500 },
-            blendMode: 'ADD',
+        // 3. Terapkan penyesuaian ukuran dari path yang benar: `layout.particleSizeAdjustments`
+        if (itemType && layout.particleSizeAdjustments && layout.particleSizeAdjustments[itemType]) {
+            const sizeOffset = layout.particleSizeAdjustments[itemType];
+            bounds.width += sizeOffset.w;
+            bounds.height += sizeOffset.h;
+            bounds.x -= sizeOffset.w / 2;
+            bounds.y -= sizeOffset.h / 2;
+            console.log(`[Particle] Applying size adjustment for ${itemType}:`, sizeOffset);
+        }
+       
+        // 4. Buat sumber zona emisi menggunakan bounds yang sudah dihitung.
+        const emitZone = {
+            source: new Phaser.Geom.Rectangle(0, 0, bounds.width, bounds.height),
+            type: 'random', // Gunakan 'edge' agar partikel dari pinggir
+            quantity: 100
+        };
 
-            // Terapkan zona emisi yang sudah kita buat
-            emitZone: {
-                type: 'random',
-                source: bounds,
-            },
-            emitting: true // Jangan mulai menembak secara otomatis
-        }).setDepth(1000);
+        // 5. Buat Particle Emitter dan POSISIKAN di pojok kiri atas bounds.
+        const particles = scene.add.particles(
+            bounds.x, // <-- Posisikan emitter di X yang benar
+            bounds.y, // <-- Posisikan emitter di Y yang benar
+            'particle_star', 
+            {
+                speed: { min: 10, max: 20 },
+                angle: { min: 0, max: 360 },
+                scale: { start: 0.1, end: 0 },
+                lifespan: { min: 400, max: 600 },
+                blendMode: 'ADD',
+                
+                // Langsung berikan objek emitZone yang sudah kita buat
+                emitZone: emitZone,
 
-        // 5. Hancurkan sistem partikel setelah tidak lagi dibutuhkan.
+                emitting: true
+            }
+        ).setDepth(1000);
+
+        // Sisa kode teman Anda sudah benar.
         scene.time.delayedCall(500, () => {
-
             particles.emitting = false;
-
-            // Tunggu durasi maksimal lifespan sebelum menghancurkan
             scene.time.delayedCall(500, () => {
                 if (particles.active) {
                     particles.destroy();
                 }
             });
-
-            //console.log(`[ParticleOffset] ${outfitType}: x+${offset.x}, y+${offset.y}`);
-        })
+        });
     }
-
     restoreSavedOutfits(scene) {
         console.log("[UIManager] Applying restored outfits to the character.");
 

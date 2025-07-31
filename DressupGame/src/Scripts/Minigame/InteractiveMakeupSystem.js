@@ -89,7 +89,7 @@ export class InteractiveMakeupSystem {
 
 
         const position = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };   
-        let scale = 0.55 * 2;
+        let scale = 0.59 * 2;
 
 
         if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
@@ -107,7 +107,42 @@ export class InteractiveMakeupSystem {
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
 
-        } else {
+        } 
+        else if(makeupType === 'Eyeshadow') {
+
+            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
+                .setScale(layout.MakeupPosition.Eyeshadow.scale)
+                .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
+                .setVisible(true);
+            if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
+            else { this.isActive = false; return; }
+
+            
+        }
+        else if(makeupType === 'Eyelashes') {
+
+            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
+                .setScale(layout.MakeupPosition.Eyelashes.scale)
+                .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
+                .setVisible(true);
+            if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
+            else { this.isActive = false; return; }
+
+        }
+        else if(makeupType === 'Eyeliner') {
+
+            this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
+                .setScale(layout.MakeupPosition.Eyeliner.scale)
+                .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
+                .setVisible(true);
+            if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
+            else { this.isActive = false; return; }
+
+        }
+        
+        
+        
+        else {
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(scale)
                 .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.1)
@@ -494,8 +529,8 @@ export class InteractiveMakeupSystem {
             }
 
             if (finalImageForEffect && this.scene.UIManager) {
-                this.scene.UIManager.playGlitterExplosion(finalImageForEffect);
-                 this.scene.AudioManager?.playSFX?.('glitterSFX');
+                this.scene.UIManager.playGlitterExplosion(finalImageForEffect, typeFinalizing);
+                this.scene.AudioManager?.playSFX?.('glitterSFX');
             }
 
             if (this.scene.faceContainer) {

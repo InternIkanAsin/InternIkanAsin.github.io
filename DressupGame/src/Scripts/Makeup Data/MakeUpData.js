@@ -46,7 +46,7 @@ const makeUpData = [
     new MakeUp('Peach', 'Eyeshadow', 'eyeshadownormalpeach', 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_peach.png' }),
     new MakeUp('Pink', 'Eyeshadow', 'eyeshadownormalpink', 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_pink.png' }),
     new MakeUp('Purple', 'Eyeshadow', 'eyeshadownormalpurple', 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_purple.png' }),
-
+    
     // Lips Data
     new MakeUp('Brown', 'Lips', 'lipnormalbrown', 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_lips brown.png' }),
     new MakeUp('Cherry', 'Lips', 'lipnormalcherry', 'buttonIcon2', { atlas: 'makeup2_spritesheet', frame: 'mc_lips cherry.png' }),
