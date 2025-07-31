@@ -210,7 +210,7 @@ export class DressUpManager {
 
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1, row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 0, row: 55 }, align: 'center',
+            space: { column: 0, row: 70 }, align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
         scene.MiniGameManager.buttonList.forEach((btnContainer, index) => {
@@ -368,7 +368,7 @@ export class DressUpManager {
                 // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
 
-                
+
                 // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
                 switch (outfitType) {
@@ -393,8 +393,8 @@ export class DressUpManager {
                 else panel.setT(0);
 
                 if (!panel) return;
-                
-                 const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(outfitType);
+
+                const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(outfitType);
 
                 if (needsAnimation) {
                     panel.setT(1);

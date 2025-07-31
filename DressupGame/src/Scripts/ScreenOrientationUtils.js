@@ -241,7 +241,7 @@ const LANDSCAPE = {
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
         lockedIconScale: 1.5,
-        textYPosition: 120,
+        textYPosition: 130,
         textSize: '24px'
     },
     outfitButton: {
@@ -252,7 +252,7 @@ const LANDSCAPE = {
         buttonScale: 0.8 * 2,
         lockedIconBgScale: 0.5,
         lockedIconScale: 1.5,
-        textYPosition: 120,
+        textYPosition: 130,
         textSize: '24px'
     },
     //Dressup Category
@@ -276,7 +276,7 @@ const LANDSCAPE = {
         hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
     },
 
-    MakeupPosition:{
+    MakeupPosition: {
         Pupil: { x: -5, y: -10 },
         Lips: { x: 0, y: -2.5, scale: 0.6 },
         Eyelashes: { x: -5, y: -10 },
@@ -326,17 +326,17 @@ const LANDSCAPE = {
         Shoes: { x: 0, y: 50 }
     },
     particleSizeAdjustments: {
-            Dress: { w: 0, h: 0 },    
-            Outer: { w: 0, h: 0 },
-            Lower: { w: 0, h: 0 },   
-            Socks: { w: 0, h: 0 },
-            Shoes: { w: 30, h: 0 },
-            Lips: { w: 0, h: 0 },        
-            Eyebrows: { w: 0, h: 0 },
-            Eyelashes: { w: 0, h: 0},
-            Eyeshadow: { w: 0, h: 0 },   
-            Blush: { w: 0, h: 0 }    
-        }
+        Dress: { w: 0, h: 0 },
+        Outer: { w: 0, h: 0 },
+        Lower: { w: 0, h: 0 },
+        Socks: { w: 0, h: 0 },
+        Shoes: { w: 30, h: 0 },
+        Lips: { w: 0, h: 0 },
+        Eyebrows: { w: 0, h: 0 },
+        Eyelashes: { w: 0, h: 0 },
+        Eyeshadow: { w: 0, h: 0 },
+        Blush: { w: 0, h: 0 }
+    }
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -378,7 +378,7 @@ const PORTRAIT = {
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
             'Red heart white mini dress': { width: 944, height: 900 },
-            'Holiday dress':{ width: 944, height: 900 },
+            'Holiday dress': { width: 944, height: 900 },
             'Grey jacket': { width: 555, height: 565 }
         },
         manualOffsets: {
@@ -618,7 +618,7 @@ const PORTRAIT = {
             y: 1200
         },
 
-        
+
     },
     outfitButton: {
         iconLockedX: 54,
@@ -644,7 +644,7 @@ const PORTRAIT = {
         textSize: '20px'
     },
 
-    MakeupPosition:{
+    MakeupPosition: {
         Pupil: { x: -8, y: -10 },
         Lips: { x: 0, y: -2.5, scale: 0.6 },
         Eyelashes: { x: -8, y: -10 },
@@ -654,7 +654,7 @@ const PORTRAIT = {
         Sticker: { x: 0, y: 0 },
         Blush: { x: 0, y: 0 },
     },
-    
+
 
     itemPanelButton: {
         iconScale: 0.4 * 2,
@@ -707,17 +707,17 @@ const PORTRAIT = {
     },
 
     particleSizeAdjustments: {
-            Dress: { w: 0, h: 0 },    
-            Outer: { w: 0, h: 0 },
-            Lower: { w: 0, h: 0 },   
-            Socks: { w: 0, h: 0 },
-            Shoes: { w: -100, h: 0 },
-            Lips: { w: 0, h: 0 },        
-            Eyebrows: { w: 0, h: 0 },
-            Eyelashes: { w: 0, h: 0},
-            Eyeshadow: { w: 0, h: 0 },   
-            Blush: { w: 0, h: 0 }    
-        }
+        Dress: { w: 0, h: 0 },
+        Outer: { w: 0, h: 0 },
+        Lower: { w: 0, h: 0 },
+        Socks: { w: 0, h: 0 },
+        Shoes: { w: -100, h: 0 },
+        Lips: { w: 0, h: 0 },
+        Eyebrows: { w: 0, h: 0 },
+        Eyelashes: { w: 0, h: 0 },
+        Eyeshadow: { w: 0, h: 0 },
+        Blush: { w: 0, h: 0 }
+    }
 
 };
 
