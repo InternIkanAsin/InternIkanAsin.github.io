@@ -1076,7 +1076,7 @@ export class MakeUpButton extends BaseButton {
                 if (!newImage) { return; }
                 this.displayedMakeUp = newImage;
                 if (newImage && scene.UIManager) {
-                    scene.UIManager.playGlitterExplosion(newImage);
+                    scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                 }
             }
 
