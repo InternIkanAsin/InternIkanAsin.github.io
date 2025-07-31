@@ -324,7 +324,19 @@ const LANDSCAPE = {
         Lower: { x: 0, y: -90 },
         Socks: { x: 0, y: 130 },
         Shoes: { x: 0, y: 50 }
-    }
+    },
+    particleSizeAdjustments: {
+            Dress: { w: 0, h: 0 },    
+            Outer: { w: 0, h: 0 },
+            Lower: { w: 0, h: 0 },   
+            Socks: { w: 0, h: 0 },
+            Shoes: { w: 30, h: 0 },
+            Lips: { w: 0, h: 0 },        
+            Eyebrows: { w: 0, h: 0 },
+            Eyelashes: { w: 0, h: 0},
+            Eyeshadow: { w: 0, h: 0 },   
+            Blush: { w: 0, h: 0 }    
+        }
 };
 const PORTRAIT_WIDTH = 720;
 const PORTRAIT_HEIGHT = 1280;
@@ -692,7 +704,20 @@ const PORTRAIT = {
         Lower: { x: 0, y: -90 },
         Socks: { x: 0, y: 130 },
         Shoes: { x: 0, y: 50 }
-    }
+    },
+
+    particleSizeAdjustments: {
+            Dress: { w: 0, h: 0 },    
+            Outer: { w: 0, h: 0 },
+            Lower: { w: 0, h: 0 },   
+            Socks: { w: 0, h: 0 },
+            Shoes: { w: -100, h: 0 },
+            Lips: { w: 0, h: 0 },        
+            Eyebrows: { w: 0, h: 0 },
+            Eyelashes: { w: 0, h: 0},
+            Eyeshadow: { w: 0, h: 0 },   
+            Blush: { w: 0, h: 0 }    
+        }
 
 };
 

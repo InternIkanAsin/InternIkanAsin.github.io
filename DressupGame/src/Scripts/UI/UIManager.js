@@ -123,7 +123,7 @@ export class UIManager {
         }
     }
 
-    playGlitterExplosion(targetImage) {
+    playGlitterExplosion(targetImage, itemType = null) {
         // Validasi: Pastikan gambar dan sumber teksturnya ada dan sudah dimuat.
         if (!targetImage || !targetImage.scene || !targetImage.texture.source || !targetImage.texture.source[0].image) {
             console.warn("Cannot create particle explosion: targetImage or its texture source is not ready.");
@@ -135,7 +135,14 @@ export class UIManager {
 
         // 1. Buat zona emisi dari sumber gambar tekstur.
         // Ini adalah objek konfigurasi yang akan dipahami oleh Phaser.
-        const rect = new Phaser.Geom.Rectangle(scene.scale.width / 2.6, scene.scale.width / 7, 300, 700);
+        const bounds = targetImage.getBounds();
+
+        // 2. Terapkan offset partikel jika ada.
+        if (itemType && layout.outfit.particleOffsets && layout.outfit.particleOffsets[itemType]) {
+            const offset = layout.outfit.particleOffsets[itemType];
+            bounds.x += offset.x;
+            bounds.y += offset.y;
+        }
 
         // 2. Buat Particle Emitter. Perhatikan kita tidak mengatur posisi x/y di sini.
         const particles = scene.add.particles(0, 0, 'particle_star', {
@@ -148,7 +155,7 @@ export class UIManager {
             // Terapkan zona emisi yang sudah kita buat
             emitZone: {
                 type: 'random',
-                source: rect,
+                source: bounds,
             },
             emitting: true // Jangan mulai menembak secara otomatis
         }).setDepth(1000);
