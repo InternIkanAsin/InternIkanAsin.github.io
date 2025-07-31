@@ -874,9 +874,12 @@ export class MakeUpButton extends BaseButton {
 
             imageToUpdate.setTexture(defaultTextureKey).setVisible(true);
 
-            if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupTypeToRevert)) {
+            if (['Pupil', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(0.55 * 2);
-            } else {
+            } else if(['Lips'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Lips.scale * 2)
+            }
+            else {
                 imageToUpdate.setScale(0.9 * 2);
             }
 
@@ -1068,7 +1071,10 @@ export class MakeUpButton extends BaseButton {
 
             } else {
 
-                if (['Pupil', 'Lips', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55 * 2); }
+                if (['Pupil', 'Eyebrows', 'Eyelashes', 'Blush', 'Eyeliner', 'Sticker'].includes(makeupType)) { this.displayedMakeUp.setScale(0.55 * 2); }
+                else if(['Lips'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Lips.scale * 2);
+                }
                 else { this.displayedMakeUp.setScale(0.9 * 2); }
                 this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
             }

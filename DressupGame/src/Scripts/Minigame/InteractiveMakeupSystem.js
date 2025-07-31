@@ -83,7 +83,7 @@ export class InteractiveMakeupSystem {
             if (this.scene.lips && defaultLipTexture) {
                 console.log("[InteractiveMakeup] Setting lips to default for coloring session.");
 
-                this.scene.lips.setTexture(defaultLipTexture).setScale(0.55 * 2);
+                this.scene.lips.setTexture(defaultLipTexture).setScale(layout.MakeupPosition.Lips.scale * 2);
             }
         }
 
@@ -101,7 +101,7 @@ export class InteractiveMakeupSystem {
         if (makeupType === 'Lips') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(scale)
+                .setScale(layout.MakeupPosition.Lips.scale)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);

@@ -277,12 +277,12 @@ const LANDSCAPE = {
     },
 
     MakeupPosition:{
-        Pupil: { x: 0, y: -10 },
-        Lips: { x: 0, y: 0, scale: 0.6 },
-        Eyelashes: { x: 0, y: -10 },
-        Eyebrows: { x: 0, y: -15 },
-        Eyeliner: { x: 0, y: -10 },
-        Eyeshadow: { x: 0, y: -10 },
+        Pupil: { x: -5, y: -10 },
+        Lips: { x: 0, y: -2.5, scale: 0.6 },
+        Eyelashes: { x: -5, y: -10 },
+        Eyebrows: { x: -5, y: -15 },
+        Eyeliner: { x: -5, y: -10 },
+        Eyeshadow: { x: -5, y: -10 },
         Sticker: { x: 0, y: 0 },
         Blush: { x: 0, y: 0 },
     },
@@ -633,15 +633,16 @@ const PORTRAIT = {
     },
 
     MakeupPosition:{
-        Pupil: { x: 0, y: -5 },
-        Lips: { x: 0, y: 0, scale: 0.6},
-        Eyelashes: { x: 0, y: -5 },
-        Eyebrows: { x: 0, y: -15 },
-        Eyeliner: { x: 0, y: -5 },
-        Eyeshadow: { x: 0, y: -5 },
+        Pupil: { x: -8, y: -10 },
+        Lips: { x: 0, y: -2.5, scale: 0.6 },
+        Eyelashes: { x: -8, y: -10 },
+        Eyebrows: { x: -8, y: -15 },
+        Eyeliner: { x: -8, y: -10 },
+        Eyeshadow: { x: -8, y: -10 },
         Sticker: { x: 0, y: 0 },
         Blush: { x: 0, y: 0 },
     },
+    
 
     itemPanelButton: {
         iconScale: 0.4 * 2,
