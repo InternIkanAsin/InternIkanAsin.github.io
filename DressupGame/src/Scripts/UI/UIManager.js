@@ -137,19 +137,21 @@ export class UIManager {
         const bounds = targetImage.getBounds();
 
         // 2. Terapkan offset posisi jika ada.
-        if (itemType && layout.outfit.particleOffsets && layout.outfit.particleOffsets[itemType]) {
+         if (itemType && layout.particleOffsets && layout.particleOffsets[itemType]) {
             const offset = layout.particleOffsets[itemType];
             bounds.x += offset.x;
             bounds.y += offset.y;
+            console.log(`[Particle] Applying position offset for ${itemType}:`, offset);
         }
 
-        // 3. Terapkan penyesuaian ukuran jika ada.
+        // 3. Terapkan penyesuaian ukuran dari path yang benar: `layout.particleSizeAdjustments`
         if (itemType && layout.particleSizeAdjustments && layout.particleSizeAdjustments[itemType]) {
             const sizeOffset = layout.particleSizeAdjustments[itemType];
             bounds.width += sizeOffset.w;
             bounds.height += sizeOffset.h;
             bounds.x -= sizeOffset.w / 2;
             bounds.y -= sizeOffset.h / 2;
+            console.log(`[Particle] Applying size adjustment for ${itemType}:`, sizeOffset);
         }
        
         // 4. Buat sumber zona emisi menggunakan bounds yang sudah dihitung.

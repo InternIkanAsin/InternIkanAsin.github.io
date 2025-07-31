@@ -632,7 +632,7 @@ export class OutfitButton extends BaseButton {
         newOutfitImage.setData('refBodyScale', scene.body.scale);
 
         if (scene.UIManager) {
-            scene.UIManager.playGlitterExplosion(newOutfitImage);
+            scene.UIManager.playGlitterExplosion(newOutfitImage, this.outfitType);
         }
 
 

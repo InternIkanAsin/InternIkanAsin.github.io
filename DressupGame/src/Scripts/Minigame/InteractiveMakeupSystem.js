@@ -529,8 +529,8 @@ export class InteractiveMakeupSystem {
             }
 
             if (finalImageForEffect && this.scene.UIManager) {
-                this.scene.UIManager.playGlitterExplosion(finalImageForEffect);
-                 this.scene.AudioManager?.playSFX?.('glitterSFX');
+                this.scene.UIManager.playGlitterExplosion(finalImageForEffect, typeFinalizing);
+                this.scene.AudioManager?.playSFX?.('glitterSFX');
             }
 
             if (this.scene.faceContainer) {

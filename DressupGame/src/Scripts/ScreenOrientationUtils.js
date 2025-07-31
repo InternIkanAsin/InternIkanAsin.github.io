@@ -283,8 +283,8 @@ const LANDSCAPE = {
         Eyebrows: { x: -5, y: -15, scale: 0.59 },
         Eyeliner: { x: -5, y: -10 , scale: 0.55},
         Eyeshadow: { x: -5, y: -10, scale: 0.59 },
-        Sticker: { x: 0, y: 0 },
-        Blush: { x: 0, y: 0 },
+        Sticker: { x: 0, y: 0, scale: 0.55 },
+        Blush: { x: 0, y: 0, scale: 0.55 },
     },
 
     applyMakeUpPanel: {
@@ -322,15 +322,15 @@ const LANDSCAPE = {
         Shirt: { x: 0, y: 0 },
         Outer: { x: 0, y: 0 },
         Lower: { x: 0, y: 0 },
-        Socks: { x: 0, y: 0 },
-        Shoes: { x: 0, y: 0 }
+        Socks: { x: 0, y: 200 },
+        Shoes: { x: 0, y: 100 }
     },
     particleSizeAdjustments: {
         Dress: { w: 0, h: 0 },    
         Outer: { w: 0, h: 0 },
         Lower: { w: 0, h: 0 },   
-        Socks: { w: 0, h: 0 },
-        Shoes: { w: 30, h: 0 },
+        Socks: { w: 0, h: -100 },
+        Shoes: { w: 0, h: 0 },
         Lips: { w: 0, h: 0 },        
         Eyebrows: { w: 0, h: 0 },
         Eyelashes: { w: 0, h: 0},
