@@ -131,65 +131,44 @@ export class UIManager {
         }
 
         const scene = this.scene;
-
-        
-
         // --- INI CARA YANG BENAR UNTUK MENGGUNAKAN BitmapZone ---
 
         // 1. Buat zona emisi dari sumber gambar tekstur.
         // Ini adalah objek konfigurasi yang akan dipahami oleh Phaser.
-        const emitZone = {
-            source: targetImage.texture.getSourceImage(), // Memberikan elemen <canvas> atau <img>
-            type: 'edge', // 'edge' untuk pinggiran, 'random' untuk seluruh area
-            quantity: 120 // Kepadatan titik di sepanjang tepi (semakin tinggi, semakin detail)
-        };
+        const rect = new Phaser.Geom.Rectangle(scene.scale.width / 2.6, scene.scale.width / 7, 300, 700);
 
         // 2. Buat Particle Emitter. Perhatikan kita tidak mengatur posisi x/y di sini.
         const particles = scene.add.particles(0, 0, 'particle_star', {
-            speed: { min: 60, max: 150 },
+            speed: { min: 30, max: 70 },
             angle: { min: 0, max: 360 },
-            scale: { start: 0.6, end: 0 },
-            lifespan: { min: 400, max: 700 },
+            scale: { start: 0.1, end: 0 },
+            lifespan: { min: 300, max: 500 },
             blendMode: 'ADD',
-            
+
             // Terapkan zona emisi yang sudah kita buat
-            emitZone: emitZone,
-
-            emitting: false // Jangan mulai menembak secara otomatis
-        });
-        
-        // 3. Posisikan dan skalakan emitter agar pas di atas gambar target.
-        // Dapatkan transformasi dunia (posisi, skala, rotasi) dari gambar target.
-        const matrix = targetImage.getWorldTransformMatrix();
-        // Ambil kategori dari data (misalnya "Dress", "Shirt", dll)
-        const outfitType = targetImage.getData('outfitType');
-
-        // Ambil offset berdasarkan kategori (default: {x: 0, y: 0})
-        const offset = layout.particleOffsets[outfitType] || { x: 0, y: 0 };
-
-        // Terapkan offset ke posisi world
-        particles.x = matrix.tx + offset.x;
-        particles.y = matrix.ty + offset.y; // Atur posisi Y emitter
-        particles.scaleX = matrix.scaleX; // Atur skala X emitter
-        particles.scaleY = matrix.scaleY; // Atur skala Y emitter
-        particles.rotation = matrix.rotation; // Atur rotasi emitter
-
-        // 4. Atur depth dan picu ledakan.
-        particles.setDepth(targetImage.depth + 1000);
-        particles.explode(50); // Ledakkan 50 partikel dari zona yang sudah di-transformasi.
+            emitZone: {
+                type: 'random',
+                source: rect,
+            },
+            emitting: true // Jangan mulai menembak secara otomatis
+        }).setDepth(1000);
 
         // 5. Hancurkan sistem partikel setelah tidak lagi dibutuhkan.
-        scene.time.delayedCall(1500, () => {
-            if (particles.active) { // Cek jika belum dihancurkan
-                particles.destroy();
-            }
-        });
+        scene.time.delayedCall(500, () => {
 
-        console.log(`[ParticleOffset] ${outfitType}: x+${offset.x}, y+${offset.y}`);
+            particles.emitting = false;
 
+            // Tunggu durasi maksimal lifespan sebelum menghancurkan
+            scene.time.delayedCall(500, () => {
+                if (particles.active) {
+                    particles.destroy();
+                }
+            });
+
+            //console.log(`[ParticleOffset] ${outfitType}: x+${offset.x}, y+${offset.y}`);
+        })
     }
 
-   
     restoreSavedOutfits(scene) {
         console.log("[UIManager] Applying restored outfits to the character.");
 
@@ -210,7 +189,7 @@ export class UIManager {
                 const outfitPositions = layout.outfit.positions;
                 const outfitCustomSizes = layout.outfit.customSizes;
                 const outfitManualOffsets = layout.outfit.manualOffsets;
-                
+
                 const basePosition = outfitPositions[outfitType] || { x: 0, y: 0 };
                 const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
                 const finalX = basePosition.x + manualOffset.x;
@@ -221,11 +200,11 @@ export class UIManager {
 
                 const usesCustomSize = !!outfitCustomSizes[name];
                 if (usesCustomSize) {
-                    
+
                     const custom = outfitCustomSizes[name];
                     newOutfitImage.setDisplaySize(custom.width, custom.height);
                 } else {
-                    
+
                     const defaultScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 : 1.2;
                     newOutfitImage.setScale(defaultScale);
                 }
@@ -258,7 +237,7 @@ export class UIManager {
             switch (makeupType) {
                 case 'Lips':
                     imageToUpdate = scene.lips;
-                    
+
                     if (typeof textureAnime === 'string') {
                         imageToUpdate.setTexture(textureAnime);
                     } else {
@@ -291,12 +270,12 @@ export class UIManager {
                     break;
                 case 'Hair':
                     imageToUpdate = [scene.hairBack, scene.hairFront];
-                    
+
                     scene.hairBack.setTexture(textureAnime.back.atlas || textureAnime.back, textureAnime.back.frame || null);
                     scene.hairFront.setTexture(textureAnime.front.atlas || textureAnime.front, textureAnime.front.frame || null);
                     break;
                 case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
-                    if (equippedMakeup.current.isDefault) break; 
+                    if (equippedMakeup.current.isDefault) break;
                     const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
                     imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
                         .setScale(0.55 * 2)
