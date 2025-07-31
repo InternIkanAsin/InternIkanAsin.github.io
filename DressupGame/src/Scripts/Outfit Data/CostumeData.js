@@ -31,7 +31,7 @@ const costumeData = [
     new Costume("Crop top white shirt", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_06.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_06.png' }),
     new Costume("Off Shoulder Halter Neck", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_08.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_08.png' }),
     new Costume("Cold shoulder short sleeve", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_22.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_22.png' }),
-    new Costume("Long sleeve cold shoulder t-shirt", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_19.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_19.png' }),
+    new Costume("Knit cardigan with ribbon", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_19.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_19.png' }),
     new Costume("Pink knitwear", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_23.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_23.png' }),
     new Costume("Checkered tanktop with ribbons", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_25.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_25.png' }),
     new Costume("White blouse", "Shirt", { atlas: 'Shirt_spritesheet', frame: 'baju_26.png' }, "buttonIcon2", { atlas: 'shirtIcon_spritesheet', frame: 'baju_26.png' }),
@@ -85,7 +85,7 @@ const costumeData = [
     // Shoes
     new Costume("Black Lace Platform Shoes", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_14.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_14.png' }),
     new Costume("Pink boots", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_07.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_07.png' }),
-    new Costume("Black SandalsGreen mary jane shoes", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_08.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_08.png' }),
+    new Costume("Green mary jane shoes", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_08.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_08.png' }),
     new Costume("Lace-Up Platform Sneakers", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_12.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_12.png' }),
     new Costume("Ballerina style", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_18.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_18.png' }),
     new Costume("Blue Sneakers", "Shoes", { atlas: 'Shoes_spritesheet', frame: 'sepatu_16.png' }, "buttonIcon2", { atlas: 'shoesIcon_spritesheet', frame: 'sepatu_16.png' }),
