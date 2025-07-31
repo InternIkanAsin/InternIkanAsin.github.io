@@ -2,11 +2,11 @@
 import { MakeUpButton, ItemPanelButton } from '../UI/UIButton.js'
 
 // MakeUp Data
-import { makeUpData, MakeUpPositions } from '../Makeup Data/MakeUpData.js'
+import { makeUpData } from '../Makeup Data/MakeUpData.js'
 
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
-import { SaveManager } from '../Save System/SaveManager.js';
+
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
@@ -51,7 +51,7 @@ export class MakeUpManager {
                         } else {
 
                             console.log(`[Setup] Visual for ${name} not found. Re-rendering.`);
-                            const pos = MakeUpPositions[makeUpType] || { x: 0, y: 0 };
+                            const pos = layout.MakeupPosition[makeUpType] || { x: 0, y: 0 };
                             const newImage = scene.add.image(pos.x, pos.y, textureAnime);
 
                             if (['Blush', 'Eyeliner', 'Sticker'].includes(makeUpType)) {

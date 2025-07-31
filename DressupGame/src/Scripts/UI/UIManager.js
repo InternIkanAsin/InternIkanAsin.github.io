@@ -2,7 +2,7 @@ import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from './UIButton.
 
 import { GameState } from '../Main.js';
 
-import { makeUpData, defaultMakeUpSkins, MakeUpPositions } from '../Makeup Data/MakeUpData.js';
+import { makeUpData, defaultMakeUpSkins, } from '../Makeup Data/MakeUpData.js';
 import { costumeData } from '../Outfit Data/CostumeData.js';
 
 import { layout } from '../ScreenOrientationUtils.js';
@@ -29,10 +29,10 @@ export class UIManager {
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9);
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7);
 
-        scene.pupils = scene.add.image(0, 0, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
-        scene.lips = scene.add.image(0, 0, 'LipNormalDefault').setScale(0.55 * 2).setDepth(2);
-        scene.eyebrows = scene.add.image(0, 0, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
-        scene.eyelashes = scene.add.image(0, 0, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(0.55 * 2).setDepth(2);
+        scene.lips = scene.add.image(layout.MakeupPosition.Lips.x, layout.MakeupPosition.Lips.y, 'LipNormalDefault').setScale(layout.MakeupPosition.Lips.scale * 2).setDepth(2);
+        scene.eyebrows = scene.add.image(layout.MakeupPosition.Eyebrows.x, layout.MakeupPosition.Eyebrows.y, 'EyebrowNormalDefault').setScale(0.55 * 2).setDepth(2);
+        scene.eyelashes = scene.add.image(layout.MakeupPosition.Eyelashes.x, layout.MakeupPosition.Eyelashes.y, 'EyelashesNormalDefault').setScale(0.55 * 2).setDepth(2);
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes]).setDepth(2).setScale(0.3);
 
         // --- PEMUATAN DINAMIS (SEKARANG AKAN BERFUNGSI) ---
@@ -276,7 +276,7 @@ export class UIManager {
                     break;
                 case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
                     if (equippedMakeup.current.isDefault) break;
-                    const pos = MakeUpPositions[makeupType] || { x: 0, y: 0 };
+                    const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
                     imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
                         .setScale(0.55 * 2)
                         .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
