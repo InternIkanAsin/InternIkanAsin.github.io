@@ -645,14 +645,14 @@ const PORTRAIT = {
     },
 
     MakeupPosition: {
-        Pupil: { x: -8, y: -10 },
-        Lips: { x: 0, y: -2.5, scale: 0.6 },
-        Eyelashes: { x: -8, y: -10 },
-        Eyebrows: { x: -8, y: -15 },
-        Eyeliner: { x: -8, y: -10 },
-        Eyeshadow: { x: -8, y: -10 },
-        Sticker: { x: 0, y: 0 },
-        Blush: { x: 0, y: 0 },
+        Pupil: { x: -1, y: -10, scale: 0.59 },
+        Lips: { x: -1, y: -10, scale: 0.59 },
+        Eyelashes: { x: -1, y: -10, scale: 0.59 },
+        Eyebrows: { x: -5, y: -15, scale: 0.59 },
+        Eyeliner: { x: -5, y: -10, scale: 0.55 },
+        Eyeshadow: { x: -5, y: -10, scale: 0.59 },
+        Sticker: { x: 0, y: 0, scale: 0.55 },
+        Blush: { x: 0, y: 0, scale: 0.55 },
     },
 
 
