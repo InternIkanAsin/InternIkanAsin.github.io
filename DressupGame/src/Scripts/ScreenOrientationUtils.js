@@ -701,16 +701,17 @@ const PORTRAIT = {
         Dress: { x: 0, y: -200 },
         Shirt: { x: 0, y: 0 },
         Outer: { x: 0, y: -50 },
-        Lower: { x: 0, y: -90 },
-        Socks: { x: 0, y: 130 },
+        Lower: { x: 0, y: 20 },
+        Socks: { x: 0, y: 150 },
         Shoes: { x: 0, y: 50 }
     },
 
     particleSizeAdjustments: {
-        Dress: { w: 0, h: 0 },
-        Outer: { w: 0, h: 0 },
-        Lower: { w: 0, h: 0 },
-        Socks: { w: 0, h: -20 },
+        Dress: { w: -120, h: 0 },
+        Shirt: { w: -120, h: 0 },
+        Outer: { w: -70, h: 0 },
+        Lower: { w: -70, h: -50 },
+        Socks: { w: 0, h: -200 },
         Shoes: { w: 0, h: -20 },
         Lips: { w: 0, h: 0 },
         Eyebrows: { w: 0, h: 0 },
