@@ -341,7 +341,7 @@ const LANDSCAPE = {
         Eyebrows: { w: 0, h: 0 },
         Eyelashes: { w: 0, h: 0 },
         Eyeshadow: { w: 0, h: 0 },
-        Blush: { w: 0, h: -50 },
+        Blush: { w: 0, h: 0 },
         Eyeliner: { w: 0, h: 0 }
     }
 };
