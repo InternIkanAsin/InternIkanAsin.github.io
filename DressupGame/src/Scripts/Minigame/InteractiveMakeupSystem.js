@@ -101,7 +101,7 @@ export class InteractiveMakeupSystem {
         if (makeupType === 'Lips') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Lips.scale)
+                .setScale(layout.MakeupPosition.Lips.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -111,7 +111,7 @@ export class InteractiveMakeupSystem {
         else if(makeupType === 'Eyeshadow') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Eyeshadow.scale)
+                .setScale(layout.MakeupPosition.Eyeshadow.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -122,7 +122,7 @@ export class InteractiveMakeupSystem {
         else if(makeupType === 'Eyelashes') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Eyelashes.scale)
+                .setScale(layout.MakeupPosition.Eyelashes.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -132,7 +132,7 @@ export class InteractiveMakeupSystem {
         else if(makeupType === 'Eyeliner') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Eyeliner.scale)
+                .setScale(layout.MakeupPosition.Eyeliner.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -511,7 +511,7 @@ export class InteractiveMakeupSystem {
 
             if (typeFinalizing === 'Lips') {
 
-                this.scene.lips.setTexture(this.activeTextureKey).setScale(0.55 * 2).setVisible(true);
+                this.scene.lips.setTexture(this.activeTextureKey).setScale(layout.MakeupPosition.Lips.scale * 2).setVisible(true);
 
                 if (imageThatWasColored && imageThatWasColored !== this.scene.lips) {
                     imageThatWasColored.destroy();
@@ -589,7 +589,7 @@ export class InteractiveMakeupSystem {
         if (makeupType === 'Lips') {
             if (!this.scene.lips || !this.scene.lips.active) { return; }
             const targetTexture = (previousStatutorialored && previousStatutorialored.textureKey) ? previousStatutorialored.textureKey : defaultMakeUpSkins['Lips'];
-            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask();
+            this.scene.lips.setTexture(targetTexture).setScale(layout.MakeupPosition.Lips.scale * 2).setVisible(true).clearMask();
 
             if (previousStatutorialored && previousStatutorialored.isDefault) {
                 MakeUpButton.selectedMakeUp.Lips = { current: previousStatutorialored, previous: null };

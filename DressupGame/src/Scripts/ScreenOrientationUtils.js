@@ -281,7 +281,7 @@ const LANDSCAPE = {
         Lips: { x: -1, y: -10, scale: 0.59 },
         Eyelashes: { x: -1, y: -10, scale: 0.59 },
         Eyebrows: { x: -5, y: -15, scale: 0.59 },
-        Eyeliner: { x: -5, y: -10, scale: 0.55 },
+        Eyeliner: { x: -5, y: -10, scale: 0.59 },
         Eyeshadow: { x: -5, y: -10, scale: 0.59 },
         Sticker: { x: 0, y: 0, scale: 0.55 },
         Blush: { x: 0, y: 0, scale: 0.55 },
@@ -323,7 +323,13 @@ const LANDSCAPE = {
         Outer: { x: 0, y: 0 },
         Lower: { x: 0, y: 0 },
         Socks: { x: 0, y: 200 },
-        Shoes: { x: 0, y: 100 }
+        Shoes: { x: 0, y: 100 },
+        //Lips: { w: 100, h: 0 },
+        //Eyebrows: { w: 5000, h: 0 },
+        //Eyelashes: { w: 0, h: 0 },
+        //Eyeshadow: { w: 0, h: 0 },
+        //Blush: { w: 0, h: 50 },
+        //Eyeliner: { w: 0, h: 0 }
     },
     particleSizeAdjustments: {
         Dress: { w: 0, h: 0 },
@@ -335,7 +341,8 @@ const LANDSCAPE = {
         Eyebrows: { w: 0, h: 0 },
         Eyelashes: { w: 0, h: 0 },
         Eyeshadow: { w: 0, h: 0 },
-        Blush: { w: 0, h: 0 }
+        Blush: { w: 0, h: -50 },
+        Eyeliner: { w: 0, h: 0 }
     }
 };
 const PORTRAIT_WIDTH = 720;
@@ -703,7 +710,13 @@ const PORTRAIT = {
         Outer: { x: 0, y: -50 },
         Lower: { x: 0, y: 20 },
         Socks: { x: 0, y: 150 },
-        Shoes: { x: 0, y: 50 }
+        Shoes: { x: 0, y: 50 },
+        //Lips: { w: 1000, h: 1000 },
+        //Eyebrows: { w: 1000, h: 1000 },
+        //Eyelashes: { w: 0, h: 0 },
+        //Eyeshadow: { w: 0, h: 0 },
+        //Blush: { w: 0, h: 0 },
+        //Eyeliner: { w: 0, h: 0 }
     },
 
     particleSizeAdjustments: {
@@ -713,11 +726,12 @@ const PORTRAIT = {
         Lower: { w: -70, h: -50 },
         Socks: { w: 0, h: -200 },
         Shoes: { w: 0, h: -20 },
-        Lips: { w: 0, h: 0 },
-        Eyebrows: { w: 0, h: 0 },
-        Eyelashes: { w: 0, h: 0 },
-        Eyeshadow: { w: 0, h: 0 },
-        Blush: { w: 0, h: 0 }
+        //Lips: { w: 0, h: 0 },
+        //Eyebrows: { w: 0, h: 0 },
+        //Eyelashes: { w: 0, h: 0 },
+        //Eyeshadow: { w: 0, h: 0 },
+        //Blush: { w: 0, h: 0 },
+        //Eyeliner: { w: 0, h: 0 }
     }
 
 };

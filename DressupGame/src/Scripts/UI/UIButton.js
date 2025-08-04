@@ -1028,7 +1028,7 @@ export class MakeUpButton extends BaseButton {
             }
 
             let newImage; const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
-
+            
             if (makeupType === 'Hair') {
                 const hairTextures = this.textureAnime;
                 scene.hairBack.setTexture(hairTextures.back.atlas, hairTextures.back.frame).setVisible(true);
@@ -1043,19 +1043,23 @@ export class MakeUpButton extends BaseButton {
             }
 
             else {
+                
                 const textureData = this.textureAnime;
                 switch (makeupType) {
                     case 'Eyebrows':
                         scene.eyebrows.setTexture(textureData.atlas, textureData.frame).setVisible(true);
                         newImage = scene.eyebrows;
+                        if (scene.UIManager) scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                         break;
                     case 'Eyelashes':
                         scene.eyelashes.setTexture(textureData.atlas, textureData.frame).setVisible(true);
                         newImage = scene.eyelashes;
+                        if (scene.UIManager) scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                         break;
                     case 'Pupil':
                         scene.pupils.setTexture(textureData.atlas, textureData.frame).setVisible(true);
                         newImage = scene.pupils;
+                        if (scene.UIManager) scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                         break;
 
                     case 'Sticker':
@@ -1078,8 +1082,8 @@ export class MakeUpButton extends BaseButton {
                 if (newImage && scene.UIManager) {
                     scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                 }
+                
             }
-
 
             if (makeupType === 'Hair') {
                 this.displayedMakeUp.forEach(img => img.setScale(1.6 * 256 / 225));
