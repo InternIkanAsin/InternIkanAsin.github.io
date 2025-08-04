@@ -101,7 +101,7 @@ export class InteractiveMakeupSystem {
         if (makeupType === 'Lips') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Lips.scale)
+                .setScale(layout.MakeupPosition.Lips.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -111,7 +111,7 @@ export class InteractiveMakeupSystem {
         else if(makeupType === 'Eyeshadow') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Eyeshadow.scale)
+                .setScale(layout.MakeupPosition.Eyeshadow.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -122,7 +122,7 @@ export class InteractiveMakeupSystem {
         else if(makeupType === 'Eyelashes') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Eyelashes.scale)
+                .setScale(layout.MakeupPosition.Eyelashes.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -132,7 +132,7 @@ export class InteractiveMakeupSystem {
         else if(makeupType === 'Eyeliner') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
-                .setScale(layout.MakeupPosition.Eyeliner.scale)
+                .setScale(layout.MakeupPosition.Eyeliner.scale * 2)
                 .setDepth((MakeUpButton.DEPTH_VALUES[makeupType] || 2.6) + 0.001)
                 .setVisible(true);
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
@@ -213,74 +213,156 @@ export class InteractiveMakeupSystem {
             this.scene.faceContainer.sort('depth');
         }
     }
+    // old generate outline (uncomment to use as cadangan)
+    //generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, scale, depth) {
+    //    graphics.clear();
+    //    const worldPos = { x: 0, y: 0 };
+    //    this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
+    //    graphics.setPosition(worldPos.x, worldPos.y);
+//
+//
+    //    graphics.setPosition(worldPos.x, worldPos.y);
+    //    const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
+    //    graphics.setScale(finalScale);
+    //    graphics.setDepth(depth);
+    //    graphics.lineStyle(18 / finalScale, 0xffffff, 0.8);
+//
+    //    const sourceImageElement = sourceTexturePhaser.getSourceImage();
+    //    const tempCanvas = document.createElement('canvas');
+    //    tempCanvas.width = textureWidth;
+    //    tempCanvas.height = textureHeight;
+    //    const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
+    //    if (!tempCtx) { console.error("Failed to get context for outline generation."); return; }
+    //    tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
+    //    const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
+//
+    //    const alphaThreshold = 20;
+//
+//
+    //    graphics.fillStyle(0xffffff, 0.6);
+    //    const dotSize = 2 / scale;
+//
+    //    for (let y = 0; y < textureHeight; y++) {
+    //        for (let x = 0; x < textureWidth; x++) {
+    //            const i = (y * textureWidth + x) * 4;
+    //            const alpha = imageData[i + 3];
+//
+    //            if (alpha > alphaThreshold) {
+//
+    //                const neighbors = [
+    //                    (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0,
+    //                    (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0,
+    //                    (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0,
+    //                    (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0
+    //                ];
+//
+    //                let isEdge = false;
+    //                for (const neighborAlpha of neighbors) {
+    //                    if (neighborAlpha <= alphaThreshold) {
+    //                        isEdge = true;
+    //                        break;
+    //                    }
+    //                }
+//
+    //                if (isEdge) {
+    //                    const drawX = x - textureWidth / 2;
+    //                    const drawY = y - textureHeight / 2;
+    //                    graphics.fillRect(drawX - dotSize / 2, drawY - dotSize / 2, dotSize, dotSize);
+    //                }
+    //            }
+    //        }
+    //    }
+//
+    //    this.scene.tweens.add({
+    //        targets: graphics,
+    //        alpha: 0.3,
+    //        duration: 500,
+    //        yoyo: true,
+    //        repeat: -1
+    //    });
+    //}
 
+    //new version of generate outline
     generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, scale, depth) {
-        graphics.clear();
-        const worldPos = { x: 0, y: 0 };
-        this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
-        graphics.setPosition(worldPos.x, worldPos.y);
+    graphics.clear();
 
+    const worldPos = { x: 0, y: 0 };
+    this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
+    graphics.setPosition(worldPos.x, worldPos.y);
 
-        graphics.setPosition(worldPos.x, worldPos.y);
-        const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
-        graphics.setScale(finalScale);
-        graphics.setDepth(depth);
-        graphics.lineStyle(18 / finalScale, 0xffffff, 0.8);
+    const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
+    graphics.setScale(finalScale);
+    graphics.setDepth(depth);
 
-        const sourceImageElement = sourceTexturePhaser.getSourceImage();
-        const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = textureWidth;
-        tempCanvas.height = textureHeight;
-        const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
-        if (!tempCtx) { console.error("Failed to get context for outline generation."); return; }
-        tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
-        const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
+    // ⚙️ Variabel konfigurasi
+    const outlineColor = 0x000000;
+    const outlineThickness = 4; // Pixel ketebalan
+    const scaledThickness = outlineThickness / finalScale;
+    const dashLength = 50; // Berapa titik "on"
+    const gapLength = 30;  // Berapa titik "off"
 
-        const alphaThreshold = 20;
+    const sourceImageElement = sourceTexturePhaser.getSourceImage();
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = textureWidth;
+    tempCanvas.height = textureHeight;
 
+    const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
+    if (!tempCtx) {
+        console.error("Failed to get context for outline generation.");
+        return;
+    }
 
-        graphics.fillStyle(0xffffff, 0.6);
-        const dotSize = 2 / scale;
+    tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
+    const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
 
-        for (let y = 0; y < textureHeight; y++) {
-            for (let x = 0; x < textureWidth; x++) {
-                const i = (y * textureWidth + x) * 4;
-                const alpha = imageData[i + 3];
+    const alphaThreshold = 20;
+    let dashCounter = 0;
 
-                if (alpha > alphaThreshold) {
+    for (let y = 0; y < textureHeight; y++) {
+        for (let x = 0; x < textureWidth; x++) {
+            const i = (y * textureWidth + x) * 4;
+            const alpha = imageData[i + 3];
 
-                    const neighbors = [
-                        (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0,
-                        (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0,
-                        (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0,
-                        (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0
-                    ];
+            if (alpha > alphaThreshold) {
+                const neighbors = [
+                    (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0,
+                    (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0,
+                    (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0,
+                    (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0
+                ];
 
-                    let isEdge = false;
-                    for (const neighborAlpha of neighbors) {
-                        if (neighborAlpha <= alphaThreshold) {
-                            isEdge = true;
-                            break;
-                        }
-                    }
+                const isEdge = neighbors.some(nAlpha => nAlpha <= alphaThreshold);
 
-                    if (isEdge) {
+                if (isEdge) {
+                    // Gambar hanya jika kita sedang berada dalam segment "dash"
+                    const dashCycle = dashLength + gapLength;
+                    if ((dashCounter % dashCycle) < dashLength) {
                         const drawX = x - textureWidth / 2;
                         const drawY = y - textureHeight / 2;
-                        graphics.fillRect(drawX - dotSize / 2, drawY - dotSize / 2, dotSize, dotSize);
+
+                        graphics.fillStyle(outlineColor, 1);
+                        graphics.fillRect(
+                            drawX - scaledThickness / 2,
+                            drawY - scaledThickness / 2,
+                            scaledThickness,
+                            scaledThickness
+                        );
                     }
+                    dashCounter++;
                 }
             }
         }
-
-        this.scene.tweens.add({
-            targets: graphics,
-            alpha: 0.3,
-            duration: 500,
-            yoyo: true,
-            repeat: -1
-        });
     }
+
+    this.scene.tweens.add({
+        targets: graphics,
+        alpha: 0.3,
+        duration: 500,
+        yoyo: true,
+        repeat: -1
+    });
+}
+
 
     triggerMakeUpTutorial(makeUpType) {
         const scene = this.scene;
@@ -511,7 +593,7 @@ export class InteractiveMakeupSystem {
 
             if (typeFinalizing === 'Lips') {
 
-                this.scene.lips.setTexture(this.activeTextureKey).setScale(0.55 * 2).setVisible(true);
+                this.scene.lips.setTexture(this.activeTextureKey).setScale(layout.MakeupPosition.Lips.scale * 2).setVisible(true);
 
                 if (imageThatWasColored && imageThatWasColored !== this.scene.lips) {
                     imageThatWasColored.destroy();
@@ -589,7 +671,7 @@ export class InteractiveMakeupSystem {
         if (makeupType === 'Lips') {
             if (!this.scene.lips || !this.scene.lips.active) { return; }
             const targetTexture = (previousStatutorialored && previousStatutorialored.textureKey) ? previousStatutorialored.textureKey : defaultMakeUpSkins['Lips'];
-            this.scene.lips.setTexture(targetTexture).setScale(0.55 * 2).setVisible(true).clearMask();
+            this.scene.lips.setTexture(targetTexture).setScale(layout.MakeupPosition.Lips.scale * 2).setVisible(true).clearMask();
 
             if (previousStatutorialored && previousStatutorialored.isDefault) {
                 MakeUpButton.selectedMakeUp.Lips = { current: previousStatutorialored, previous: null };

@@ -124,7 +124,7 @@ export class UIManager {
         }
     }
 
-   playGlitterExplosion(targetImage, itemType = null) {
+    playGlitterExplosion(targetImage, itemType = null) {
         if (!targetImage || !targetImage.scene || !targetImage.active) {
             console.warn("Cannot create particle explosion: targetImage is not valid or active.");
             return;
@@ -133,54 +133,78 @@ export class UIManager {
         const scene = this.scene;
         scene.AudioManager?.playSFX?.('glitterSFX');
 
-        // 1. Dapatkan batasan visual (posisi dan ukuran) dari gambar di layar.
-        const bounds = targetImage.getBounds();
+        let particleBounds; // Variabel untuk menyimpan rectangle final
+        const isMakeup = targetImage.parentContainer === scene.faceContainer;
 
-        // 2. Terapkan offset posisi jika ada.
-         if (itemType && layout.particleOffsets && layout.particleOffsets[itemType]) {
-            const offset = layout.particleOffsets[itemType];
-            bounds.x += offset.x;
-            bounds.y += offset.y;
-            console.log(`[Particle] Applying position offset for ${itemType}:`, offset);
-        }
+        if (isMakeup) {
+            // --- LOGIKA KHUSUS UNTUK MAKEUP ---
+            console.log(`[Particle] Using MAKEUP logic for ${itemType}`);
 
-        // 3. Terapkan penyesuaian ukuran dari path yang benar: `layout.particleSizeAdjustments`
-        if (itemType && layout.particleSizeAdjustments && layout.particleSizeAdjustments[itemType]) {
-            const sizeOffset = layout.particleSizeAdjustments[itemType];
-            bounds.width += sizeOffset.w;
-            bounds.height += sizeOffset.h;
-            bounds.x -= sizeOffset.w / 2;
-            bounds.y -= sizeOffset.h / 2;
-            console.log(`[Particle] Applying size adjustment for ${itemType}:`, sizeOffset);
+            const container = scene.faceContainer;
+            const offset = (itemType && layout.particleOffsets && layout.particleOffsets[itemType]) ? layout.particleOffsets[itemType] : { x: 0, y: 0 };
+            const sizeOffset = (itemType && layout.particleSizeAdjustments && layout.particleSizeAdjustments[itemType]) ? layout.particleSizeAdjustments[itemType] : { w: 0, h: 0 };
+
+            // 1. Hitung posisi dunia dari item makeup
+            // Posisi container + (posisi lokal item * skala container) + (offset lokal * skala container)
+            const worldX = container.x + ((targetImage.x + offset.x) * container.scaleX);
+            const worldY = container.y + ((targetImage.y + offset.y) * container.scaleY);
+
+            // 2. Hitung ukuran dunia dari item makeup
+            const worldWidth = targetImage.displayWidth * container.scaleX + sizeOffset.w;
+            const worldHeight = targetImage.displayHeight * container.scaleY + sizeOffset.h;
+            
+            // 3. Buat rectangle final di posisi dunia
+            particleBounds = new Phaser.Geom.Rectangle(
+                worldX - (worldWidth / 2), // Geser ke kiri setengah lebar untuk mendapatkan pojok kiri atas
+                worldY - (worldHeight / 2), // Geser ke atas setengah tinggi untuk mendapatkan pojok kiri atas
+                worldWidth,
+                worldHeight
+            );
+
+        } else {
+            // --- LOGIKA UNTUK OUTFIT (YANG SUDAH BEKERJA) ---
+            console.log(`[Particle] Using OUTFIT logic for ${itemType}`);
+
+            const bounds = targetImage.getBounds();
+            if (itemType && layout.particleOffsets && layout.particleOffsets[itemType]) {
+                const offset = layout.particleOffsets[itemType];
+                bounds.x += offset.x;
+                bounds.y += offset.y;
+            }
+            if (itemType && layout.particleSizeAdjustments && layout.particleSizeAdjustments[itemType]) {
+                const sizeOffset = layout.particleSizeAdjustments[itemType];
+                bounds.width += sizeOffset.w;
+                bounds.height += sizeOffset.h;
+                bounds.x -= sizeOffset.w / 2;
+                bounds.y -= sizeOffset.h / 2;
+            }
+            particleBounds = bounds;
         }
        
-        // 4. Buat sumber zona emisi menggunakan bounds yang sudah dihitung.
+        // 4. Buat zona emisi dari rectangle yang sudah dihitung (baik dari makeup maupun outfit)
         const emitZone = {
-            source: new Phaser.Geom.Rectangle(0, 0, bounds.width, bounds.height),
-            type: 'random', // Gunakan 'edge' agar partikel dari pinggir
+            source: new Phaser.Geom.Rectangle(0, 0, particleBounds.width, particleBounds.height),
+            type: 'random',
             quantity: 100
         };
 
-        // 5. Buat Particle Emitter dan POSISIKAN di pojok kiri atas bounds.
+        // 5. Buat Particle Emitter di posisi pojok kiri atas rectangle
         const particles = scene.add.particles(
-            bounds.x, // <-- Posisikan emitter di X yang benar
-            bounds.y, // <-- Posisikan emitter di Y yang benar
+            particleBounds.x,
+            particleBounds.y,
             'particle_star', 
             {
-                speed: { min: 10, max: 20 },
+                speed: { min: 30, max: 70 },
                 angle: { min: 0, max: 360 },
                 scale: { start: 0.1, end: 0 },
-                lifespan: { min: 400, max: 600 },
+                lifespan: { min: 300, max: 500 },
                 blendMode: 'ADD',
-                
-                // Langsung berikan objek emitZone yang sudah kita buat
                 emitZone: emitZone,
-
                 emitting: true
             }
         ).setDepth(1000);
 
-        // Sisa kode teman Anda sudah benar.
+        // Sisa kode...
         scene.time.delayedCall(500, () => {
             particles.emitting = false;
             scene.time.delayedCall(500, () => {
