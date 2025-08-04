@@ -198,16 +198,16 @@ const LANDSCAPE = {
     //Dialogue System
     dialogueBox: {
         x: LANDSCAPE_CENTERX,
-        y: LANDSCAPE_CENTERY * 1.5,
-        width: 1200,
+        y: LANDSCAPE_CENTERY * 1.725,
+        width: 630,
         height: 300
     },
 
     dialogueText: {
-        x: LANDSCAPE_WIDTH / 4.7,
-        y: LANDSCAPE_HEIGHT / 1.5,
-        fontSize: 36,
-        wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 2.4)
+        x: LANDSCAPE_WIDTH / 2.775,
+        y: LANDSCAPE_HEIGHT / 1.3,
+        fontSize: 32,
+        wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 1.45)
     },
 
     backButton: {

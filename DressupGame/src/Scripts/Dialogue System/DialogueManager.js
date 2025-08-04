@@ -16,21 +16,13 @@ export class DialogueManager {
     createDialogueUI(scene) {
         const { width, height } = this.scene.sys.game.config;
 
-        this.dialogueBox = this.scene.add.nineslice(layout.dialogueBox.x, layout.dialogueBox.y, 'dialogueBox', '', layout.dialogueBox.width, layout.dialogueBox.height, 128, 128, 64, 68).setDepth(10);
-        this.dialogueNameBox = this.scene.add.nineslice(width / 3.3, height / 1.65, 'dialogueNameBox', '', 450, 120, 60, 60, 32, 36).setDepth(10).setScale(0.8);
-        this.nameText = this.scene.add.text(width / 3.3, height / 1.66, 'Tristan', {
-            fontSize: '54px',
-            fill: '#60292b',
-            fontFamily: 'regularFont',
-            fontStyle: 'bold',
-            wordWrap: { width: width - 200 }
-        }).setDepth(10).setOrigin(0.5, 0.5);
+        this.dialogueBox = this.scene.add.nineslice(layout.dialogueBox.x, layout.dialogueBox.y, 'dialogueBox', '', layout.dialogueBox.width, layout.dialogueBox.height, 128, 128, 64, 68).setDepth(100);
         this.dialogueText = this.scene.add.text(layout.dialogueText.x, layout.dialogueText.y, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
             fontSize: layout.dialogueText.fontSize,
             fill: '#60292b',
             fontFamily: 'regularFont',
             wordWrap: { width: layout.dialogueText.wordWrap }
-        }).setDepth(10);
+        }).setDepth(101);
 
         this.hide();
     }
@@ -41,20 +33,20 @@ export class DialogueManager {
         this.onDialogueComplete = onComplete;
 
         this.dialogueBox.setVisible(true);
-        this.dialogueNameBox.setVisible(true);
-        this.nameText.setVisible(true);
+        //this.dialogueNameBox.setVisible(true);
+        //this.nameText.setVisible(true);
         this.dialogueText.setVisible(true);
 
         this.nextLine();
 
         this.scene.input.on('pointerdown', () => {
-             if (!this.scene.gameplayHasStarted) {
+            if (!this.scene.gameplayHasStarted) {
                 const poki = this.scene.plugins.get('poki');
                 poki.runWhenInitialized(() => {
                     poki.gameplayStart();
                     console.log("[Poki SDK] gameplayStart() fired on first player interaction.");
                 });
-                
+
                 this.scene.gameplayHasStarted = true;
             }
             if (this.isTyping) {
@@ -75,7 +67,7 @@ export class DialogueManager {
         const line = this.dialogue[this.dialogueIndex];
         this.dialogueIndex++;
 
-        this.nameText.setText(line.speakerName || '');
+        //this.nameText.setText(line.speakerName || '');
         this.typeText(line.dialogue);
     }
 
@@ -105,9 +97,9 @@ export class DialogueManager {
 
     hide() {
         this.dialogueBox.setVisible(false);
-        this.dialogueNameBox.setVisible(false);
+        //this.dialogueNameBox.setVisible(false);
         this.dialogueText.setVisible(false);
-        this.nameText.setVisible(false);
+        //this.nameText.setVisible(false);
         this.scene.input.off('pointerdown');
     }
 }

@@ -15,35 +15,35 @@ export class BachelorManager {
         const azrilFullbody = this.scene.add.image(0, 0, 'azrilFullbody').setScale(2);
         // --- UBAH DI SINI ---
         const AzrilExpression = this.scene.add.image(0, 0, 'AzrilNeutral').setScale(2).setDepth(2);
-        this.bachelorChoices['Azril'] = this.scene.add.container(centerX, centerY * 1.1, [azrilFullbody, AzrilExpression]).setVisible(false);
+        this.bachelorChoices['Azril'] = this.scene.add.container(centerX, centerY * 1.5, [azrilFullbody, AzrilExpression]).setVisible(false);
         this.bachelorExpressions['Azril'] = AzrilExpression;
 
         // Angga
         const anggaFullbody = this.scene.add.image(0, 0, 'anggaFullbody').setScale(2);
         // --- UBAH DI SINI ---
         const AnggaExpression = this.scene.add.image(-10, 0, 'AnggaNeutral').setScale(2);
-        this.bachelorChoices['Angga'] = this.scene.add.container(centerX, centerY * 1.1, [anggaFullbody, AnggaExpression]).setVisible(false);
+        this.bachelorChoices['Angga'] = this.scene.add.container(centerX, centerY * 1.5, [anggaFullbody, AnggaExpression]).setVisible(false);
         this.bachelorExpressions['Angga'] = AnggaExpression;
 
         // Reza
         const rezaFullbody = this.scene.add.image(0, 0, 'rezaFullbody').setScale(2);
         // --- UBAH DI SINI ---
         const RezaExpression = this.scene.add.image(0, 0, 'RezaNeutral').setScale(2);
-        this.bachelorChoices['Reza'] = this.scene.add.container(centerX, centerY * 1.1, [rezaFullbody, RezaExpression]).setVisible(false);
+        this.bachelorChoices['Reza'] = this.scene.add.container(centerX, centerY * 1.5, [rezaFullbody, RezaExpression]).setVisible(false);
         this.bachelorExpressions['Reza'] = RezaExpression;
 
         // Indra
         const indraFullbody = this.scene.add.image(0, 0, 'indraFullbody').setScale(2);
         // --- UBAH DI SINI ---
         const IndraExpression = this.scene.add.image(0, 0, 'IndraNeutral').setScale(2);
-        this.bachelorChoices['Indra'] = this.scene.add.container(centerX, centerY * 1.1, [indraFullbody, IndraExpression]).setVisible(false);
+        this.bachelorChoices['Indra'] = this.scene.add.container(centerX * 1.05, centerY * 1.5, [indraFullbody, IndraExpression]).setVisible(false);
         this.bachelorExpressions['Indra'] = IndraExpression;
 
         // Keenan
         const keenanFullbody = this.scene.add.image(0, 0, 'keenanFullbody').setScale(2);
         // --- UBAH DI SINI ---
         const KeenanExpression = this.scene.add.image(0, 0, 'KeenanNeutral').setScale(2);
-        this.bachelorChoices['Keenan'] = this.scene.add.container(centerX, centerY * 1.1, [keenanFullbody, KeenanExpression]).setVisible(false);
+        this.bachelorChoices['Keenan'] = this.scene.add.container(centerX, centerY * 1.5, [keenanFullbody, KeenanExpression]).setVisible(false);
         this.bachelorExpressions['Keenan'] = KeenanExpression;
 
         // Sekarang, pilih dan aktifkan bachelor yang sesuai

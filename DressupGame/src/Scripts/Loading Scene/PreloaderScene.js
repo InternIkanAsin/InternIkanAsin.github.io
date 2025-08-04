@@ -11,10 +11,22 @@ class PreloaderScene extends Phaser.Scene {
 
         this.preloaderData = data;
     }
+    loadFont(name, url) {
+        const newFont = new FontFace(name, `url(${url})`);
+        newFont.load().then(function (loaded) {
+            document.fonts.add(loaded);
+            console.log(`Font "${name}" has been loaded.`);
+        }).catch(function (error) {
+            console.error(`Failed to load font "${name}":`, error);
+        });
+    }
+
     preload() {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
+        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
+        this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const bg = this.add.image(width / 2, height / 2, 'minigame_background_preload');

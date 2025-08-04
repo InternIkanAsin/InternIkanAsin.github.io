@@ -59,7 +59,7 @@ export default class AssetLoader {
       true);
   }
   static loadUIAssets(scene) {
-    scene.load.image('dialogueBox', 'Asset/UI/Text_Box.png');
+    scene.load.image('dialogueBox', 'Asset/UI/New/Box_Dialog.png');
     scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
     scene.load.image('particle_star', 'Asset/UI/star_07.png');
 
@@ -113,6 +113,15 @@ export default class AssetLoader {
     scene.load.image('tickMark', 'Asset/UI/Checkmark.png');
 
     scene.load.image('fingerCursor', 'Asset/UI/Finger_Icon.png');
+
+    scene.load.image('cutscene1Background', 'Asset/UI/New/BG_Hape.png');
+    scene.load.image('phone', 'Asset/UI/New/Phone.png');
+    scene.load.image('phoneBackground', 'Asset/UI/New/BG_Hape_calling.png');
+
+    scene.load.image('bachelor_profileInside', 'Asset/UI/New/Profile_Inside.png');
+    scene.load.image('bachelor_profileOutside', 'Asset/UI/New/Profile_Outside.png');
+
+    scene.load.image('callIcon', 'Asset/UI/New/call.png');
   }
 
   static loadSceneAssets(scene) {

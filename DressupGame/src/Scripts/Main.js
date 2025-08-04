@@ -46,16 +46,6 @@ import { BachelorManager } from './Bachelor/bachelorManager.js'
 
 import { layout } from './ScreenOrientationUtils.js';
 
-function loadFont(name, url) {
-    const newFont = new FontFace(name, `url(${url})`);
-    newFont.load().then(function (loaded) {
-        document.fonts.add(loaded);
-        console.log(`Font "${name}" has been loaded.`);
-    }).catch(function (error) {
-        console.error(`Failed to load font "${name}":`, error);
-    });
-}
-
 export const GameState = Object.freeze({
     MAKEUP: 'MAKEUP',
     DRESSUP: 'DRESSUP'
@@ -120,8 +110,6 @@ class Main extends Phaser.Scene {
     }
 
     preload() {
-        loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
-        loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
         AssetLoader.loadRexUIPlugin(this);
     }
 

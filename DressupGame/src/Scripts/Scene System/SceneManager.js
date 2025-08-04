@@ -8,22 +8,23 @@ export class SceneManager {
         this.scene.AudioManager.fadeOutMusic('cutsceneMusic', 1500);
 
         this.scene.cameras.main.once('camerafadeoutcomplete', () => {
-            
+
             this.scene.backgroundCutscene1?.destroy();
             this.scene.chosenBachelor?.destroy();
-
+            this.scene.phone?.destroy();
+            this.scene.phoneBackground?.destroy();
             this.scene.cameras.main.fadeIn(2000);
 
-            
+
             if (typeof this.scene.createSelectionScreen === 'function') {
                 this.scene.createSelectionScreen();
             }
 
-            
+
             this.scene.AudioManager.playMusic('minigameMusic');
             this.scene.AudioManager.fadeInMusic('minigameMusic', 1000);
             this.scene.cameras.main.fadeIn(2000);
-            
+
         });
     }
 
