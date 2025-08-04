@@ -13,7 +13,8 @@ export class InteractiveMakeupSystem {
         this.activeMakeupImage = null;
         this.drawingLayer = null;
         this.brushImage = null;
-        this.brushRadius = 30;
+        this.brushRadius = 60;
+        this.debugPoint = null;
 
         this.isDrawing = false;
 
@@ -34,12 +35,11 @@ export class InteractiveMakeupSystem {
         this.activeOutlineGraphics = null;
 
 
-        this.customCursor = scene.add.graphics({ fillStyle: { color: 0xffffff, alpha: 0.5 } })
-            .fillCircle(this.brushRadius, this.brushRadius, this.brushRadius)
-            .setVisible(false)
-            .setDepth(1000);
+        this.customCursorImage = null; 
+        this.customCursorGraphics = null;
+       
 
-        this.customCursorRadius = this.brushRadius;
+        this.brushRadius = 30; 
 
         this.tutorialShown = {
             'Eyeliner': false,
@@ -59,15 +59,34 @@ export class InteractiveMakeupSystem {
         }
 
         if (!this.tutorialShown[makeupType]) this.triggerMakeUpTutorial(makeupType);
-        this.scene.input.setDefaultCursor('none');
-        this.customCursor.clear();
-        this.customCursor.fillStyle(0xffffff, 0.5);
+        this.scene.input.setDefaultCursor('none'); // Sembunyikan kursor default browser
 
-        this.customCursor.fillCircle(this.brushRadius, this.brushRadius, this.brushRadius);
-        this.customCursor.x = this.scene.input.activePointer.worldX - this.brushRadius;
-        this.customCursor.y = this.scene.input.activePointer.worldY - this.brushRadius;
-        this.customCursor.setVisible(true);
-        this.customCursor.setDepth(this.scene.sys.game.config.height + 100);
+        let cursorAssetKey = null;
+
+        switch (makeupType) {
+            case 'Lips':
+                cursorAssetKey = 'LipstickCursor';
+                break;
+            case 'Eyeliner':
+            case 'Eyeshadow':
+                cursorAssetKey = 'MascaraCursor';
+                break;
+            case 'Blush':
+                // Untuk Blush, kita buat ulang kursor grafis lama sebagai fallback
+                this.customCursorGraphics = this.scene.add.graphics({ fillStyle: { color: 0xffffff, alpha: 0.5 } })
+                    .fillCircle(this.brushRadius, this.brushRadius, this.brushRadius)
+                    .setVisible(true)
+                    .setDepth(10000);
+                break;
+        }
+
+        if (cursorAssetKey) {
+            // Jika ada aset, buat kursor gambar
+            this.customCursorImage = this.scene.add.image(0, 0, cursorAssetKey)
+                .setDepth(10000) // Pastikan di atas segalanya
+                .setOrigin(0.25, 0); // Sesuaikan origin agar ujung kuas/lipstik pas dengan pointer
+            this.customCursorImage.setScale(0.3); // Sesuaikan skala jika perlu
+        }
 
         this.scene.input.on('pointermove', this.updateCustomCursorPosition, this);
 
@@ -693,13 +712,15 @@ export class InteractiveMakeupSystem {
     }
 
     updateCustomCursorPosition(pointer) {
-        if (this.isActive && !this.isComplete && this.customCursor.visible) {
-            this.customCursor.x = pointer.worldX - this.brushRadius;
-            this.customCursor.y = pointer.worldY - this.brushRadius;
-        } else if (this.customCursor.visible) {
-
-            this.customCursor.setVisible(false);
-            this.scene.input.setDefaultCursor('default');
+         if (this.isActive && !this.isComplete) {
+            if (this.customCursorImage) {
+                // Jika kursor gambar ada, perbarui posisinya
+                this.customCursorImage.setPosition(pointer.x, pointer.y);
+            }
+            if (this.customCursorGraphics) {
+                // Jika kursor grafis ada, perbarui posisinya
+                this.customCursorGraphics.setPosition(pointer.x - this.brushRadius, pointer.y - this.brushRadius);
+            }
         }
     }
 
@@ -709,8 +730,16 @@ export class InteractiveMakeupSystem {
         this.scene.input.off('pointermove', this.boundOnPointerMove);
         this.scene.input.off('pointerup', this.boundOnPointerUp);
         this.scene.input.off('pointerupoutside', this.boundOnPointerUp);
-        if (this.customCursor) this.customCursor.setVisible(false);
         this.scene.input.setDefaultCursor('default');
+
+        if (this.customCursorImage) {
+            this.customCursorImage.destroy();
+            this.customCursorImage = null;
+        }
+        if (this.customCursorGraphics) {
+            this.customCursorGraphics.destroy();
+            this.customCursorGraphics = null;
+        }
 
         if (this.drawingLayer) { this.drawingLayer.destroy(); this.drawingLayer = null; }
         if (this.activeOutlineGraphics) { this.scene.tweens.killTweensOf(this.activeOutlineGraphics); this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }

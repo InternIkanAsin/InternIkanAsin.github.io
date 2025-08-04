@@ -114,6 +114,10 @@ export default class AssetLoader {
 
     scene.load.image('fingerCursor', 'Asset/UI/Finger_Icon.png');
 
+    // cursor asset
+    scene.load.image('LipstickCursor', "Asset/UI/New/lipstick.png");
+    scene.load.image('MascaraCursor', "Asset/UI/New/mascara.png");
+
     scene.load.image('cutscene1Background', 'Asset/UI/New/BG_Hape.png');
     scene.load.image('phone', 'Asset/UI/New/Phone.png');
     scene.load.image('phoneBackground', 'Asset/UI/New/BG_Hape_calling.png');
