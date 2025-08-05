@@ -106,7 +106,7 @@ export class DressUpManager {
             }
         });
 
-        let allButtonContainersForPanel = [];
+       
 
         const lepasButtonCallbackType = (outfitType === "Dress" || outfitType === "DressShirt") ? "DressShirt" : outfitType;
 
@@ -128,6 +128,8 @@ export class DressUpManager {
                 }
             });
         }
+
+        const allButtonContainersForPanel = [];
         // --- Create and Add "Lepas" Button for Outfits ---
         const lepasOutfitButton = new ItemPanelButton(
             scene,
@@ -207,15 +209,18 @@ export class DressUpManager {
         if (scene.MiniGameManager.innerSizer) {
             scene.MiniGameManager.innerSizer.clear(true);
         }
-
+        const columnCount = 2;
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
-            column: 1, row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 0, row: 70 }, align: 'center',
+            column: 2, row: scene.MiniGameManager.buttonList.length || 1,
+            space: { column: 70, row: 70 }, align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
-        scene.MiniGameManager.buttonList.forEach((btnContainer, index) => {
+        allButtonContainersForPanel.forEach((btnContainer, index) => {
+            const rowIndex = Math.floor(index / columnCount);
+            const columnIndex = index % columnCount;
+            
             btnContainer.setVisible(true);
-            scene.MiniGameManager.buttonGrid.add(btnContainer, 0, index, 'center', 0, false);
+            scene.MiniGameManager.buttonGrid.add(btnContainer, columnIndex, rowIndex, 'center', 0, true);
         });
         scene.MiniGameManager.buttonGrid.layout();
         scene.MiniGameManager.innerSizer.layout();

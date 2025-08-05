@@ -167,7 +167,7 @@ const LANDSCAPE = {
     },
     // Side Panel
     sidePanel: {
-        x: 1920 - 70,
+        x: 1920 - 190,
         y: 1080 / 2,
         left: 45,
         right: 10,
@@ -257,11 +257,11 @@ const LANDSCAPE = {
     },
     //Dressup Category
     dressUpCategoryButtons: {
-        dressButton: { x: 1536, y: 175 },
-        outerButton: { x: 1536, y: 350 },
-        LowerButton: { x: 1536, y: 525 },
-        socksButton: { x: 1536, y: 700 },
-        shoesButton: { x: 1536, y: 875 }
+        dressButton: { x: 1370, y: 175 },
+        outerButton: { x: 1370, y: 350 },
+        LowerButton: { x: 1370, y: 525 },
+        socksButton: { x: 1370, y: 700 },
+        shoesButton: { x: 1370, y: 875 }
     },
 
     makeUpCategoryButtons: {
