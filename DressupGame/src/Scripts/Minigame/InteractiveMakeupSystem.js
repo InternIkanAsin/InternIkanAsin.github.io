@@ -1,6 +1,7 @@
 import { MakeUpButton } from '../UI/UIButton.js'; // For updating selectedMakeUp
-import {  defaultMakeUpSkins} from '../Makeup Data/MakeUpData.js'; // For reverting
+import {  defaultMakeUpSkins, outlineMap} from '../Makeup Data/MakeUpData.js'; // For reverting
 import { layout } from '../ScreenOrientationUtils.js';
+
 
 export class InteractiveMakeupSystem {
     constructor(scene) {
@@ -32,7 +33,7 @@ export class InteractiveMakeupSystem {
         this.boundOnPointerDown = this.onPointerDown.bind(this);
         this.boundOnPointerMove = this.onPointerMove.bind(this);
         this.boundOnPointerUp = this.onPointerUp.bind(this);
-        this.activeOutlineGraphics = null;
+        
 
 
         this.customCursorImage = null; 
@@ -47,6 +48,7 @@ export class InteractiveMakeupSystem {
             'Lips': false,
             'Blush': false,
         };
+        this.activeOutlineImage = null; 
     }
 
     startColoringSession(makeupType, textureKey, itemButtonInstance) {
@@ -113,10 +115,10 @@ export class InteractiveMakeupSystem {
         let scale = 0.59 * 2;
 
 
-        if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); this.activeOutlineGraphics = null; }
-        this.activeOutlineGraphics = this.scene.add.graphics();
-        if (this.scene.faceContainer) {
-            this.scene.faceContainer.add(this.activeOutlineGraphics);
+        
+        if (this.activeOutlineImage) {
+            this.activeOutlineImage.destroy();
+            this.activeOutlineImage = null;
         }
 
         if (makeupType === 'Lips') {
@@ -171,26 +173,55 @@ export class InteractiveMakeupSystem {
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
         }
-        if (this.activeOutlineGraphics) { this.activeOutlineGraphics.destroy(); }
-        this.activeOutlineGraphics = this.scene.add.graphics();
 
+
+        let outlineAssetKey = null;
+        const itemName = itemButtonInstance.name;
+        
+        // Cek dulu apakah ada pemetaan khusus untuk nama item ini
+        if (outlineMap._specials[itemName]) {
+            outlineAssetKey = outlineMap._specials[itemName];
+        } 
+        // Jika tidak, gunakan default untuk tipe makeup ini
+        else if (outlineMap._defaults[makeupType]) {
+            outlineAssetKey = outlineMap._defaults[makeupType];
+        }
+
+        // 2. Jika kita menemukan kunci, buat gambar outline
+        if (outlineAssetKey) {
+            console.log(`Using outline asset: ${outlineAssetKey} for ${itemName}`);
+            
+            // Dapatkan posisi dan skala dari gambar makeup yang aktif
+            const position = { x: this.activeMakeupImage.x, y: this.activeMakeupImage.y };
+            const scale = this.activeMakeupImage.scaleX; // Asumsikan skala seragam
+
+            // Buat gambar outline
+            this.activeOutlineImage = this.scene.add.image(position.x, position.y, outlineAssetKey)
+                .setScale(scale)
+                .setDepth(9999); // Selalu di atas
+
+            // Pastikan outline dimasukkan ke dalam faceContainer agar posisinya benar
+            if (this.scene.faceContainer) {
+                this.scene.faceContainer.add(this.activeOutlineImage);
+            }
+
+            // Animasikan outline (opsional, tapi bagus)
+            this.scene.tweens.add({
+                targets: this.activeOutlineImage,
+                alpha: 0.3,
+                duration: 500,
+                yoyo: true,
+                repeat: -1
+            });
+        }
 
         const sourceTexture = this.scene.textures.get(textureKey);
-        if (!sourceTexture || !sourceTexture.getSourceImage()) { this.isActive = false; return; }
+        if (!sourceTexture || !sourceTexture.getSourceImage()) {
+            this.isActive = false;
+            return;
+        }
         const originalTextureWidth = sourceTexture.getSourceImage().width;
         const originalTextureHeight = sourceTexture.getSourceImage().height;
-
-
-        if (this.activeOutlineGraphics && this.activeMakeupImage) {
-            this.generateAndDrawOutline(
-                this.activeOutlineGraphics,
-                sourceTexture,
-                originalTextureWidth,
-                originalTextureHeight,
-                this.activeMakeupImage.scale,
-                999
-            );
-        }
 
 
         const bounds = this.activeMakeupImage.getBounds();
@@ -234,155 +265,8 @@ export class InteractiveMakeupSystem {
             this.scene.faceContainer.sort('depth');
         }
     }
-    // old generate outline (uncomment to use as cadangan)
-    //generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, scale, depth) {
-    //    graphics.clear();
-    //    const worldPos = { x: 0, y: 0 };
-    //    this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
-    //    graphics.setPosition(worldPos.x, worldPos.y);
-//
-//
-    //    graphics.setPosition(worldPos.x, worldPos.y);
-    //    const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
-    //    graphics.setScale(finalScale);
-    //    graphics.setDepth(depth);
-    //    graphics.lineStyle(18 / finalScale, 0xffffff, 0.8);
-//
-    //    const sourceImageElement = sourceTexturePhaser.getSourceImage();
-    //    const tempCanvas = document.createElement('canvas');
-    //    tempCanvas.width = textureWidth;
-    //    tempCanvas.height = textureHeight;
-    //    const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
-    //    if (!tempCtx) { console.error("Failed to get context for outline generation."); return; }
-    //    tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
-    //    const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
-//
-    //    const alphaThreshold = 20;
-//
-//
-    //    graphics.fillStyle(0xffffff, 0.6);
-    //    const dotSize = 2 / scale;
-//
-    //    for (let y = 0; y < textureHeight; y++) {
-    //        for (let x = 0; x < textureWidth; x++) {
-    //            const i = (y * textureWidth + x) * 4;
-    //            const alpha = imageData[i + 3];
-//
-    //            if (alpha > alphaThreshold) {
-//
-    //                const neighbors = [
-    //                    (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0,
-    //                    (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0,
-    //                    (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0,
-    //                    (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0
-    //                ];
-//
-    //                let isEdge = false;
-    //                for (const neighborAlpha of neighbors) {
-    //                    if (neighborAlpha <= alphaThreshold) {
-    //                        isEdge = true;
-    //                        break;
-    //                    }
-    //                }
-//
-    //                if (isEdge) {
-    //                    const drawX = x - textureWidth / 2;
-    //                    const drawY = y - textureHeight / 2;
-    //                    graphics.fillRect(drawX - dotSize / 2, drawY - dotSize / 2, dotSize, dotSize);
-    //                }
-    //            }
-    //        }
-    //    }
-//
-    //    this.scene.tweens.add({
-    //        targets: graphics,
-    //        alpha: 0.3,
-    //        duration: 500,
-    //        yoyo: true,
-    //        repeat: -1
-    //    });
-    //}
-
-    //new version of generate outline
-    generateAndDrawOutline(graphics, sourceTexturePhaser, textureWidth, textureHeight, scale, depth) {
-    graphics.clear();
-
-    const worldPos = { x: 0, y: 0 };
-    this.activeMakeupImage.getWorldTransformMatrix().transformPoint(0, 0, worldPos);
-    graphics.setPosition(worldPos.x, worldPos.y);
-
-    const finalScale = this.activeMakeupImage.scale * this.scene.faceContainer.scale;
-    graphics.setScale(finalScale);
-    graphics.setDepth(depth);
-
-    // ⚙️ Variabel konfigurasi
-    const outlineColor = 0x000000;
-    const outlineThickness = 4; // Pixel ketebalan
-    const scaledThickness = outlineThickness / finalScale;
-    const dashLength = 50; // Berapa titik "on"
-    const gapLength = 30;  // Berapa titik "off"
-
-    const sourceImageElement = sourceTexturePhaser.getSourceImage();
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = textureWidth;
-    tempCanvas.height = textureHeight;
-
-    const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
-    if (!tempCtx) {
-        console.error("Failed to get context for outline generation.");
-        return;
-    }
-
-    tempCtx.drawImage(sourceImageElement, 0, 0, textureWidth, textureHeight);
-    const imageData = tempCtx.getImageData(0, 0, textureWidth, textureHeight).data;
-
-    const alphaThreshold = 20;
-    let dashCounter = 0;
-
-    for (let y = 0; y < textureHeight; y++) {
-        for (let x = 0; x < textureWidth; x++) {
-            const i = (y * textureWidth + x) * 4;
-            const alpha = imageData[i + 3];
-
-            if (alpha > alphaThreshold) {
-                const neighbors = [
-                    (y > 0) ? imageData[((y - 1) * textureWidth + x) * 4 + 3] : 0,
-                    (y < textureHeight - 1) ? imageData[((y + 1) * textureWidth + x) * 4 + 3] : 0,
-                    (x > 0) ? imageData[(y * textureWidth + (x - 1)) * 4 + 3] : 0,
-                    (x < textureWidth - 1) ? imageData[(y * textureWidth + (x + 1)) * 4 + 3] : 0
-                ];
-
-                const isEdge = neighbors.some(nAlpha => nAlpha <= alphaThreshold);
-
-                if (isEdge) {
-                    // Gambar hanya jika kita sedang berada dalam segment "dash"
-                    const dashCycle = dashLength + gapLength;
-                    if ((dashCounter % dashCycle) < dashLength) {
-                        const drawX = x - textureWidth / 2;
-                        const drawY = y - textureHeight / 2;
-
-                        graphics.fillStyle(outlineColor, 1);
-                        graphics.fillRect(
-                            drawX - scaledThickness / 2,
-                            drawY - scaledThickness / 2,
-                            scaledThickness,
-                            scaledThickness
-                        );
-                    }
-                    dashCounter++;
-                }
-            }
-        }
-    }
-
-    this.scene.tweens.add({
-        targets: graphics,
-        alpha: 0.3,
-        duration: 500,
-        yoyo: true,
-        repeat: -1
-    });
-}
+   
+    
 
 
     triggerMakeUpTutorial(makeUpType) {
@@ -738,7 +622,11 @@ export class InteractiveMakeupSystem {
         this.scene.input.off('pointerup', this.boundOnPointerUp);
         this.scene.input.off('pointerupoutside', this.boundOnPointerUp);
         this.scene.input.setDefaultCursor('default');
-
+        if (this.activeOutlineImage) {
+            this.scene.tweens.killTweensOf(this.activeOutlineImage); // Hentikan tween
+            this.activeOutlineImage.destroy();
+            this.activeOutlineImage = null;
+        }
         if (this.customCursorImage) {
             this.customCursorImage.destroy();
             this.customCursorImage = null;
