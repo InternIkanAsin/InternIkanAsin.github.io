@@ -156,33 +156,31 @@ export const defaultMakeUpSkins = {
 
 export const outlineMap = {
     // Kunci default untuk setiap tipe
-    _defaults: {
-        Lips: 'LipstickOutline',
-        // Tidak ada default untuk Blush karena setiap item unik
-        // Tidak ada default untuk Eyeliner karena ada dua jenis
-        // Tidak ada default untuk Eyeshadow karena ada dua jenis
+    'Lips': {
+        // Untuk Lips, semua item menggunakan outline yang sama, jadi kita hanya perlu default.
+        _default: 'LipstickOutline'
     },
-
-    // Pengecualian atau kasus spesifik berdasarkan NAMA
-    _specials: {
-        // Blush
+    'Blush': {
+        
         'Anime': 'BlushAnimeOutline',
         'Fever': 'BlushFeverOutline',
-        'Heart': 'BlushNormalOutline',     // Love -> Heart (asumsi)
-        'Orange': 'BlushNormalOutline',
         'Frackles': 'BlushNormalOutline',
+        'Heart': 'BlushNormalOutline',
+        'Orange': 'BlushNormalOutline',
         'Pink': 'BlushNormalOutline',
         'Red Nose': 'BlushRedOutline',
-        'Round': 'BlushRoundOutline',
+        'Round': 'BlushRoundOutline'
+    },
+    'Eyeliner': {
         
-        // Eyeliner
         'Wing': 'EyelinerFullOutline',
         'Sharp Edged': 'EyelinerShortOutline',
         'Double': 'EyelinerShortOutline',
         'Cat': 'EyelinerShortOutline',
-        'Butterfly': 'EyelinerShortOutline',
-
-        // Eyeshadow
+        'Butterfly': 'EyelinerShortOutline'
+    },
+    'Eyeshadow': {
+        
         'Dragon Styled': 'EyeshadowFullOutline',
         'Fairy Styled': 'EyeshadowFullOutline',
         'Brown': 'EyeshadowShortOutline',
@@ -191,7 +189,7 @@ export const outlineMap = {
         'Orange': 'EyeshadowShortOutline',
         'Peach': 'EyeshadowShortOutline',
         'Pink': 'EyeshadowShortOutline',
-        'Purple': 'EyeshadowShortOutline',
+        'Purple': 'EyeshadowShortOutline'
     }
 };
 

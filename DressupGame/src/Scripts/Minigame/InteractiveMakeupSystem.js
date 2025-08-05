@@ -178,13 +178,18 @@ export class InteractiveMakeupSystem {
         let outlineAssetKey = null;
         const itemName = itemButtonInstance.name;
         
-        // Cek dulu apakah ada pemetaan khusus untuk nama item ini
-        if (outlineMap._specials[itemName]) {
-            outlineAssetKey = outlineMap._specials[itemName];
-        } 
-        // Jika tidak, gunakan default untuk tipe makeup ini
-        else if (outlineMap._defaults[makeupType]) {
-            outlineAssetKey = outlineMap._defaults[makeupType];
+        // 1. Ambil blok konfigurasi untuk tipe makeup saat ini (e.g., 'Eyeliner')
+        const typeConfig = outlineMap[makeupType];
+
+        if (typeConfig) {
+            // 2. Cek dulu apakah ada pemetaan khusus untuk NAMA item ini di dalam blok tersebut.
+            if (typeConfig[itemName]) {
+                outlineAssetKey = typeConfig[itemName];
+            } 
+            // 3. Jika tidak ada, baru gunakan `_default` dari blok tersebut.
+            else if (typeConfig._default) {
+                outlineAssetKey = typeConfig._default;
+            }
         }
 
         // 2. Jika kita menemukan kunci, buat gambar outline
