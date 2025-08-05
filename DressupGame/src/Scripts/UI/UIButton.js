@@ -1,13 +1,13 @@
 
 import { BaseButton } from "./BaseButton.js";
-import {  defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
+import { defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
-    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, textureYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
+    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
 
         let button = null;
         let icon = null;
@@ -23,7 +23,7 @@ export default class UIButton extends BaseButton {
 
         if (textureIcon) {
             icon = textureIcon !== null
-                ? scene.add.image(iconOffset, textureYPosition, textureIcon).setScale(iconScale)
+                ? scene.add.image(iconOffset, iconYPosition, textureIcon).setScale(iconScale)
                 : null;
         }
 
@@ -93,7 +93,7 @@ export class ItemPanelButton extends BaseButton {
 
         const buttonBg = scene.add.image(0, 0, backgroundTextureKey)
             .setInteractive()
-            .setScale(layout.itemPanelButton.buttonScale);
+            .setScale(layout.itemPanelButton.buttonScale / 2);
 
         const iconImg = scene.add.image(0, iconYOffset, iconTextureKey).setScale(layout.itemPanelButton.iconScale);
 
@@ -342,10 +342,10 @@ export class OutfitButton extends BaseButton {
     static selectedOutfits = {};
 
     constructor(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
-        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale);
+        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.outfitButton.buttonScale / 2);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
-            .setVisible(false).setScale(layout.outfitButton.highlightImg);
-        const lockedImg = scene.add.image(0, 0, 'buttonIconLocked').setVisible(false).setScale(layout.outfitButton.highlightImg)
+            .setVisible(false).setScale(layout.outfitButton.highlightImg / 2);
+        const lockedImg = scene.add.image(0, 0, 'buttonIconLocked').setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(layout.outfitButton.iconScale);
         const iconLockedBg = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'yellowIcon').setScale(layout.outfitButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.outfitButton.iconLockedX, layout.outfitButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.outfitButton.lockedIconScale);
@@ -658,12 +658,12 @@ export class MakeUpButton extends BaseButton {
     };
 
     constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
-        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.makeUpButton.buttonScale);
+        const buttonBg = scene.add.image(0, 0, textureButton).setInteractive().setScale(layout.makeUpButton.buttonScale / 2);
         const highlightImg = scene.add.image(0, 0, 'buttonIcon2Highlighted')
             .setVisible(false)
             .setDepth(-1)
-            .setScale(layout.makeUpButton.highlightImg);
-        const lockedImg = scene.add.image(0, 0, 'buttonIconLocked').setVisible(false).setScale(layout.outfitButton.highlightImg)
+            .setScale(layout.makeUpButton.highlightImg / 2);
+        const lockedImg = scene.add.image(0, 0, 'buttonIconLocked').setVisible(false).setScale(layout.outfitButton.highlightImg);
         const iconImg = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame).setScale(makeupType === "Hair" ? 1.2 : layout.makeUpButton.iconScale);
         const iconLockedBg = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'yellowIcon').setScale(layout.makeUpButton.lockedIconBgScale).setVisible(false);
         const iconLocked = scene.add.image(layout.makeUpButton.iconLockedX, layout.makeUpButton.iconLockedY, 'lockIcon').setVisible(false).setScale(layout.makeUpButton.lockedIconScale);
@@ -877,25 +877,25 @@ export class MakeUpButton extends BaseButton {
 
             if (['Pupil'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Pupil.scale * 2)
-            } else if(['Lips'].includes(makeupTypeToRevert)){
+            } else if (['Lips'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Lips.scale * 2)
             }
-            else if(['Eyebrows'].includes(makeupTypeToRevert)){
+            else if (['Eyebrows'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Eyebrows.scale * 2)
             }
-            else if(['Eyelashes'].includes(makeupTypeToRevert)){
+            else if (['Eyelashes'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Eyelashes.scale * 2)
             }
-            else if(['Sticker'].includes(makeupTypeToRevert)){
+            else if (['Sticker'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Sticker.scale * 2)
             }
-            else if(['Blush'].includes(makeupTypeToRevert)){
+            else if (['Blush'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Blush.scale * 2)
             }
-            else if(['Eyeliner'].includes(makeupTypeToRevert)){
+            else if (['Eyeliner'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Eyeliner.scale * 2)
             }
-            else if(['Eyeshadow'].includes(makeupTypeToRevert)){
+            else if (['Eyeshadow'].includes(makeupTypeToRevert)) {
                 imageToUpdate.setScale(layout.MakeupPosition.Eyeshadow.scale * 2)
             }
             else {
@@ -1032,7 +1032,7 @@ export class MakeUpButton extends BaseButton {
             }
 
             let newImage; const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
-            
+
             if (makeupType === 'Hair') {
                 const hairTextures = this.textureAnime;
                 scene.hairBack.setTexture(hairTextures.back.atlas, hairTextures.back.frame).setVisible(true);
@@ -1047,7 +1047,7 @@ export class MakeUpButton extends BaseButton {
             }
 
             else {
-                
+
                 const textureData = this.textureAnime;
                 switch (makeupType) {
                     case 'Eyebrows':
@@ -1065,7 +1065,7 @@ export class MakeUpButton extends BaseButton {
                         newImage = scene.pupils;
                         if (scene.UIManager) scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                         break;
-                    
+
 
                     case 'Sticker':
 
@@ -1087,7 +1087,7 @@ export class MakeUpButton extends BaseButton {
                 if (newImage && scene.UIManager) {
                     scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                 }
-                
+
             }
 
             if (makeupType === 'Hair') {
@@ -1096,25 +1096,25 @@ export class MakeUpButton extends BaseButton {
             } else {
 
                 if (['Pupil'].includes(makeupType)) { this.displayedMakeUp.setScale(layout.MakeupPosition.Pupil.scale * 2); }
-                else if(['Lips'].includes(makeupType)){
+                else if (['Lips'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Lips.scale * 2);
                 }
-                else if(['Eyebrows'].includes(makeupType)){
+                else if (['Eyebrows'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Eyebrows.scale * 2);
                 }
-                else if(['Eyelashes'].includes(makeupType)){
+                else if (['Eyelashes'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Eyelashes.scale * 2);
                 }
-                else if(['Blush'].includes(makeupType)){
+                else if (['Blush'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Blush.scale * 2);
                 }
-                else if(['Eyeliner'].includes(makeupType)){
+                else if (['Eyeliner'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Eyeliner.scale * 2);
                 }
-                else if(['Sticker'].includes(makeupType)){
+                else if (['Sticker'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Sticker.scale * 2);
                 }
-                else if(['Eyeshadow'].includes(makeupType)){
+                else if (['Eyeshadow'].includes(makeupType)) {
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Eyeshadow.scale * 2);
                 }
                 else { this.displayedMakeUp.setScale(0.9 * 2); }

@@ -49,10 +49,10 @@ const LANDSCAPE = {
     },
 
     minigameFinishButton: {
-        x: 70,
-        y: 500 + (75 * 1.6) + 60,
-        scale: 1,
-        useNineSlice: true,
+        x: 140,
+        y: 525 + (75 * 1.6) + 60,
+        scale: 0.4,
+        useNineSlice: false,
         textOffsetX: 5,
         texture: 'readyButtonIcon',
         width: 200,
@@ -90,7 +90,7 @@ const LANDSCAPE = {
         originY: 0.5,
         x: 1920 / 2,
         y: 1080 / 2,
-        scale: 1
+        scale: 0.6
     },
 
     //Background Cutscene
@@ -211,16 +211,17 @@ const LANDSCAPE = {
     },
 
     backButton: {
-        x: LANDSCAPE_WIDTH * 0.08,
+        x: LANDSCAPE_WIDTH * 0.06,
         y: LANDSCAPE_HEIGHT * 0.1,
-        scale: 0.22 * 2
+        scale: 0.14 * 2,
+        iconScale: 0.16 * 2
     },
 
     removeAllButton: {
-        x: 70,
+        x: 120,
         y: 500,
-        buttonScale: 0.8 * 2,
-        iconScale: 0.7 * 2
+        buttonScale: 0.6 * 2,
+        iconScale: 0.5 * 2
     },
 
     itemPanelButton: {
@@ -499,8 +500,8 @@ const PORTRAIT = {
     sidePanel: {
         x: PORTRAIT_WIDTH + 50,
         y: PORTRAIT_CENTERY,
-        left: 0,
-        right: 65,
+        left: 120,
+        right: 0,
         top: 105,
         bottom: 30,
         panel: 30

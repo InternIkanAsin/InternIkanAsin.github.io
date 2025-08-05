@@ -34,11 +34,11 @@ export class MiniGameManager {
         this.backButton = new UIButton(scene, scene.AudioManager, {
             x: layout.backButton.x,
             y: layout.backButton.y,
-            textureButton: 'backButtonIcon',
+            textureButton: 'yellowButton',
             buttonWidth: 75,
             buttonHeight: 75,
-            textureIcon: '',
-            iconYPosition: -10,
+            textureIcon: 'exitIcon',
+            iconYPosition: -5,
             iconScale: layout.backButton.scale,
             callback: () => {
                 scene.TweeningUtils.transitionBackToSelection();
@@ -47,16 +47,16 @@ export class MiniGameManager {
             buttonScale: layout.backButton.scale,
         }).setDepth(99);
 
-        const removeAllIconKey = scene.state === GameState.MAKEUP ? 'removeMakeUpIcon' : 'removeDressIcon';
+        scene.purpleLine1 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
             x: layout.removeAllButton.x,
             y: layout.removeAllButton.y,
-            textureButton: 'stitchedButtonIcon',
+            textureButton: 'blueButton',
             buttonWidth: 75,
             buttonHeight: 75,
-            textureIcon: removeAllIconKey,
-            iconYPosition: -10,
-            iconScale: 0.6 * 2,
+            textureIcon: 'removeIcon',
+            iconYPosition: -5,
+            iconScale: 0.5,
             callback: () => {
                 if (scene.state === GameState.MAKEUP) {
                     if (scene.MakeUpManager) {
@@ -72,21 +72,22 @@ export class MiniGameManager {
                     }
                 }
             },
-            buttonText: 'Remove All',
+            buttonText: '',
             textSize: 24,
             textYPosition: 60,
-            buttonScale: 0.7 * 2,
+            buttonScale: 0.325,
         }).setDepth(99);
 
+        scene.purpleLine2 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
         scene.finishButton = new UIButton(scene, this.AudioManager, {
             x: layout.minigameFinishButton.x,
             y: layout.minigameFinishButton.y,
-            textureButton: layout.minigameFinishButton.texture || 'readyButtonIcon',
+            textureButton: 'yellowButton',
             buttonWidth: layout.minigameFinishButton.width,
             buttonHeight: layout.minigameFinishButton.height,
-            textureIcon: '',
+            textureIcon: 'tickMark',
             iconYPosition: 0,
-            iconScale: 1.5,
+            iconScale: 1,
             callback: () => {
 
                 scene.finishButton.disableInteractive();
@@ -119,7 +120,7 @@ export class MiniGameManager {
                     this.scene.TweeningUtils.hideApplyMakeUpPanel();
                 }
             },
-            buttonText: 'READY',
+            buttonText: '',
             textOffset: layout.minigameFinishButton.textOffsetX || 0,
             textSize: layout.minigameFinishButton.textSize,
             textYPosition: 0,
@@ -127,7 +128,7 @@ export class MiniGameManager {
             useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
             buttonScale: layout.minigameFinishButton.scale,
             textColor: '#d6525f'
-        });
+        }).setDepth(99);
 
         scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'StitchedButtonWithoutStitchIcon', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
         scene.applyMakeUpText = this.scene.add.text(layout.applyMakeUpText.x, layout.applyMakeUpText.y, 'Swipe the highlighted area to apply the make up', {
@@ -520,31 +521,6 @@ export class MiniGameManager {
         this.outfitButtonStatGrid.add(outfitLabel1, index, 0, 'left', { top: 60 }, true);
     }
 
-    createOutfitStatsDisplay(outfitType, index) {
-        this.buttons = this.scene.outfitStats[outfitType] || [];
-        const buttonList = this.buttons;
-
-        let column = 6;
-        let row = Math.ceil(buttonList.length / column);
-
-        this.outfitStatsGrid = this.scene.rexUI.add.gridSizer({
-            row: row,
-            column: column,
-            rowProportions: 1,
-            space: { column: 90, row: 100 },
-            align: 'center',
-        });
-
-
-        buttonList.forEach((btn, i) => {
-            const r = Math.floor(i / column);
-            const c = i % column;
-            this.outfitStatsGrid.add(btn, c, r, 'center', 0, false);
-        });
-
-        this.outfitButtonStatGrid.add(this.outfitStatsGrid, index, 0, 'center', { top: 70, bottom: 70 }, false);
-    }
-
     setUpSidePanel(scene) {
         const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
@@ -571,7 +547,7 @@ export class MiniGameManager {
         const sidePanel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 500, 667, 14, 14, 17, 10).setDepth(10).setScale(1.5);
 
         this.innerSizer = scene.rexUI.add.sizer({
-            orientation: 1,
+            orientation: 0,
             space: { top: 70, bottom: 100, left: 60 }
         });
 
@@ -581,8 +557,8 @@ export class MiniGameManager {
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({
             x: layout.sidePanel.x,
             y: layout.sidePanel.y,
-            width: layout.sidePanel.width || 500,
-            height: layout.sidePanel.height || 1000,
+            width: layout.sidePanel.width || 800,
+            height: layout.sidePanel.height || this.scene.scale.height,
             scrollMode: 0,
 
             scrollDetectionMode: 1,
