@@ -92,13 +92,13 @@ export default class AssetLoader {
     scene.load.image('readyButtonIconPressed', 'Asset/UI/Tombol_Ready_Pressed.png');
     scene.load.image('leftDrape', 'Asset/UI/Curtains_Released_Left.png');
     scene.load.image('rightDrape', 'Asset/UI/Curtains_Released_Right.png');
-    scene.load.image('leftCurtain', 'Asset/UI/Curtain_Tied_Left.png');
-    scene.load.image('rightCurtain', 'Asset/UI/Curtain_Tied_Right.png');
+    scene.load.image('leftCurtain', 'Asset/UI/New/Curtain_Tied_Left.png');
+    scene.load.image('rightCurtain', 'Asset/UI/New/Curtain_Tied_Right.png');
     scene.load.image('leftCurtainUntied', 'Asset/UI/Curtain_Tied_Left_Mobile.png');
     scene.load.image('rightCurtainUntied', 'Asset/UI/Curtain_Tied_Right_Mobile.png');
 
 
-    scene.load.image('sidePanel', 'Asset/UI/Panel.png');
+    scene.load.image('sidePanel', 'Asset/UI/New/Wardrobe_Base.png');
     scene.load.image('sidePanelLine', 'Asset/UI/Panel_Line.png');
 
     scene.load.image('dressIcon', 'Asset/UI/Dress_Icon.png');
@@ -107,8 +107,8 @@ export default class AssetLoader {
     scene.load.image('socksIcon', 'Asset/UI/Socks_Icon.png');
     scene.load.image('shoesIcon', 'Asset/UI/Shoes_Icon.png');
 
-    scene.load.image('buttonIcon2', 'Asset/UI/Button_Icon.png');
-    scene.load.image('buttonIcon2Highlighted', 'Asset/UI/Button_Icon_Highlighted.png');
+    scene.load.image('buttonIcon2', 'Asset/UI/New/Wardrobe_Icon_Button.png');
+    scene.load.image('buttonIcon2Highlighted', 'Asset/UI/New/Wardrobe_Icon_Highlighted.png');
 
     scene.load.image('xMark', 'Asset/UI/Cross.png');
     scene.load.image('tickMark', 'Asset/UI/Checkmark.png');
@@ -146,11 +146,16 @@ export default class AssetLoader {
 
 
 
+    scene.load.image('yellowButton', 'Asset/UI/New/Btn_Kuning2.png');
+    scene.load.image('blueButton', 'Asset/UI/New/Btn_Biru2.png');
+    scene.load.image('exitIcon', 'Asset/UI/New/Exit_Button.png');
+    scene.load.image('removeIcon', 'Asset/UI/New/Remove_Button.png');
   }
 
   static loadSceneAssets(scene) {
     //Dress up minigame background
     scene.load.image('background', 'Asset/Background/Cisini_UI_DressUp_Background.png');
+    scene.load.image('newBackground', 'Asset/Background/New_Background.png');
 
     //Player
     scene.load.image('hair', 'Asset/Outfit/Hairs_upscaled/hair_01_black_F_out.png');
@@ -352,7 +357,7 @@ export default class AssetLoader {
   }
 
   static loadEyeShadow(scene) {
-    
+
     scene.load.image('eyeshadownormalbrown', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es brown_normal.png");
     scene.load.image('eyeshadownormaldragon', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es dragon_normal.png");
     scene.load.image('eyeshadownormalfairy', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es fairy_normal.png");

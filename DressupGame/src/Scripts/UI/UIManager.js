@@ -22,7 +22,7 @@ export class UIManager {
      */
     setupScene(scene) {
         const bgLayout = layout.background;
-        scene.background = scene.add.image(bgLayout.x, bgLayout.y, 'background').setOrigin(bgLayout.originX, bgLayout.originY).setScale(bgLayout.scale);
+        scene.background = scene.add.image(bgLayout.x, bgLayout.y, 'newBackground').setOrigin(bgLayout.originX, bgLayout.originY).setScale(bgLayout.scale).setDisplaySize(this.scene.scale.width, this.scene.scale.height);
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player').setScale(layout.character.scale).setOrigin(0.5).setDepth(1);
 
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
@@ -152,7 +152,7 @@ export class UIManager {
             // 2. Hitung ukuran dunia dari item makeup
             const worldWidth = targetImage.displayWidth * container.scaleX + sizeOffset.w;
             const worldHeight = targetImage.displayHeight * container.scaleY + sizeOffset.h;
-            
+
             // 3. Buat rectangle final di posisi dunia
             particleBounds = new Phaser.Geom.Rectangle(
                 worldX - (worldWidth / 2), // Geser ke kiri setengah lebar untuk mendapatkan pojok kiri atas
@@ -180,7 +180,7 @@ export class UIManager {
             }
             particleBounds = bounds;
         }
-       
+
         // 4. Buat zona emisi dari rectangle yang sudah dihitung (baik dari makeup maupun outfit)
         const emitZone = {
             source: new Phaser.Geom.Rectangle(0, 0, particleBounds.width, particleBounds.height),
@@ -192,7 +192,7 @@ export class UIManager {
         const particles = scene.add.particles(
             particleBounds.x,
             particleBounds.y,
-            'particle_star', 
+            'particle_star',
             {
                 speed: { min: 30, max: 70 },
                 angle: { min: 0, max: 360 },
