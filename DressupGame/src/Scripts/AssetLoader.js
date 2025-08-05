@@ -127,6 +127,25 @@ export default class AssetLoader {
     scene.load.image('bachelor_profileOutside', 'Asset/UI/New/Profile_Outside.png');
 
     scene.load.image('callIcon', 'Asset/UI/New/call.png');
+
+    //outline
+    //blush
+    scene.load.image('BlushAnimeOutline', "Asset/Outline/Blush/Blush_Anime_Outline.png");
+    scene.load.image('BlushFeverOutline', "Asset/Outline/Blush/Blush_Fever_Outline.png");
+    scene.load.image('BlushNormalOutline', "Asset/Outline/Blush/Blush_Normal_Outline.png");
+    scene.load.image('BlushRedOutline', "Asset/Outline/Blush/Blush_Red_Nose_Outline.png");
+    scene.load.image('BlushRoundOutline', "Asset/Outline/Blush/Blush_Round_Outline.png");
+    //eyeliner
+    scene.load.image('EyelinerFullOutline', "Asset/Outline/Eyeliner/Eyeliner_Full_Outline.png");
+    scene.load.image('EyelinerShortOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Full_Outline.png");
+    //eyeshadow
+    scene.load.image('EyeshadowShortOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Short_Outline.png");
+    scene.load.image('EyeshadowFullOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Short_Outline.png");
+    //lips
+    scene.load.image('LipstickOutline', "Asset/Outline/Lips/Lipstick_Outline.png");
+
+
+
   }
 
   static loadSceneAssets(scene) {

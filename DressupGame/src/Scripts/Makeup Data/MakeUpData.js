@@ -154,6 +154,46 @@ export const defaultMakeUpSkins = {
     'Hair': { front: 'hair', back: '01blackB' }
 };
 
+export const outlineMap = {
+    // Kunci default untuk setiap tipe
+    _defaults: {
+        Lips: 'LipstickOutline',
+        // Tidak ada default untuk Blush karena setiap item unik
+        // Tidak ada default untuk Eyeliner karena ada dua jenis
+        // Tidak ada default untuk Eyeshadow karena ada dua jenis
+    },
+
+    // Pengecualian atau kasus spesifik berdasarkan NAMA
+    _specials: {
+        // Blush
+        'Anime': 'BlushAnimeOutline',
+        'Fever': 'BlushFeverOutline',
+        'Heart': 'BlushNormalOutline',     // Love -> Heart (asumsi)
+        'Orange': 'BlushNormalOutline',
+        'Frackles': 'BlushNormalOutline',
+        'Pink': 'BlushNormalOutline',
+        'Red Nose': 'BlushRedOutline',
+        'Round': 'BlushRoundOutline',
+        
+        // Eyeliner
+        'Wing': 'EyelinerFullOutline',
+        'Sharp Edged': 'EyelinerShortOutline',
+        'Double': 'EyelinerShortOutline',
+        'Cat': 'EyelinerShortOutline',
+        'Butterfly': 'EyelinerShortOutline',
+
+        // Eyeshadow
+        'Dragon Styled': 'EyeshadowFullOutline',
+        'Fairy Styled': 'EyeshadowFullOutline',
+        'Brown': 'EyeshadowShortOutline',
+        'Gold': 'EyeshadowShortOutline',
+        'Green': 'EyeshadowShortOutline',
+        'Orange': 'EyeshadowShortOutline',
+        'Peach': 'EyeshadowShortOutline',
+        'Pink': 'EyeshadowShortOutline',
+        'Purple': 'EyeshadowShortOutline',
+    }
+};
 
 
 export { makeUpData}

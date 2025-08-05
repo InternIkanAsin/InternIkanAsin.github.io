@@ -265,15 +265,15 @@ const LANDSCAPE = {
     },
 
     makeUpCategoryButtons: {
-        eyebrowsButton: { x: LANDSCAPE_WIDTH / 1.23, y: 125 },
-        eyelashesButton: { x: LANDSCAPE_WIDTH / 1.23, y: 225 },
-        eyelinerButton: { x: LANDSCAPE_WIDTH / 1.23, y: 325 },
-        eyeshadowButton: { x: LANDSCAPE_WIDTH / 1.23, y: 425 },
-        lipstickButton: { x: LANDSCAPE_WIDTH / 1.23, y: 525 },
-        eyecolorButton: { x: LANDSCAPE_WIDTH / 1.23, y: 625 },
-        blushButton: { x: LANDSCAPE_WIDTH / 1.23, y: 725 },
-        stickerButton: { x: LANDSCAPE_WIDTH / 1.23, y: 825 },
-        hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
+        eyebrowsButton: { x: 1370, y: 125 },
+        eyelashesButton: { x: 1370, y: 225 },
+        eyelinerButton: { x: 1370, y: 325 },
+        eyeshadowButton: { x: 1370, y: 425 },
+        lipstickButton: { x: 1370, y: 525 },
+        eyecolorButton: { x: 1370, y: 625 },
+        blushButton: { x: 1370, y: 725 },
+        stickerButton: { x: 1370, y: 825 },
+        hairButton: { x: 1370, y: 925 },
     },
 
     MakeupPosition: {
