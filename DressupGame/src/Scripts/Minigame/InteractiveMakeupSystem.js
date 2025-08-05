@@ -97,12 +97,14 @@ export class InteractiveMakeupSystem {
         this.isComplete = false;
 
 
-        if (makeupType === 'Lips') {
-            const defaultLipTexture = defaultMakeUpSkins['Lips'];
-            if (this.scene.lips && defaultLipTexture) {
-                console.log("[InteractiveMakeup] Setting lips to default for coloring session.");
-
-                this.scene.lips.setTexture(defaultLipTexture).setScale(layout.MakeupPosition.Lips.scale * 2);
+        if (makeupType === 'Lips' || makeupType === 'Eyeshadow') {
+            const defaultTextureKey = defaultMakeUpSkins[makeupType];
+            const targetObject = (makeupType === 'Lips') ? this.scene.lips : this.scene.eyeshadows;
+            const scale = (layout.MakeupPosition[makeupType]?.scale || 0.55) * 2;
+            
+            if (targetObject && defaultTextureKey) {
+                console.log(`[InteractiveMakeup] Setting ${makeupType} to default for coloring session.`);
+                targetObject.setTexture(defaultTextureKey).setScale(scale);
             }
         }
 
@@ -610,22 +612,27 @@ export class InteractiveMakeupSystem {
             let finalImageForEffect = null;
             if (imageThatWasColored) imageThatWasColored.clearMask();
 
-            if (typeFinalizing === 'Lips') {
+            if (typeFinalizing === 'Lips' || typeFinalizing === 'Eyeshadow') {
+                const targetObject = (typeFinalizing === 'Lips') ? this.scene.lips : this.scene.eyeshadows;
+                const scale = (layout.MakeupPosition[typeFinalizing]?.scale || 0.55) * 2;
+                
+                // Terapkan tekstur baru ke objek persisten
+                targetObject.setTexture(this.activeTextureKey).setScale(scale).setVisible(true);
+                finalImageForEffect = targetObject; // Target partikel adalah objek persisten
 
-                this.scene.lips.setTexture(this.activeTextureKey).setScale(layout.MakeupPosition.Lips.scale * 2).setVisible(true);
+                // Perbarui referensi di tombol
+                const button = MakeUpButton.selectedMakeUp[typeFinalizing]?.current;
+                if (button) button.displayedMakeUp = targetObject;
+                
+                // Hancurkan gambar sementara SETELAH semuanya selesai
+                if (imageThatWasColored) imageThatWasColored.destroy();
 
-                if (imageThatWasColored && imageThatWasColored !== this.scene.lips) {
-                    imageThatWasColored.destroy();
+            } else {
+                // Untuk item aditif (Blush, Eyeliner)
+                if (imageThatWasColored) {
+                    imageThatWasColored.clearMask();
+                    imageThatWasColored.setDepth(MakeUpButton.DEPTH_VALUES[typeFinalizing] || 2.1);
                 }
-
-                finalImageForEffect = this.scene.lips;
-
-                const lipButton = MakeUpButton.selectedMakeUp['Lips']?.current;
-                if (lipButton instanceof MakeUpButton) {
-                    lipButton.displayedMakeUp = this.scene.lips;
-                }
-            }
-            else {
                 finalImageForEffect = imageThatWasColored;
             }
 

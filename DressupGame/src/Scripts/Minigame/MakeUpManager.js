@@ -147,7 +147,7 @@ export class MakeUpManager {
                     if (helperButton && helperButton instanceof MakeUpButton) {
                         if (currentEquipped && currentEquipped.displayedMakeUp) {
                             const typeOfEquipped = currentEquipped.makeupType || makeUpType;
-                            if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(typeOfEquipped)) {
+                            if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair','Eyeshadow'].includes(typeOfEquipped)) {
                                 if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
                                     currentEquipped.displayedMakeUp.destroy();
                                 }
@@ -536,7 +536,7 @@ export class MakeUpManager {
             if (currentEquipped) {
 
 
-                if (currentEquipped.displayedMakeUp && !['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeupType)) {
+                if (currentEquipped.displayedMakeUp && !['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair','Eyeshadow'].includes(makeupType)) {
                     if (typeof currentEquipped.displayedMakeUp.destroy === 'function') {
                         console.log(`[RemoveAll] Destroying visual for ${makeupType}: ${currentEquipped.name}`);
                         currentEquipped.displayedMakeUp.destroy();

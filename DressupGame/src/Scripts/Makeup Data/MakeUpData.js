@@ -150,6 +150,7 @@ export const defaultMakeUpSkins = {
     'Eyebrows': 'EyebrowNormalDefault',
     'Eyelashes': 'EyelashesNormalDefault',
     'Pupil': 'PupilNormalBlue',
+    'Eyeshadow': 'eyeshadownormaldefault',
     'Hair': { front: 'hair', back: '01blackB' }
 };
 

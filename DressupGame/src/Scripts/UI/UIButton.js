@@ -845,7 +845,7 @@ export class MakeUpButton extends BaseButton {
 
             const defaultMakeUpItemData = makeUpData.find(item => item.makeUpType === makeupTypeToRevert && item.textureAnime === defaultTextureKey);
             if (!defaultMakeUpItemData && !['Sticker'].includes(makeupTypeToRevert)) {
-                if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil'].includes(makeupTypeToRevert)) {
+                if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Eyeshadow'].includes(makeupTypeToRevert)) {
                     MakeUpButton.selectedMakeUp[makeupTypeToRevert] = { current: null, previous: previousEquippedItemInfo };
                     return;
                 }
@@ -859,6 +859,7 @@ export class MakeUpButton extends BaseButton {
                 case 'Eyebrows': imageToUpdate = scene.eyebrows; break;
                 case 'Eyelashes': imageToUpdate = scene.eyelashes; break;
                 case 'Pupil': imageToUpdate = scene.pupils; break;
+                case 'Eyeshadow': imageToUpdate = scene.eyeshadows; break;
                 default:
                     imageToUpdate = scene.add.image(position.x, position.y, defaultTextureKey);
                     if (scene.faceContainer && !imageToUpdate.parentContainer) {
@@ -893,6 +894,9 @@ export class MakeUpButton extends BaseButton {
             }
             else if(['Eyeliner'].includes(makeupTypeToRevert)){
                 imageToUpdate.setScale(layout.MakeupPosition.Eyeliner.scale * 2)
+            }
+            else if(['Eyeshadow'].includes(makeupTypeToRevert)){
+                imageToUpdate.setScale(layout.MakeupPosition.Eyeshadow.scale * 2)
             }
             else {
                 imageToUpdate.setScale(0.9 * 2);
@@ -975,7 +979,7 @@ export class MakeUpButton extends BaseButton {
                     const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
 
 
-                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(prevType)) {
+                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair', 'Eyeshadow'].includes(prevType)) {
                         if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
                             console.log(`[MakeUpButton] Destroying previous additive/colorable makeup: ${currentGlobalEquippedInfo.name}`);
                             currentGlobalEquippedInfo.displayedMakeUp.destroy();
@@ -1061,6 +1065,7 @@ export class MakeUpButton extends BaseButton {
                         newImage = scene.pupils;
                         if (scene.UIManager) scene.UIManager.playGlitterExplosion(newImage, this.makeupType);
                         break;
+                    
 
                     case 'Sticker':
 
@@ -1108,6 +1113,9 @@ export class MakeUpButton extends BaseButton {
                 }
                 else if(['Sticker'].includes(makeupType)){
                     this.displayedMakeUp.setScale(layout.MakeupPosition.Sticker.scale * 2);
+                }
+                else if(['Eyeshadow'].includes(makeupType)){
+                    this.displayedMakeUp.setScale(layout.MakeupPosition.Eyeshadow.scale * 2);
                 }
                 else { this.displayedMakeUp.setScale(0.9 * 2); }
                 this.displayedMakeUp.setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);

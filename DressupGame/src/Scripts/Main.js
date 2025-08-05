@@ -148,6 +148,7 @@ class Main extends Phaser.Scene {
         registerDefault('Pupil', 'Default Pupil', 'PupilNormalBlue');
         registerDefault('Lips', 'Default Lips', 'LipNormalDefault');
         registerDefault('Eyebrows', 'Default Eyebrows', 'EyebrowNormalDefault');
+        registerDefault('Eyeshadow', 'Default Eyeshadow', 'eyeshadownormaldefault');
         registerDefault('Eyelashes', 'Default Eyelashes', 'EyelashesNormalDefault');
         registerDefault('Hair', 'Default Hair', defaultHairTextures);
 
