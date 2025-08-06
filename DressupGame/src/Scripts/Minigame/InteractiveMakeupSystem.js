@@ -16,31 +16,18 @@ export class InteractiveMakeupSystem {
         this.brushImage = null;
         this.brushRadius = 60;
         this.debugPoint = null;
-
         this.isDrawing = false;
-
-
         this.targetPixelData = null;
         this.totalTargetPixels = 0;
         this.checkingCompletion = false;
         this.completionThreshold = 40;
         this.autoCompleteThreshold = 40;
-
-
         this.stateBeforeColoring = {};
-
-
         this.boundOnPointerDown = this.onPointerDown.bind(this);
         this.boundOnPointerMove = this.onPointerMove.bind(this);
         this.boundOnPointerUp = this.onPointerUp.bind(this);
-        
-
-
         this.customCursorImage = null; 
         this.customCursorGraphics = null;
-       
-
-        
 
         this.tutorialShown = {
             'Eyeliner': false,
