@@ -123,19 +123,19 @@ export function enableCategoryButtonsInteraction(scene) {
 
 export function createDressUpCategoryButtons(scene, audioManager) {
     const buttons = [
-        scene.dressButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.dressButton.x, layout.dressUpCategoryButtons.dressButton.y, '', null, 'stitchedButtonIconYellow', 'categoryButtonHighlighted', 'dressIcon', () => {
+        scene.dressButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.dressButton.x, layout.dressUpCategoryButtons.dressButton.y, '', null, 'blueButton', 'categoryButtonHighlighted', { atlas: 'Icon_spritesheet', frame: 'Top_Icon.png' }, { atlas: 'Icon_Pressed_spritesheet', frame: 'Top_Pressed_Icon.png' }, () => {
             scene.DressUpManager.displayDressUpButtons('Dress', scene);
         }),
-        scene.outerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.outerButton.x, layout.dressUpCategoryButtons.outerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'outerIcon', () => {
+        scene.outerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.outerButton.x, layout.dressUpCategoryButtons.outerButton.y, '', null, 'blueButton', 'categoryButtonHighlighted', { atlas: 'Icon_spritesheet', frame: 'Outer_Icon.png' }, { atlas: 'Icon_Pressed_spritesheet', frame: 'Outer_Pressed_Icon.png' }, () => {
             scene.DressUpManager.displayDressUpButtons('Outer', scene);
         }),
-        scene.lowerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.LowerButton.x, layout.dressUpCategoryButtons.LowerButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'LowerIcon', () => {
+        scene.lowerButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.LowerButton.x, layout.dressUpCategoryButtons.LowerButton.y, '', null, 'blueButton', 'categoryButtonHighlighted', { atlas: 'Icon_spritesheet', frame: 'Pants_Icon.png' }, { atlas: 'Icon_Pressed_spritesheet', frame: 'Pants_Pressed_Icon.png' }, () => {
             scene.DressUpManager.displayDressUpButtons('Lower', scene);
         }),
-        scene.socksButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.socksButton.x, layout.dressUpCategoryButtons.socksButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'socksIcon', () => {
+        scene.socksButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.socksButton.x, layout.dressUpCategoryButtons.socksButton.y, '', null, 'blueButton', 'categoryButtonHighlighted', { atlas: 'Icon_spritesheet', frame: 'Socks_Icon.png' }, { atlas: 'Icon_Pressed_spritesheet', frame: 'Socks_Pressed_Icon.png' }, () => {
             scene.DressUpManager.displayDressUpButtons('Socks', scene);
         }),
-        scene.shoesButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.shoesButton.x, layout.dressUpCategoryButtons.shoesButton.y, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'shoesIcon', () => {
+        scene.shoesButton = new CategoryButton(scene, audioManager, layout.dressUpCategoryButtons.shoesButton.x, layout.dressUpCategoryButtons.shoesButton.y, '', null, 'blueButton', 'categoryButtonHighlighted', { atlas: 'Icon_spritesheet', frame: 'Shoes_Icon.png' }, { atlas: 'Icon_Pressed_spritesheet', frame: 'Shoes_Pressed_Icon.png' }, () => {
             scene.DressUpManager.displayDressUpButtons('Shoes', scene);
         }),
 

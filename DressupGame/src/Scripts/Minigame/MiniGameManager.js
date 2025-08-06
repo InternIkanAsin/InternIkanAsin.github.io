@@ -37,7 +37,7 @@ export class MiniGameManager {
             textureButton: 'yellowButton',
             buttonWidth: 75,
             buttonHeight: 75,
-            textureIcon: 'exitIcon',
+            textureIcon: { atlas: 'Icon_spritesheet', frame: 'Exit_Button.png' },
             iconYPosition: -5,
             iconScale: layout.backButton.scale,
             callback: () => {
@@ -54,7 +54,7 @@ export class MiniGameManager {
             textureButton: 'blueButton',
             buttonWidth: 75,
             buttonHeight: 75,
-            textureIcon: 'removeIcon',
+            textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
             iconYPosition: -5,
             iconScale: 0.5,
             callback: () => {

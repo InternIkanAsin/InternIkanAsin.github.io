@@ -291,11 +291,11 @@ const LANDSCAPE = {
     },
     //Dressup Category
     dressUpCategoryButtons: {
-        dressButton: { x: 1370, y: 175 },
-        outerButton: { x: 1370, y: 350 },
-        LowerButton: { x: 1370, y: 525 },
-        socksButton: { x: 1370, y: 700 },
-        shoesButton: { x: 1370, y: 875 }
+        dressButton: { x: 1350, y: 175 },
+        outerButton: { x: 1350, y: 350 },
+        LowerButton: { x: 1350, y: 525 },
+        socksButton: { x: 1350, y: 700 },
+        shoesButton: { x: 1350, y: 875 }
     },
 
     makeUpCategoryButtons: {

@@ -7,7 +7,7 @@ import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
-    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false }) {
+    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false, spriteAtlas = null, spriteFrame = null }) {
 
         let button = null;
         let icon = null;
@@ -22,9 +22,9 @@ export default class UIButton extends BaseButton {
         }
 
         if (textureIcon) {
-            icon = textureIcon !== null
-                ? scene.add.image(iconOffset, iconYPosition, textureIcon).setScale(iconScale)
-                : null;
+            icon = textureIcon && (textureIcon.atlas && textureIcon.frame
+                ? scene.add.image(iconOffset, iconYPosition, textureIcon.atlas, textureIcon.frame)
+                : scene.add.image(iconOffset, iconYPosition, textureIcon)).setScale(iconScale);
         }
 
         const text = scene.add.text(textOffset, textYPosition, buttonText, {
@@ -232,21 +232,21 @@ export class GeneralButton extends BaseButton {
 }
 
 export class CategoryButton extends BaseButton {
-    constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, onClick) {
-        const button = scene.add.image(0, 0, textureButton)
-            .setInteractive()
-            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.buttonScale : 0.8);
+    constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, textureIconSelected, onClick) {
+        const button = scene.add.nineslice(0, 0, textureButton, '', 650, 510, 20, 20, 20, 20).setDepth(100).setScale(0.35).setInteractive();
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
-        const icon = scene.add.image(0, 0, textureIcon)
+        const icon = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame)
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6);
-
-        super(scene, x, y, [button, buttonHighlighted, icon]);
+        const iconSelected = scene.add.image(0, 0, textureIconSelected.atlas, textureIconSelected.frame)
+            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6).setVisible(false);
+        super(scene, x, y, [button, buttonHighlighted, icon, iconSelected]);
 
 
         this.onClickCallback = onClick;
         this.AudioManager = AudioManager;
         this.button = button;
-
+        this.icon = icon;
+        this.iconSelected = iconSelected;
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
         const tapThreshold = 10;
@@ -330,11 +330,27 @@ export class CategoryButton extends BaseButton {
     }
 
     selectButton() {
-        this.button.setTexture('stitchedButtonIconYellow');
+        this.scene.tweens.add({
+            targets: [this.button, this.icon, this.iconSelected],
+            x: this.button.x - 40,
+            duration: 100,
+            ease: 'Power2'
+        });
+        this.button.setTexture('yellowButton');
+        this.iconSelected.setVisible(true);
+        this.icon.setVisible(false);
     }
 
     deselectButton() {
-        this.button.setTexture('stitchedButtonIcon');
+        this.scene.tweens.add({
+            targets: [this.button, this.icon, this.iconSelected],
+            x: this.button.x + 40,
+            duration: 100,
+            ease: 'Power2'
+        });
+        this.button.setTexture('blueButton');
+        this.iconSelected.setVisible(false);
+        this.icon.setVisible(true);
     }
 }
 
