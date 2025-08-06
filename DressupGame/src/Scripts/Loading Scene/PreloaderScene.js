@@ -24,7 +24,7 @@ class PreloaderScene extends Phaser.Scene {
     preload() {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
-
+        const PAUSE_FOR_TESTING = true;
         this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
         this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 
@@ -38,9 +38,39 @@ class PreloaderScene extends Phaser.Scene {
             bg.setOrigin(0.5, 0.5).setScale(1);
         }
 
-
         this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, 'logo_cisini').setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth);
 
+        const playerLayout = layout.playerCharacter;
+
+        // 1. Buat Container utama untuk seluruh karakter
+        const playerContainer = this.add.container(playerLayout.container.x, playerLayout.container.y);
+        
+        // 2. Buat Container untuk wajah
+        const faceContainer = this.add.container(playerLayout.parts.faceContainer.x, playerLayout.parts.faceContainer.y);
+        faceContainer.setScale(playerLayout.parts.faceContainer.scale);
+
+        // 3. Buat setiap bagian makeup dan tambahkan ke faceContainer
+        const makeupPartsLayout = layout.MakeupPosition;
+        const pupils = this.add.image(makeupPartsLayout.Pupil.x, makeupPartsLayout.Pupil.y, 'player_pupils_preload').setScale(makeupPartsLayout.Pupil.scale * 2);
+        const lips = this.add.image(makeupPartsLayout.Lips.x, makeupPartsLayout.Lips.y, 'player_lips_preload').setScale(makeupPartsLayout.Lips.scale * 2);
+        const eyebrows = this.add.image(makeupPartsLayout.Eyebrows.x, makeupPartsLayout.Eyebrows.y, 'player_eyebrows_preload').setScale(makeupPartsLayout.Eyebrows.scale * 2);
+        const eyelashes = this.add.image(makeupPartsLayout.Eyelashes.x, makeupPartsLayout.Eyelashes.y, 'player_eyelashes_preload').setScale(makeupPartsLayout.Eyelashes.scale * 2);
+        const eyeshadows = this.add.image(makeupPartsLayout.Eyeshadow.x, makeupPartsLayout.Eyeshadow.y, 'eyeshadownormaldefault').setScale(makeupPartsLayout.Eyeshadow.scale * 2);
+        faceContainer.add([pupils, lips, eyebrows, eyelashes, eyeshadows]);
+
+        // 4. Buat bagian tubuh dan pakaian
+        const partsLayout = playerLayout.parts;
+        const body = this.add.image(partsLayout.body.x, partsLayout.body.y, 'player_body_preload').setScale(partsLayout.body.scale);
+        const hairBack = this.add.image(partsLayout.hairBack.x, partsLayout.hairBack.y, 'player_hair_back_preload').setScale(partsLayout.hairBack.scale);
+        const shirt = this.add.image(partsLayout.shirt.x, partsLayout.shirt.y, 'player_shirt_preload').setScale(partsLayout.shirt.scale);
+        const lower = this.add.image(partsLayout.lower.x, partsLayout.lower.y, 'player_lower_preload').setScale(partsLayout.lower.scale);
+        const hairFront = this.add.image(partsLayout.hairFront.x, partsLayout.hairFront.y, 'player_hair_front_preload').setScale(partsLayout.hairFront.scale);
+
+        // 5. Atur urutan layer (depth) yang benar di dalam container
+        playerContainer.add([hairBack, body, lower, shirt, faceContainer, hairFront]);
+
+        // 6. Atur skala akhir untuk seluruh grup karakter
+        playerContainer.setScale(playerLayout.container.scale);
 
         //const bachelorAssets = this.preloaderData.bachelorAssets;
         //const bachelorX = width * 0.30;
@@ -148,7 +178,22 @@ class PreloaderScene extends Phaser.Scene {
                 poki.gameLoadingFinished();
                 console.log("[Poki SDK] gameLoadingFinished() has been fired.");
             });
-            this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+            if (PAUSE_FOR_TESTING) {
+                // Jika mode tes aktif, jangan mulai scene baru.
+                // Tampilkan pesan dan tunggu klik.
+                console.log("--- PRELOADER TEST MODE: Loading complete. Click screen to continue. ---");
+                const continueText = this.add.text(width / 2, height - 50, 'Click to Continue', {
+                    font: '32px Arial',
+                    fill: '#000000'
+                }).setOrigin(0.5).setDepth(100);
+                
+                this.input.once('pointerdown', () => {
+                    this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+                });
+            } else {
+                // Jika mode tes nonaktif, langsung mulai scene berikutnya seperti biasa.
+                this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+            }
         });
 
         

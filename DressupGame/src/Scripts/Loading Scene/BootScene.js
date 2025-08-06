@@ -62,7 +62,8 @@ class BootScene extends Phaser.Scene {
         this.load.image('player_eyebrows_preload', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb default_normal.png");
         this.load.image('player_pupils_preload', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil blue_normal.png");
         this.load.image('player_eyelashes_preload', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
-        this.load.image('player_shirt_preload', "Asset/Outfit/Baju/baju_02.png"); // Menggunakan nama yang lebih spesifik
+        this.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
+        this.load.image('player_shirt_preload', "Asset/Outfit/Dress/baju_02.png"); 
         this.load.image('player_lower_preload', "Asset/Outfit/Lower/rok_hangout.png");
         //logo
         this.load.image('logo_cisini', "Asset/UI/New/LogoDressup.png");

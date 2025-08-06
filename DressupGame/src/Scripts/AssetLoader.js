@@ -68,7 +68,7 @@ export default class AssetLoader {
     scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');
     scene.load.image('buttonIconLocked', 'Asset/UI/Button_Icon_Locked.png');
     scene.load.image('lockIcon', 'Asset/UI/Icon_Locked.png');
-    scene.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
+    
 
     scene.load.image('dressButtonIcon', 'Asset/UI/Wardrobe_Icon.png');
     scene.load.image('makeUpButtonIcon', 'Asset/UI/Makeup_Icon.png');
@@ -165,6 +165,7 @@ export default class AssetLoader {
     scene.load.image('EyebrowNormalDefault', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb default_normal.png");
     scene.load.image('PupilNormalBlue', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil blue_normal.png");
     scene.load.image('EyelashesNormalDefault', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
+    scene.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
 
   }
 

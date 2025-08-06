@@ -18,15 +18,15 @@ const LANDSCAPE = {
     },
 
     playerCharacter: {
-        container: { x: LANDSCAPE_WIDTH * 0.8, y: LANDSCAPE_HEIGHT * 0.55, scale: 0.7 },
+        
+        container: { x: LANDSCAPE_WIDTH * 0.8, y: LANDSCAPE_HEIGHT * 1, scale: 2 },
         parts: {
-            // Posisi relatif terhadap pusat container
-            body:       { x: 0, y: 0 },
-            hairBack:   { x: -4, y: -238, scale: 0.833 },
-            shirt:      { x: -145, y: -207, scale: 1.0 },
-            lower:      { x: -116, y: 140, scale: 2.0 },
-            faceContainer: { x: -150, y: -388, scale: 0.5 },
-            hairFront:  { x: -4, y: -238, scale: 0.833 }
+            body:       { x: 0, y: 0, scale: 0.6 }, // 0.6 (skala asli) / 0.65 (skala container)
+            hairBack:   { x: -4.6, y: -225, scale: 0.6 }, // Skala: ~0.568 / 0.65
+            shirt:      { x: -2, y: -160, scale: 0.6 }, // Skala: 0.6 / 0.65
+            lower:      { x: 0, y: 200, scale: 0.65 }, // Skala: 1.2 / 0.65
+            faceContainer: { x: -14, y: -357, scale: 0.315 }, // Skala: 0.3 / 0.65
+            hairFront:  { x: -4.6, y: -225, scale: 0.6 }
         }
     },
 
@@ -399,15 +399,15 @@ const PORTRAIT = {
     },
 
     playerCharacter: {
-        container: { x: PORTRAIT_CENTERX, y: PORTRAIT_HEIGHT * 0.5, scale: 0.6 },
+        
+        container: { x: LANDSCAPE_WIDTH * 0.1, y: LANDSCAPE_HEIGHT * 1.05, scale: 1.3 },
         parts: {
-            // Posisi relatif yang sama dengan landscape, biarkan container yang mengatur skala akhirnya
-            body:       { x: 0, y: 0 },
-            hairBack:   { x: -4, y: -238, scale: 0.833 },
-            shirt:      { x: -145, y: -207, scale: 1.0 },
-            lower:      { x: -116, y: 140, scale: 2.0 },
-            faceContainer: { x: -150, y: -388, scale: 0.5 },
-            hairFront:  { x: -4, y: -238, scale: 0.833 }
+            body:       { x: 0, y: 0, scale: 0.6 }, // 0.6 (skala asli) / 0.65 (skala container)
+            hairBack:   { x: -4.6, y: -225, scale: 0.6 }, // Skala: ~0.568 / 0.65
+            shirt:      { x: -2, y: -160, scale: 0.6 }, // Skala: 0.6 / 0.65
+            lower:      { x: 0, y: 200, scale: 0.65 }, // Skala: 1.2 / 0.65
+            faceContainer: { x: -14, y: -357, scale: 0.315 }, // Skala: 0.3 / 0.65
+            hairFront:  { x: -4.6, y: -225, scale: 0.6 }
         }
     },
 
