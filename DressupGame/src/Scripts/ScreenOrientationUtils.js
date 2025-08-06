@@ -11,10 +11,23 @@ const LANDSCAPE = {
 
 
     CisiniLogo: {
-        x: (1920 / 4) * 3,
+        x: (1920 / 4) * 1.8 ,
         y: 1080 * 0.35,
         scale: 1,
         depth: 5
+    },
+
+    playerCharacter: {
+        container: { x: LANDSCAPE_WIDTH * 0.8, y: LANDSCAPE_HEIGHT * 0.55, scale: 0.7 },
+        parts: {
+            // Posisi relatif terhadap pusat container
+            body:       { x: 0, y: 0 },
+            hairBack:   { x: -4, y: -238, scale: 0.833 },
+            shirt:      { x: -145, y: -207, scale: 1.0 },
+            lower:      { x: -116, y: 140, scale: 2.0 },
+            faceContainer: { x: -150, y: -388, scale: 0.5 },
+            hairFront:  { x: -4, y: -238, scale: 0.833 }
+        }
     },
 
     outfit: {
@@ -46,6 +59,26 @@ const LANDSCAPE = {
             'Strapped open shoes': { x: 0, y: -5 },
             'Red opened shoe': { x: 0, y: -5 }
         }
+    },
+
+    bachelorPps: {
+        y: LANDSCAPE_HEIGHT * 0.7,
+        scale: 0.9,
+        spacing: 200, 
+        xOffset: -270 
+    },
+
+    loadingBar: {
+        y: LANDSCAPE_HEIGHT * 0.9,
+        displayWidth: 1500, 
+        displayHeight: 100, 
+        fillOffset: { x: 10, y: 10 },
+        cornerRadius: 30
+    },
+
+    percentText: {
+        yOffset: 0, // Relatif terhadap pusat bar
+        style: { font: '42px regularFont', fill: '#FFFFFF' }
     },
 
     minigameFinishButton: {
@@ -266,15 +299,15 @@ const LANDSCAPE = {
     },
 
     makeUpCategoryButtons: {
-        eyebrowsButton: { x: LANDSCAPE_WIDTH / 1.23, y: 125 },
-        eyelashesButton: { x: LANDSCAPE_WIDTH / 1.23, y: 225 },
-        eyelinerButton: { x: LANDSCAPE_WIDTH / 1.23, y: 325 },
-        eyeshadowButton: { x: LANDSCAPE_WIDTH / 1.23, y: 425 },
-        lipstickButton: { x: LANDSCAPE_WIDTH / 1.23, y: 525 },
-        eyecolorButton: { x: LANDSCAPE_WIDTH / 1.23, y: 625 },
-        blushButton: { x: LANDSCAPE_WIDTH / 1.23, y: 725 },
-        stickerButton: { x: LANDSCAPE_WIDTH / 1.23, y: 825 },
-        hairButton: { x: LANDSCAPE_WIDTH / 1.23, y: 925 },
+        eyebrowsButton: { x: 1370, y: 125 },
+        eyelashesButton: { x: 1370, y: 225 },
+        eyelinerButton: { x: 1370, y: 325 },
+        eyeshadowButton: { x: 1370, y: 425 },
+        lipstickButton: { x: 1370, y: 525 },
+        eyecolorButton: { x: 1370, y: 625 },
+        blushButton: { x: 1370, y: 725 },
+        stickerButton: { x: 1370, y: 825 },
+        hairButton: { x: 1370, y: 925 },
     },
 
     MakeupPosition: {
@@ -363,15 +396,50 @@ const PORTRAIT = {
         zoomInX: 720 / 2 * 1.05,
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
+    },
 
-
+    playerCharacter: {
+        container: { x: PORTRAIT_CENTERX, y: PORTRAIT_HEIGHT * 0.5, scale: 0.6 },
+        parts: {
+            // Posisi relatif yang sama dengan landscape, biarkan container yang mengatur skala akhirnya
+            body:       { x: 0, y: 0 },
+            hairBack:   { x: -4, y: -238, scale: 0.833 },
+            shirt:      { x: -145, y: -207, scale: 1.0 },
+            lower:      { x: -116, y: 140, scale: 2.0 },
+            faceContainer: { x: -150, y: -388, scale: 0.5 },
+            hairFront:  { x: -4, y: -238, scale: 0.833 }
+        }
     },
 
     CisiniLogo: {
         x: (720 / 4) * 3 / 1.5,
-        y: 1280 * 0.65,
-        scale: 1,
+        y: 1280 * 0.25,
+        scale: 0.8,
         depth: 5
+    },
+
+    bachelorPps: {
+        scale: 0.7,
+        positions: [
+            { key: 'PP_Azril',  x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Angga',  x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Reza',   x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Indra',  x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
+        ]
+    },
+
+    loadingBar: {
+        y: PORTRAIT_HEIGHT * 0.9,
+        displayWidth: 700, 
+        displayHeight: 80, 
+        fillOffset: { x: 10, y: 10 },
+        cornerRadius: 30
+    },
+
+    percentText: {
+        yOffset: 0, // Relatif terhadap pusat bar
+        style: { font: '42px regularFont', fill: '#FFFFFF' }
     },
 
     outfit: {

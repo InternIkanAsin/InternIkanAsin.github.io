@@ -154,6 +154,44 @@ export const defaultMakeUpSkins = {
     'Hair': { front: 'hair', back: '01blackB' }
 };
 
+export const outlineMap = {
+    // Kunci default untuk setiap tipe
+    'Lips': {
+        // Untuk Lips, semua item menggunakan outline yang sama, jadi kita hanya perlu default.
+        _default: 'LipstickOutline'
+    },
+    'Blush': {
+        
+        'Anime': 'BlushAnimeOutline',
+        'Fever': 'BlushFeverOutline',
+        'Frackles': 'BlushNormalOutline',
+        'Heart': 'BlushNormalOutline',
+        'Orange': 'BlushNormalOutline',
+        'Pink': 'BlushNormalOutline',
+        'Red Nose': 'BlushRedOutline',
+        'Round': 'BlushRoundOutline'
+    },
+    'Eyeliner': {
+        
+        'Wing': 'EyelinerFullOutline',
+        'Sharp Edged': 'EyelinerShortOutline',
+        'Double': 'EyelinerShortOutline',
+        'Cat': 'EyelinerShortOutline',
+        'Butterfly': 'EyelinerShortOutline'
+    },
+    'Eyeshadow': {
+        
+        'Dragon Styled': 'EyeshadowFullOutline',
+        'Fairy Styled': 'EyeshadowFullOutline',
+        'Brown': 'EyeshadowShortOutline',
+        'Gold': 'EyeshadowShortOutline',
+        'Green': 'EyeshadowShortOutline',
+        'Orange': 'EyeshadowShortOutline',
+        'Peach': 'EyeshadowShortOutline',
+        'Pink': 'EyeshadowShortOutline',
+        'Purple': 'EyeshadowShortOutline'
+    }
+};
 
 
 export { makeUpData}
