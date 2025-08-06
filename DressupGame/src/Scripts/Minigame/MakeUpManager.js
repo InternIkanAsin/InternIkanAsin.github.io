@@ -40,7 +40,7 @@ export class MakeUpManager {
                     button.highlightImage.setVisible(true);
                     MakeUpButton.selectedMakeUp[makeUpType].current = button;
 
-                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair'].includes(makeUpType)) {
+                    if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair', 'Eyeshadow'].includes(makeUpType)) {
 
                         const oldVisual = currentSelectedMakeup.displayedMakeUp;
 

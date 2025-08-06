@@ -15,12 +15,7 @@ class BootScene extends Phaser.Scene {
             Keenan: { fullbodyKey: 'keenanFullbody_preload', expressionKey: 'keenanExpression_neutral_preload', fullbodyPath: 'Asset/Character/ekspresi/keenan/Keenan_portrait_casual.png', expressionPath: 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png' }
         };
         const allBachelorNames = Object.keys(bachelorPreloadData);
-
-        const bachelorNames = Object.keys(bachelorPreloadData);
-
         let chosenBachelorName;
-
-
         const bachelorToRestart = this.registry.get('chosenBachelorNameForRestart');
 
         if (bachelorToRestart) {
@@ -50,22 +45,39 @@ class BootScene extends Phaser.Scene {
                 console.log(`[BootScene] Randomly selected new bachelor: ${chosenBachelorName}`);
             }
         }
-
-        const chosenBachelorAssets = bachelorPreloadData[chosenBachelorName];
-
+        //const chosenBachelorAssets = bachelorPreloadData[chosenBachelorName];
         this.registry.set('chosenBachelorName', chosenBachelorName);
-
-
-        // Simpan semua data yang dibutuhkan untuk dikirim ke scene berikutnya
+        
         this.preloaderData = {
             bachelorName: chosenBachelorName,
-            bachelorAssets: bachelorPreloadData[chosenBachelorName],
+            //bachelorAssets: bachelorPreloadData[chosenBachelorName],
         };
-
-        this.load.image('minigame_background_preload', 'Asset/Background/Cisini_UI_DressUp_Background.png');
-        this.load.image('logo_cisini', "Asset/UI/Logo Cisni.png");
-        this.load.image(chosenBachelorAssets.fullbodyKey, chosenBachelorAssets.fullbodyPath);
-        this.load.image(chosenBachelorAssets.expressionKey, chosenBachelorAssets.expressionPath);
+        //bg
+        this.load.image('minigame_background_preload', "Asset/Background/New_Background.png");
+        //player
+        this.load.image('player_body_preload', 'Asset/Character/t_basebody_mc_anime_portrait.png');
+        this.load.image('player_hair_front_preload', 'Asset/Outfit/Hairs_upscaled/hair_01_black_F_out.png');
+        this.load.image('player_hair_back_preload', "Asset/Outfit/Hairs_upscaled/hair_01_black_B_out.png");
+        this.load.image('player_lips_preload', "Asset/makeup/MakeupAnime/lips/normal/mc_lips default_normal.png");
+        this.load.image('player_eyebrows_preload', "Asset/makeup/MakeupAnime/eyebrow/normal/mc_eb default_normal.png");
+        this.load.image('player_pupils_preload', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil blue_normal.png");
+        this.load.image('player_eyelashes_preload', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
+        this.load.image('player_shirt_preload', "Asset/Outfit/Baju/baju_02.png"); // Menggunakan nama yang lebih spesifik
+        this.load.image('player_lower_preload', "Asset/Outfit/Lower/rok_hangout.png");
+        //logo
+        this.load.image('logo_cisini', "Asset/UI/New/LogoDressup.png");
+        //loading bar
+        this.load.image('loading_frame', "Asset/UI/New/Loading_Bar.png");
+        this.load.image('loading_fill', "Asset/UI/New/Loading_Bar_Gradient.png");
+        this.load.image('loading_fill_pattern', "Asset/UI/New/Loading_Bar_Pattern.png");
+        //bache;lor pp
+        this.load.image('PP_Angga', "Asset/Character/profile picture/PP Angga.png");
+        this.load.image('PP_Azril', "Asset/Character/profile picture/PP Azril.png");
+        this.load.image('PP_Indra', "Asset/Character/profile picture/PP Indra.png");
+        this.load.image('PP_Keenan', "Asset/Character/profile picture/PP Keenan.png");
+        this.load.image('PP_Reza', "Asset/Character/profile picture/PP Reza.png");
+        //this.load.image(chosenBachelorAssets.fullbodyKey, chosenBachelorAssets.fullbodyPath);
+        //this.load.image(chosenBachelorAssets.expressionKey, chosenBachelorAssets.expressionPath);
     }
 
     create() {
