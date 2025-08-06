@@ -137,10 +137,10 @@ export default class AssetLoader {
     scene.load.image('BlushRoundOutline', "Asset/Outline/Blush/Blush_Round_Outline.png");
     //eyeliner
     scene.load.image('EyelinerFullOutline', "Asset/Outline/Eyeliner/Eyeliner_Full_Outline.png");
-    scene.load.image('EyelinerShortOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Full_Outline.png");
+    scene.load.image('EyelinerShortOutline', "Asset/Outline/Eyeliner/Eyeliner_Short_Outline.png");
     //eyeshadow
     scene.load.image('EyeshadowShortOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Short_Outline.png");
-    scene.load.image('EyeshadowFullOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Short_Outline.png");
+    scene.load.image('EyeshadowFullOutline', "Asset/Outline/Eyeshadow/Eyeshadow_Full_Outline.png");
     //lips
     scene.load.image('LipstickOutline', "Asset/Outline/Lips/Lipstick_Outline.png");
 

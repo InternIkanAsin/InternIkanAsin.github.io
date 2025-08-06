@@ -23,8 +23,8 @@ export class InteractiveMakeupSystem {
         this.targetPixelData = null;
         this.totalTargetPixels = 0;
         this.checkingCompletion = false;
-        this.completionThreshold = 53;
-        this.autoCompleteThreshold = 80;
+        this.completionThreshold = 40;
+        this.autoCompleteThreshold = 40;
 
 
         this.stateBeforeColoring = {};
@@ -40,7 +40,7 @@ export class InteractiveMakeupSystem {
         this.customCursorGraphics = null;
        
 
-        this.brushRadius = 30; 
+        
 
         this.tutorialShown = {
             'Eyeliner': false,
