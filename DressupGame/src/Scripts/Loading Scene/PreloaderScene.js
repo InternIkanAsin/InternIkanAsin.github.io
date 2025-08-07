@@ -42,10 +42,10 @@ class PreloaderScene extends Phaser.Scene {
         // Mute button
         if(isMobile)
         {
-            this.muteButton = new MuteButton(this, width * 0.9, height * 0.07, 0.25);
+            this.muteButton = new MuteButton(this, width * 0.9, height * 0.07, 0.22);
         }
         else{
-            this.muteButton = new MuteButton(this, width * 0.05, height * 0.1, 0.3);
+            this.muteButton = new MuteButton(this, width * 0.05, height * 0.1, 0.28);
         }
 
         this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, 'logo_cisini').setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth);
