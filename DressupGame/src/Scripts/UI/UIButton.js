@@ -249,9 +249,10 @@ export class CategoryButton extends BaseButton {
         this.iconSelected = iconSelected;
         this.pointerDownPos = { x: 0, y: 0 };
         this.isDragging = false;
+        this.isSelected = false;
         const tapThreshold = 10;
 
-
+        console.log(this.isSelected);
         this.addHoverEffect(button, AudioManager);
 
 
@@ -330,6 +331,16 @@ export class CategoryButton extends BaseButton {
     }
 
     selectButton() {
+        if (this.scene.selectedCategory.current === this) return;
+
+        if (this.scene.selectedCategory.current) {
+            this.scene.selectedCategory.current.deselectButton();
+        }
+
+        this.scene.selectedCategory.current = this;
+        this.isSelected = true;
+
+        console.log(this.button.texture.key);
         this.scene.tweens.add({
             targets: [this.button, this.icon, this.iconSelected],
             x: this.button.x - 40,
@@ -339,15 +350,18 @@ export class CategoryButton extends BaseButton {
         this.button.setTexture('yellowButton');
         this.iconSelected.setVisible(true);
         this.icon.setVisible(false);
+
     }
 
     deselectButton() {
+        this.isSelected = false;
         this.scene.tweens.add({
             targets: [this.button, this.icon, this.iconSelected],
             x: this.button.x + 40,
             duration: 100,
             ease: 'Power2'
         });
+        this.button.texture.key = 'blueButton';
         this.button.setTexture('blueButton');
         this.iconSelected.setVisible(false);
         this.icon.setVisible(true);
@@ -371,9 +385,9 @@ export class OutfitButton extends BaseButton {
             y: 75, // Posisi lokal Y di dalam container
             text: name,
             style: {
-                fontFamily: 'pixelFont',
+                fontFamily: 'regularFont',
                 fontSize: layout.outfitButton.textSize || '22px',
-                color: '#000000',
+                color: '#d6529c',
                 align: 'center',
                 wordWrap: { width: buttonBg.displayWidth - 0 }
             }
@@ -689,9 +703,9 @@ export class MakeUpButton extends BaseButton {
             y: 75,
             text: name,
             style: {
-                fontFamily: 'pixelFont',
+                fontFamily: 'regularFont',
                 fontSize: layout.makeUpButton.textSize || '22px',
-                color: '#000000',
+                color: '#d6529c',
                 align: 'center',
                 wordWrap: { width: 150 - 20 }
             }

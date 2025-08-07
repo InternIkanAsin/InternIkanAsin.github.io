@@ -71,7 +71,7 @@ export class CutsceneSystem {
         const scene = this.scene;
         const callStatusText = 'Calling...';
         scene.callStatus.setText(callStatusText);
-
+        scene.acceptCallButton.disableInteractive();
         scene.tweens.add({
             targets: [scene.profileBorder, scene.profileInside],
             scale: 0,

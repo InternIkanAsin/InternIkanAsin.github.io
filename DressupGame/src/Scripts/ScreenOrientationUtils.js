@@ -11,7 +11,7 @@ const LANDSCAPE = {
 
 
     CisiniLogo: {
-        x: (1920 / 4) * 1.8 ,
+        x: (1920 / 4) * 1.8,
         y: 1080 * 0.35,
         scale: 1,
         depth: 5
@@ -21,23 +21,23 @@ const LANDSCAPE = {
         container: { x: LANDSCAPE_WIDTH * 0.8, y: LANDSCAPE_HEIGHT * 0.55, scale: 0.7 },
         parts: {
             // Posisi relatif terhadap pusat container
-            body:       { x: 0, y: 0 },
-            hairBack:   { x: -4, y: -238, scale: 0.833 },
-            shirt:      { x: -145, y: -207, scale: 1.0 },
-            lower:      { x: -116, y: 140, scale: 2.0 },
+            body: { x: 0, y: 0 },
+            hairBack: { x: -4, y: -238, scale: 0.833 },
+            shirt: { x: -145, y: -207, scale: 1.0 },
+            lower: { x: -116, y: 140, scale: 2.0 },
             faceContainer: { x: -150, y: -388, scale: 0.5 },
-            hairFront:  { x: -4, y: -238, scale: 0.833 }
+            hairFront: { x: -4, y: -238, scale: 0.833 }
         }
     },
 
     outfit: {
         positions: {
-            Dress: { x: 872, y: 646.5 },
-            Shirt: { x: 872.5, y: 439 },
-            Outer: { x: 872.5, y: 479.5 },
-            Lower: { x: 890, y: 740 },
-            Socks: { x: 911.5, y: 770 },
-            Shoes: { x: 922, y: 917 }
+            Dress: { x: 872 - 300, y: 646.5 },
+            Shirt: { x: 872.5 - 300, y: 439 },
+            Outer: { x: 872.5 - 300, y: 479.5 },
+            Lower: { x: 890 - 300, y: 740 },
+            Socks: { x: 911.5 - 300, y: 770 },
+            Shoes: { x: 922 - 300, y: 917 }
         },
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
@@ -64,14 +64,14 @@ const LANDSCAPE = {
     bachelorPps: {
         y: LANDSCAPE_HEIGHT * 0.7,
         scale: 0.9,
-        spacing: 200, 
-        xOffset: -270 
+        spacing: 200,
+        xOffset: -270
     },
 
     loadingBar: {
         y: LANDSCAPE_HEIGHT * 0.9,
-        displayWidth: 1500, 
-        displayHeight: 100, 
+        displayWidth: 1500,
+        displayHeight: 100,
         fillOffset: { x: 10, y: 10 },
         cornerRadius: 30
     },
@@ -83,7 +83,7 @@ const LANDSCAPE = {
 
     minigameFinishButton: {
         x: 140,
-        y: 525 + (75 * 1.6) + 60,
+        y: 525 + (75 * 1.6) + 100,
         scale: 0.4,
         useNineSlice: false,
         textOffsetX: 5,
@@ -95,10 +95,10 @@ const LANDSCAPE = {
 
     // character position
     character: {
-        x: 1920 / 2 / 1.1,
+        x: 1920 / 2 / 1.1 - 300,
         y: 1080 / 2 / 0.9,
         scale: 0.6,
-        zoomInX: 960 * 1.05,
+        zoomInX: 960 * 1.05 - 300,
         zoomInY: 540 * 2.9,
         zoomInScale: 1.9,
 
@@ -177,49 +177,48 @@ const LANDSCAPE = {
 
     face: {
 
-        zoomInFaceX: 1920 / 2 * 1.01,
+        zoomInFaceX: 1920 / 2 * 1.01 - 300,
         zoomInFaceY: 1080 / 2 / 1.23,
         zoomInTargetFaceScale: 1,
 
-        zoomOutFaceX: 1920 / 2 / 1.115,
+        zoomOutFaceX: 1920 / 2 / 1.115 - 300,
         zoomOutFaceY: 1080 / 2 / 2.19,
         zoomOutTargetFaceScale: 0.3,
 
     },
 
     Hair: {
-
-        zoomInHairX: 1920 / 2 * 1.035,
+        zoomInHairX: 1920 / 2 * 1.035 - 300,
         zoomInHairY: 1080 / 2 * 1.553,
         zoomInTargetHairScale: 1.6 * 256 / 225,
 
-        zoomOutHairX: 1920 / 2 / 1.103,
+        zoomOutHairX: 1920 / 2 / 1.103 - 300,
         zoomOutHairY: 1080 / 2 / 1.45,
         zoomOutHairScale: 0.5 * 256 / 225,
 
     },
     // Side Panel
     sidePanel: {
-        x: 1920 - 190,
+        x: 1920 - 400,
         y: 1080 / 2,
-        left: 45,
-        right: 10,
-        top: 105,
-        bottom: 30,
+        left: 300,
+        right: 0,
+        top: 100,
+        bottom: 0,
         panel: 30
     },
     sidePanelLine: {
-        x: LANDSCAPE_WIDTH - 70,
-        y: LANDSCAPE_CENTERY / 3.9,
+        x: LANDSCAPE_WIDTH - 330,
+        y: 90,
     },
     sidePanelIcon: {
-        x: LANDSCAPE_WIDTH - 55,
-        y: LANDSCAPE_CENTERY / 5.1
+        x: LANDSCAPE_WIDTH - 300,
+        y: 50
     },
     sidePanelHeaderText: {
-        x: LANDSCAPE_WIDTH - 180,
-        y: 110,
-        fontSize: 48
+        x: LANDSCAPE_WIDTH - 420,
+        y: 50,
+        fontSize: 54
     },
     // Finish Button
     finishButton: {
@@ -252,7 +251,7 @@ const LANDSCAPE = {
 
     removeAllButton: {
         x: 120,
-        y: 500,
+        y: 540,
         buttonScale: 0.6 * 2,
         iconScale: 0.5 * 2
     },
@@ -291,11 +290,11 @@ const LANDSCAPE = {
     },
     //Dressup Category
     dressUpCategoryButtons: {
-        dressButton: { x: 1350, y: 175 },
-        outerButton: { x: 1350, y: 350 },
-        LowerButton: { x: 1350, y: 525 },
-        socksButton: { x: 1350, y: 700 },
-        shoesButton: { x: 1350, y: 875 }
+        dressButton: { x: 1100, y: 150 },
+        outerButton: { x: 1100, y: 350 },
+        LowerButton: { x: 1100, y: 550 },
+        socksButton: { x: 1100, y: 750 },
+        shoesButton: { x: 1100, y: 950 }
     },
 
     makeUpCategoryButtons: {
@@ -402,12 +401,12 @@ const PORTRAIT = {
         container: { x: PORTRAIT_CENTERX, y: PORTRAIT_HEIGHT * 0.5, scale: 0.6 },
         parts: {
             // Posisi relatif yang sama dengan landscape, biarkan container yang mengatur skala akhirnya
-            body:       { x: 0, y: 0 },
-            hairBack:   { x: -4, y: -238, scale: 0.833 },
-            shirt:      { x: -145, y: -207, scale: 1.0 },
-            lower:      { x: -116, y: 140, scale: 2.0 },
+            body: { x: 0, y: 0 },
+            hairBack: { x: -4, y: -238, scale: 0.833 },
+            shirt: { x: -145, y: -207, scale: 1.0 },
+            lower: { x: -116, y: 140, scale: 2.0 },
             faceContainer: { x: -150, y: -388, scale: 0.5 },
-            hairFront:  { x: -4, y: -238, scale: 0.833 }
+            hairFront: { x: -4, y: -238, scale: 0.833 }
         }
     },
 
@@ -421,18 +420,18 @@ const PORTRAIT = {
     bachelorPps: {
         scale: 0.7,
         positions: [
-            { key: 'PP_Azril',  x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
-            { key: 'PP_Angga',  x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
-            { key: 'PP_Reza',   x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
-            { key: 'PP_Indra',  x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Azril', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Angga', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Reza', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Indra', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
             { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
         ]
     },
 
     loadingBar: {
         y: PORTRAIT_HEIGHT * 0.9,
-        displayWidth: 700, 
-        displayHeight: 80, 
+        displayWidth: 700,
+        displayHeight: 80,
         fillOffset: { x: 10, y: 10 },
         cornerRadius: 30
     },
@@ -566,26 +565,26 @@ const PORTRAIT = {
     },
     // Side Panel
     sidePanel: {
-        x: PORTRAIT_WIDTH + 50,
+        x: PORTRAIT_WIDTH - 300,
         y: PORTRAIT_CENTERY,
         left: 120,
         right: 0,
-        top: 105,
+        top: 75,
         bottom: 30,
         panel: 30
     },
     sidePanelLine: {
         x: PORTRAIT_WIDTH + 30,
-        y: PORTRAIT_CENTERY / 2.7,
+        y: PORTRAIT_CENTERY / 3,
     },
     sidePanelIcon: {
         x: PORTRAIT_WIDTH - 20,
-        y: PORTRAIT_CENTERY / 3.2
+        y: PORTRAIT_CENTERY / 3.5
     },
     sidePanelHeaderText: {
-        x: PORTRAIT_WIDTH - 110,
-        y: 200,
-        fontSize: 32
+        x: PORTRAIT_WIDTH - 200,
+        y: 0,
+        fontSize: 40
     },
     // Finish Button
     finishButton: {

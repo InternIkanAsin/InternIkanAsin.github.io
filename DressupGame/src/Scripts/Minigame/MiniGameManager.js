@@ -522,9 +522,6 @@ export class MiniGameManager {
     }
 
     setUpSidePanel(scene) {
-        const centerX = scene.scale.width / 2;
-        const centerY = scene.scale.height / 2;
-
         let buttons = createDummyButtons(scene, scene.AudioManager);
         scene.buttons = buttons;
         this.buttonList = buttons;
@@ -544,11 +541,11 @@ export class MiniGameManager {
         });
 
 
-        const sidePanel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 500, 667, 14, 14, 17, 10).setDepth(10).setScale(1.5);
+        const sidePanel = this.scene.add.image(0, 0, 'sidePanel').setDepth(10).setScale(1.5);
 
         this.innerSizer = scene.rexUI.add.sizer({
             orientation: 0,
-            space: { top: 70, bottom: 100, left: 60 }
+            space: { top: 70, left: 30 }
         });
 
         this.innerSizer.add(this.buttonGrid, 0, 'center', {}, true);
@@ -608,12 +605,13 @@ export class MiniGameManager {
         this.scene.sidePanelHeaderText = this.scene.add.text(layout.sidePanelHeaderText.x, layout.sidePanelHeaderText.y, headerText, {
             fontSize: layout.sidePanelHeaderText.fontSize,
             fontStyle: 'bold',
-            fill: '#d6525f',
+            fill: '#d6529c',
             fontFamily: 'regularFont',
             wordWrap: { width: this.scene.scale.width - 120 }
         }).setDepth(10).setOrigin(0.5, 0.5);
         this.scene.sidePanelIcon = this.scene.add.image(layout.sidePanelIcon.x, layout.sidePanelIcon.y, panelIcon).setDepth(10).setScale(0.8);
-        this.scene.sidePanelLine = this.scene.add.image(layout.sidePanelLine.x, layout.sidePanelLine.y, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(440, 5);
+        this.scene.sidePanelLine = this.scene.add.image(layout.sidePanelLine.x, layout.sidePanelLine.y, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(640, 5);
+        this.scene.sidePanelLine.setTint(0xD6529C);
 
         this.scene.sidePanel
             .setChildrenInteractive({
