@@ -800,47 +800,50 @@ export class MiniGameManager {
 
     createEndingPanel() {
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
-            x: layout.nextLevelButton.x,
-            y: layout.nextLevelButton.y,
-            textureButton: 'readyButtonIcon',
-            buttonWidth: 600,
-            buttonHeight: 150,
-            textureIcon: '',
-            iconYPosition: 0,
-            iconScale: 1.5,
-            callback: () => {
-                this.handleGameEnd(false);
-                restartButton.disableInteractive(); nextLevelButton.disableInteractive();
-            },
-            buttonText: 'Next Level',
-            textSize: 60,
-            textYPosition: 0,
-            font: 'regularFont',
-            useNineSlice: true,
-            textColor: '#d6525f'
-        }).setDepth(151).setScale(0);
+        x: layout.nextLevelButton.x,
+        y: layout.nextLevelButton.y,
+        textureButton: layout.nextLevelButton.texture, 
+        buttonWidth: layout.nextLevelButton.width,     
+        buttonHeight: layout.nextLevelButton.height,   
+        textureIcon: '',
+        useNineSlice: layout.nextLevelButton.useNineSlice,             
+        nineSliceConfig: layout.nextLevelButton.nineSliceConfig, 
+        iconScale: 1.5,
+        callback: () => {
+            this.handleGameEnd(false);
+            restartButton.disableInteractive(); 
+            nextLevelButton.disableInteractive();
+        },
+        buttonText: 'Next Level',
+        textSize: layout.nextLevelButton.textSize,     
+        textYPosition: 0,
+        font: 'regularFont',
+        textColor: '#d6525f'
+    }).setDepth(151).setScale(0);
 
 
-        const restartButton = new UIButton(this.scene, this.AudioManager, {
-            x: layout.restartButton.x,
-            y: layout.restartButton.y,
-            textureButton: 'readyButtonIcon',
-            buttonWidth: 600,
-            buttonHeight: 150,
-            textureIcon: '',
-            iconYPosition: 0,
-            iconScale: 1.5,
-            callback: () => {
-                this.handleGameEnd(true);
-                this.restartGame(true); nextLevelButton.disableInteractive(); restartButton.disableInteractive();
-            },
-            buttonText: 'Restart',
-            textSize: 60,
-            textYPosition: 0,
-            font: 'regularFont',
-            useNineSlice: true,
-            textColor: '#d6525f'
-        }).setDepth(151).setScale(0);
+    const restartButton = new UIButton(this.scene, this.AudioManager, {
+        x: layout.restartButton.x,
+        y: layout.restartButton.y,
+        textureButton: layout.restartButton.texture, 
+        buttonWidth: layout.restartButton.width,     
+        buttonHeight: layout.restartButton.height,   
+        textureIcon: '',
+        iconYPosition: 0,
+        iconScale: 1.5,
+        callback: () => {
+            this.handleGameEnd(true);
+            this.restartGame(true); 
+            nextLevelButton.disableInteractive(); 
+            restartButton.disableInteractive();
+        },
+        buttonText: 'Restart',
+        textSize: layout.restartButton.textSize,     
+        useNineSlice: layout.restartButton.useNineSlice,             
+        nineSliceConfig: layout.restartButton.nineSliceConfig,
+        font: 'regularFont',
+        textColor: '#d6525f'
+    }).setDepth(151).setScale(0);
 
         this.scene.tweens.add({
             targets: [nextLevelButton, restartButton],

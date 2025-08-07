@@ -62,6 +62,9 @@ export default class AssetLoader {
     scene.load.image('dialogueBox', 'Asset/UI/New/Box_Dialog.png');
     scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
     scene.load.image('particle_star', 'Asset/UI/star_07.png');
+    scene.load.image('blueButton', "Asset/UI/New/Btn_Biru.png");
+    scene.load.image('YellowButton', "Asset/UI/New/Btn_Kuning.png");
+    scene.load.image('BoxVictory', "Asset/UI/New/Box_Victory.png");
 
     //New Assets
     scene.load.image('buttonIcon', 'Asset/UI/Button_Released.png');

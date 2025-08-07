@@ -8,12 +8,18 @@ import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
-    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false, spriteAtlas = null, spriteFrame = null }) {
+    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false, nineSliceConfig = null, spriteAtlas = null, spriteFrame = null }) {
 
         let button = null;
         let icon = null;
-        if (useNineSlice) {
-            button = scene.add.nineslice(0, 0, textureButton, null, buttonWidth, buttonHeight, 50, 50, 40, 44)
+         if (useNineSlice) {
+            
+            const leftWidth = nineSliceConfig?.left ?? 20;
+            const rightWidth = nineSliceConfig?.right ?? 20;
+            const topHeight = nineSliceConfig?.top ?? 20;
+            const bottomHeight = nineSliceConfig?.bottom ?? 20;
+
+            button = scene.add.nineslice(0, 0, textureButton, null, buttonWidth, buttonHeight, leftWidth, rightWidth, topHeight, bottomHeight)
                 .setInteractive()
                 .setScale(buttonScale);
         } else {

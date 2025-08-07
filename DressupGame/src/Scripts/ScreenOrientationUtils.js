@@ -346,13 +346,29 @@ const LANDSCAPE = {
     },
 
     nextLevelButton: {
-        x: LANDSCAPE_WIDTH / 1.6,
-        y: LANDSCAPE_CENTERY
+        x: LANDSCAPE_CENTERX,
+        y: LANDSCAPE_CENTERY + 100, 
+        texture: 'YellowButton',
+        width: 1000,                
+        height: 300,               
+        textSize: 90,        
+        useNineSlice: true,        
+        nineSliceConfig: {         
+            left: 40, right: 40, top: 40, bottom: 50
+        }       
     },
 
     restartButton: {
-        x: LANDSCAPE_WIDTH / 2.7,
-        y: LANDSCAPE_CENTERY
+        x: LANDSCAPE_CENTERX,
+        y: LANDSCAPE_CENTERY + 350,  
+        texture: 'blueButton', 
+        width: 700,                 
+        height: 300,                
+        textSize: 90,
+        useNineSlice: true,        
+        nineSliceConfig: {         
+            left: 40, right: 40, top: 40, bottom: 50
+        }
     },
 
     particleOffsets: {
@@ -776,12 +792,28 @@ const PORTRAIT = {
 
     nextLevelButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT / 2.4
+        y: PORTRAIT_CENTERY + 100, 
+        texture: 'YellowButton',
+        width: 1000,                
+        height: 300,               
+        textSize: 90,        
+        useNineSlice: true,        
+        nineSliceConfig: {         
+            left: 40, right: 40, top: 40, bottom: 50
+        }       
     },
 
     restartButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT / 1.9
+        y: PORTRAIT_CENTERY + 350,  
+        texture: 'blueButton', 
+        width: 700,                 
+        height: 300,                
+        textSize: 90,
+        useNineSlice: true,        
+        nineSliceConfig: {         
+            left: 40, right: 40, top: 40, bottom: 50
+        }
     },
 
     particleOffsets: {
