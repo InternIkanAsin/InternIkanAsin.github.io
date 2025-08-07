@@ -192,6 +192,23 @@ export default class TweenUtils {
             ease: 'Power2',
         });
     }
+
+    closeCurtains(duration = 1000) {
+        const scene = this.scene;
+        scene.tweens.add({
+            targets: scene.leftCurtain,
+            x: layout.curtain.closed.leftX,
+            duration: duration,
+            ease: 'Power2',
+        });
+        scene.tweens.add({
+            targets: scene.rightCurtain,
+            x: layout.curtain.closed.rightX,
+            duration: duration,
+            ease: 'Power2',
+        });
+    
+    }
     
 
 

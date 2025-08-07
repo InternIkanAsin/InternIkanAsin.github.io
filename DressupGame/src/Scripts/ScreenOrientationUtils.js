@@ -511,7 +511,7 @@ const PORTRAIT = {
 
     },
 
-    //Tirai
+    //Tirai gede
     drapes: {
         displayHeight: 1280,
 
@@ -530,7 +530,7 @@ const PORTRAIT = {
             rightX: (720 * 0.75) + 600
         }
     },
-
+    //tirai kelipet
     curtain: {
         leftTexture: 'leftCurtainUntied',
         rightTexture: 'rightCurtainUntied',

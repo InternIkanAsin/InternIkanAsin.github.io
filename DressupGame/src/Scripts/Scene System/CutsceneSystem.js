@@ -163,7 +163,7 @@ export class CutsceneSystem {
                 this.scene.MiniGameManager.createEndingPanel();
                 this.scene.leftCurtain.setDepth(151);
                 this.scene.rightCurtain.setDepth(151);
-                this.scene.TweeningUtils.openCurtains();
+                this.scene.TweeningUtils.closeCurtains();
 
                 this.selectedDialogue = null;
 
