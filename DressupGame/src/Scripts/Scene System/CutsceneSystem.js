@@ -161,8 +161,8 @@ export class CutsceneSystem {
             this.scene.DialogueManager.showDialogue(this.selectedDialogue, () => {
                 this.scene.darkOverlay.setVisible(true);
                 this.scene.MiniGameManager.createEndingPanel();
-                this.scene.leftCurtain.setDepth(151);
-                this.scene.rightCurtain.setDepth(151);
+                this.scene.leftCurtain.setDepth(152);
+                this.scene.rightCurtain.setDepth(152);
                 this.scene.TweeningUtils.closeCurtains();
 
                 this.selectedDialogue = null;

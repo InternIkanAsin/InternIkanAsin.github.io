@@ -799,58 +799,112 @@ export class MiniGameManager {
     }
 
     createEndingPanel() {
+        const centerX = this.scene.scale.width / 2;
+        const centerY = this.scene.scale.height / 2;
+        this.scene.darkOverlay.setVisible(true);
+        
+
+        const victoryBox = this.scene.add.nineslice(
+            centerX,         
+            centerY - 250,   
+            'BoxVictory',    
+            null,            
+            this.scene.scale.width, 
+            170,             
+            50, 50, 40, 40   
+        ).setAlpha(0);
+        
+        const victoryTextStyle = {
+            fontSize: '96px',
+            fontFamily: 'regularFont',
+            color: '#d6525f',
+            stroke: '#ffffff', 
+            strokeThickness: 8
+        };
+       
+        const victoryText = this.scene.add.text(centerX + 100, centerY - 250, 'VICTORY!', victoryTextStyle)
+        .setOrigin(0.5)
+        .setAlpha(0);
+
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
-        x: layout.nextLevelButton.x,
-        y: layout.nextLevelButton.y,
-        textureButton: layout.nextLevelButton.texture, 
-        buttonWidth: layout.nextLevelButton.width,     
-        buttonHeight: layout.nextLevelButton.height,   
-        textureIcon: '',
-        useNineSlice: layout.nextLevelButton.useNineSlice,             
-        nineSliceConfig: layout.nextLevelButton.nineSliceConfig, 
-        iconScale: 1.5,
-        callback: () => {
-            this.handleGameEnd(false);
-            restartButton.disableInteractive(); 
-            nextLevelButton.disableInteractive();
-        },
-        buttonText: 'Next Level',
-        textSize: layout.nextLevelButton.textSize,     
-        textYPosition: 0,
-        font: 'regularFont',
-        textColor: '#d6525f'
-    }).setDepth(151).setScale(0);
+            x: layout.nextLevelButton.x,
+            y: layout.nextLevelButton.y,
+            textureButton: layout.nextLevelButton.texture, 
+            buttonWidth: layout.nextLevelButton.width,     
+            buttonHeight: layout.nextLevelButton.height,   
+            textureIcon: '',
+            useNineSlice: layout.nextLevelButton.useNineSlice,             
+            nineSliceConfig: layout.nextLevelButton.nineSliceConfig, 
+            iconScale: 1.5,
+            callback: () => {
+                this.handleGameEnd(false);
+                restartButton.disableInteractive(); 
+                nextLevelButton.disableInteractive();
+            },
+            buttonText: 'Next Level',
+            textSize: layout.nextLevelButton.textSize,     
+            textYPosition: 0,
+            font: 'regularFont',
+            textColor: '#d6525f'
+        }).setDepth(151).setScale(0);
 
 
-    const restartButton = new UIButton(this.scene, this.AudioManager, {
-        x: layout.restartButton.x,
-        y: layout.restartButton.y,
-        textureButton: layout.restartButton.texture, 
-        buttonWidth: layout.restartButton.width,     
-        buttonHeight: layout.restartButton.height,   
-        textureIcon: '',
-        iconYPosition: 0,
-        iconScale: 1.5,
-        callback: () => {
-            this.handleGameEnd(true);
-            this.restartGame(true); 
-            nextLevelButton.disableInteractive(); 
-            restartButton.disableInteractive();
-        },
-        buttonText: 'Restart',
-        textSize: layout.restartButton.textSize,     
-        useNineSlice: layout.restartButton.useNineSlice,             
-        nineSliceConfig: layout.restartButton.nineSliceConfig,
-        font: 'regularFont',
-        textColor: '#d6525f'
-    }).setDepth(151).setScale(0);
+        const restartButton = new UIButton(this.scene, this.AudioManager, {
+            x: layout.restartButton.x,
+            y: layout.restartButton.y,
+            textureButton: layout.restartButton.texture, 
+            buttonWidth: layout.restartButton.width,     
+            buttonHeight: layout.restartButton.height,   
+            textureIcon: '',
+            iconYPosition: 0,
+            iconScale: 1.5,
+            callback: () => {
+                this.handleGameEnd(true);
+                this.restartGame(true); 
+                nextLevelButton.disableInteractive(); 
+                restartButton.disableInteractive();
+            },
+            buttonText: 'Restart',
+            textSize: layout.restartButton.textSize,     
+            useNineSlice: layout.restartButton.useNineSlice,             
+            nineSliceConfig: layout.restartButton.nineSliceConfig,
+            font: 'regularFont',
+            textColor: '#d6525f'
+        }).setDepth(151).setScale(0);
+
+
+        const container = this.scene.add.container(0, 0, [
+            victoryBox,
+            victoryText,
+            nextLevelButton,
+            restartButton
+        ]).setDepth(151); 
+
+        this.activeConfirmationPanel = container; 
+
+        this.scene.tweens.add({
+            targets: victoryBox,
+            alpha: 1,
+            duration: 500,
+            ease: 'Sine.easeInOut'
+        });
+
+        this.scene.tweens.add({
+            targets: victoryText,
+            alpha: 1,
+            x: centerX, 
+            duration: 700,
+            ease: 'Power2',
+            delay: 200 
+        });
 
         this.scene.tweens.add({
             targets: [nextLevelButton, restartButton],
-            scale: 1,
-            duration: 200,
-            ease: 'Sine.easeInOut'
-        })
+            scale: 1, // <- Ubah dari 'alpha' ke 'scale'
+            duration: 500,
+            ease: 'Back.Out', // Gunakan ease 'Back.Out' untuk efek 'pop'
+            delay: 400
+        });
     }
 
     handleGameEnd(isRestart) {
