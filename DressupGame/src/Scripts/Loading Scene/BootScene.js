@@ -71,12 +71,16 @@ class BootScene extends Phaser.Scene {
         this.load.image('loading_frame', "Asset/UI/New/Loading_Bar.png");
         this.load.image('loading_fill', "Asset/UI/New/Loading_Bar_Gradient.png");
         this.load.image('loading_fill_pattern', "Asset/UI/New/Loading_Bar_Pattern.png");
-        //bache;lor pp
+        //bachelor pp
         this.load.image('PP_Angga', "Asset/Character/profile picture/PP Angga.png");
         this.load.image('PP_Azril', "Asset/Character/profile picture/PP Azril.png");
         this.load.image('PP_Indra', "Asset/Character/profile picture/PP Indra.png");
-        this.load.image('PP_Keenan', "Asset/Character/profile picture/PP Keenan.png");
         this.load.image('PP_Reza', "Asset/Character/profile picture/PP Reza.png");
+        this.load.image('PP_Keenan', "Asset/Character/profile picture/PP Keenan.png");
+        //mute button
+        this.load.atlas('iconAtlas', 'Asset/UI/New/Icon_Spritesheet.png', 'Asset/UI/New/Icon_Spritesheet.json');
+        this.load.image('button_kuning', "Asset/UI/New/Btn_Kuning2.png");
+        
         //this.load.image(chosenBachelorAssets.fullbodyKey, chosenBachelorAssets.fullbodyPath);
         //this.load.image(chosenBachelorAssets.expressionKey, chosenBachelorAssets.expressionPath);
     }

@@ -4,6 +4,7 @@ import { defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
+
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
@@ -84,6 +85,54 @@ export default class UIButton extends BaseButton {
 
     setInteractive() {
         this.button.setInteractive();
+    }
+}
+
+export class MuteButton extends BaseButton {
+    constructor(scene, x, y, scale = 1.0) {
+         
+        const buttonBg = scene.add.image(0, 0, 'button_kuning');
+        const icon = scene.add.image(0, 0, 'iconAtlas', 'Speaker_Icon.png');
+        
+       
+        super(scene, x, y, [buttonBg, icon]);
+        
+        this.scene = scene;
+        this.icon = icon;
+        
+        
+        this.setSize(buttonBg.width, buttonBg.height);
+        this.setInteractive();
+        this.setScale(scale);
+
+       
+        this.updateIcon();
+
+        
+        this.on('pointerdown', (pointer, localX, localY, event) => {
+           
+            const newMuteState = !this.scene.sound.mute;
+            this.scene.sound.setMute(newMuteState);
+            if (newMuteState) {
+                this.icon.setFrame('Speaker_Mute_Icon.png');
+            } else {
+                this.icon.setFrame('Speaker_Icon.png');
+            }
+            event.stopPropagation();
+        });
+        
+        
+        this.on('pointerover', () => this.setAlpha(0.8));
+        this.on('pointerout', () => this.setAlpha(1));
+        this.on('pointerup', () => this.setAlpha(1));
+    }
+    
+    updateIcon() {
+        if (this.scene.sound.mute) {
+            this.icon.setFrame('Speaker_Mute_Icon.png');
+        } else {
+            this.icon.setFrame('Speaker_Icon.png');
+        }
     }
 }
 

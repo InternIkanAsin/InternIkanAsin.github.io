@@ -1,6 +1,7 @@
 import AssetLoader from '../AssetLoader.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import Phaser from 'phaser';
+import { MuteButton } from '../UI/UIButton.js'; // <-- Impor kelas baru
 class PreloaderScene extends Phaser.Scene {
     constructor() {
         super({ key: 'PreloaderScene' });
@@ -36,6 +37,15 @@ class PreloaderScene extends Phaser.Scene {
             bg.x = 0;
         } else {
             bg.setOrigin(0.5, 0.5).setScale(1);
+        }
+
+        // Mute button
+        if(isMobile)
+        {
+            this.muteButton = new MuteButton(this, width * 0.9, height * 0.07, 0.25);
+        }
+        else{
+            this.muteButton = new MuteButton(this, width * 0.05, height * 0.1, 0.3);
         }
 
         this.add.image(layout.CisiniLogo.x, layout.CisiniLogo.y, 'logo_cisini').setOrigin(0.5, 0.5).setScale(layout.CisiniLogo.scale).setDepth(layout.CisiniLogo.depth);
