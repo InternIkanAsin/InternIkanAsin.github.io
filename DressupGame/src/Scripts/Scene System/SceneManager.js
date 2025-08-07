@@ -14,7 +14,11 @@ export class SceneManager {
             this.scene.phone?.destroy();
             this.scene.phoneBackground?.destroy();
             this.scene.cameras.main.fadeIn(2000);
-
+            this.scene.nameText?.destroy();
+            this.scene.callStatus?.destroy();
+            this.scene.profileBorder?.destroy();
+            this.scene.profileInside?.destroy();
+            this.scene.acceptCallButton?.destroy();
 
             if (typeof this.scene.createSelectionScreen === 'function') {
                 this.scene.createSelectionScreen();
