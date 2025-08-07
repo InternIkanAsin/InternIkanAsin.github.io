@@ -9,6 +9,10 @@ const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
 
+    muteButton: {
+        default: { x: LANDSCAPE_WIDTH * 0.05, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.3 },
+        minigame: { x: LANDSCAPE_WIDTH * 0.15, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.3 }
+    },
 
     CisiniLogo: {
         x: (1920 / 4) * 1.8 ,
@@ -396,6 +400,13 @@ const PORTRAIT = {
         zoomInX: 720 / 2 * 1.05,
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
+    },
+
+    muteButton: {
+        // Posisi untuk Cutscene 1, Selection, dan Cutscene 2
+        default: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.25 },
+        // Posisi khusus saat berada di dalam Minigame
+        minigame: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.25 } // Di portrait, posisinya mungkin sama
     },
 
     playerCharacter: {
