@@ -4,6 +4,8 @@ import BootScene from './Loading Scene/BootScene.js';
 
 import UIButton from './UI/UIButton.js';
 
+import { MuteButton } from './UI/UIButton.js';
+
 import AssetLoader from './AssetLoader.js'
 
 import { PokiPlugin } from '@poki/phaser-3';
@@ -167,6 +169,9 @@ class Main extends Phaser.Scene {
         this.state = GameState.MAKEUP;
 
         this.startGameFlow();
+        const mutePos = layout.muteButton.default; 
+        this.muteButton = new MuteButton(this, mutePos.x, mutePos.y, mutePos.scale);
+        this.muteButton.setDepth(1001);
     }
 
     createSelectionScreen() {
@@ -317,6 +322,8 @@ class Main extends Phaser.Scene {
             this.dressUpButton = null;
             this.makeUpButton = null;
 
+            const mutePos = layout.muteButton.minigame;
+            this.muteButton.setPosition(mutePos.x, mutePos.y).setScale(mutePos.scale);
             if (gameState === GameState.DRESSUP) {
                 if (!this.dressUpLoaded) {
                     await AssetLoader.loadDressUpAssets(this);

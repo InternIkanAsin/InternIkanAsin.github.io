@@ -1,5 +1,5 @@
 import { GameState } from './Main.js';
-import { OutfitButton } from './UI/UIButton.js';
+import { OutfitButton,  MuteButton } from './UI/UIButton.js';
 import { layout } from './ScreenOrientationUtils.js';
 export default class TweenUtils {
     constructor(scene) {
@@ -97,7 +97,8 @@ export default class TweenUtils {
         this.closeDrapes(500, () => {
 
             scene.MiniGameManager.clearMinigameUI();
-
+            const mutePos = layout.muteButton.default;
+            scene.muteButton.setPosition(mutePos.x, mutePos.y).setScale(mutePos.scale);
             scene.createSelectionButtons();
 
 
@@ -190,6 +191,23 @@ export default class TweenUtils {
             duration: duration,
             ease: 'Power2',
         });
+    }
+
+    closeCurtains(duration = 1000) {
+        const scene = this.scene;
+        scene.tweens.add({
+            targets: scene.leftCurtain,
+            x: layout.curtain.closed.leftX,
+            duration: duration,
+            ease: 'Power2',
+        });
+        scene.tweens.add({
+            targets: scene.rightCurtain,
+            x: layout.curtain.closed.rightX,
+            duration: duration,
+            ease: 'Power2',
+        });
+    
     }
     
 
