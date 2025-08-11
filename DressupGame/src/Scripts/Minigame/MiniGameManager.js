@@ -21,7 +21,7 @@ function _createConfettiTextures(scene) {
 
     confettiColors.forEach(color => {
         // Kita tetap butuh kunci, tapi kunci ini hanya "hidup" selama scene ini aktif.
-        const key = `confetti_local_${color.toString(16)}`; 
+        const key = `confetti_local_${color.toString(16)}`;
         textureKeys.push(key);
 
         // Periksa apakah tekstur dari scene SEBELUMNYA masih ada di manajer global,
@@ -75,7 +75,27 @@ export class MiniGameManager {
             buttonScale: layout.backButton.scale,
         }).setDepth(99);
 
-        scene.purpleLine1 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+        scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+        scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
+            x: layout.randomizeButton.x,
+            y: layout.randomizeButton.y,
+            textureButton: 'blueButton',
+            buttonWidth: 75,
+            buttonHeight: 75,
+            textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
+            iconYPosition: -5,
+            iconScale: 0.5,
+            callback: () => {
+            },
+            buttonText: '',
+            textSize: 24,
+            textYPosition: 60,
+            buttonScale: 0.325,
+            iconScale: layout.randomizeButton.iconScale,
+            buttonScale: layout.randomizeButton.scale
+        }).setDepth(99);
+
+        scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
         scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
             x: layout.removeAllButton.x,
             y: layout.removeAllButton.y,
@@ -106,7 +126,7 @@ export class MiniGameManager {
             buttonScale: 0.325,
         }).setDepth(99);
 
-        scene.purpleLine2 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+        scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
         scene.finishButton = new UIButton(scene, this.AudioManager, {
             x: layout.minigameFinishButton.x,
             y: layout.minigameFinishButton.y,
@@ -168,6 +188,15 @@ export class MiniGameManager {
 
         scene.applyMakeUpContainer = this.scene.add.container(layout.applyMakeUpContainer.x, layout.applyMakeUpContainer.y, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
         this.setUpSidePanel(scene);
+
+        if (scene.categorySidePanel) {
+            scene.tweens.add({
+                targets: scene.categorySidePanel,
+                t: 0,
+                duration: 500,
+                ease: 'Sine.easeInOut'
+            })
+        }
     }
 
     clearMinigameUI() {
@@ -573,7 +602,7 @@ export class MiniGameManager {
 
         this.innerSizer = scene.rexUI.add.sizer({
             orientation: 0,
-            space: { top: 70, left: 30 }
+            space: { top: 70, left: 0 }
         });
 
         this.innerSizer.add(this.buttonGrid, 0, 'center', {}, true);
@@ -582,8 +611,8 @@ export class MiniGameManager {
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({
             x: layout.sidePanel.x,
             y: layout.sidePanel.y,
-            width: layout.sidePanel.width || 800,
-            height: layout.sidePanel.height || this.scene.scale.height,
+            width: layout.sidePanel.width,
+            height: layout.sidePanel.height,
             scrollMode: 0,
 
             scrollDetectionMode: 1,
@@ -599,7 +628,7 @@ export class MiniGameManager {
                 align: 'center',
                 expand: true,
                 mask: {
-                    padding: 2
+                    padding: 10
                 }
             },
 
@@ -638,7 +667,7 @@ export class MiniGameManager {
             wordWrap: { width: this.scene.scale.width - 120 }
         }).setDepth(10).setOrigin(0.5, 0.5);
         this.scene.sidePanelIcon = this.scene.add.image(layout.sidePanelIcon.x, layout.sidePanelIcon.y, panelIcon).setDepth(10).setScale(0.8);
-        this.scene.sidePanelLine = this.scene.add.image(layout.sidePanelLine.x, layout.sidePanelLine.y, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(640, 5);
+        this.scene.sidePanelLine = this.scene.add.image(layout.sidePanelLine.x, layout.sidePanelLine.y, 'sidePanelLine').setDepth(10).setScale(2).setDisplaySize(480, 5);
         this.scene.sidePanelLine.setTint(0xD6529C);
 
         this.scene.sidePanel
@@ -668,9 +697,73 @@ export class MiniGameManager {
         Object.values(buttons).flat().forEach(button => {
             button.setMask(mask);
         });
-
         this.scene.sidePanelMaskGraphics = maskGraphics;
+
+        // this.scene.sidePanel.getElement('slider.track').x -= 1000;
+        // this.scene.sidePanel.getElement('slider.thumb').x -= 1000;
+
+        // this.scene.sys.displayList.bringToTop(this.scene.sidePanel.getElement('slider.track'));
+        // this.scene.sys.displayList.bringToTop(this.scene.sidePanel.getElement('slider.thumb'));
+
         this.scene.sidePanel.layout();
+
+
+
+        if (this.scene.state !== GameState.MAKEUP) return;
+        const categoryButtons = this.scene.state === GameState.MAKEUP ? this.scene.makeUpCategoryButtons : null;
+
+        this.categoryButtonGrid = scene.rexUI.add.gridSizer({
+            row: categoryButtons.length,
+            column: 1,
+            rowProportions: 1,
+            space: { column: 0, row: 125 },
+            align: 'center'
+        });
+
+        categoryButtons.forEach((btnContainer, index) => {
+            this.categoryButtonGrid.add(btnContainer, 0, index, '', { left: 120, right: 0, top: 40, bottom: 40 }, false);
+        });
+
+        //Create scrollable panel for makeup category buttons
+        this.scene.categorySidePanel = this.scene.rexUI.add.scrollablePanel({
+            x: 1200,
+            y: layout.sidePanel.y,
+            width: 400,
+            height: this.scene.scale.height,
+            scrollMode: 0,
+
+            scrollDetectionMode: 1,
+            scroller: {
+                pointerOutRelease: false,
+                rectBoundsInteractive: false
+            },
+
+            background: '',
+            panel: {
+                child: this.categoryButtonGrid,
+                align: 'center',
+                expand: true,
+                mask: {
+                    padding: 100
+                }
+            },
+
+            slider: {
+            },
+
+            mouseWheelScroller: {
+                focus: false,
+                speed: 1
+            },
+
+            space: {
+                left: layout.categorySidePanel.left,
+                right: layout.categorySidePanel.right,
+                top: layout.categorySidePanel.top,
+                bottom: layout.categorySidePanel.bottom,
+                panel: layout.categorySidePanel.panel
+            }
+        }).layout().setDepth(10).setT(1);
     }
 
     updatePanelCategory(scene) {
@@ -828,13 +921,13 @@ export class MiniGameManager {
     //    const confettiColors = [0xffd700, 0xff69b4, 0x00bfff, 0x32cd32, 0xff4500, 0x9370db];
     //    const textureKeys = [];
     //    const sessionId = this.scene.gameSessionId;
-//
+    //
     //    console.log(`[Confetti Log] Creating textures for Session ID: ${sessionId} using createCanva`);
-//
+    //
     //    confettiColors.forEach(color => {
     //        const key = `confetti_session${sessionId}_${color.toString(16)}`;
     //        textureKeys.push(key);
-//
+    //
     //        // Buat tekstur kanvas kosong
     //        const texture = this.scene.textures.createCanvas(key, 10, 20);
     //        
@@ -853,7 +946,7 @@ export class MiniGameManager {
     //        
     //        console.log(`[Confetti Log]   -> Generated texture with key: '${key}' via Canvas`);
     //    });
-//
+    //
     //    return textureKeys;
     //}
 
@@ -861,22 +954,22 @@ export class MiniGameManager {
         const centerX = this.scene.scale.width / 2;
         const centerY = this.scene.scale.height / 2;
         this.scene.darkOverlay.setVisible(true);
-        
-         const confettiKeys = _createConfettiTextures(this.scene);
+
+        const confettiKeys = _createConfettiTextures(this.scene);
 
         // --- INI ADALAH PERUBAHAN KUNCI ---
         // Alih-alih satu emitter, kita buat satu emitter untuk setiap kunci warna.
         if (confettiKeys && confettiKeys.length > 0) {
-            
+
             confettiKeys.forEach(key => {
-                
+
                 // Buat emitter terpisah untuk setiap warna confetti
                 const confettiEmitter = this.scene.add.particles(0, 0, key, { // Perhatikan: hanya satu 'key' di sini
-                    emitZone: { 
+                    emitZone: {
                         source: new Phaser.Geom.Line(0, -50, this.scene.scale.width, -50),
                         type: 'random',
                         // Kurangi kuantitas karena kita punya banyak emitter
-                        quantity: 8 
+                        quantity: 8
                     },
                     lifespan: 4000,
                     speedY: { min: 150, max: 300 },
@@ -886,49 +979,49 @@ export class MiniGameManager {
                     frequency: 100,
                 });
                 confettiEmitter.setDepth(150);
-                
+
             });
         }
 
         const victoryBox = this.scene.add.nineslice(
-            centerX,         
-            centerY - 250,   
-            'BoxVictory',    
-            null,            
-            this.scene.scale.width, 
-            170,             
-            50, 50, 40, 40   
+            centerX,
+            centerY - 250,
+            'BoxVictory',
+            null,
+            this.scene.scale.width,
+            170,
+            50, 50, 40, 40
         ).setAlpha(0);
-        
+
         const victoryTextStyle = {
             fontSize: '96px',
             fontFamily: 'regularFont',
             color: '#d6525f',
-            stroke: '#ffffff', 
+            stroke: '#ffffff',
             strokeThickness: 8
         };
-       
+
         const victoryText = this.scene.add.text(centerX + 100, centerY - 250, 'VICTORY!', victoryTextStyle)
-        .setOrigin(0.5)
-        .setAlpha(0);
+            .setOrigin(0.5)
+            .setAlpha(0);
 
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.nextLevelButton.x,
             y: layout.nextLevelButton.y,
-            textureButton: layout.nextLevelButton.texture, 
-            buttonWidth: layout.nextLevelButton.width,     
-            buttonHeight: layout.nextLevelButton.height,   
+            textureButton: layout.nextLevelButton.texture,
+            buttonWidth: layout.nextLevelButton.width,
+            buttonHeight: layout.nextLevelButton.height,
             textureIcon: '',
-            useNineSlice: layout.nextLevelButton.useNineSlice,             
-            nineSliceConfig: layout.nextLevelButton.nineSliceConfig, 
+            useNineSlice: layout.nextLevelButton.useNineSlice,
+            nineSliceConfig: layout.nextLevelButton.nineSliceConfig,
             iconScale: 1.5,
             callback: () => {
                 this.handleGameEnd(false);
-                restartButton.disableInteractive(); 
+                restartButton.disableInteractive();
                 nextLevelButton.disableInteractive();
             },
             buttonText: 'Next Level',
-            textSize: layout.nextLevelButton.textSize,     
+            textSize: layout.nextLevelButton.textSize,
             textYPosition: 0,
             font: 'regularFont',
             textColor: '#d6525f'
@@ -938,21 +1031,21 @@ export class MiniGameManager {
         const restartButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.restartButton.x,
             y: layout.restartButton.y,
-            textureButton: layout.restartButton.texture, 
-            buttonWidth: layout.restartButton.width,     
-            buttonHeight: layout.restartButton.height,   
+            textureButton: layout.restartButton.texture,
+            buttonWidth: layout.restartButton.width,
+            buttonHeight: layout.restartButton.height,
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
             callback: () => {
                 this.handleGameEnd(true);
-                this.restartGame(true); 
-                nextLevelButton.disableInteractive(); 
+                this.restartGame(true);
+                nextLevelButton.disableInteractive();
                 restartButton.disableInteractive();
             },
             buttonText: 'Restart',
-            textSize: layout.restartButton.textSize,     
-            useNineSlice: layout.restartButton.useNineSlice,             
+            textSize: layout.restartButton.textSize,
+            useNineSlice: layout.restartButton.useNineSlice,
             nineSliceConfig: layout.restartButton.nineSliceConfig,
             font: 'regularFont',
             textColor: '#d6525f'
@@ -964,9 +1057,9 @@ export class MiniGameManager {
             victoryText,
             nextLevelButton,
             restartButton
-        ]).setDepth(151); 
+        ]).setDepth(151);
 
-        this.activeConfirmationPanel = container; 
+        this.activeConfirmationPanel = container;
 
         this.scene.tweens.add({
             targets: victoryBox,
@@ -978,10 +1071,10 @@ export class MiniGameManager {
         this.scene.tweens.add({
             targets: victoryText,
             alpha: 1,
-            x: centerX, 
+            x: centerX,
             duration: 700,
             ease: 'Power2',
-            delay: 200 
+            delay: 200
         });
 
         this.scene.tweens.add({
