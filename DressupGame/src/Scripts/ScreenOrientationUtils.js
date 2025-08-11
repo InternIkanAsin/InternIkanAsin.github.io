@@ -239,11 +239,32 @@ const LANDSCAPE = {
         height: 300
     },
 
+
     dialogueText: {
         x: LANDSCAPE_WIDTH / 2.775,
         y: LANDSCAPE_HEIGHT / 1.3,
         fontSize: 32,
         wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 1.45)
+    },
+
+    namedDialogueBox: {
+        x: LANDSCAPE_CENTERX,
+        y: LANDSCAPE_CENTERY * 1.725,
+        width: 1200, 
+        height: 300
+    },
+
+    namedDialogueText: {
+        x: LANDSCAPE_CENTERX * 0.45, 
+        y: LANDSCAPE_HEIGHT / 1.25,
+        fontSize: 32,
+        wordWrap: 1000
+    },
+
+    namedDialogueNameBox: {
+        width: 70,
+        height: 25,
+        offsetX: 220 
     },
 
     backButton: {
@@ -643,6 +664,26 @@ const PORTRAIT = {
         y: PORTRAIT_CENTERY * 1.3,
         fontSize: 32,
         wordWrap: PORTRAIT_WIDTH - 80
+    },
+
+     namedDialogueBox: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_CENTERY * 1.4, 
+        width: 700, 
+        height: 300 
+    },
+    
+    namedDialogueText: {
+        x: PORTRAIT_WIDTH * 0.05,
+        y: PORTRAIT_CENTERY * 1.3, 
+        fontSize: 32,
+        wordWrap: PORTRAIT_WIDTH - 60 
+    },
+
+    namedDialogueNameBox: {
+        width: 80, 
+        height: 22,
+        offsetX: 50 
     },
 
     backButton: {

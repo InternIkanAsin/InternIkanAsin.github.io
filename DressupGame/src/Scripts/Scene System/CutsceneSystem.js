@@ -155,7 +155,10 @@ export class CutsceneSystem {
         this.scene.cameras.main.fadeIn(3000);
         this.scene.AudioManager.playMusic('cutsceneMusic2');
         this.scene.AudioManager.fadeInMusic('cutsceneMusic2');
-
+        const dialogueConfig = {
+            style: 'named', 
+            showName: true  
+        };
 
         this.scene.cameras.main.once('camerafadeincomplete', () => {
             this.scene.DialogueManager.showDialogue(this.selectedDialogue, () => {
@@ -167,7 +170,7 @@ export class CutsceneSystem {
 
                 this.selectedDialogue = null;
 
-            });
+            }, dialogueConfig);
         });
     }
 
