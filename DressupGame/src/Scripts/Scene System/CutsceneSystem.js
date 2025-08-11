@@ -11,36 +11,43 @@ export class CutsceneSystem {
     initiateCutscene1(bachelorChoice, bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
         const scene = this.scene;
-        //this.scene.backgroundCutscene1 = this.scene.add.image(layout.cutsceneBG.x, layout.cutsceneBG.y, bachelorName + datePlace).setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
+        
+        // --- AMBIL KONFIGURASI LAYOUT UNTUK CUTSCENE 1 ---
+        const csLayout = layout.cutscene1;
+
         scene.backgroundCutscene1 = this.scene.add.image(width / 2, height / 2, 'cutscene1Background').setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
 
-        scene.phoneBackground = this.scene.add.image(width / 2, height / 1.7, 'phoneBackground').setDisplaySize(700, 900);
-        scene.phone = this.scene.add.image(width / 2, height / 1.3, 'phone').setScale(1.5).setDepth(101);
+        // Gunakan nilai dari csLayout
+        scene.phoneBackground = this.scene.add.image(csLayout.phoneBackground.x, csLayout.phoneBackground.y, 'phoneBackground').setDisplaySize(csLayout.phoneBackground.width, csLayout.phoneBackground.height);
+        scene.phone = this.scene.add.image(csLayout.phone.x, csLayout.phone.y, 'phone').setScale(csLayout.phone.scale).setDepth(101);
 
-        scene.nameText = this.scene.add.text(width / 2, height / 1.7, bachelorName, {
-            fontSize: '64px',
+        scene.nameText = this.scene.add.text(csLayout.nameText.x, csLayout.nameText.y, bachelorName, {
+            fontSize: csLayout.nameText.fontSize, // Gunakan fontSize dari layout
             fill: '#60292b',
             fontFamily: 'regularFont',
             wordWrap: { width: width - 120 }
         }).setOrigin(0.5, 0.5);
-        scene.callStatus = this.scene.add.text(width / 2, height / 1.55, 'Incoming Call...', {
-            fontSize: '32px',
+        
+        scene.callStatus = this.scene.add.text(csLayout.callStatus.x, csLayout.callStatus.y, 'Incoming Call...', {
+            fontSize: csLayout.callStatus.fontSize, // Gunakan fontSize dari layout
             fill: '#60292b',
             fontFamily: 'regularFont',
             wordWrap: { width: width - 120 }
         }).setOrigin(0.5, 0.5);
 
         const bachelorProfileKey = `PP_${bachelorName}`;
-        scene.bachelorProfile = this.scene.add.image(width / 2, height / 2.5, bachelorProfileKey).setScale(1.2);
+        // Gunakan nilai dari csLayout
+        scene.bachelorProfile = this.scene.add.image(csLayout.profilePic.x, csLayout.profilePic.y, bachelorProfileKey).setScale(csLayout.profilePic.scale);
+        
         scene.acceptCallButton = new UIButton(scene, scene.AudioManager, {
-            x: width / 2,
-            y: height / 1.15,
+            x: csLayout.acceptButton.x, // Gunakan posisi dari layout
+            y: csLayout.acceptButton.y,
             textureButton: 'callIcon',
             buttonWidth: 75,
             buttonHeight: 75,
             textureIcon: '',
             iconYPosition: -10,
-            iconScale: 0.8 * 2,
+            iconScale: csLayout.acceptButton.scale * 2,
             callback: () => {
                 this.acceptCall(bachelorChoice, bachelorName, datePlace);
             },
@@ -48,7 +55,7 @@ export class CutsceneSystem {
             buttonScale: 1,
         }).setDepth(99);
 
-        //Bounce button
+        // Bounce button (logika ini tetap sama)
         scene.tweens.add({
             targets: [scene.acceptCallButton],
             y: scene.acceptCallButton.y + 10,
@@ -56,13 +63,17 @@ export class CutsceneSystem {
             ease: 'Bounce.out',
             yoyo: true,
             repeat: -1
-        })
+        });
+        
         scene.add.existing(bachelorChoice);
 
-        bachelorChoice.y = height / 2 * 1.7;
+        
+        bachelorChoice.setPosition(csLayout.bachelorSprite.x, csLayout.bachelorSprite.y);
+        bachelorChoice.setScale(csLayout.bachelorSprite.scale);
+
+        // Logika ini tetap sama
         bachelorChoice.setVisible(true).setDepth(100).setAlpha(0);
 
-        //this.scene.cameras.main.fadeIn(3000);
         scene.AudioManager.playMusic('cutsceneMusic');
         scene.AudioManager.fadeInMusic('cutsceneMusic');
     }

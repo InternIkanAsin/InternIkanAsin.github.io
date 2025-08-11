@@ -14,6 +14,23 @@ const LANDSCAPE = {
         minigame: { x: LANDSCAPE_WIDTH * 0.15, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.28 }
     },
 
+    cutscene1: {
+    
+        phone: { x: LANDSCAPE_CENTERX, y: 1080 / 1.3, scale: 1.5 },
+        phoneBackground: { x: LANDSCAPE_CENTERX, y: 1080 / 1.7, width: 700, height: 900 },
+        profilePic: { x: LANDSCAPE_CENTERX, y: 1080 / 2.5, scale: 1.2 },
+        nameText: { x: LANDSCAPE_CENTERX, y: 1080 / 1.7, fontSize: '64px' },
+        callStatus: { x: LANDSCAPE_CENTERX, y: 1080 / 1.55, fontSize: '32px' },
+        acceptButton: { x: LANDSCAPE_CENTERX, y: 1080 / 1.15 },
+        scale : 0.8,
+         bachelorSprite: {
+            // Nilai ini didasarkan pada kode Anda yang sudah ada
+            x: LANDSCAPE_CENTERX,
+            y: LANDSCAPE_HEIGHT / 2 * 1.7, // y = 918
+            scale: 1 // Skala container adalah 1, karena gambar di dalamnya sudah di-scale 2x
+        }
+    },
+
     CisiniLogo: {
         x: (1920 / 4) * 1.8,
         y: 1080 * 0.35,
@@ -452,6 +469,22 @@ const PORTRAIT = {
         zoomInScale: 1.9,
     },
 
+    cutscene1: {
+        // Di portrait, kita buat telepon lebih besar dan lebih ke tengah
+        phone: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY + 80, scale: 1.3 },
+        phoneBackground: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.2, width: 580, height: 1100 }, // Lebih ramping dan tinggi
+        profilePic: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 0.7, scale: 1.1 },
+        nameText: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.05, fontSize: '72px' }, // Font lebih besar
+        callStatus: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.18, fontSize: '40px' },
+        acceptButton: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.45 },
+        scale : 0.4,
+        bachelorSprite: {
+            x: PORTRAIT_CENTERX * 1.3,
+            y: PORTRAIT_HEIGHT * 0.8, 
+            scale: 0.9 
+        }
+    },
+
     muteButton: {
         // Posisi untuk Cutscene 1, Selection, dan Cutscene 2
         default: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 },
@@ -669,15 +702,15 @@ const PORTRAIT = {
     //Dialogue System
     dialogueBox: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_CENTERY * 1.4,
-        width: 680,
-        height: 250
+        y: PORTRAIT_CENTERY * 1.65,
+        width: 540,
+        height: 350
     },
     dialogueText: {
-        x: PORTRAIT_WIDTH / 15,
-        y: PORTRAIT_CENTERY * 1.3,
+        x: PORTRAIT_WIDTH / 6,
+        y: PORTRAIT_CENTERY * 1.45,
         fontSize: 32,
-        wordWrap: PORTRAIT_WIDTH - 80
+        wordWrap: PORTRAIT_WIDTH - 240
     },
 
      namedDialogueBox: {
