@@ -15,24 +15,33 @@ import Phaser from 'phaser';
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
-
-
-function createConfettiTextures(scene) {
+function _createConfettiTextures(scene) {
     const confettiColors = [0xffd700, 0xff69b4, 0x00bfff, 0x32cd32, 0xff4500, 0x9370db];
     const textureKeys = [];
 
     confettiColors.forEach(color => {
-        const key = `confetti_${color.toString(16)}`;
+        // Kita tetap butuh kunci, tapi kunci ini hanya "hidup" selama scene ini aktif.
+        const key = `confetti_local_${color.toString(16)}`; 
         textureKeys.push(key);
-        
-        // Selalu buat ulang tekstur untuk memastikan referensi valid
-        const graphics = scene.make.graphics();
-        graphics.fillStyle(color, 1.0);
-        graphics.fillRect(0, 0, 10, 20);
-        graphics.generateTexture(key, 10, 20);
-        graphics.destroy();
+
+        // Periksa apakah tekstur dari scene SEBELUMNYA masih ada di manajer global,
+        // dan hapus jika ada untuk menghindari konflik.
+        if (scene.textures.exists(key)) {
+            scene.textures.remove(key);
+        }
+
+        // Gunakan metode createCanvas yang paling stabil.
+        const texture = scene.textures.createCanvas(key, 10, 20);
+        if (texture) {
+            const context = texture.getContext();
+            const colorString = '#' + ('000000' + color.toString(16)).substr(-6);
+            context.fillStyle = colorString;
+            context.fillRect(0, 0, 10, 20);
+            texture.refresh();
+        }
     });
 
+    console.log('[Confetti] Self-contained textures created:', textureKeys);
     return textureKeys;
 }
 
@@ -815,30 +824,70 @@ export class MiniGameManager {
         });
     }
 
+    //createConfettiTextures() {
+    //    const confettiColors = [0xffd700, 0xff69b4, 0x00bfff, 0x32cd32, 0xff4500, 0x9370db];
+    //    const textureKeys = [];
+    //    const sessionId = this.scene.gameSessionId;
+//
+    //    console.log(`[Confetti Log] Creating textures for Session ID: ${sessionId} using createCanva`);
+//
+    //    confettiColors.forEach(color => {
+    //        const key = `confetti_session${sessionId}_${color.toString(16)}`;
+    //        textureKeys.push(key);
+//
+    //        // Buat tekstur kanvas kosong
+    //        const texture = this.scene.textures.createCanvas(key, 10, 20);
+    //        
+    //        // Dapatkan konteks 2D dari kanvas tekstur
+    //        const context = texture.getContext();
+    //        
+    //        // Konversi warna hex number menjadi string CSS (misal: '#ffd700')
+    //        const colorString = '#' + ('000000' + color.toString(16)).substr(-6);
+    //        
+    //        // Gambar persegi panjang berwarna di atas kanvas
+    //        context.fillStyle = colorString;
+    //        context.fillRect(0, 0, 10, 20);
+    //        
+    //        // PENTING: Refresh tekstur agar perubahan terlihat oleh WebGL
+    //        texture.refresh();
+    //        
+    //        console.log(`[Confetti Log]   -> Generated texture with key: '${key}' via Canvas`);
+    //    });
+//
+    //    return textureKeys;
+    //}
+
     createEndingPanel() {
         const centerX = this.scene.scale.width / 2;
         const centerY = this.scene.scale.height / 2;
         this.scene.darkOverlay.setVisible(true);
         
-        const confettiKeys = createConfettiTextures(this.scene);
+         const confettiKeys = _createConfettiTextures(this.scene);
 
-        // 2. Gunakan kunci-kunci tersebut SEGERA untuk membuat partikel.
+        // --- INI ADALAH PERUBAHAN KUNCI ---
+        // Alih-alih satu emitter, kita buat satu emitter untuk setiap kunci warna.
         if (confettiKeys && confettiKeys.length > 0) {
-            const confettiEmitter = this.scene.add.particles(0, 0, confettiKeys, {
-                emitZone: { 
-                    source: new Phaser.Geom.Line(0, -50, this.scene.scale.width, -50),
-                    type: 'random',
-                    quantity: 40 
-                },
-                lifespan: 4000,
-                speedY: { min: 150, max: 300 },
-                gravityY: 100,
-                scale: { start: 1.2, end: 0.25 },
-                rotate: { start: 0, end: 720 },
-                frequency: 100,
-                blendMode: 'NORMAL'
+            
+            confettiKeys.forEach(key => {
+                
+                // Buat emitter terpisah untuk setiap warna confetti
+                const confettiEmitter = this.scene.add.particles(0, 0, key, { // Perhatikan: hanya satu 'key' di sini
+                    emitZone: { 
+                        source: new Phaser.Geom.Line(0, -50, this.scene.scale.width, -50),
+                        type: 'random',
+                        // Kurangi kuantitas karena kita punya banyak emitter
+                        quantity: 8 
+                    },
+                    lifespan: 4000,
+                    speedY: { min: 150, max: 300 },
+                    gravityY: 100,
+                    scale: { start: 1.2, end: 0.25 },
+                    rotate: { start: 0, end: 720 },
+                    frequency: 100,
+                });
+                confettiEmitter.setDepth(150);
+                
             });
-            confettiEmitter.setDepth(150);
         }
 
         const victoryBox = this.scene.add.nineslice(
