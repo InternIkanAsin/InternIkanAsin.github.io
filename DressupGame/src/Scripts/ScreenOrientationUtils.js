@@ -123,6 +123,9 @@ const LANDSCAPE = {
         zoomInY: 540 * 2.9,
         zoomInScale: 1.9,
 
+        halfZoomX: LANDSCAPE_CENTERX, 
+        halfZoomY: LANDSCAPE_HEIGHT * 0.9, 
+        halfZoomScale: 1.0
 
     },
 
@@ -206,6 +209,10 @@ const LANDSCAPE = {
         zoomOutFaceY: 1080 / 2 / 2.19,
         zoomOutTargetFaceScale: 0.3,
 
+        halfZoomFaceX: LANDSCAPE_CENTERX - 16, // Sedikit offset dari tengah
+        halfZoomFaceY: LANDSCAPE_HEIGHT * 0.355,
+        halfZoomFaceScale: 0.5
+
     },
 
     Hair: {
@@ -216,6 +223,10 @@ const LANDSCAPE = {
         zoomOutHairX: 1920 / 2 / 1.103 - 300,
         zoomOutHairY: 1080 / 2 / 1.45,
         zoomOutHairScale: 0.5 * 256 / 225,
+
+        halfZoomHairX: LANDSCAPE_CENTERX - 5,
+        halfZoomHairY: LANDSCAPE_HEIGHT * 0.5415,
+        halfZoomHairScale: 0.8 * 256 / 225
 
     },
     // Side Panel
@@ -467,6 +478,10 @@ const PORTRAIT = {
         zoomInX: 720 / 2 * 1.05,
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
+
+        halfZoomX: PORTRAIT_CENTERX,
+        halfZoomY: PORTRAIT_HEIGHT * 0.9,
+        halfZoomScale: 1.2 
     },
 
     cutscene1: {
@@ -645,6 +660,10 @@ const PORTRAIT = {
         zoomOutFaceY: 1280 / 2 / 1.79,
         zoomOutTargetFaceScale: 0.3,
 
+        halfZoomHairX: PORTRAIT_CENTERX - 2,
+        halfZoomHairY: PORTRAIT_HEIGHT * 0.45,
+        halfZoomHairScale: 0.5 * 2 * 256 / 225
+
     },
     //Hair
     Hair: {
@@ -656,6 +675,10 @@ const PORTRAIT = {
         zoomOutHairX: 720 / 2 / 1.107,
         zoomOutHairY: 1280 / 2 / 1.325,
         zoomOutHairScale: 0.25 * 2 * 256 / 225,
+
+        halfZoomFaceX: PORTRAIT_CENTERX - 5,
+        halfZoomFaceY: PORTRAIT_HEIGHT * 0.38,
+        halfZoomFaceScale: 0.6
 
     },
     // Side Panel

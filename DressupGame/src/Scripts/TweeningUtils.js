@@ -87,7 +87,7 @@ export default class TweenUtils {
                 true 
             );
         }
-        await this.zoomOut();
+        await this.zoomHalfway();
 
         scene.state = GameState.MAKEUP;
         if (!this.scene.MiniGameManager.canContinueToScene2()) this.scene.dressUpFinished = false;
@@ -297,6 +297,41 @@ export default class TweenUtils {
             if (outfitImage) {
                 this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, 500, 'Sine.easeInOut');
             }
+        });
+    }
+
+    async zoomHalfway() {
+        return new Promise(resolve => {
+            const scene = this.scene;
+            const targetBodyX = layout.character.halfZoomX;
+            const targetBodyY = layout.character.halfZoomY;
+            const targetBodyScale = layout.character.halfZoomScale;
+
+            const targetFaceX = layout.face.halfZoomFaceX;
+            const targetFaceY = layout.face.halfZoomFaceY;
+            const targetFaceScale = layout.face.halfZoomFaceScale;
+
+            const targetHairX = layout.Hair.halfZoomHairX;
+            const targetHairY = layout.Hair.halfZoomHairY;
+            const targetHairScale = layout.Hair.halfZoomHairScale;
+
+            const duration = 500;
+
+            scene.tweens.add({ targets: [scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: duration, ease: 'Sine.easeInOut' });
+            scene.tweens.add({ targets: [scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: duration, ease: 'Sine.easeInOut' });
+            scene.tweens.add({ targets: [scene.hairBack, scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: duration, ease: 'Sine.easeInOut' });
+            
+            Object.values(OutfitButton.selectedOutfits).forEach(entry => {
+                 const outfitImage = entry?.current?.displayedOutfit;
+                 if (outfitImage && outfitImage.active) {
+                    this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, 'Sine.easeInOut');
+                 }
+            });
+
+            scene.time.delayedCall(duration, () => {
+                console.log("[TweenUtils] zoomHalfway animation complete.");
+                resolve();
+            });
         });
     }
 

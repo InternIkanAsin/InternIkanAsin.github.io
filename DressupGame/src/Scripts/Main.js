@@ -215,7 +215,10 @@ class Main extends Phaser.Scene {
 
         scene.cameras.main.once('camerafadeincomplete', () => {
 
-            this.TweeningUtils.openDrapesHalfway(1000);
+            this.TweeningUtils.zoomHalfway().then(() => {
+                
+                this.TweeningUtils.openDrapesHalfway(1000);
+            });
         });
     }
 
@@ -317,6 +320,8 @@ class Main extends Phaser.Scene {
         this.makeUpButton.disableInteractive();
         this.state = gameState;
         console.log(`[Main.js] Transitioning to ${gameState} mode.`);
+
+
         this.TweeningUtils.closeDrapes(500, async () => {
             if (this.dressUpButton) this.dressUpButton.destroy();
             if (this.makeUpButton) this.makeUpButton.destroy();
@@ -334,18 +339,22 @@ class Main extends Phaser.Scene {
 
             const mutePos = layout.muteButton.minigame;
             this.muteButton.setPosition(mutePos.x, mutePos.y).setScale(mutePos.scale);
+
+            // Tentukan zoom yang benar berdasarkan tujuan
             if (gameState === GameState.DRESSUP) {
                 if (!this.dressUpLoaded) {
                     await AssetLoader.loadDressUpAssets(this);
                     this.dressUpLoaded = true;
                 }
-                this.TweeningUtils.zoomOut();
-            } else {
+                // DARI TENGAH (HALF-ZOOM) KE KIRI (ZOOM-OUT)
+                await this.TweeningUtils.zoomOut(); 
+            } else { // GameState.MAKEUP
                 if (!this.makeUpLoaded) {
                     await AssetLoader.loadMakeUpAssets(this);
                     this.makeUpLoaded = true;
                 }
-                this.TweeningUtils.zoomIn();
+                // DARI TENGAH (HALF-ZOOM) KE TENGAH (ZOOM-IN)
+                await this.TweeningUtils.zoomIn();
             }
 
             this.setUpMiniGame();
@@ -354,6 +363,7 @@ class Main extends Phaser.Scene {
             } else {
                 this.MakeUpManager.displayMakeUpButtons('Eyebrows', this);
             }
+
             this.TweeningUtils.openDrapes(1000, () => {
                 console.log("[Transition] Lock released.");
                 this.isTransitioning = false;
