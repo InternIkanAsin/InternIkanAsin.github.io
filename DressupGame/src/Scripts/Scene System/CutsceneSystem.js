@@ -29,9 +29,16 @@ export class CutsceneSystem {
             fontFamily: 'regularFont',
             wordWrap: { width: width - 120 }
         }).setOrigin(0.5, 0.5);
-
+        
         scene.profileBorder = this.scene.add.image(width / 2, height / 2.5, 'bachelor_profileOutside').setScale(0.52);
         scene.profileInside = this.scene.add.image(width / 2, height / 2.5, 'bachelor_profileInside').setScale(0.49);
+        const profilePicKey = 'PP_' + bachelorName;
+        // Pastikan aset ada sebelum mencoba menggunakannya untuk menghindari error
+        if (scene.textures.exists(profilePicKey)) {
+            scene.bachelorProfilePic = this.scene.add.image(width / 2, height / 2.45, profilePicKey).setScale(1.3); // Sesuaikan skala agar pas
+        } else {
+            console.warn(`[CutsceneSystem] Profile picture texture not found: ${profilePicKey}`);
+        }
         scene.acceptCallButton = new UIButton(scene, scene.AudioManager, {
             x: width / 2,
             y: height / 1.15,
