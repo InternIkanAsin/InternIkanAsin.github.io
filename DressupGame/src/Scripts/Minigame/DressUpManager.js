@@ -212,7 +212,7 @@ export class DressUpManager {
         const columnCount = 2;
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: 2, row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 90, row: 70 }, align: 'center',
+            space: { column: 110, row: 90 }, align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
         allButtonContainersForPanel.forEach((btnContainer, index) => {
@@ -229,7 +229,7 @@ export class DressUpManager {
 
     displayDressUpButtons(outfitType, scene) {
         if (outfitType === 'Dress') {
-            scene.selectedCategory.previous = scene.selectedCategory.current;
+            if (scene.selectedCategory.previous) scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;
         }
 

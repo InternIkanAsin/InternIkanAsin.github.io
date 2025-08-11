@@ -102,7 +102,7 @@ const LANDSCAPE = {
         x: 1920 / 2 / 1.1 - 300,
         y: 1080 / 2 / 0.9,
         scale: 0.6,
-        zoomInX: 960 * 1.05 - 300,
+        zoomInX: 960 * 1.05 - 350,
         zoomInY: 540 * 2.9,
         zoomInScale: 1.9,
 
@@ -181,7 +181,7 @@ const LANDSCAPE = {
 
     face: {
 
-        zoomInFaceX: 1920 / 2 * 1.01 - 300,
+        zoomInFaceX: 1920 / 2 * 1.01 - 350,
         zoomInFaceY: 1080 / 2 / 1.23,
         zoomInTargetFaceScale: 1,
 
@@ -192,7 +192,7 @@ const LANDSCAPE = {
     },
 
     Hair: {
-        zoomInHairX: 1920 / 2 * 1.035 - 300,
+        zoomInHairX: 1920 / 2 * 1.035 - 350,
         zoomInHairY: 1080 / 2 * 1.553,
         zoomInTargetHairScale: 1.6 * 256 / 225,
 
@@ -205,22 +205,31 @@ const LANDSCAPE = {
     sidePanel: {
         x: 1920 - 400,
         y: 1080 / 2,
-        left: 300,
+        left: 220,
         right: 0,
-        top: 100,
+        top: 120,
         bottom: 0,
-        panel: 30
+        panel: 30,
+        width: 800,
+        height: 1080
+    },
+    categorySidePanel: {
+        left: 0,
+        right: 120,
+        top: 75,
+        bottom: 70,
+        panel: 50
     },
     sidePanelLine: {
-        x: LANDSCAPE_WIDTH - 330,
+        x: LANDSCAPE_WIDTH - 340,
         y: 90,
     },
     sidePanelIcon: {
-        x: LANDSCAPE_WIDTH - 300,
+        x: LANDSCAPE_WIDTH - 225,
         y: 50
     },
     sidePanelHeaderText: {
-        x: LANDSCAPE_WIDTH - 420,
+        x: LANDSCAPE_WIDTH - 370,
         y: 50,
         fontSize: 54
     },
@@ -252,7 +261,12 @@ const LANDSCAPE = {
         scale: 0.14 * 2,
         iconScale: 0.16 * 2
     },
-
+    randomizeButton: {
+        x: 120,
+        y: 350,
+        scale: 0.16 * 2,
+        iconScale: 0.155 * 2
+    },
     removeAllButton: {
         x: 120,
         y: 540,
@@ -261,9 +275,9 @@ const LANDSCAPE = {
     },
 
     itemPanelButton: {
-        iconScale: 0.5 * 2,
-        buttonScale: 0.8 * 2,
-        textYPosition: 70
+        iconScale: 0.6 * 2,
+        buttonScale: 0.9 * 2,
+        textYPosition: 80
     },
 
     categoryButton: {
@@ -273,23 +287,23 @@ const LANDSCAPE = {
     makeUpButton: {
         iconLockedX: 68,
         iconLockedY: 64,
-        iconScale: 1.2,
-        highlightImg: 0.8 * 2,
-        buttonScale: 0.8 * 2,
-        lockedIconBgScale: 0.5,
-        lockedIconScale: 1.5,
-        textYPosition: 130,
+        iconScale: 1.3,
+        highlightImg: 0.9 * 2,
+        buttonScale: 0.9 * 2,
+        lockedIconBgScale: 0.6,
+        lockedIconScale: 1.6,
+        textYPosition: 140,
         textSize: '24px'
     },
     outfitButton: {
         iconLockedX: 68,
         iconLockedY: 64,
-        iconScale: 1.2,
-        highlightImg: 0.8 * 2,
-        buttonScale: 0.8 * 2,
-        lockedIconBgScale: 0.5,
-        lockedIconScale: 1.5,
-        textYPosition: 130,
+        iconScale: 1.3,
+        highlightImg: 0.9 * 2,
+        buttonScale: 0.9 * 2,
+        lockedIconBgScale: 0.6,
+        lockedIconScale: 1.6,
+        textYPosition: 140,
         textSize: '24px'
     },
     //Dressup Category
@@ -302,15 +316,15 @@ const LANDSCAPE = {
     },
 
     makeUpCategoryButtons: {
-        eyebrowsButton: { x: 1370, y: 125 },
-        eyelashesButton: { x: 1370, y: 225 },
-        eyelinerButton: { x: 1370, y: 325 },
-        eyeshadowButton: { x: 1370, y: 425 },
-        lipstickButton: { x: 1370, y: 525 },
-        eyecolorButton: { x: 1370, y: 625 },
-        blushButton: { x: 1370, y: 725 },
-        stickerButton: { x: 1370, y: 825 },
-        hairButton: { x: 1370, y: 925 },
+        eyebrowsButton: { x: 1100, y: 125 },
+        eyelashesButton: { x: 1100, y: 225 },
+        eyelinerButton: { x: 1100, y: 325 },
+        eyeshadowButton: { x: 1100, y: 425 },
+        lipstickButton: { x: 1100, y: 525 },
+        eyecolorButton: { x: 1100, y: 625 },
+        blushButton: { x: 1100, y: 725 },
+        stickerButton: { x: 1100, y: 825 },
+        hairButton: { x: 1100, y: 925 },
     },
 
     MakeupPosition: {
@@ -598,18 +612,18 @@ const PORTRAIT = {
         right: 0,
         top: 75,
         bottom: 30,
-        panel: 30
+        panel: 40
     },
     sidePanelLine: {
-        x: PORTRAIT_WIDTH + 30,
+        x: PORTRAIT_WIDTH,
         y: PORTRAIT_CENTERY / 3,
     },
     sidePanelIcon: {
-        x: PORTRAIT_WIDTH - 20,
+        x: PORTRAIT_WIDTH + 80,
         y: PORTRAIT_CENTERY / 3.5
     },
     sidePanelHeaderText: {
-        x: PORTRAIT_WIDTH - 200,
+        x: PORTRAIT_WIDTH - 50,
         y: 0,
         fontSize: 40
     },

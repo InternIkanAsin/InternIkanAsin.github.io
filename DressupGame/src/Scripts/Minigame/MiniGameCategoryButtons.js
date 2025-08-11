@@ -6,9 +6,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyebrowsButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyebrowsButton.x, layout.makeUpCategoryButtons.eyebrowsButton.y,
             'Eyebrows',
             null,
-            'stitchedButtonIconYellow',
+            'blueButton',
             'categoryButtonHighlighted',
-            'eyebrowsIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Eyebrow_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Eyebrow_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Eyebrows', scene);
             }
@@ -16,9 +17,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyelashesButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyelashesButton.x, layout.makeUpCategoryButtons.eyelashesButton.y,
             'Eyelashes',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'eyelashesIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Eyelash_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Eyelash_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Eyelashes', scene);
             }
@@ -26,9 +28,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyelinerButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyelinerButton.x, layout.makeUpCategoryButtons.eyelinerButton.y,
             'Eyeliner',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'eyelinerIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Eyeliner_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Eyeliner_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Eyeliner', scene);
             }
@@ -36,9 +39,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyeshadowButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyeshadowButton.x, layout.makeUpCategoryButtons.eyeshadowButton.y,
             'Eyeshadow',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'eyeshadowIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Eyeshadow_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Eyeshadow_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Eyeshadow', scene);
             }
@@ -46,9 +50,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.lipstickButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.lipstickButton.x, layout.makeUpCategoryButtons.lipstickButton.y,
             'Lipstick',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'lipstickIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Lipstick_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Lipstick_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Lips', scene);
             }
@@ -56,9 +61,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.eyecolorButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.eyecolorButton.x, layout.makeUpCategoryButtons.eyecolorButton.y,
             'Eye Color',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'eyeColorIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Eye_Color_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Eye_Color_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Pupil', scene);
             }
@@ -66,9 +72,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.blushButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.blushButton.x, layout.makeUpCategoryButtons.blushButton.y,
             'Blush',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'blushIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Blush_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Blush_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Blush', scene);
             }
@@ -76,9 +83,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.stickerButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.stickerButton.x, layout.makeUpCategoryButtons.stickerButton.y,
             'Sticker',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'stickerIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Stickers_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Stickers_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Sticker', scene);
             }
@@ -86,9 +94,10 @@ export function createMakeUpCategoryButtons(scene, audioManager) {
         scene.hairButton = new CategoryButton(scene, audioManager, layout.makeUpCategoryButtons.hairButton.x, layout.makeUpCategoryButtons.hairButton.y,
             'Hair',
             null,
-            'stitchedButtonIcon',
+            'blueButton',
             'categoryButtonHighlighted',
-            'hairIcon',
+            { atlas: 'Icon_spritesheet', frame: 'Hair_Icon.png' },
+            { atlas: 'Icon_Pressed_spritesheet', frame: 'Hair_Pressed_Icon.png' },
             () => {
                 scene.MakeUpManager.displayMakeUpButtons('Hair', scene);
             }
@@ -159,10 +168,10 @@ export function enableDressUpMakeUpCategoryButtons(scene) {
 
 export function createDummyButtons(scene, audioManager) {
     const buttons = [
-        scene.dummyButton = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
-        scene.dummyButton1 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
-        scene.dummyButton2 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
-        scene.dummyButton3 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'stitchedButtonIcon', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'blueButton', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton1 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'blueButton', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton2 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'blueButton', 'categoryButtonHighlighted', 'dressIcon', () => { }),
+        scene.dummyButton3 = new CategoryButton(scene, audioManager, -1000, -1000, '', null, 'blueButton', 'categoryButtonHighlighted', 'dressIcon', () => { }),
     ]
 
 

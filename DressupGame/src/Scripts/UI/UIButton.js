@@ -8,12 +8,12 @@ import { unlockManager } from '../Save System/UnlockManager.js';
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
 export default class UIButton extends BaseButton {
-    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false, nineSliceConfig = null, spriteAtlas = null, spriteFrame = null }) {
+    constructor(scene, AudioManager, { x, y, textureButton, buttonWidth = 75, buttonHeight = 75, textureIcon = null, iconYPosition = 0, iconScale = 0.5, iconOffset = 0, callback = () => { }, buttonText = '', textSize = '16px', textColor = '#FFFFFF', textYPosition = 0, textOffset = 0, buttonScale = 0.7, font = 'pixelFont', useNineSlice = false, nineSliceConfig = null }) {
 
         let button = null;
         let icon = null;
-         if (useNineSlice) {
-            
+        if (useNineSlice) {
+
             const leftWidth = nineSliceConfig?.left ?? 20;
             const rightWidth = nineSliceConfig?.right ?? 20;
             const topHeight = nineSliceConfig?.top ?? 20;
@@ -96,27 +96,27 @@ export default class UIButton extends BaseButton {
 
 export class MuteButton extends BaseButton {
     constructor(scene, x, y, scale = 1.0) {
-         
+
         const buttonBg = scene.add.image(0, 0, 'button_kuning');
-        const icon = scene.add.image(0, 0, 'iconAtlas', 'Speaker_Icon.png');
-        
-       
+        const icon = scene.add.image(0, -5, 'iconAtlas', 'Speaker_Icon.png');
+
+
         super(scene, x, y, [buttonBg, icon]);
-        
+
         this.scene = scene;
         this.icon = icon;
-        
-        
+
+
         this.setSize(buttonBg.width, buttonBg.height);
         this.setInteractive();
         this.setScale(scale);
 
-       
+
         this.updateIcon();
 
-        
+
         this.on('pointerdown', (pointer, localX, localY, event) => {
-           
+
             const newMuteState = !this.scene.sound.mute;
             this.scene.sound.setMute(newMuteState);
             if (newMuteState) {
@@ -126,13 +126,13 @@ export class MuteButton extends BaseButton {
             }
             event.stopPropagation();
         });
-        
-        
+
+
         this.on('pointerover', () => this.setAlpha(0.8));
         this.on('pointerout', () => this.setAlpha(1));
         this.on('pointerup', () => this.setAlpha(1));
     }
-    
+
     updateIcon() {
         if (this.scene.sound.mute) {
             this.icon.setFrame('Speaker_Mute_Icon.png');
@@ -386,19 +386,15 @@ export class CategoryButton extends BaseButton {
     }
 
     selectButton() {
-        if (this.scene.selectedCategory.current === this) return;
+        if (this.button.x === this.originalX) return;
 
-        if (this.scene.selectedCategory.current) {
-            this.scene.selectedCategory.current.deselectButton();
-        }
-
-        this.scene.selectedCategory.current = this;
         this.isSelected = true;
-
+        if (this.scene.selectedCategory.previous) this.scene.selectedCategory.previous.deselectButton();
+        this.originalX = this.button.x - 40
         console.log(this.button.texture.key);
         this.scene.tweens.add({
             targets: [this.button, this.icon, this.iconSelected],
-            x: this.button.x - 40,
+            x: this.originalX,
             duration: 100,
             ease: 'Power2'
         });
@@ -437,7 +433,7 @@ export class OutfitButton extends BaseButton {
 
         const nameText = scene.make.text({
             x: 0, // Posisi lokal X di dalam container
-            y: 75, // Posisi lokal Y di dalam container
+            y: 90, // Posisi lokal Y di dalam container
             text: name,
             style: {
                 fontFamily: 'regularFont',

@@ -62,7 +62,6 @@ export default class AssetLoader {
     scene.load.image('dialogueBox', 'Asset/UI/New/Box_Dialog.png');
     scene.load.image('dialogueNameBox', 'Asset/UI/Name_Box.png');
     scene.load.image('particle_star', 'Asset/UI/star_07.png');
-    scene.load.image('blueButton', "Asset/UI/New/Btn_Biru.png");
     scene.load.image('YellowButton', "Asset/UI/New/Btn_Kuning.png");
     scene.load.image('BoxVictory', "Asset/UI/New/Box_Victory.png");
 
@@ -71,7 +70,7 @@ export default class AssetLoader {
     scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');
     scene.load.image('buttonIconLocked', 'Asset/UI/Button_Icon_Locked.png');
     scene.load.image('lockIcon', 'Asset/UI/Icon_Locked.png');
-    
+
 
     scene.load.image('dressButtonIcon', 'Asset/UI/Wardrobe_Icon.png');
     scene.load.image('makeUpButtonIcon', 'Asset/UI/Makeup_Icon.png');

@@ -30,8 +30,8 @@ export class CutsceneSystem {
             wordWrap: { width: width - 120 }
         }).setOrigin(0.5, 0.5);
 
-        scene.profileBorder = this.scene.add.image(width / 2, height / 2.5, 'bachelor_profileOutside').setScale(0.52);
-        scene.profileInside = this.scene.add.image(width / 2, height / 2.5, 'bachelor_profileInside').setScale(0.49);
+        const bachelorProfileKey = `PP_${bachelorName}`;
+        scene.bachelorProfile = this.scene.add.image(width / 2, height / 2.5, bachelorProfileKey).setScale(1.2);
         scene.acceptCallButton = new UIButton(scene, scene.AudioManager, {
             x: width / 2,
             y: height / 1.15,
@@ -73,7 +73,7 @@ export class CutsceneSystem {
         scene.callStatus.setText(callStatusText);
         scene.acceptCallButton.disableInteractive();
         scene.tweens.add({
-            targets: [scene.profileBorder, scene.profileInside],
+            targets: [scene.bachelorProfile],
             scale: 0,
             duration: 100,
             ease: 'Power2',
