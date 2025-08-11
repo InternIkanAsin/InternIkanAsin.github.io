@@ -17,6 +17,25 @@ import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
 
 
+function createConfettiTextures(scene) {
+    const confettiColors = [0xffd700, 0xff69b4, 0x00bfff, 0x32cd32, 0xff4500, 0x9370db];
+    const textureKeys = [];
+
+    confettiColors.forEach(color => {
+        const key = `confetti_${color.toString(16)}`;
+        textureKeys.push(key);
+        
+        // Selalu buat ulang tekstur untuk memastikan referensi valid
+        const graphics = scene.make.graphics();
+        graphics.fillStyle(color, 1.0);
+        graphics.fillRect(0, 0, 10, 20);
+        graphics.generateTexture(key, 10, 20);
+        graphics.destroy();
+    });
+
+    return textureKeys;
+}
+
 export class MiniGameManager {
     constructor(scene, AudioManager) {
         this.scene = scene;
@@ -801,6 +820,26 @@ export class MiniGameManager {
         const centerY = this.scene.scale.height / 2;
         this.scene.darkOverlay.setVisible(true);
         
+        const confettiKeys = createConfettiTextures(this.scene);
+
+        // 2. Gunakan kunci-kunci tersebut SEGERA untuk membuat partikel.
+        if (confettiKeys && confettiKeys.length > 0) {
+            const confettiEmitter = this.scene.add.particles(0, 0, confettiKeys, {
+                emitZone: { 
+                    source: new Phaser.Geom.Line(0, -50, this.scene.scale.width, -50),
+                    type: 'random',
+                    quantity: 40 
+                },
+                lifespan: 4000,
+                speedY: { min: 150, max: 300 },
+                gravityY: 100,
+                scale: { start: 1.2, end: 0.25 },
+                rotate: { start: 0, end: 720 },
+                frequency: 100,
+                blendMode: 'NORMAL'
+            });
+            confettiEmitter.setDepth(150);
+        }
 
         const victoryBox = this.scene.add.nineslice(
             centerX,         

@@ -187,7 +187,8 @@ class PreloaderScene extends Phaser.Scene {
             poki.runWhenInitialized(() => {
                 poki.gameLoadingFinished();
                 console.log("[Poki SDK] gameLoadingFinished() has been fired.");
-            });
+            });            
+
             if (PAUSE_FOR_TESTING) {
                 // Jika mode tes aktif, jangan mulai scene baru.
                 // Tampilkan pesan dan tunggu klik.

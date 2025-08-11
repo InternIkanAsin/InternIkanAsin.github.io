@@ -48,6 +48,8 @@ import { BachelorManager } from './Bachelor/bachelorManager.js'
 
 import { layout } from './ScreenOrientationUtils.js';
 
+
+
 export const GameState = Object.freeze({
     MAKEUP: 'MAKEUP',
     DRESSUP: 'DRESSUP'
@@ -71,7 +73,7 @@ class Main extends Phaser.Scene {
         this.rightDrape?.destroy();
         this.leftCurtain?.destroy();
         this.rightCurtain?.destroy();
-
+        this.confettiTextures = data.confettiKeys || []; 
         if (this.UIManager) {
             this.UIManager.clearMinigameScene(this);
         }
