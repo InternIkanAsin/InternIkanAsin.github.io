@@ -48,6 +48,8 @@ import { BachelorManager } from './Bachelor/bachelorManager.js'
 
 import { layout } from './ScreenOrientationUtils.js';
 
+
+
 export const GameState = Object.freeze({
     MAKEUP: 'MAKEUP',
     DRESSUP: 'DRESSUP'
@@ -71,7 +73,7 @@ class Main extends Phaser.Scene {
         this.rightDrape?.destroy();
         this.leftCurtain?.destroy();
         this.rightCurtain?.destroy();
-
+        this.confettiTextures = data.confettiKeys || []; 
         if (this.UIManager) {
             this.UIManager.clearMinigameScene(this);
         }
@@ -121,6 +123,15 @@ class Main extends Phaser.Scene {
         this.areSocksLoaded = false;
         this.areLowersLoaded = false;
         this.areOutersLoaded = false;
+
+        let sessionId = this.registry.get('gameSessionId') || 0;
+        
+        // Simpan session ID saat ini ke properti scene agar mudah diakses
+        this.gameSessionId = sessionId;
+        console.log(`[Main.js] Starting Game Session ID: ${this.gameSessionId}`);
+
+        // Naikkan session ID dan simpan kembali ke registry untuk permainan berikutnya
+        this.registry.set('gameSessionId', sessionId + 1);
 
         this.areEyelashesLoaded = false;
         this.areEyelinerLoaded = false;

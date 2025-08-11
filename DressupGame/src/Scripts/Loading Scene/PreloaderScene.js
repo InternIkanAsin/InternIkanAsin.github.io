@@ -1,6 +1,7 @@
 import AssetLoader from '../AssetLoader.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import Phaser from 'phaser';
+
 import { MuteButton } from '../UI/UIButton.js'; // <-- Impor kelas baru
 class PreloaderScene extends Phaser.Scene {
     constructor() {
@@ -188,6 +189,8 @@ class PreloaderScene extends Phaser.Scene {
                 poki.gameLoadingFinished();
                 console.log("[Poki SDK] gameLoadingFinished() has been fired.");
             });
+            
+           
             if (PAUSE_FOR_TESTING) {
                 // Jika mode tes aktif, jangan mulai scene baru.
                 // Tampilkan pesan dan tunggu klik.
@@ -205,14 +208,13 @@ class PreloaderScene extends Phaser.Scene {
                 this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
             }
         });
-
-        
-
-
         AssetLoader.loadGame(this);
         AssetLoader.loadMiniGame(this);
 
     }
+
+    
+
     update() {
         if (this.loadingFillPattern) {
             this.loadingFillPattern.tilePositionX += 1.5;
