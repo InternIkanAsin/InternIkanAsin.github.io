@@ -328,7 +328,7 @@ const LANDSCAPE = {
         x: 120,
         y: 540,
         buttonScale: 0.16 * 2,
-        iconScale: 0.25 * 2
+        iconScale: 0.155 * 2
     },
 
     itemPanelButton: {

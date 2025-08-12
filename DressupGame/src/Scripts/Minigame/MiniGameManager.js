@@ -83,7 +83,7 @@ export class MiniGameManager {
                 buttonWidth: 75,
                 buttonHeight: 75,
                 iconYPosition: -5,
-                buttonScale: 0.4 
+                buttonScale: 0.4
             };
 
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
@@ -116,20 +116,20 @@ export class MiniGameManager {
                 buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
                 iconYPosition: -5,
-                
-                iconScale: layout.removeAllButton.iconScale, 
-                callback: () => { 
+
+                iconScale: layout.removeAllButton.iconScale,
+                callback: () => {
                     if (scene.state === GameState.MAKEUP) {
                         scene.MakeUpManager?.removeAllMakeup();
                     } else if (scene.state === GameState.DRESSUP) {
                         scene.DressUpManager?.removeAllOutfits();
-                    } 
+                    }
                 },
                 buttonText: '',
                 textSize: 24,
                 textYPosition: 60,
-                
-                buttonScale: layout.removeAllButton.buttonScale, 
+
+                buttonScale: layout.removeAllButton.buttonScale,
             }).setDepth(99);
 
             scene.finishButton = new UIButton(scene, this.AudioManager, {
@@ -150,7 +150,6 @@ export class MiniGameManager {
                         }
                     } else {
                         this.showConfirmationPanel();
-                        scene.TweeningUtils.hideApplyMakeUpPanel();
                     }
                 }
             }).setDepth(99);
@@ -171,7 +170,20 @@ export class MiniGameManager {
                 buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
                 iconYPosition: -5,
-                callback: () => { },
+                callback: () => {
+                    if (scene.state === GameState.MAKEUP) {
+                        scene.MakeUpManager.removeAllMakeup();
+                        Object.keys(scene.makeUpButtons).forEach(makeUpType => {
+                            const buttons = scene.makeUpButtons[makeUpType];
+                            const randomIndex = Math.floor(Math.random() * buttons.length);
+                            console.log(buttons[randomIndex]);
+                            buttons[randomIndex].toggleMakeUp();
+                        });
+                    } else if (scene.state === GameState.DRESSUP) {
+                        scene.DressUpManager.removeAllOutfits();
+                        scene.DressUpManager.randomizeOutfit();
+                    }
+                },
                 iconScale: layout.randomizeButton.iconScale,
                 buttonScale: layout.randomizeButton.scale
             }).setDepth(99);
@@ -186,18 +198,18 @@ export class MiniGameManager {
                 buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
                 iconYPosition: -5,
-                iconScale: layout.removeAllButton.iconScale, 
-                callback: () => { 
+                iconScale: layout.removeAllButton.iconScale,
+                callback: () => {
                     if (scene.state === GameState.MAKEUP) {
                         scene.MakeUpManager?.removeAllMakeup();
                     } else if (scene.state === GameState.DRESSUP) {
                         scene.DressUpManager?.removeAllOutfits();
-                    } 
+                    }
                 },
                 buttonText: '',
-                buttonScale: layout.removeAllButton.buttonScale, 
+                buttonScale: layout.removeAllButton.buttonScale,
             }).setDepth(100);;
-        
+
             scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             scene.finishButton = new UIButton(scene, this.AudioManager, {
                 x: layout.minigameFinishButton.x,
@@ -351,28 +363,46 @@ export class MiniGameManager {
             ? 'Are you sure about the outfit you chose?'
             : 'Are you sure about the make up you chose?';
 
-        const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 230, 130, 12, 12, 12, 9)
-            .setDepth(101).setScale(3);
+        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', 690, 390, 128, 128, 64, 68)
+            .setDepth(101);
 
         const text = this.scene.add.text(0, -20, questionText, {
-            fontSize: '32px',
+            fontSize: '40px',
             fontFamily: 'regularFont',
             color: '#d6525f',
             align: 'center',
-            lineSpacing: 10
+            lineSpacing: 10,
+            wordWrap: { width: this.scene.scale.width - 600 }
         }).setOrigin(0.5).setDepth(102);
 
-        const yesButton = new GeneralButton(this.scene, 120, 80, 'readyButtonIcon', null, 'YES',
-            () => this.finishMiniGame(state), this.scene.AudioManager).setDepth(102);
+        const yesButton = new UIButton(this.scene, this.AudioManager, {
+            x: 120,
+            y: 170,
+            textureButton: 'yellowButton',
+            textureIcon: 'tickMark',
+            iconYPosition: 0,
+            iconScale: 0.8,
+            callback: () => {
+                this.finishMiniGame(state);
+            },
+            buttonText: '',
+            buttonScale: 0.4
+        })
 
-        const noButton = new GeneralButton(this.scene, -120, 80, 'readyButtonIcon', null, 'NO',
-            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(102);
-
-        const closeButton = new UIButton(this.scene, this.AudioManager, 310, -170,
-            'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
-            () => this.closeConfirmationPanel()).setDepth(102);
-
-        const container = this.scene.add.container(centerX, centerY, [panel, text, yesButton, noButton, closeButton]);
+        const noButton = new UIButton(this.scene, this.AudioManager, {
+            x: -120,
+            y: 170,
+            textureButton: 'blueButton',
+            textureIcon: 'crossMark',
+            iconYPosition: 0,
+            iconScale: 0.3,
+            callback: () => {
+                this.finishMiniGame(state);
+            },
+            buttonText: '',
+            buttonScale: 0.3
+        })
+        const container = this.scene.add.container(centerX, centerY, [panel, text, yesButton, noButton]);
         return container.setDepth(151).setScale(0);
     }
 

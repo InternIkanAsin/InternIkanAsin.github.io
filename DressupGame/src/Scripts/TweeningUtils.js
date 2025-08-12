@@ -50,7 +50,7 @@ export default class TweenUtils {
         });
     }
 
-    async transitionBackToSelection() {
+    transitionBackToSelection() {
         const scene = this.scene;
         console.log("[TweenUtils] Transitioning back to selection screen.");
 
@@ -66,18 +66,18 @@ export default class TweenUtils {
                 true
             );
         }
-        await this.zoomHalfway();
 
         scene.state = GameState.MAKEUP;
         if (!this.scene.MiniGameManager.canContinueToScene2()) this.scene.dressUpFinished = false;
 
-        this.closeDrapes(500, () => {
+        this.closeDrapes(500, async () => {
 
             scene.MiniGameManager.clearMinigameUI();
             const mutePos = layout.muteButton.default;
             scene.muteButton.setPosition(mutePos.x, mutePos.y).setScale(mutePos.scale);
             scene.createSelectionButtons();
 
+            await this.zoomHalfway();
 
             this.openDrapesHalfway(1000);
 
