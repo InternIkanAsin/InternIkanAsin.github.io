@@ -228,7 +228,7 @@ export class MiniGameManager {
             }).setDepth(99);
         }
 
-        this.setUpSidePanel(scene);
+        this.setupPanels(scene);
 
         if (scene.categorySidePanel) {
             scene.tweens.add({
