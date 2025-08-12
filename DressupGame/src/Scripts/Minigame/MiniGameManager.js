@@ -83,7 +83,7 @@ export class MiniGameManager {
                 buttonWidth: 75,
                 buttonHeight: 75,
                 iconYPosition: -5,
-                buttonScale: 0.4 // Skala yang seragam untuk portrait
+                buttonScale: 0.4 
             };
 
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
@@ -109,18 +109,27 @@ export class MiniGameManager {
             }).setDepth(99);
 
             scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
-                ...commonBtnConfig,
-                x: btnLayout.removeAll.x,
-                y: btnLayout.removeAll.y,
+                x: layout.removeAllButton.x,
+                y: layout.removeAllButton.y,
+                textureButton: 'blueButton',
+                buttonWidth: 75,
+                buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
-                iconScale: 0.5,
-                callback: () => {
+                iconYPosition: -5,
+                
+                iconScale: layout.removeAllButton.iconScale, 
+                callback: () => { 
                     if (scene.state === GameState.MAKEUP) {
                         scene.MakeUpManager?.removeAllMakeup();
                     } else if (scene.state === GameState.DRESSUP) {
                         scene.DressUpManager?.removeAllOutfits();
-                    }
-                }
+                    } 
+                },
+                buttonText: '',
+                textSize: 24,
+                textYPosition: 60,
+                
+                buttonScale: layout.removeAllButton.buttonScale, 
             }).setDepth(99);
 
             scene.finishButton = new UIButton(scene, this.AudioManager, {
@@ -180,6 +189,7 @@ export class MiniGameManager {
             }).setDepth(99);
 
             scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+            const btnLayout = layout.actionButtons;
             scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.removeAllButton.x,
                 y: layout.removeAllButton.y,
@@ -188,17 +198,18 @@ export class MiniGameManager {
                 buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
                 iconYPosition: -5,
-                callback: () => {
+                iconScale: layout.removeAllButton.iconScale, 
+                callback: () => { 
                     if (scene.state === GameState.MAKEUP) {
                         scene.MakeUpManager?.removeAllMakeup();
                     } else if (scene.state === GameState.DRESSUP) {
                         scene.DressUpManager?.removeAllOutfits();
-                    }
+                    } 
                 },
-                iconScale: layout.removeAllButton.iconScale,
-                buttonScale: layout.removeAllButton.buttonScale,
-            }).setDepth(99);
-
+                buttonText: '',
+                buttonScale: layout.removeAllButton.buttonScale, 
+            }).setDepth(100);;
+        
             scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             scene.finishButton = new UIButton(scene, this.AudioManager, {
                 x: layout.minigameFinishButton.x,
