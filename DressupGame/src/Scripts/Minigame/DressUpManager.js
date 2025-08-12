@@ -224,11 +224,15 @@ export class DressUpManager {
         }
 
         const gridConfig = layout.grid;
-        
+        const columns = gridConfig.columns > 0 ? gridConfig.columns : 4
+        const numItems = allButtonContainersForPanel.length;
+        console.log('[DEBUG] numItems:', numItems, 'columns:', gridConfig.columns);
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: gridConfig.columns,
-            row: Math.ceil(allButtonContainersForPanel.length / gridConfig.columns),
-            space: gridConfig.space,
+            
+            row: Math.max(1, Math.ceil(numItems / columns)),
+            
+            space: gridConfig.space || {},
             align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);

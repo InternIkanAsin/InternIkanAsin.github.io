@@ -161,7 +161,7 @@ export class MiniGameManager {
             scene.purpleLine3?.destroy();
 
         } else {
-            // ---- UI UNTUK LANDSCAPE (Kode asli Anda yang sudah berfungsi) ----
+            
             scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.randomizeButton.x,
@@ -634,33 +634,48 @@ export class MiniGameManager {
         const catLayout = layout.categoryBar;
         const panelLayout = layout.bottomPanel;
 
-        // 1. Buat Bar Kategori (horizontal, tidak bisa di-scroll)
+        // 1. Buat Bar Kategori MENGGUNAKAN SIZER HORIZONTAL (JAUH LEBIH STABIL)
         const categoryButtons = scene.state === GameState.DRESSUP ? scene.dressUpCategoryButtons : scene.makeUpCategoryButtons;
-        this.categoryButtonGrid = scene.rexUI.add.gridSizer({
-            x: catLayout.x, y: catLayout.y,
-            width: catLayout.width, height: catLayout.height,
-            column: catLayout.columns, row: 1,
-            space: { column: catLayout.space.column },
-            align: 'center'
+
+        if (!Array.isArray(categoryButtons) || categoryButtons.length === 0) {
+            console.error("FATAL: categoryButtons is not valid.");
+            return;
+        }
+
+        // Gunakan Sizer, bukan GridSizer. Ini adalah komponen yang tepat untuk satu baris.
+        const categorySizer = scene.rexUI.add.sizer({
+            x: catLayout.x,
+            y: catLayout.y,
+            orientation: 'x', // 'x' berarti horizontal
+            space: { item: catLayout.space.column }
         }).setDepth(11);
 
         categoryButtons.forEach(btn => {
-            this.categoryButtonGrid.add(btn, undefined, 0, 'center', { left: 5, right: 5 }, true);
+            if (btn) {
+                // Cukup tambahkan tombol ke sizer.
+                categorySizer.add(btn, { padding: { left: 5, right: 5 } });
+            }
         });
-        this.categoryButtonGrid.layout();
-        scene.categorySidePanel = this.categoryButtonGrid; // Simpan referensi
 
-        // 2. Buat Panel Item (di bawah, bisa di-scroll vertikal)
-        this.buttonGrid = scene.rexUI.add.gridSizer({ /* Kosong, akan diisi nanti */ });
-        this.innerSizer = scene.rexUI.add.sizer({ orientation: 0, space: { top: 20 } });
-        this.innerSizer.add(this.buttonGrid, 1, 'center', {}, true);
+        // Panggil layout() untuk menata tombol di dalam sizer.
+        categorySizer.layout();
+        scene.categorySidePanel = categorySizer;
+
+
+        // 2. Buat Panel Item (di bawah, scroll vertikal) - KODE INI SUDAH BENAR
+        this.buttonGrid = scene.rexUI.add.gridSizer({
+            column: 1,
+            row: 1
+        });
+        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20 } });
+        this.innerSizer.add(this.buttonGrid, { expand: true });
 
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
-            scrollMode: 1, // 1 = SCROLL VERTIKAL
+            scrollMode: 0,
             background: scene.add.nineslice(0, 0, 'sidePanel', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
-            panel: { child: this.innerSizer, mask: { padding: 2 } },
+            panel: { child: this.innerSizer },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space
         }).layout().setDepth(10);
