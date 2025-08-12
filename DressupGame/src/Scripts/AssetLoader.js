@@ -152,6 +152,7 @@ export default class AssetLoader {
     scene.load.image('blueButton', 'Asset/UI/New/Btn_Biru2.png');
     scene.load.image('exitIcon', 'Asset/UI/New/Exit_Button.png');
     scene.load.image('removeIcon', 'Asset/UI/New/Remove_Button.png');
+    scene.load.image('blueButton2', "Asset/UI/New/Btn_Biru.png");
 
     scene.load.atlas(
       'Icon_spritesheet',

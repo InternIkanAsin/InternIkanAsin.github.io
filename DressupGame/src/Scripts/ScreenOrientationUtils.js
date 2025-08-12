@@ -424,7 +424,7 @@ const LANDSCAPE = {
     restartButton: {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY + 350,
-        texture: 'blueButton',
+        texture: 'blueButton2',
         width: 700,
         height: 300,
         textSize: 90,
@@ -460,6 +460,28 @@ const LANDSCAPE = {
         Eyeshadow: { w: 0, h: 0 },
         Blush: { w: 0, h: 0 },
         Eyeliner: { w: 0, h: 0 }
+    },
+
+    cutscene2: {
+        glitterParticles: {
+            // Konfigurasi untuk glitter yang melayang
+            drifting: {
+                speedX: { min: -10, max: 10 },
+                speedY: { min: -20, max: -40 },
+                lifespan: { min: 5000, max: 10000 },
+                scale: { start: 0.1, end: 0 },
+                quantity: 2,
+                frequency: 500 
+            },
+            // Konfigurasi untuk kilauan statis
+            sparkle: {
+                speed: 0,
+                lifespan: { min: 400, max: 800 },
+                scale: { start: 0.2, end: 0 },
+                quantity: 1,
+                frequency: 200
+            }
+        }
     }
 };
 const PORTRAIT_WIDTH = 720;
@@ -610,6 +632,7 @@ const PORTRAIT = {
         height: 1280,
 
     },
+
 
     //Tirai gede
     drapes: {
@@ -918,7 +941,7 @@ const PORTRAIT = {
     restartButton: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_CENTERY + 350,
-        texture: 'blueButton',
+        texture: 'blueButton2',
         width: 700,
         height: 300,
         textSize: 90,
@@ -963,6 +986,26 @@ const PORTRAIT = {
         //Eyeshadow: { w: 0, h: 0 },
         //Blush: { w: 0, h: 0 },
         //Eyeliner: { w: 0, h: 0 }
+    },
+
+    cutscene2: {
+        glitterParticles: {
+             drifting: {
+                speedx: { min: 40, max: 80 }, 
+                speedy: { min: -5, max: 5 },
+                lifespan: { min: 3000, max: 5000 },
+                scale: { start: 0.12, end: 0 },
+                quantity: 8,
+                frequency: 100
+            },
+            sparkle: {
+                speed: 0,
+                lifespan: { min: 400, max: 800 },
+                scale: { start: 0.15, end: 0 },
+                quantity: 1,
+                frequency: 250
+            }
+        }
     }
     
 

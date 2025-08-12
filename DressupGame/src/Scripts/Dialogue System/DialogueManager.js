@@ -28,7 +28,7 @@ export class DialogueManager {
         const nameBoxX = layout.dialogueBox.x - (layout.dialogueBox.width / 2) + 150;
         const nameBoxY = layout.dialogueBox.y - (layout.dialogueBox.height / 2) - 10;
 
-        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton', '',  nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1,1).setDepth(100).setScale(4);
+        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '',  nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1,1).setDepth(100).setScale(4);
         this.nameText = this.scene.add.text(nameBoxX, nameBoxY - 10, '', {
             fontSize: '50px',
             fill: '#00000',

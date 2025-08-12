@@ -474,7 +474,7 @@ export class MiniGameManager {
         }
 
         if (this.scene.darkOverlay) this.scene.darkOverlay.setVisible(false);
-
+        this.scene.CutsceneSystem.cleanupEmitters();
 
         this.scene.cameras.main.fadeOut(2000);
         this.scene.AudioManager.fadeOutMusic('minigameMusic', 1500);
@@ -1090,6 +1090,7 @@ export class MiniGameManager {
         unlockManager.clearAllUnlocks();
         SaveManager.clearSave();
         progressManager.clearProgress();
+        this.scene.CutsceneSystem.cleanupEmitters();
         lockedItemsManager.clearLockedItems();
         console.log("Save data has been cleared on game end.");
         if (isRestart) {

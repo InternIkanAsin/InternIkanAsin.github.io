@@ -114,7 +114,7 @@ export class CutsceneSystem {
     }
     initiateCutscene2(bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
-
+        const scene = this.scene;
 
         const bachelorData = this.scene.BachelorManager.initializeAndSelectBachelor(bachelorName);
         const bachelorChoice = bachelorData.bachelorSprite;
@@ -127,6 +127,39 @@ export class CutsceneSystem {
 
         console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
 
+        this.cleanupEmitters();
+        this.activeEmitters = [];
+        // Dapatkan konfigurasi dari layout
+        const particleConfig = layout.cutscene2?.glitterParticles;
+
+        if (particleConfig) {
+            const driftingEmitterLeft = scene.add.particles(0, 0, 'particle_star', {
+            emitZone: { source: new Phaser.Geom.Line(-50, 0, -50, height), type: 'random', quantity: 15 },
+            ...particleConfig.drifting,
+            speedX: { min: 50, max: 100 }, // <-- PASTIKAN KECEPATANNYA POSITIF
+            blendMode: 'ADD'
+        }).setDepth(100);
+        this.activeEmitters.push(driftingEmitterLeft);
+
+        // Emitter "Glitter Melayang" dari Kanan
+        const driftingEmitterRight = scene.add.particles(0, 0, 'particle_star', {
+            // PERBAIKAN: Gunakan 'Phaser.Geom.Line' dengan 'P' besar
+            emitZone: { source: new Phaser.Geom.Line(width + 50, 0, width + 50, height), type: 'random', quantity: 40 },
+            ...particleConfig.drifting,
+            speedX: { min: -100, max: -50 },
+            blendMode: 'ADD'
+        }).setDepth(100);
+        this.activeEmitters.push(driftingEmitterRight);
+
+            // 2. Emitter untuk "Kilauan Statis"
+            const sparkleEmitter = scene.add.particles(0, 0, 'particle_star', {
+                // Emit dari seluruh layar
+                emitZone: { source: new Phaser.Geom.Rectangle(0, 0, width, height), type: 'random', quantity: 20 },
+                ...particleConfig.sparkle,
+                blendMode: 'ADD'
+            }).setDepth(100);
+            this.activeEmitters.push(sparkleEmitter);
+        }
 
         this.scene.chosenBachelorExpression.setTexture(bachelorName + 'Happy');
         const randomIndex = Math.floor(Math.random() * 5);
@@ -184,6 +217,25 @@ export class CutsceneSystem {
             }, dialogueConfig);
         });
     }
+
+    cleanupEmitters() {
+    // 1. Periksa apakah array 'activeEmitters' ada sebelum mencoba menggunakannya.
+    if (!this.activeEmitters) {
+        console.log("[CutsceneSystem] No active emitters to clean up.");
+        return; // Keluar dari fungsi jika tidak ada apa-apa.
+    }
+
+    // 2. Jika array ada, lanjutkan seperti biasa.
+    console.log(`[CutsceneSystem] Cleaning up ${this.activeEmitters.length} active emitter(s).`);
+    this.activeEmitters.forEach(emitter => {
+        if (emitter && emitter.active) {
+            emitter.destroy();
+        }
+    });
+
+    // 3. Reset array menjadi kosong.
+    this.activeEmitters = [];
+}
 
 
 
