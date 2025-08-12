@@ -594,7 +594,7 @@ const PORTRAIT = {
     background: {
         originX: 0,
         originY: 0.5,
-        x: -300,
+        x: 0,
         y: 1280 / 2,
         scale: 1280 / 1080
     },
@@ -707,7 +707,7 @@ const PORTRAIT = {
     // Finish Button
     finishButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT - 60,
+        y: PORTRAIT_HEIGHT - 200,
         textSize: 60
     },
 
@@ -941,6 +941,13 @@ const PORTRAIT = {
         //Eyeliner: { w: 0, h: 0 }
     },
 
+    randomizeButton: {
+        x: 120,
+        y: 350,
+        scale: 0.16 * 2,
+        iconScale: 0.155 * 2
+    },
+
     particleSizeAdjustments: {
         Dress: { w: -120, h: 0 },
         Shirt: { w: -120, h: 0 },
@@ -955,6 +962,7 @@ const PORTRAIT = {
         //Blush: { w: 0, h: 0 },
         //Eyeliner: { w: 0, h: 0 }
     }
+    
 
 };
 
