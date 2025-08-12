@@ -11,7 +11,7 @@ import { progressManager } from '../Save System/ProgressManager.js';
 import { GameState } from '../Main.js';
 
 import Phaser from 'phaser';
-
+import { orientation } from '../ScreenOrientationUtils.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
 
@@ -67,7 +67,7 @@ export class MiniGameManager {
             buttonHeight: 75,
             textureIcon: { atlas: 'Icon_spritesheet', frame: 'Exit_Button.png' },
             iconYPosition: -5,
-            iconScale: layout.backButton.scale,
+            iconScale: layout.backButton.iconScale,
             callback: () => {
                 scene.TweeningUtils.transitionBackToSelection();
             },
@@ -75,108 +75,135 @@ export class MiniGameManager {
             buttonScale: layout.backButton.scale,
         }).setDepth(99);
 
-        scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
-        scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
-            x: layout.randomizeButton.x,
-            y: layout.randomizeButton.y,
-            textureButton: 'blueButton',
-            buttonWidth: 75,
-            buttonHeight: 75,
-            textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
-            iconYPosition: -5,
-            iconScale: 0.5,
-            callback: () => {
-            },
-            buttonText: '',
-            textSize: 24,
-            textYPosition: 60,
-            buttonScale: 0.325,
-            iconScale: layout.randomizeButton.iconScale,
-            buttonScale: layout.randomizeButton.scale
-        }).setDepth(99);
-
-        scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
-        scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
-            x: layout.removeAllButton.x,
-            y: layout.removeAllButton.y,
-            textureButton: 'blueButton',
-            buttonWidth: 75,
-            buttonHeight: 75,
-            textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
-            iconYPosition: -5,
-            iconScale: 0.5,
-            callback: () => {
-                if (scene.state === GameState.MAKEUP) {
-                    if (scene.MakeUpManager) {
-                        scene.MakeUpManager.removeAllMakeup();
-                    } else {
-                        console.error("MakeUpManager not found on scene.");
-                    }
-                } else if (scene.state === GameState.DRESSUP) {
-                    if (scene.DressUpManager) {
-                        scene.DressUpManager.removeAllOutfits();
-                    } else {
-                        console.error("DressUpManager not found on scene.");
+        if (orientation.isPortrait) {
+            const btnLayout = layout.actionButtons;
+            const commonBtnConfig = {
+                textureButton: 'blueButton',
+                buttonWidth: 75,
+                buttonHeight: 75,
+                iconYPosition: -5,
+                buttonScale: 0.4 // Skala yang seragam untuk portrait
+            };
+        
+            scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
+                ...commonBtnConfig,
+                x: btnLayout.randomize.x, 
+                y: btnLayout.randomize.y,
+                textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
+                iconScale: 0.5,
+                callback: () => {
+                    // TODO: Tambahkan logika randomize di sini
+                }
+            }).setDepth(99);
+        
+            scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
+                ...commonBtnConfig,
+                x: btnLayout.removeAll.x, 
+                y: btnLayout.removeAll.y,
+                textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
+                iconScale: 0.5,
+                callback: () => {
+                    if (scene.state === GameState.MAKEUP) {
+                        scene.MakeUpManager?.removeAllMakeup();
+                    } else if (scene.state === GameState.DRESSUP) {
+                        scene.DressUpManager?.removeAllOutfits();
                     }
                 }
-            },
-            buttonText: '',
-            textSize: 24,
-            textYPosition: 60,
-            buttonScale: 0.325,
-        }).setDepth(99);
-
-        scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
-        scene.finishButton = new UIButton(scene, this.AudioManager, {
-            x: layout.minigameFinishButton.x,
-            y: layout.minigameFinishButton.y,
-            textureButton: 'yellowButton',
-            buttonWidth: layout.minigameFinishButton.width,
-            buttonHeight: layout.minigameFinishButton.height,
-            textureIcon: 'tickMark',
-            iconYPosition: 0,
-            iconScale: 1,
-            callback: () => {
-
-                scene.finishButton.disableInteractive();
-
-
-                if (this.scene.interactiveMakeupSystem && this.scene.interactiveMakeupSystem.isActive) {
-                    this.scene.interactiveMakeupSystem.stopColoringSession(
-                        this.scene.interactiveMakeupSystem.activeMakeupType, true
-                    );
-                }
-
-
-                if (this.scene.state === GameState.DRESSUP) {
-                    if (this.canContinueToScene2()) {
-
+            }).setDepth(99);
+        
+            scene.finishButton = new UIButton(scene, this.AudioManager, {
+                ...commonBtnConfig,
+                textureButton: 'yellowButton',
+                x: btnLayout.finish.x, 
+                y: btnLayout.finish.y,
+                textureIcon: { atlas: 'Icon_spritesheet', frame: 'tickMark' }, // Menggunakan frame dari atlas jika ada, atau 'tickMark' jika terpisah
+                iconScale: 0.6,
+                callback: () => {
+                    scene.finishButton.disableInteractive();
+                    if (scene.state === GameState.DRESSUP) {
+                        if (this.canContinueToScene2()) {
+                            this.showConfirmationPanel();
+                        } else {
+                            this.incompletePanel = this.createIncompletePanel();
+                            this.scene.tweens.add({ targets: this.incompletePanel, scale: 1, duration: 200, ease: 'Back.Out' });
+                        }
+                    } else {
                         this.showConfirmationPanel();
-                    } else {
-
-
-                        this.incompletePanel = this.createIncompletePanel();
-                        this.scene.tweens.add({
-                            targets: this.incompletePanel,
-                            scale: 1,
-                            duration: 200,
-                            ease: 'Back.Out'
-                        });
+                        scene.TweeningUtils.hideApplyMakeUpPanel();
                     }
-                } else {
-                    this.showConfirmationPanel();
-                    this.scene.TweeningUtils.hideApplyMakeUpPanel();
                 }
-            },
-            buttonText: '',
-            textOffset: layout.minigameFinishButton.textOffsetX || 0,
-            textSize: layout.minigameFinishButton.textSize,
-            textYPosition: 0,
-            font: 'regularFont',
-            useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
-            buttonScale: layout.minigameFinishButton.scale,
-            textColor: '#d6525f'
-        }).setDepth(99);
+            }).setDepth(99);
+        
+            // Hapus garis-garis yang tidak ada di mockup portrait
+            scene.purpleLine1?.destroy();
+            scene.purpleLine2?.destroy();
+            scene.purpleLine3?.destroy();
+        
+        } else {
+            // ---- UI UNTUK LANDSCAPE (Kode asli Anda yang sudah berfungsi) ----
+            scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+            scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
+                x: layout.randomizeButton.x,
+                y: layout.randomizeButton.y,
+                textureButton: 'blueButton',
+                buttonWidth: 75,
+                buttonHeight: 75,
+                textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
+                iconYPosition: -5,
+                callback: () => {},
+                iconScale: layout.randomizeButton.iconScale,
+                buttonScale: layout.randomizeButton.scale
+            }).setDepth(99);
+        
+            scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+            scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
+                x: layout.removeAllButton.x,
+                y: layout.removeAllButton.y,
+                textureButton: 'blueButton',
+                buttonWidth: 75,
+                buttonHeight: 75,
+                textureIcon: { atlas: 'Icon_spritesheet', frame: 'Remove_Button.png' },
+                iconYPosition: -5,
+                callback: () => {
+                    if (scene.state === GameState.MAKEUP) {
+                        scene.MakeUpManager?.removeAllMakeup();
+                    } else if (scene.state === GameState.DRESSUP) {
+                        scene.DressUpManager?.removeAllOutfits();
+                    }
+                },
+                iconScale: layout.removeAllButton.iconScale,
+                buttonScale: layout.removeAllButton.buttonScale,
+            }).setDepth(99);
+        
+            scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+            scene.finishButton = new UIButton(scene, this.AudioManager, {
+                x: layout.minigameFinishButton.x,
+                y: layout.minigameFinishButton.y,
+                textureButton: 'yellowButton',
+                buttonWidth: layout.minigameFinishButton.width,
+                buttonHeight: layout.minigameFinishButton.height,
+                textureIcon: 'tickMark',
+                iconYPosition: 0,
+                iconScale: 1,
+                callback: () => {
+                    scene.finishButton.disableInteractive();
+                    if (scene.state === GameState.DRESSUP) {
+                        if (this.canContinueToScene2()) {
+                            this.showConfirmationPanel();
+                        } else {
+                            this.incompletePanel = this.createIncompletePanel();
+                            this.scene.tweens.add({ targets: this.incompletePanel, scale: 1, duration: 200, ease: 'Back.Out' });
+                        }
+                    } else {
+                        this.showConfirmationPanel();
+                        scene.TweeningUtils.hideApplyMakeUpPanel();
+                    }
+                },
+                buttonText: '',
+                useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
+                buttonScale: layout.minigameFinishButton.scale,
+            }).setDepth(99);
+        }
 
         scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'StitchedButtonWithoutStitchIcon', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
         scene.applyMakeUpText = this.scene.add.text(layout.applyMakeUpText.x, layout.applyMakeUpText.y, 'Swipe the highlighted area to apply the make up', {
@@ -187,7 +214,7 @@ export class MiniGameManager {
         }).setOrigin(0.5, 0.5);
 
         scene.applyMakeUpContainer = this.scene.add.container(layout.applyMakeUpContainer.x, layout.applyMakeUpContainer.y, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
-        this.setUpSidePanel(scene);
+        this.setupPanels(scene);
 
         if (scene.categorySidePanel) {
             scene.tweens.add({
@@ -578,7 +605,50 @@ export class MiniGameManager {
         this.outfitButtonStatGrid.add(outfitLabel1, index, 0, 'left', { top: 60 }, true);
     }
 
-    setUpSidePanel(scene) {
+    setupPanels(scene) {
+        if (orientation.isPortrait) {
+            this.setUpBottomPanel_Portrait(scene);
+        } else {
+            this.setUpSidePanel_Landscape(scene);
+        }
+    }
+    setUpBottomPanel_Portrait(scene) {
+        const catLayout = layout.categoryBar;
+        const panelLayout = layout.bottomPanel;
+        
+        // 1. Buat Bar Kategori (horizontal, tidak bisa di-scroll)
+        const categoryButtons = scene.state === GameState.DRESSUP ? scene.dressUpCategoryButtons : scene.makeUpCategoryButtons;
+        this.categoryButtonGrid = scene.rexUI.add.gridSizer({
+            x: catLayout.x, y: catLayout.y,
+            width: catLayout.width, height: catLayout.height,
+            column: catLayout.columns, row: 1,
+            space: { column: catLayout.space.column },
+            align: 'center'
+        }).setDepth(11);
+
+        categoryButtons.forEach(btn => {
+            this.categoryButtonGrid.add(btn, undefined, 0, 'center', {left: 5, right: 5}, true);
+        });
+        this.categoryButtonGrid.layout();
+        scene.categorySidePanel = this.categoryButtonGrid; // Simpan referensi
+
+        // 2. Buat Panel Item (di bawah, bisa di-scroll vertikal)
+        this.buttonGrid = scene.rexUI.add.gridSizer({ /* Kosong, akan diisi nanti */ });
+        this.innerSizer = scene.rexUI.add.sizer({ orientation: 0, space: { top: 20 } });
+        this.innerSizer.add(this.buttonGrid, 1, 'center', {}, true);
+
+        scene.sidePanel = scene.rexUI.add.scrollablePanel({
+            x: panelLayout.x, y: panelLayout.y,
+            width: panelLayout.width, height: panelLayout.height,
+            scrollMode: 1, // 1 = SCROLL VERTIKAL
+            background: scene.add.nineslice(0, 0, 'sidePanel', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
+            panel: { child: this.innerSizer, mask: { padding: 2 } },
+            scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
+            space: panelLayout.space
+        }).layout().setDepth(10);
+    }
+
+    setUpSidePanel_Landscape(scene) {
         let buttons = createDummyButtons(scene, scene.AudioManager);
         scene.buttons = buttons;
         this.buttonList = buttons;

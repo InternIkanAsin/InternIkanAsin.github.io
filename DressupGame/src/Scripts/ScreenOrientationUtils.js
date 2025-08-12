@@ -9,6 +9,11 @@ const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
 
+    grid: {
+        columns: 2, 
+        space: { column: 110, row: 90 }
+    },
+
     muteButton: {
         default: { x: LANDSCAPE_WIDTH * 0.05, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.28 },
         minigame: { x: LANDSCAPE_WIDTH * 0.15, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.28 }
@@ -521,6 +526,44 @@ const PORTRAIT = {
             y: PORTRAIT_HEIGHT * 0.8, 
             scale: 0.9 
         }
+    },
+
+    actionButtons: {
+        randomize: { x: 70, y: 350 },
+        removeAll: { x: 70, y: 480 },
+        finish:    { x: 70, y: 610 }
+    },
+
+    // Tata letak untuk bar kategori horizontal di atas panel item
+    categoryBar: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT * 0.72,
+        width: PORTRAIT_WIDTH,
+        height: 140,
+        columns: 5, // 5 kategori per baris
+        space: { column: 10 }
+    },
+
+    // Tata letak untuk panel item di bagian bawah layar
+    bottomPanel: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT * 0.89,
+        width: PORTRAIT_WIDTH,
+        height: 300, // Beri sedikit lebih banyak ruang
+        space: { top: 20, bottom: 20, left: 20, right: 20, panel: 10 }
+    },
+
+    // Konfigurasi untuk grid item di dalam panel bawah
+    grid: {
+        columns: 4, // 4 kolom untuk portrait
+        space: { column: 20, row: 30 }
+    },
+
+    // Properti khusus untuk animasi CategoryButton di portrait
+    categoryButton: {
+        iconScale: 0.5,
+        buttonScale: 0.5 * 2,
+        popOutY: -20 // Seberapa jauh tombol "pop out" ke atas saat dipilih
     },
 
     muteButton: {
