@@ -229,12 +229,12 @@ class Main extends Phaser.Scene {
         this.dressUpButton = new UIButton(scene, scene.AudioManager, {
             x: btnLayout.dressUpX,
             y: btnLayout.y,
-            textureButton: 'buttonIcon',
-            buttonWidth: 75,
-            buttonHeight: 75,
-            textureIcon: 'dressButtonIcon',
+            textureButton: 'blueButton',
+            buttonWidth: 25,
+            buttonHeight: 25,
+            textureIcon: { atlas: 'iconAtlas', frame: 'Wardrobe_Icon.png' },
             iconYPosition: -10,
-            iconScale: 0.8 * 2,
+            iconScale: 0.4 * 2,
             callback: () => {
                 this.dressUpButton.disableInteractive();
                 this.makeUpButton.disableInteractive();
@@ -256,18 +256,18 @@ class Main extends Phaser.Scene {
                 btnLayout.dressUpX + btnLayout.tickMarkOffsetX,
                 btnLayout.y + btnLayout.tickMarkOffsetY,
                 'tickMark'
-            ).setDepth(100.1).setScale(0.7);
+            ).setDepth(100.1).setScale(btnLayout.tickMarkScale);
         }
 
         this.makeUpButton = new UIButton(scene, scene.AudioManager, {
             x: btnLayout.makeUpX,
             y: btnLayout.y,
-            textureButton: 'buttonIcon',
-            buttonWidth: 75,
-            buttonHeight: 75,
-            textureIcon: 'makeUpButtonIcon',
+            textureButton: 'blueButton',
+            buttonWidth: 25,
+            buttonHeight: 25,
+            textureIcon: { atlas: 'iconAtlas', frame: 'Makeup_Icon.png' },
             iconYPosition: -10,
-            iconScale: 0.8 * 2,
+            iconScale: 0.4 * 2,
             callback: () => {
 
                 this.dressUpButton.disableInteractive();
@@ -290,7 +290,7 @@ class Main extends Phaser.Scene {
                 btnLayout.makeUpX + btnLayout.tickMarkOffsetX,
                 btnLayout.y + btnLayout.tickMarkOffsetY,
                 'tickMark'
-            ).setDepth(100.1).setScale(0.7);
+            ).setDepth(100.1).setScale(btnLayout.tickMarkScale);
         }
 
         if (this.finishMiniGameButton) this.finishMiniGameButton.destroy();
