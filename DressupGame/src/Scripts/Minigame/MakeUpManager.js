@@ -212,21 +212,18 @@ export class MakeUpManager {
         if (scene.MiniGameManager.innerSizer) {
             scene.MiniGameManager.innerSizer.clear(true);
         }
-
+        const gridConfig = layout.grid;
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
-            column: 2,
-            row: scene.MiniGameManager.buttonList.length || 1,
-            space: { column: 110, row: 90 },
+            column: gridConfig.columns,
+            row: Math.ceil(allButtonContainersForPanel.length / gridConfig.columns),
+            space: gridConfig.space,
             align: 'center',
         });
 
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
-
-        const columnCount = 2;
         allButtonContainersForPanel.forEach((btnContainer, index) => {
-            const rowIndex = Math.floor(index / columnCount);
-            const columnIndex = index % columnCount;
-
+            const rowIndex = Math.floor(index / gridConfig.columns); 
+            const columnIndex = index % gridConfig.columns; 
             btnContainer.setVisible(true);
             scene.MiniGameManager.buttonGrid.add(btnContainer, columnIndex, rowIndex, 'center', 0, true);
         });

@@ -4,6 +4,7 @@ import { defaultMakeUpSkins, makeUpData } from "../Makeup Data/MakeUpData.js";
 import { layout } from '../ScreenOrientationUtils.js';
 import { GameState } from '../Main.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
+import { orientation } from '../ScreenOrientationUtils.js';
 
 import { SaveData, unlockDress } from '../Save System/SaveData.js'
 
@@ -307,6 +308,10 @@ export class CategoryButton extends BaseButton {
         this.isSelected = false;
         const tapThreshold = 10;
 
+        this.originalX = x;
+        this.originalY = y;
+        this.isSelected = false;
+
         console.log(this.isSelected);
         this.addHoverEffect(button, AudioManager);
 
@@ -386,33 +391,56 @@ export class CategoryButton extends BaseButton {
     }
 
     selectButton() {
-        if (this.button.x === this.originalX) return;
-
+        if (this.isSelected) return;
         this.isSelected = true;
-        if (this.scene.selectedCategory.previous) this.scene.selectedCategory.previous.deselectButton();
-        this.originalX = this.button.x - 40
-        console.log(this.button.texture.key);
-        this.scene.tweens.add({
-            targets: [this.button, this.icon, this.iconSelected],
-            x: this.originalX,
-            duration: 100,
-            ease: 'Power2'
-        });
+
+        if (this.scene.selectedCategory.previous && this.scene.selectedCategory.previous !== this) {
+            this.scene.selectedCategory.previous.deselectButton();
+        }
+
+        if (orientation.isPortrait) {
+            // Animasi Portrait: Bergerak ke atas
+            this.scene.tweens.add({
+                targets: this,
+                y: this.originalY + layout.categoryButton.popOutY,
+                duration: 100,
+                ease: 'Power2'
+            });
+        } else {
+            // Animasi Landscape: Bergerak ke kiri
+            this.scene.tweens.add({
+                targets: this,
+                x: this.originalX - 40,
+                duration: 100,
+                ease: 'Power2'
+            });
+        }
+
         this.button.setTexture('yellowButton');
         this.iconSelected.setVisible(true);
         this.icon.setVisible(false);
-
     }
 
     deselectButton() {
+        if (!this.isSelected) return;
         this.isSelected = false;
-        this.scene.tweens.add({
-            targets: [this.button, this.icon, this.iconSelected],
-            x: this.button.x + 40,
-            duration: 100,
-            ease: 'Power2'
-        });
-        this.button.texture.key = 'blueButton';
+        
+        if (orientation.isPortrait) {
+            this.scene.tweens.add({
+                targets: this,
+                y: this.originalY,
+                duration: 100,
+                ease: 'Power2'
+            });
+        } else {
+            this.scene.tweens.add({
+                targets: this,
+                x: this.originalX,
+                duration: 100,
+                ease: 'Power2'
+            });
+        }
+        
         this.button.setTexture('blueButton');
         this.iconSelected.setVisible(false);
         this.icon.setVisible(true);

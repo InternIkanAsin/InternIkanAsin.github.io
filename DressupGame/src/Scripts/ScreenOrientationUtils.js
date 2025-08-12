@@ -9,6 +9,11 @@ const LANDSCAPE = {
     WIDTH: 1920,
     HEIGHT: 1080,
 
+    grid: {
+        columns: 2,
+        space: { column: 110, row: 90 }
+    },
+
     muteButton: {
         default: { x: LANDSCAPE_WIDTH * 0.05, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.28 },
         minigame: { x: LANDSCAPE_WIDTH * 0.15, y: LANDSCAPE_HEIGHT * 0.1, scale: 0.28 }
@@ -25,7 +30,7 @@ const LANDSCAPE = {
         scale: 0.8,
         bachelorSprite: {
             // Nilai ini didasarkan pada kode Anda yang sudah ada
-            x: LANDSCAPE_CENTERX,
+            x: LANDSCAPE_CENTERX + 55,
             y: LANDSCAPE_HEIGHT / 2 * 1.7, // y = 918
             scale: 1 // Skala container adalah 1, karena gambar di dalamnya sudah di-scale 2x
         }
@@ -425,7 +430,7 @@ const LANDSCAPE = {
     restartButton: {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY + 350,
-        texture: 'blueButton',
+        texture: 'blueButton2',
         width: 700,
         height: 300,
         textSize: 90,
@@ -461,6 +466,28 @@ const LANDSCAPE = {
         Eyeshadow: { w: 0, h: 0 },
         Blush: { w: 0, h: 0 },
         Eyeliner: { w: 0, h: 0 }
+    },
+
+    cutscene2: {
+        glitterParticles: {
+            // Konfigurasi untuk glitter yang melayang
+            drifting: {
+                speedX: { min: -10, max: 10 },
+                speedY: { min: -20, max: -40 },
+                lifespan: { min: 5000, max: 10000 },
+                scale: { start: 0.1, end: 0 },
+                quantity: 2,
+                frequency: 500
+            },
+            // Konfigurasi untuk kilauan statis
+            sparkle: {
+                speed: 0,
+                lifespan: { min: 400, max: 800 },
+                scale: { start: 0.2, end: 0 },
+                quantity: 1,
+                frequency: 200
+            }
+        }
     }
 };
 const PORTRAIT_WIDTH = 720;
@@ -496,10 +523,48 @@ const PORTRAIT = {
         acceptButton: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.45 },
         scale: 0.4,
         bachelorSprite: {
-            x: PORTRAIT_CENTERX * 1.3,
+            x: PORTRAIT_CENTERX * 1.0,
             y: PORTRAIT_HEIGHT * 0.8,
             scale: 0.9
         }
+    },
+
+    actionButtons: {
+        randomize: { x: 70, y: 350 },
+        removeAll: { x: 70, y: 480 },
+        finish: { x: 70, y: 610 }
+    },
+
+    // Tata letak untuk bar kategori horizontal di atas panel item
+    categoryBar: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT * 0.72,
+        width: PORTRAIT_WIDTH,
+        height: 140,
+        columns: 5, // 5 kategori per baris
+        space: { column: 10 }
+    },
+
+    // Tata letak untuk panel item di bagian bawah layar
+    bottomPanel: {
+        x: PORTRAIT_CENTERX,
+        y: PORTRAIT_HEIGHT * 0.89,
+        width: PORTRAIT_WIDTH,
+        height: 300, // Beri sedikit lebih banyak ruang
+        space: { top: 20, bottom: 20, left: 20, right: 20, panel: 10 }
+    },
+
+    // Konfigurasi untuk grid item di dalam panel bawah
+    grid: {
+        columns: 4, // 4 kolom untuk portrait
+        space: { column: 20, row: 30 }
+    },
+
+    // Properti khusus untuk animasi CategoryButton di portrait
+    categoryButton: {
+        iconScale: 0.5,
+        buttonScale: 0.5 * 2,
+        popOutY: -20 // Seberapa jauh tombol "pop out" ke atas saat dipilih
     },
 
     muteButton: {
@@ -612,6 +677,7 @@ const PORTRAIT = {
 
     },
 
+
     //Tirai gede
     drapes: {
         displayHeight: 1280,
@@ -663,7 +729,7 @@ const PORTRAIT = {
         zoomOutFaceY: 1280 / 2 / 1.79,
         zoomOutTargetFaceScale: 0.3,
 
-        halfZoomFaceX: PORTRAIT_CENTERX - 16, // Sedikit offset dari tengah
+        halfZoomFaceX: PORTRAIT_CENTERX - 16,
         halfZoomFaceY: PORTRAIT_HEIGHT * 0.19,
         halfZoomFaceScale: 0.5
 
@@ -919,7 +985,7 @@ const PORTRAIT = {
     restartButton: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_CENTERY + 350,
-        texture: 'blueButton',
+        texture: 'blueButton2',
         width: 700,
         height: 300,
         textSize: 90,
@@ -964,6 +1030,26 @@ const PORTRAIT = {
         //Eyeshadow: { w: 0, h: 0 },
         //Blush: { w: 0, h: 0 },
         //Eyeliner: { w: 0, h: 0 }
+    },
+
+    cutscene2: {
+        glitterParticles: {
+            drifting: {
+                speedx: { min: 40, max: 80 },
+                speedy: { min: -5, max: 5 },
+                lifespan: { min: 3000, max: 5000 },
+                scale: { start: 0.12, end: 0 },
+                quantity: 8,
+                frequency: 100
+            },
+            sparkle: {
+                speed: 0,
+                lifespan: { min: 400, max: 800 },
+                scale: { start: 0.15, end: 0 },
+                quantity: 1,
+                frequency: 250
+            }
+        }
     }
 
 
