@@ -136,7 +136,7 @@ export class CutsceneSystem {
             const driftingEmitterLeft = scene.add.particles(0, 0, 'particle_star', {
             emitZone: { source: new Phaser.Geom.Line(-50, 0, -50, height), type: 'random', quantity: 15 },
             ...particleConfig.drifting,
-            speedX: { min: 50, max: 100 }, // <-- PASTIKAN KECEPATANNYA POSITIF
+            speedX: { min: 50, max: 100 }, 
             blendMode: 'ADD'
         }).setDepth(100);
         this.activeEmitters.push(driftingEmitterLeft);

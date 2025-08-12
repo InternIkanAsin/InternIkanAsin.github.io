@@ -25,7 +25,7 @@ const LANDSCAPE = {
         scale : 0.8,
          bachelorSprite: {
             // Nilai ini didasarkan pada kode Anda yang sudah ada
-            x: LANDSCAPE_CENTERX + 100,
+            x: LANDSCAPE_CENTERX + 55,
             y: LANDSCAPE_HEIGHT / 2 * 1.7, // y = 918
             scale: 1 // Skala container adalah 1, karena gambar di dalamnya sudah di-scale 2x
         }
@@ -517,7 +517,7 @@ const PORTRAIT = {
         acceptButton: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.45 },
         scale : 0.4,
         bachelorSprite: {
-            x: PORTRAIT_CENTERX * 1.3,
+            x: PORTRAIT_CENTERX * 1.0,
             y: PORTRAIT_HEIGHT * 0.8, 
             scale: 0.9 
         }
@@ -685,7 +685,7 @@ const PORTRAIT = {
         zoomOutFaceY: 1280 / 2 / 1.79,
         zoomOutTargetFaceScale: 0.3,
 
-        halfZoomFaceX: PORTRAIT_CENTERX - 16, // Sedikit offset dari tengah
+        halfZoomFaceX: PORTRAIT_CENTERX - 16, 
         halfZoomFaceY: PORTRAIT_HEIGHT * 0.19,
         halfZoomFaceScale: 0.5
 
