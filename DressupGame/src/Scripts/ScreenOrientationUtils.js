@@ -15,17 +15,17 @@ const LANDSCAPE = {
     },
 
     cutscene1: {
-    
+
         phone: { x: LANDSCAPE_CENTERX, y: 1080 / 1.3, scale: 1.5 },
         phoneBackground: { x: LANDSCAPE_CENTERX, y: 1080 / 1.7, width: 700, height: 900 },
         profilePic: { x: LANDSCAPE_CENTERX, y: 1080 / 2.5, scale: 1.2 },
         nameText: { x: LANDSCAPE_CENTERX, y: 1080 / 1.7, fontSize: '64px' },
         callStatus: { x: LANDSCAPE_CENTERX, y: 1080 / 1.55, fontSize: '32px' },
         acceptButton: { x: LANDSCAPE_CENTERX, y: 1080 / 1.15 },
-        scale : 0.8,
-         bachelorSprite: {
+        scale: 0.8,
+        bachelorSprite: {
             // Nilai ini didasarkan pada kode Anda yang sudah ada
-            x: LANDSCAPE_CENTERX + 100,
+            x: LANDSCAPE_CENTERX,
             y: LANDSCAPE_HEIGHT / 2 * 1.7, // y = 918
             scale: 1 // Skala container adalah 1, karena gambar di dalamnya sudah di-scale 2x
         }
@@ -69,7 +69,7 @@ const LANDSCAPE = {
         manualOffsets: {
             'Pink set': { x: 1, y: 0 },
             'Grey jacket': { x: 2, y: 0 },
-            'White Shirt': { x: 0, y: -40 },
+            'White Shirt': { x: 0, y: 0 },
             'Mini A-line skirt': { x: -18, y: 20 },
             'Asymmetrical mini skirt': { x: -15, y: 20 },
             'High waist mini skirt': { x: -18, y: 20 },
@@ -78,7 +78,8 @@ const LANDSCAPE = {
             'Jewelled skirt': { x: -15, y: 20 },
             'Dark grey skirt': { x: -15, y: 20 },
             'Strapped open shoes': { x: 0, y: -5 },
-            'Red opened shoe': { x: 0, y: -5 }
+            'Red opened shoe': { x: 0, y: -5 },
+            'Green sport jacket': { x: 0, y: -40 }
         }
     },
 
@@ -123,8 +124,8 @@ const LANDSCAPE = {
         zoomInY: 540 * 2.9,
         zoomInScale: 1.9,
 
-        halfZoomX: LANDSCAPE_CENTERX, 
-        halfZoomY: LANDSCAPE_HEIGHT * 0.9, 
+        halfZoomX: LANDSCAPE_CENTERX,
+        halfZoomY: LANDSCAPE_HEIGHT * 0.9,
         halfZoomScale: 1.0
 
     },
@@ -288,12 +289,12 @@ const LANDSCAPE = {
     namedDialogueBox: {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY * 1.725,
-        width: 1200, 
+        width: 1200,
         height: 300
     },
 
     namedDialogueText: {
-        x: LANDSCAPE_CENTERX * 0.45, 
+        x: LANDSCAPE_CENTERX * 0.45,
         y: LANDSCAPE_HEIGHT / 1.25,
         fontSize: 32,
         wordWrap: 1000
@@ -302,7 +303,7 @@ const LANDSCAPE = {
     namedDialogueNameBox: {
         width: 70,
         height: 25,
-        offsetX: 220 
+        offsetX: 220
     },
 
     backButton: {
@@ -480,8 +481,8 @@ const PORTRAIT = {
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
 
-        halfZoomX: PORTRAIT_CENTERX, 
-        halfZoomY: PORTRAIT_HEIGHT * 0.65, 
+        halfZoomX: PORTRAIT_CENTERX,
+        halfZoomY: PORTRAIT_HEIGHT * 0.65,
         halfZoomScale: 1.0
     },
 
@@ -493,11 +494,11 @@ const PORTRAIT = {
         nameText: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.05, fontSize: '72px' }, // Font lebih besar
         callStatus: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.18, fontSize: '40px' },
         acceptButton: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.45 },
-        scale : 0.4,
+        scale: 0.4,
         bachelorSprite: {
             x: PORTRAIT_CENTERX * 1.3,
-            y: PORTRAIT_HEIGHT * 0.8, 
-            scale: 0.9 
+            y: PORTRAIT_HEIGHT * 0.8,
+            scale: 0.9
         }
     },
 
@@ -738,24 +739,24 @@ const PORTRAIT = {
         wordWrap: PORTRAIT_WIDTH - 240
     },
 
-     namedDialogueBox: {
+    namedDialogueBox: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_CENTERY * 1.4, 
-        width: 700, 
-        height: 300 
+        y: PORTRAIT_CENTERY * 1.4,
+        width: 700,
+        height: 300
     },
-    
+
     namedDialogueText: {
         x: PORTRAIT_WIDTH * 0.05,
-        y: PORTRAIT_CENTERY * 1.3, 
+        y: PORTRAIT_CENTERY * 1.3,
         fontSize: 32,
-        wordWrap: PORTRAIT_WIDTH - 60 
+        wordWrap: PORTRAIT_WIDTH - 60
     },
 
     namedDialogueNameBox: {
-        width: 80, 
+        width: 80,
         height: 22,
-        offsetX: 50 
+        offsetX: 50
     },
 
     backButton: {
@@ -964,7 +965,7 @@ const PORTRAIT = {
         //Blush: { w: 0, h: 0 },
         //Eyeliner: { w: 0, h: 0 }
     }
-    
+
 
 };
 

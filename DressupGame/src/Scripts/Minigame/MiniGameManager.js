@@ -1,5 +1,5 @@
 //UI Button Class
-import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
+import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
 
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
@@ -57,6 +57,7 @@ export class MiniGameManager {
         this.categoryButtons = scene.state === GameState.DRESSUP ? createDressUpCategoryButtons(scene, scene.AudioManager) : createMakeUpCategoryButtons(scene, scene.AudioManager);
 
         const currentButton = scene.state === GameState.DRESSUP ? scene.dressButton : scene.eyebrowsButton;
+
         scene.selectedCategory = { current: currentButton, previous: null }
         console.log(scene.selectedCategory)
         this.backButton = new UIButton(scene, scene.AudioManager, {
@@ -86,6 +87,18 @@ export class MiniGameManager {
             iconYPosition: -5,
             iconScale: 0.5,
             callback: () => {
+                if (scene.state === GameState.MAKEUP) {
+                    scene.MakeUpManager.removeAllMakeup();
+                    Object.keys(scene.makeUpButtons).forEach(makeUpType => {
+                        const buttons = scene.makeUpButtons[makeUpType];
+                        const randomIndex = Math.floor(Math.random() * buttons.length);
+                        console.log(buttons[randomIndex]);
+                        buttons[randomIndex].toggleMakeUp();
+                    });
+                } else if (scene.state === GameState.DRESSUP) {
+                    scene.DressUpManager.removeAllOutfits();
+                    scene.DressUpManager.randomizeOutfit();
+                }
             },
             buttonText: '',
             textSize: 24,
@@ -165,7 +178,6 @@ export class MiniGameManager {
                     }
                 } else {
                     this.showConfirmationPanel();
-                    this.scene.TweeningUtils.hideApplyMakeUpPanel();
                 }
             },
             buttonText: '',
@@ -178,15 +190,6 @@ export class MiniGameManager {
             textColor: '#d6525f'
         }).setDepth(99);
 
-        scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'StitchedButtonWithoutStitchIcon', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
-        scene.applyMakeUpText = this.scene.add.text(layout.applyMakeUpText.x, layout.applyMakeUpText.y, 'Swipe the highlighted area to apply the make up', {
-            fontSize: layout.applyMakeUpText.fontSize,
-            fill: '#FFFFFF',
-            fontFamily: 'regularFont',
-            wordWrap: { width: this.scene.scale.width - layout.applyMakeUpText.wordWrap }
-        }).setOrigin(0.5, 0.5);
-
-        scene.applyMakeUpContainer = this.scene.add.container(layout.applyMakeUpContainer.x, layout.applyMakeUpContainer.y, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
         this.setUpSidePanel(scene);
 
         if (scene.categorySidePanel) {
@@ -211,11 +214,14 @@ export class MiniGameManager {
 
         scene.finishButton = null;
 
-
+        scene.purpleLine1?.destroy();
+        scene.purpleLine2?.destroy();
+        scene.purpleLine3?.destroy();
         scene.statPanelContainer?.destroy();
         scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
         this.backButton?.destroy();
+        scene.randomizeButton?.destroy();
         scene.dressUpCategoryButtons?.forEach(buttons => buttons.destroy());
         scene.makeUpCategoryButtons?.forEach(buttons => buttons.destroy());
         scene.finishMiniGameButton?.destroy();
@@ -227,6 +233,7 @@ export class MiniGameManager {
         scene.backToSelectionButton = null;
         scene.removeAllButton = null;
 
+        scene.randomizeButton = null;
         scene.finishButton = null;
         scene.statPanelContainer = null;
         scene.sidePanel = null;

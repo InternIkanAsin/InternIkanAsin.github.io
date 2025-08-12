@@ -1,5 +1,5 @@
 import { GameState } from './Main.js';
-import { OutfitButton,  MuteButton } from './UI/UIButton.js';
+import { OutfitButton, MuteButton } from './UI/UIButton.js';
 import { layout } from './ScreenOrientationUtils.js';
 export default class TweenUtils {
     constructor(scene) {
@@ -8,27 +8,6 @@ export default class TweenUtils {
         this.bodyScaleDressUpView = layout.character.scale;
     }
 
-    showApplyMakeUpPanel() {
-        const scene = this.scene;
-
-        scene.tweens.add({
-            targets: scene.applyMakeUpContainer,
-            y: layout.applyMakeUpContainer.targetYPosition,
-            duration: 500,
-            ease: 'Back.Out'
-        })
-    }
-
-    hideApplyMakeUpPanel() {
-        const scene = this.scene;
-
-        scene.tweens.add({
-            targets: scene.applyMakeUpContainer,
-            y: -100,
-            duration: 500,
-            ease: 'Back.Out'
-        })
-    }
     closeDrapes(duration = 500, onComplete = null) {
         const scene = this.scene;
         if (!scene.leftDrape || !scene.rightDrape) {
@@ -37,7 +16,7 @@ export default class TweenUtils {
             return;
         }
 
-        
+
         scene.tweens.add({
             targets: scene.leftDrape,
             x: layout.drapes.closed.leftX,
@@ -84,15 +63,13 @@ export default class TweenUtils {
             console.log("[Back Transition] Coloring session active. Stopping and discarding.");
             scene.interactiveMakeupSystem.stopColoringSession(
                 scene.interactiveMakeupSystem.activeMakeupType,
-                true 
+                true
             );
         }
         await this.zoomHalfway();
 
         scene.state = GameState.MAKEUP;
         if (!this.scene.MiniGameManager.canContinueToScene2()) this.scene.dressUpFinished = false;
-
-        this.hideApplyMakeUpPanel();
 
         this.closeDrapes(500, () => {
 
@@ -161,13 +138,13 @@ export default class TweenUtils {
 
         scene.tweens.add({
             targets: scene.leftDrape,
-            x: targetLeftX, 
+            x: targetLeftX,
             duration: duration,
             ease: 'Power2'
         });
         scene.tweens.add({
             targets: scene.rightDrape,
-            x: targetRightX, 
+            x: targetRightX,
             duration: duration,
             ease: 'Power2',
             onComplete: () => {
@@ -207,9 +184,9 @@ export default class TweenUtils {
             duration: duration,
             ease: 'Power2',
         });
-    
+
     }
-    
+
 
 
 
@@ -224,7 +201,7 @@ export default class TweenUtils {
     tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, ease) {
         if (!outfitImage || !outfitImage.active) return;
 
-        
+
         const baseWorldOutfitX = outfitImage.getData('baseWorldOutfitX');
         const baseWorldOutfitY = outfitImage.getData('baseWorldOutfitY');
         const refBodyX = outfitImage.getData('refBodyX');
@@ -233,32 +210,32 @@ export default class TweenUtils {
         const initialScaleX = outfitImage.getData('initialScaleX');
         const initialScaleY = outfitImage.getData('initialScaleY');
 
-        
+
         if (refBodyX === undefined || refBodyScale === undefined || initialScaleX === undefined) {
             console.error("Outfit image is missing critical reference data. Cannot tween accurately.", outfitImage.texture.key);
-            
+
             outfitImage.x = targetBodyX;
             outfitImage.y = targetBodyY;
             outfitImage.scale = targetBodyScale;
             return;
         }
 
-        
 
-        
+
+
         const offsetX = baseWorldOutfitX - refBodyX;
         const offsetY = baseWorldOutfitY - refBodyY;
-        
-        
+
+
         const scaleRatio = targetBodyScale / refBodyScale;
         const targetOutfitX = targetBodyX + (offsetX * scaleRatio);
         const targetOutfitY = targetBodyY + (offsetY * scaleRatio);
 
-        
+
         const targetScaleX = initialScaleX * scaleRatio;
         const targetScaleY = initialScaleY * scaleRatio;
 
-        
+
 
         this.scene.tweens.add({
             targets: outfitImage,
@@ -291,9 +268,9 @@ export default class TweenUtils {
 
 
         Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
-            
+
             const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
-            
+
             if (outfitImage) {
                 this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, 500, 'Sine.easeInOut');
             }
@@ -320,12 +297,12 @@ export default class TweenUtils {
             scene.tweens.add({ targets: [scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.hairBack, scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: duration, ease: 'Sine.easeInOut' });
-            
+
             Object.values(OutfitButton.selectedOutfits).forEach(entry => {
-                 const outfitImage = entry?.current?.displayedOutfit;
-                 if (outfitImage && outfitImage.active) {
+                const outfitImage = entry?.current?.displayedOutfit;
+                if (outfitImage && outfitImage.active) {
                     this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, 'Sine.easeInOut');
-                 }
+                }
             });
 
             scene.time.delayedCall(duration, () => {
@@ -355,14 +332,14 @@ export default class TweenUtils {
             scene.tweens.add({ targets: [scene.body], x: targetBodyX, y: targetBodyY, scale: targetBodyScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.faceContainer], x: targetFaceX, y: targetFaceY, scale: targetFaceScale, duration: duration, ease: 'Sine.easeInOut' });
             scene.tweens.add({ targets: [scene.hairBack, scene.hairFront], x: targetHairX, y: targetHairY, scale: targetHairScale, duration: duration, ease: 'Sine.easeInOut' });
-            
+
             Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, entry]) => {
-                 
-                 const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
-                 
-                 if (outfitImage && outfitImage.active) {
+
+                const outfitImage = entry?.current?.displayedOutfit || scene[outfitType];
+
+                if (outfitImage && outfitImage.active) {
                     this.tweenOutfitImage(outfitImage, targetBodyX, targetBodyY, targetBodyScale, duration, 'Sine.easeInOut');
-                 }
+                }
             });
 
             scene.time.delayedCall(duration, () => {
@@ -464,7 +441,7 @@ export default class TweenUtils {
                         if (button) button.setVisible(false);
                     });
 
-                    
+
                     const panelTweenPromise = new Promise((panelResolve) => {
                         this.scene.tweens.add({
                             targets: [this.scene.categoryButtonsPanel],
@@ -512,7 +489,7 @@ export default class TweenUtils {
                             ease: 'Sine.easeInOut',
                             onComplete: playerResolve
                         });
-                        
+
                         Object.values(this.scene.outfitButtons).flat().forEach(outfitButton => {
                             outfitButton.tweenOutfit(newPlayerX, this.scene.body.y, 500, 'Sine.easeInOut');
                         });
@@ -529,7 +506,7 @@ export default class TweenUtils {
                         });
                     });
 
-                    
+
                     Promise.all([
                         panelTweenPromise,
                         openButtonTweenPromise,
@@ -575,7 +552,7 @@ export default class TweenUtils {
             button.icon.setAlpha(0);
         });
 
-        
+
         const newPlayerY = this.scene.scale.height - 800;
         const tweensToMove = [
             { targets: this.scene.background, y: this.scene.scale.height / 2.06 },
@@ -593,10 +570,10 @@ export default class TweenUtils {
             });
         });
 
-        
+
         this.scene.continueButton?.getAt(0)?.disableInteractive();
 
-        
+
         const buttonContainers = buttonsToShow.map(button => button.container);
         this.scene.tweens.add({
             targets: buttonContainers,
@@ -622,7 +599,7 @@ export default class TweenUtils {
             }
         });
 
-        
+
         Object.values(this.scene.outfitButtons).flat().forEach(button =>
             button.tweenOutfit(this.scene.body.x, newPlayerY, 500, 'Sine.easeInOut')
         );
