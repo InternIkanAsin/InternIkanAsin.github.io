@@ -1,5 +1,5 @@
 import { MakeUpButton } from '../UI/UIButton.js'; // For updating selectedMakeUp
-import {  defaultMakeUpSkins, outlineMap} from '../Makeup Data/MakeUpData.js'; // For reverting
+import { defaultMakeUpSkins, outlineMap } from '../Makeup Data/MakeUpData.js'; // For reverting
 import { layout } from '../ScreenOrientationUtils.js';
 
 
@@ -26,7 +26,7 @@ export class InteractiveMakeupSystem {
         this.boundOnPointerDown = this.onPointerDown.bind(this);
         this.boundOnPointerMove = this.onPointerMove.bind(this);
         this.boundOnPointerUp = this.onPointerUp.bind(this);
-        this.customCursorImage = null; 
+        this.customCursorImage = null;
         this.customCursorGraphics = null;
 
         this.tutorialShown = {
@@ -35,11 +35,10 @@ export class InteractiveMakeupSystem {
             'Lips': false,
             'Blush': false,
         };
-        this.activeOutlineImage = null; 
+        this.activeOutlineImage = null;
     }
 
     startColoringSession(makeupType, textureKey, itemButtonInstance) {
-        this.scene.TweeningUtils.showApplyMakeUpPanel();
         this.stateBeforeColoring[makeupType] = MakeUpButton.selectedMakeUp[makeupType]?.current || null;
         console.log(this.stateBeforeColoring[makeupType])
         if (this.isActive) {
@@ -71,7 +70,7 @@ export class InteractiveMakeupSystem {
 
         if (cursorAssetKey) {
             // Jika ada aset, buat kursor gambar
-            this.customCursorImage = this.scene.add.image(0, 0, cursorAssetKey)
+            this.customCursorImage = this.scene.add.image(-1000, -1000, cursorAssetKey)
                 .setDepth(10000) // Pastikan di atas segalanya
                 .setOrigin(0.25, 0); // Sesuaikan origin agar ujung kuas/lipstik pas dengan pointer
             this.customCursorImage.setScale(0.3); // Sesuaikan skala jika perlu
@@ -90,7 +89,7 @@ export class InteractiveMakeupSystem {
             const defaultTextureKey = defaultMakeUpSkins[makeupType];
             const targetObject = (makeupType === 'Lips') ? this.scene.lips : this.scene.eyeshadows;
             const scale = (layout.MakeupPosition[makeupType]?.scale || 0.55) * 2;
-            
+
             if (targetObject && defaultTextureKey) {
                 console.log(`[InteractiveMakeup] Setting ${makeupType} to default for coloring session.`);
                 targetObject.setTexture(defaultTextureKey).setScale(scale);
@@ -98,11 +97,11 @@ export class InteractiveMakeupSystem {
         }
 
 
-        const position = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };   
+        const position = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
         let scale = 0.59 * 2;
 
 
-        
+
         if (this.activeOutlineImage) {
             this.activeOutlineImage.destroy();
             this.activeOutlineImage = null;
@@ -117,8 +116,8 @@ export class InteractiveMakeupSystem {
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
 
-        } 
-        else if(makeupType === 'Eyeshadow') {
+        }
+        else if (makeupType === 'Eyeshadow') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(layout.MakeupPosition.Eyeshadow.scale * 2)
@@ -127,9 +126,9 @@ export class InteractiveMakeupSystem {
             if (this.scene.faceContainer) this.scene.faceContainer.add(this.activeMakeupImage);
             else { this.isActive = false; return; }
 
-            
+
         }
-        else if(makeupType === 'Eyelashes') {
+        else if (makeupType === 'Eyelashes') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(layout.MakeupPosition.Eyelashes.scale * 2)
@@ -139,7 +138,7 @@ export class InteractiveMakeupSystem {
             else { this.isActive = false; return; }
 
         }
-        else if(makeupType === 'Eyeliner') {
+        else if (makeupType === 'Eyeliner') {
 
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(layout.MakeupPosition.Eyeliner.scale * 2)
@@ -149,9 +148,9 @@ export class InteractiveMakeupSystem {
             else { this.isActive = false; return; }
 
         }
-        
-        
-        
+
+
+
         else {
             this.activeMakeupImage = this.scene.add.image(position.x, position.y, textureKey)
                 .setScale(scale)
@@ -164,7 +163,7 @@ export class InteractiveMakeupSystem {
 
         let outlineAssetKey = null;
         const itemName = itemButtonInstance.name;
-        
+
         // 1. Ambil blok konfigurasi untuk tipe makeup saat ini (e.g., 'Eyeliner')
         const typeConfig = outlineMap[makeupType];
 
@@ -172,7 +171,7 @@ export class InteractiveMakeupSystem {
             // 2. Cek dulu apakah ada pemetaan khusus untuk NAMA item ini di dalam blok tersebut.
             if (typeConfig[itemName]) {
                 outlineAssetKey = typeConfig[itemName];
-            } 
+            }
             // 3. Jika tidak ada, baru gunakan `_default` dari blok tersebut.
             else if (typeConfig._default) {
                 outlineAssetKey = typeConfig._default;
@@ -182,7 +181,7 @@ export class InteractiveMakeupSystem {
         // 2. Jika kita menemukan kunci, buat gambar outline
         if (outlineAssetKey) {
             console.log(`Using outline asset: ${outlineAssetKey} for ${itemName}`);
-            
+
             // Dapatkan posisi dan skala dari gambar makeup yang aktif
             const position = { x: this.activeMakeupImage.x, y: this.activeMakeupImage.y };
             const scale = this.activeMakeupImage.scaleX; // Asumsikan skala seragam
@@ -257,8 +256,8 @@ export class InteractiveMakeupSystem {
             this.scene.faceContainer.sort('depth');
         }
     }
-   
-    
+
+
 
 
     triggerMakeUpTutorial(makeUpType) {
@@ -272,28 +271,28 @@ export class InteractiveMakeupSystem {
 
         const makeupPaths = {
             'Eyeliner': [
-                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
             ],
             'Eyeshadow': [
-                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
             ],
             'Lips': [
-                 { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
             ],
             'Blush': [
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
             ]
         };
 
@@ -491,7 +490,7 @@ export class InteractiveMakeupSystem {
             if (typeFinalizing === 'Lips' || typeFinalizing === 'Eyeshadow') {
                 const targetObject = (typeFinalizing === 'Lips') ? this.scene.lips : this.scene.eyeshadows;
                 const scale = (layout.MakeupPosition[typeFinalizing]?.scale || 0.55) * 2;
-                
+
                 // Terapkan tekstur baru ke objek persisten
                 targetObject.setTexture(this.activeTextureKey).setScale(scale).setVisible(true);
                 finalImageForEffect = targetObject; // Target partikel adalah objek persisten
@@ -499,7 +498,7 @@ export class InteractiveMakeupSystem {
                 // Perbarui referensi di tombol
                 const button = MakeUpButton.selectedMakeUp[typeFinalizing]?.current;
                 if (button) button.displayedMakeUp = targetObject;
-                
+
                 // Hancurkan gambar sementara SETELAH semuanya selesai
                 if (imageThatWasColored) imageThatWasColored.destroy();
 
@@ -528,8 +527,6 @@ export class InteractiveMakeupSystem {
             this.revertToPreviousState(typeFinalizing);
         }
 
-        this.scene.TweeningUtils.hideApplyMakeUpPanel();
-
         this.cleanupSessionObjects(applyToCharacter, typeFinalizing, applyToCharacter ? (typeFinalizing === 'Lips' ? this.scene.lips : imageThatWasColored) : null);
     }
 
@@ -541,7 +538,6 @@ export class InteractiveMakeupSystem {
         const wasCompleted = this.isComplete;
         console.log(`[InteractiveMakeup] Stopping session for ${typeEffectivelyStopping}. Discard: ${forceDiscard}, Completed: ${wasCompleted}`);
         this.isActive = false;
-        this.scene.TweeningUtils.hideApplyMakeUpPanel();
         const imageFromThisSession = this.activeMakeupImage;
         this.activeMakeupImage = null;
 
@@ -595,7 +591,7 @@ export class InteractiveMakeupSystem {
     }
 
     updateCustomCursorPosition(pointer) {
-         if (this.isActive && !this.isComplete) {
+        if (this.isActive && !this.isComplete) {
             if (this.customCursorImage) {
                 // Jika kursor gambar ada, perbarui posisinya
                 this.customCursorImage.setPosition(pointer.x, pointer.y);

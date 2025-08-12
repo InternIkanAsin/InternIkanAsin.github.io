@@ -23,12 +23,12 @@ export class DressUpManager {
         const outfitPositions = layout.outfit.positions;
 
 
-
-        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon, isLocked: defaultLockStatus }) => {
+        costumeData.forEach(({ name, outfitType, x, y, textureAnime, textureButton, textureIcon }) => {
+            //Create Buttons and stores it in outfitButtons
             const isItemGloballyLocked = lockedItemsManager.isItemLocked(name);
             const isCurrentlyLocked = isItemGloballyLocked && !unlockManager.isItemUnlocked(name);
             const { x: outfitX, y: outfitY } = outfitPositions[outfitType] || { x: 0, y: 0 };
-            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, { atlas: textureIcon.atlas, frame: textureIcon.frame }, scene.AudioManager, isCurrentlyLocked);
+            const button = new OutfitButton(scene, name, outfitType, x, y, outfitX, outfitY, textureAnime, textureButton, textureIcon, scene.AudioManager, isCurrentlyLocked);
 
             button.setSize(150, 200).setVisible(false);
             button.setData('instance', button);
@@ -54,10 +54,23 @@ export class DressUpManager {
                 scene.outfitButtons[outfitType] = [];
             }
             scene.outfitButtons[outfitType].push(button);
+
         });
     }
 
-
+    randomizeOutfit() {
+        const outfitSets = [
+            ["Dress", "Socks", "Shoes"],
+            ["Shirt", "Outer", "Lower", "Socks", "Shoes"],
+            ["Shirt", "Lower", "Socks", "Shoes"]
+        ];
+        const chosenSet = outfitSets[Math.floor(Math.random() * outfitSets.length)];
+        chosenSet.forEach(outfitType => {
+            const buttons = this.scene.outfitButtons[outfitType];
+            const randomIndex = Math.floor(Math.random() * buttons.length);
+            buttons[randomIndex].toggleOutfit();
+        });
+    }
     /**
      * @method removeAllOutfits
      * Unequips all currently equipped outfits.

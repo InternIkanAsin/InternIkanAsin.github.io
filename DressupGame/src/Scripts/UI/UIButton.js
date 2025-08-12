@@ -486,6 +486,7 @@ export class OutfitButton extends BaseButton {
         this.buttonLocked = iconLocked;
         this.buttonLockedBg = iconLockedBg;
         this.AudioManager = AudioManager;
+        //this.outfitID = outfitID;
         this.name = name;
         this.nameText = nameText;
         this.outfitType = outfitType;

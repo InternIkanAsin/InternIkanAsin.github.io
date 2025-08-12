@@ -1,5 +1,5 @@
 //UI Button Class
-import UIButton, { OutfitButton, GeneralButton } from '../UI/UIButton.js'
+import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
 
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
@@ -57,6 +57,7 @@ export class MiniGameManager {
         this.categoryButtons = scene.state === GameState.DRESSUP ? createDressUpCategoryButtons(scene, scene.AudioManager) : createMakeUpCategoryButtons(scene, scene.AudioManager);
 
         const currentButton = scene.state === GameState.DRESSUP ? scene.dressButton : scene.eyebrowsButton;
+
         scene.selectedCategory = { current: currentButton, previous: null }
         console.log(scene.selectedCategory)
         this.backButton = new UIButton(scene, scene.AudioManager, {
@@ -84,18 +85,29 @@ export class MiniGameManager {
                 iconYPosition: -5,
                 buttonScale: 0.4 
             };
-        
+
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 ...commonBtnConfig,
-                x: btnLayout.randomize.x, 
+                x: btnLayout.randomize.x,
                 y: btnLayout.randomize.y,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
                 iconScale: 0.5,
                 callback: () => {
-                    // TODO: Tambahkan logika randomize di sini
+                    if (scene.state === GameState.MAKEUP) {
+                        scene.MakeUpManager.removeAllMakeup();
+                        Object.keys(scene.makeUpButtons).forEach(makeUpType => {
+                            const buttons = scene.makeUpButtons[makeUpType];
+                            const randomIndex = Math.floor(Math.random() * buttons.length);
+                            console.log(buttons[randomIndex]);
+                            buttons[randomIndex].toggleMakeUp();
+                        });
+                    } else if (scene.state === GameState.DRESSUP) {
+                        scene.DressUpManager.removeAllOutfits();
+                        scene.DressUpManager.randomizeOutfit();
+                    }
                 }
             }).setDepth(99);
-        
+
             scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.removeAllButton.x,
                 y: layout.removeAllButton.y,
@@ -119,11 +131,11 @@ export class MiniGameManager {
                 
                 buttonScale: layout.removeAllButton.buttonScale, 
             }).setDepth(99);
-        
+
             scene.finishButton = new UIButton(scene, this.AudioManager, {
                 ...commonBtnConfig,
                 textureButton: 'yellowButton',
-                x: btnLayout.finish.x, 
+                x: btnLayout.finish.x,
                 y: btnLayout.finish.y,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'tickMark' }, // Menggunakan frame dari atlas jika ada, atau 'tickMark' jika terpisah
                 iconScale: 0.6,
@@ -142,12 +154,12 @@ export class MiniGameManager {
                     }
                 }
             }).setDepth(99);
-        
+
             // Hapus garis-garis yang tidak ada di mockup portrait
             scene.purpleLine1?.destroy();
             scene.purpleLine2?.destroy();
             scene.purpleLine3?.destroy();
-        
+
         } else {
             // ---- UI UNTUK LANDSCAPE (Kode asli Anda yang sudah berfungsi) ----
             scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
@@ -159,11 +171,11 @@ export class MiniGameManager {
                 buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
                 iconYPosition: -5,
-                callback: () => {},
+                callback: () => { },
                 iconScale: layout.randomizeButton.iconScale,
                 buttonScale: layout.randomizeButton.scale
             }).setDepth(99);
-        
+
             scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             const btnLayout = layout.actionButtons;
             scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
@@ -216,16 +228,7 @@ export class MiniGameManager {
             }).setDepth(99);
         }
 
-        scene.applyMakeUpPanel = this.scene.add.nineslice(layout.applyMakeUpPanel.x, layout.applyMakeUpPanel.y, 'StitchedButtonWithoutStitchIcon', '', layout.applyMakeUpPanel.width, layout.applyMakeUpPanel.height, 32, 32, 20, 24);
-        scene.applyMakeUpText = this.scene.add.text(layout.applyMakeUpText.x, layout.applyMakeUpText.y, 'Swipe the highlighted area to apply the make up', {
-            fontSize: layout.applyMakeUpText.fontSize,
-            fill: '#FFFFFF',
-            fontFamily: 'regularFont',
-            wordWrap: { width: this.scene.scale.width - layout.applyMakeUpText.wordWrap }
-        }).setOrigin(0.5, 0.5);
-
-        scene.applyMakeUpContainer = this.scene.add.container(layout.applyMakeUpContainer.x, layout.applyMakeUpContainer.y, [scene.applyMakeUpPanel, scene.applyMakeUpText]).setDepth(21);
-        this.setupPanels(scene);
+        this.setUpSidePanel(scene);
 
         if (scene.categorySidePanel) {
             scene.tweens.add({
@@ -249,11 +252,14 @@ export class MiniGameManager {
 
         scene.finishButton = null;
 
-
+        scene.purpleLine1?.destroy();
+        scene.purpleLine2?.destroy();
+        scene.purpleLine3?.destroy();
         scene.statPanelContainer?.destroy();
         scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
         this.backButton?.destroy();
+        scene.randomizeButton?.destroy();
         scene.dressUpCategoryButtons?.forEach(buttons => buttons.destroy());
         scene.makeUpCategoryButtons?.forEach(buttons => buttons.destroy());
         scene.finishMiniGameButton?.destroy();
@@ -265,6 +271,7 @@ export class MiniGameManager {
         scene.backToSelectionButton = null;
         scene.removeAllButton = null;
 
+        scene.randomizeButton = null;
         scene.finishButton = null;
         scene.statPanelContainer = null;
         scene.sidePanel = null;
@@ -626,7 +633,7 @@ export class MiniGameManager {
     setUpBottomPanel_Portrait(scene) {
         const catLayout = layout.categoryBar;
         const panelLayout = layout.bottomPanel;
-        
+
         // 1. Buat Bar Kategori (horizontal, tidak bisa di-scroll)
         const categoryButtons = scene.state === GameState.DRESSUP ? scene.dressUpCategoryButtons : scene.makeUpCategoryButtons;
         this.categoryButtonGrid = scene.rexUI.add.gridSizer({
@@ -638,7 +645,7 @@ export class MiniGameManager {
         }).setDepth(11);
 
         categoryButtons.forEach(btn => {
-            this.categoryButtonGrid.add(btn, undefined, 0, 'center', {left: 5, right: 5}, true);
+            this.categoryButtonGrid.add(btn, undefined, 0, 'center', { left: 5, right: 5 }, true);
         });
         this.categoryButtonGrid.layout();
         scene.categorySidePanel = this.categoryButtonGrid; // Simpan referensi
