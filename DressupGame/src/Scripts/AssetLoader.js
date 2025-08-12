@@ -114,6 +114,7 @@ export default class AssetLoader {
 
     scene.load.image('xMark', 'Asset/UI/Cross.png');
     scene.load.image('tickMark', 'Asset/UI/Checkmark.png');
+    scene.load.image('crossMark', 'Asset/UI/New/Cross_Icon.png');
 
     scene.load.image('fingerCursor', 'Asset/UI/Finger_Icon.png');
 
