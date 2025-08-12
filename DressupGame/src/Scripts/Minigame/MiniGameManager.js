@@ -141,7 +141,6 @@ export class MiniGameManager {
                         }
                     } else {
                         this.showConfirmationPanel();
-                        scene.TweeningUtils.hideApplyMakeUpPanel();
                     }
                 }
             }).setDepth(99);
@@ -162,7 +161,20 @@ export class MiniGameManager {
                 buttonHeight: 75,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
                 iconYPosition: -5,
-                callback: () => { },
+                callback: () => {
+                    if (scene.state === GameState.MAKEUP) {
+                        scene.MakeUpManager.removeAllMakeup();
+                        Object.keys(scene.makeUpButtons).forEach(makeUpType => {
+                            const buttons = scene.makeUpButtons[makeUpType];
+                            const randomIndex = Math.floor(Math.random() * buttons.length);
+                            console.log(buttons[randomIndex]);
+                            buttons[randomIndex].toggleMakeUp();
+                        });
+                    } else if (scene.state === GameState.DRESSUP) {
+                        scene.DressUpManager.removeAllOutfits();
+                        scene.DressUpManager.randomizeOutfit();
+                    }
+                },
                 iconScale: layout.randomizeButton.iconScale,
                 buttonScale: layout.randomizeButton.scale
             }).setDepth(99);
@@ -217,7 +229,7 @@ export class MiniGameManager {
             }).setDepth(99);
         }
 
-        this.setUpSidePanel(scene);
+        this.setupPanels(scene);
 
         if (scene.categorySidePanel) {
             scene.tweens.add({

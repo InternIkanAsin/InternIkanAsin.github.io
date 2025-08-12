@@ -326,8 +326,8 @@ const LANDSCAPE = {
     removeAllButton: {
         x: 120,
         y: 540,
-        buttonScale: 0.6 * 2,
-        iconScale: 0.5 * 2
+        buttonScale: 0.16 * 2,
+        iconScale: 0.155 * 2
     },
 
     itemPanelButton: {
