@@ -822,9 +822,9 @@ const PORTRAIT = {
     },
 
     namedDialogueNameBox: {
-        width: 80,
-        height: 22,
-        offsetX: 50
+        width: 60,
+        height: 30,
+        offsetX: 200
     },
 
     backButton: {
