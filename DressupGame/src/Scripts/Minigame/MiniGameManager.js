@@ -160,7 +160,7 @@ export class MiniGameManager {
             scene.purpleLine3?.destroy();
 
         } else {
-            
+
             scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.randomizeButton.x,
@@ -231,7 +231,6 @@ export class MiniGameManager {
                         }
                     } else {
                         this.showConfirmationPanel();
-                        scene.TweeningUtils.hideApplyMakeUpPanel();
                     }
                 },
                 buttonText: '',
@@ -270,6 +269,7 @@ export class MiniGameManager {
         scene.statPanelContainer?.destroy();
         scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
+        scene.categorySidePanel?.destroy();
         this.backButton?.destroy();
         scene.randomizeButton?.destroy();
         scene.dressUpCategoryButtons?.forEach(buttons => buttons.destroy());
@@ -287,6 +287,7 @@ export class MiniGameManager {
         scene.finishButton = null;
         scene.statPanelContainer = null;
         scene.sidePanel = null;
+        scene.categorySidePanel = null;
         this.backButton = null;
 
     }
@@ -367,7 +368,7 @@ export class MiniGameManager {
             .setDepth(101);
 
         const text = this.scene.add.text(0, -20, questionText, {
-            fontSize: '40px',
+            fontSize: '36px',
             fontFamily: 'regularFont',
             color: '#d6525f',
             align: 'center',
@@ -697,9 +698,9 @@ export class MiniGameManager {
         scene.categorySidePanel = scene.rexUI.add.scrollablePanel({
             x: 800,
             y: catLayout.y,
-            width: 1500,   
-            height: catLayout.height, 
-            
+            width: 1500,
+            height: catLayout.height,
+
             panel: {
                 child: categorySizer,
                 align: 'center'
@@ -722,7 +723,7 @@ export class MiniGameManager {
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
-            scrollMode: 0,  
+            scrollMode: 0,
             background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
             panel: { child: this.innerSizer },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
