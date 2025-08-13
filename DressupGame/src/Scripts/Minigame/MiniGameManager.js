@@ -663,6 +663,7 @@ export class MiniGameManager {
     setUpBottomPanel_Portrait(scene) {
         const catLayout = layout.categoryBar;
         const panelLayout = layout.bottomPanel;
+        scene.input.topOnly = false;
 
         // 1. Buat Bar Kategori MENGGUNAKAN SIZER HORIZONTAL (JAUH LEBIH STABIL)
         const categoryButtons = scene.state === GameState.DRESSUP ? scene.dressUpCategoryButtons : scene.makeUpCategoryButtons;
@@ -686,31 +687,52 @@ export class MiniGameManager {
                 categorySizer.add(btn, { padding: { left: 5, right: 5 } });
             }
         });
+        categorySizer.layout();
+        console.log("CategorySizer width:", categorySizer.width, "Panel width:", catLayout.width + 1000);
+        scene.categorySidePanel = categorySizer;
 
-        // Panggil layout() untuk menata tombol di dalam sizer.
-        scene.categorySidePanel = scene.rexUI.add.scrollablePanel({
-            x: 800,
-            y: catLayout.y,
-            width: 1500,   
-            height: catLayout.height, 
-            
+        let categoryWidth = categorySizer.width;
+        const minScrollWidth = 200; // spasi kosong supaya bisa scroll
+        if (categoryWidth <= catLayout.width) {
+            categorySizer.add(scene.add.rectangle(1, 1, 1, 1, 0x000000, 0), { padding: { right: minScrollWidth } });
+            categorySizer.layout();
+            categoryWidth = categorySizer.width;
+        }
+
+        // 4. Tentukan panel width (jangan lebih besar dari konten)
+        const panelWidth = Math.min(catLayout.width + 1000, categoryWidth);
+        const scrollPanel = scene.rexUI.add.scrollablePanel({
+            x: catLayout.x + 350,
+            y: catLayout.y -120,
+            width: panelWidth,
+            height: catLayout.height -500,
+            scrollMode: 1, 
+            scrollDetectionMode: 0,
+            expand: false,
             panel: {
                 child: categorySizer,
-                align: 'center'
+                mask: { padding: { top: 150, left: 150, bottom: 0, right: 20 } }
             },
+            mouseWheelScroller: { speed: 1, focus: false },
+            clamplChildOX: false,
+            clamplChildOY: false,
+            
+            slider: false
+        }).setOrigin(0.5, 0).layout();
+        
+        scene.add.existing(scrollPanel);
+        
 
-            scrollMode: 1,
-            scroller: false,
-            mouseWheelScroller: true,
 
-        }).layout().setDepth(10);
+        // Panggil layout() untuk menata tombol di dalam sizer.
+        
 
         // 2. Buat Panel Item (di bawah, scroll vertikal) - KODE INI SUDAH BENAR
         this.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
             row: 1
         });
-        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20 } });
+        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20, left:30  } });
         this.innerSizer.add(this.buttonGrid, { expand: true });
 
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
@@ -718,10 +740,42 @@ export class MiniGameManager {
             width: panelLayout.width, height: panelLayout.height,
             scrollMode: 0,  
             background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
-            panel: { child: this.innerSizer },
+            panel: { child: this.innerSizer, mask: { padding: { top: - 35 } } },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
-            space: panelLayout.space
+            space: panelLayout.space,
+            mask: { padding: { bottom: 1000 } } 
         }).layout().setDepth(11);
+
+        
+
+        // Debug a  rea konten (categorySizer)
+        scene.time.delayedCall(100, () => {
+            const bounds = categorySizer.getBounds();
+            scene.add.rectangle(
+                bounds.centerX,
+                bounds.centerY,
+                bounds.width,
+                bounds.height,
+                0xff0000,
+                0.3
+            ).setOrigin(0.5);
+        });
+
+        scrollPanel.setInteractive(
+        new Phaser.Geom.Rectangle(
+            0, 0,
+            scrollPanel.width,
+            scrollPanel.height
+        ),
+        Phaser.Geom.Rectangle.Contains
+        );
+        const bg = scrollPanel.getElement('background');
+        if (bg) {
+            bg.setInteractive(
+                new Phaser.Geom.Rectangle(0, 0, scrollPanel.width, scrollPanel.height),
+                Phaser.Geom.Rectangle.Contains
+            );
+        }
     }
 
     setUpSidePanel_Landscape(scene) {

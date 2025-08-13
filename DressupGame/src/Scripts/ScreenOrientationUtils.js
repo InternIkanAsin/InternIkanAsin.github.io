@@ -555,7 +555,7 @@ const PORTRAIT = {
         y: PORTRAIT_HEIGHT * 0.89,
         width: PORTRAIT_WIDTH,
         height: 300, 
-        space: { top: 20, bottom: 20, left: 20, right: 20, panel: 10 }
+        space: { top: 20, bottom: 20, left: 60, right: 0, panel: 10 }
     },
 
     grid: {
@@ -565,7 +565,7 @@ const PORTRAIT = {
 
     categoryButton: {
         width: 510,
-        height: 650,
+        height: 630,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
         popOutY: -20 

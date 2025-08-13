@@ -380,7 +380,7 @@ export class CategoryButton extends BaseButton {
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance > tapThreshold) {
                     this.isDragging = true;
-
+                    button.parentContainer?.emit('drag', pointer);
                 }
             }
         });
