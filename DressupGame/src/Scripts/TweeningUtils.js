@@ -75,6 +75,7 @@ export default class TweenUtils {
             scene.MiniGameManager.clearMinigameUI();
             const mutePos = layout.muteButton.default;
             scene.muteButton.setPosition(mutePos.x, mutePos.y).setScale(mutePos.scale);
+            scene.muteButton.setDepth(103);
             scene.createSelectionButtons();
 
             await this.zoomHalfway();

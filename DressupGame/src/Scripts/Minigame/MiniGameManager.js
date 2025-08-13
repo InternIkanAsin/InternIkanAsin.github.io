@@ -160,7 +160,7 @@ export class MiniGameManager {
             scene.purpleLine3?.destroy();
 
         } else {
-            
+
             scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.randomizeButton.x,
@@ -231,7 +231,6 @@ export class MiniGameManager {
                         }
                     } else {
                         this.showConfirmationPanel();
-                        scene.TweeningUtils.hideApplyMakeUpPanel();
                     }
                 },
                 buttonText: '',
@@ -270,6 +269,7 @@ export class MiniGameManager {
         scene.statPanelContainer?.destroy();
         scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
+        scene.categorySidePanel?.destroy();
         this.backButton?.destroy();
         scene.randomizeButton?.destroy();
         scene.dressUpCategoryButtons?.forEach(buttons => buttons.destroy());
@@ -287,6 +287,7 @@ export class MiniGameManager {
         scene.finishButton = null;
         scene.statPanelContainer = null;
         scene.sidePanel = null;
+        scene.categorySidePanel = null;
         this.backButton = null;
 
     }
@@ -367,7 +368,7 @@ export class MiniGameManager {
             .setDepth(101);
 
         const text = this.scene.add.text(0, -20, questionText, {
-            fontSize: '40px',
+            fontSize: '36px',
             fontFamily: 'regularFont',
             color: '#d6525f',
             align: 'center',
@@ -397,7 +398,7 @@ export class MiniGameManager {
             iconYPosition: 0,
             iconScale: 0.3,
             callback: () => {
-                this.finishMiniGame(state);
+                this.closeConfirmationPanel();
             },
             buttonText: '',
             buttonScale: 0.3
@@ -422,25 +423,14 @@ export class MiniGameManager {
             wordWrap: { width: 600 }
         }).setOrigin(0.5).setDepth(151);
 
-        const panelWidth = Phaser.Math.Clamp(text.width + 20, 100, 200);
-        const panelHeight = 100;
-        const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', panelWidth, panelHeight, 15, 15, 15, 12)
-            .setDepth(151).setScale(3);
+        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', 690, 390, 128, 128, 64, 68)
+            .setDepth(101);
 
         const okButton = new GeneralButton(this.scene, 0, 60, 'readyButtonIcon', null, 'OK',
             () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(151);
 
 
-        const scaledWidth = panelWidth * 0.5 * 3;
-        const scaledHeight = panelHeight * 0.5 * 3;
-
-        const closeButton = new UIButton(this.scene, this.AudioManager,
-            scaledWidth - 20,
-            -scaledHeight + 20,
-            'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
-            () => this.closeConfirmationPanel()).setDepth(151);
-
-        const container = this.scene.add.container(centerX, centerY, [panel, text, okButton, closeButton]);
+        const container = this.scene.add.container(centerX, centerY, [panel, text, okButton]);
         return container.setDepth(1000).setScale(0);
     }
 
@@ -451,8 +441,8 @@ export class MiniGameManager {
         this.scene.darkOverlay.setVisible(true);
 
         this.disableInteraction()
-        const panel = this.scene.add.nineslice(0, 0, 'sidePanel', '', 230, 130, 12, 12, 12, 9)
-            .setDepth(101).setScale(3);
+        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', 690, 390, 128, 128, 64, 68)
+            .setDepth(101);
 
         const text = this.scene.add.text(0, -20, 'Are you sure about the make up and outfit you chose?', {
             fontSize: '32px',
@@ -463,17 +453,34 @@ export class MiniGameManager {
             lineSpacing: 10
         }).setOrigin(0.5).setDepth(102);
 
-        const yesButton = new GeneralButton(this.scene, 120, 100, 'readyButtonIcon', null, 'YES',
-            () => this.transitionToCutscene(), this.scene.AudioManager).setDepth(102);
+        const yesButton = new UIButton(this.scene, this.AudioManager, {
+            x: 120,
+            y: 170,
+            textureButton: 'yellowButton',
+            textureIcon: 'tickMark',
+            iconYPosition: 0,
+            iconScale: 0.8,
+            callback: () => {
+                this.transitionToCutscene();
+            },
+            buttonText: '',
+            buttonScale: 0.4
+        })
 
-        const noButton = new GeneralButton(this.scene, -120, 100, 'readyButtonIcon', null, 'NO',
-            () => this.closeConfirmationPanel(), this.scene.AudioManager).setDepth(102);
-
-        const closeButton = new UIButton(this.scene, this.AudioManager, 310, -170,
-            'redButton', 40, 40, 'xMarkWhite', 0, 1.5,
-            () => this.closeConfirmationPanel()).setDepth(102);
-        const container = this.scene.add.container(centerX, centerY, [panel, text, yesButton, noButton, closeButton]);
-
+        const noButton = new UIButton(this.scene, this.AudioManager, {
+            x: -120,
+            y: 170,
+            textureButton: 'blueButton',
+            textureIcon: 'crossMark',
+            iconYPosition: 0,
+            iconScale: 0.3,
+            callback: () => {
+                this.closeConfirmationPanel();
+            },
+            buttonText: '',
+            buttonScale: 0.3
+        })
+        const container = this.scene.add.container(centerX, centerY, [panel, text, yesButton, noButton]);
         return container.setDepth(151).setScale(0);
     }
     finishMiniGame(gameState) {
@@ -738,7 +745,7 @@ export class MiniGameManager {
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
-            scrollMode: 0,  
+            scrollMode: 0,
             background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
             panel: { child: this.innerSizer, mask: { padding: { top: - 35 } } },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },

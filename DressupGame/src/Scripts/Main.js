@@ -124,7 +124,7 @@ class Main extends Phaser.Scene {
         this.areOutersLoaded = false;
 
         let sessionId = this.registry.get('gameSessionId') || 0;
-        
+
         // Simpan session ID saat ini ke properti scene agar mudah diakses
         this.gameSessionId = sessionId;
         console.log(`[Main.js] Starting Game Session ID: ${this.gameSessionId}`);
@@ -179,14 +179,15 @@ class Main extends Phaser.Scene {
         this.state = GameState.MAKEUP;
 
         this.startGameFlow();
-        const mutePos = layout.muteButton.default; 
+        const mutePos = layout.muteButton.default;
         this.muteButton = new MuteButton(this, mutePos.x, mutePos.y, mutePos.scale);
-        this.muteButton.setDepth(1001);
+        this.muteButton.setDepth(103);
     }
 
     createSelectionScreen() {
         console.log("[Main.js] Creating Minigame Selection Screen.");
         const scene = this;
+        const centerX = scene.scale.width / 2;
         const centerY = scene.scale.height / 2;
         scene.UIManager.setupScene(scene);
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101).setScale(2);
@@ -216,7 +217,7 @@ class Main extends Phaser.Scene {
         scene.cameras.main.once('camerafadeincomplete', () => {
 
             this.TweeningUtils.zoomHalfway().then(() => {
-                
+
                 this.TweeningUtils.openDrapesHalfway(1000);
             });
         });
@@ -318,6 +319,7 @@ class Main extends Phaser.Scene {
     transitionToMinigame(gameState) {
         this.dressUpButton.disableInteractive();
         this.makeUpButton.disableInteractive();
+        this.muteButton.setDepth(99);
         this.state = gameState;
         console.log(`[Main.js] Transitioning to ${gameState} mode.`);
 
@@ -347,7 +349,7 @@ class Main extends Phaser.Scene {
                     this.dressUpLoaded = true;
                 }
                 // DARI TENGAH (HALF-ZOOM) KE KIRI (ZOOM-OUT)
-                await this.TweeningUtils.zoomOut(); 
+                await this.TweeningUtils.zoomOut();
             } else { // GameState.MAKEUP
                 if (!this.makeUpLoaded) {
                     await AssetLoader.loadMakeUpAssets(this);
