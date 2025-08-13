@@ -289,7 +289,11 @@ export class GeneralButton extends BaseButton {
 
 export class CategoryButton extends BaseButton {
     constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, textureIconSelected, onClick) {
-        const button = scene.add.nineslice(0, 0, textureButton, '', 650, 510, 20, 20, 20, 20).setDepth(100).setScale(0.35).setInteractive();
+        const btnLayout = layout.categoryButton;
+        const button = scene.add.nineslice(0, 0, textureButton, '',
+            btnLayout.width, btnLayout.height,
+            20, 20, 20, 20 // Nilai corner cut bisa disesuaikan
+        ).setDepth(100).setInteractive().setScale(0.35);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
         const icon = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame)
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6);
@@ -311,6 +315,7 @@ export class CategoryButton extends BaseButton {
         this.originalX = x;
         this.originalY = y;
         this.isSelected = false;
+        this.popTween = null;
 
         console.log(this.isSelected);
         this.addHoverEffect(button, AudioManager);
@@ -398,17 +403,22 @@ export class CategoryButton extends BaseButton {
             this.scene.selectedCategory.previous.deselectButton();
         }
 
+        
+        if (this.popTween) {
+            this.popTween.stop();
+        }
+
         if (orientation.isPortrait) {
-            // Animasi Portrait: Bergerak ke atas
-            this.scene.tweens.add({
+            
+            this.popTween = this.scene.tweens.add({
                 targets: this,
-                y: this.originalY + layout.categoryButton.popOutY,
+                y: this.y + layout.categoryButton.popOutY, 
                 duration: 100,
                 ease: 'Power2'
             });
         } else {
-            // Animasi Landscape: Bergerak ke kiri
-            this.scene.tweens.add({
+            
+            this.popTween = this.scene.tweens.add({
                 targets: this,
                 x: this.originalX - 40,
                 duration: 100,
@@ -424,16 +434,24 @@ export class CategoryButton extends BaseButton {
     deselectButton() {
         if (!this.isSelected) return;
         this.isSelected = false;
+
+        
+        if (this.popTween) {
+            this.popTween.stop();
+        }
         
         if (orientation.isPortrait) {
-            this.scene.tweens.add({
+            
+            this.popTween = this.scene.tweens.add({
                 targets: this,
-                y: this.originalY,
+                y: this.y - layout.categoryButton.popOutY, 
                 duration: 100,
                 ease: 'Power2'
             });
+
         } else {
-            this.scene.tweens.add({
+            
+            this.popTween = this.scene.tweens.add({
                 targets: this,
                 x: this.originalX,
                 duration: 100,

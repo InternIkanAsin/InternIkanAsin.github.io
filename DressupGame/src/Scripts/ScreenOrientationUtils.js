@@ -338,8 +338,11 @@ const LANDSCAPE = {
     },
 
     categoryButton: {
+        width: 650,
+        height: 510,
         iconScale: 0.5,
-        buttonScale: 0.6 * 2
+        buttonScale: 0.6 * 2,
+        popOutY: -20
     },
     makeUpButton: {
         iconLockedX: 68,
@@ -473,11 +476,11 @@ const LANDSCAPE = {
         glitterParticles: {
             // Konfigurasi untuk glitter yang melayang
             drifting: {
-                speedX: { min: -10, max: 10 },
+                speedX: { min: -100, max: 0 },
                 speedY: { min: -20, max: -40 },
                 lifespan: { min: 5000, max: 10000 },
                 scale: { start: 0.1, end: 0 },
-                quantity: 2,
+                quantity: 8,
                 frequency: 500
             },
             // Konfigurasi untuk kilauan statis
@@ -536,43 +539,41 @@ const PORTRAIT = {
         finish: { x: 70, y: 610 }
     },
 
-    // Tata letak untuk bar kategori horizontal di atas panel item
     categoryBar: {
-        x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT * 0.72,
-        width: PORTRAIT_WIDTH,
-        height: 140,
-        columns: 5, // 5 kategori per baris
-        space: { column: 10 }
+        x: PORTRAIT_CENTERX - 50,
+        y: PORTRAIT_HEIGHT * 0.75,
+
+        width: 140, 
+        height: PORTRAIT_WIDTH, 
+
+        columns: 5,
+        space: { column: 200 }
     },
 
-    // Tata letak untuk panel item di bagian bawah layar
     bottomPanel: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_HEIGHT * 0.89,
         width: PORTRAIT_WIDTH,
-        height: 300, // Beri sedikit lebih banyak ruang
+        height: 300, 
         space: { top: 20, bottom: 20, left: 20, right: 20, panel: 10 }
     },
 
-    // Konfigurasi untuk grid item di dalam panel bawah
     grid: {
-        columns: 4, // 4 kolom untuk portrait
+        columns: 4, 
         space: { column: 20, row: 30 }
     },
 
-    // Properti khusus untuk animasi CategoryButton di portrait
     categoryButton: {
+        width: 510,
+        height: 650,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
-        popOutY: -20 // Seberapa jauh tombol "pop out" ke atas saat dipilih
+        popOutY: -20 
     },
 
     muteButton: {
-        // Posisi untuk Cutscene 1, Selection, dan Cutscene 2
         default: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 },
-        // Posisi khusus saat berada di dalam Minigame
-        minigame: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 } // Di portrait, posisinya mungkin sama
+        minigame: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 }
     },
 
     playerCharacter: {
@@ -591,7 +592,7 @@ const PORTRAIT = {
     CisiniLogo: {
         x: (720 / 4) * 3 / 1.5,
         y: 1280 * 0.25,
-        scale: 0.8,
+        scale: 0.7,
         depth: 5
     },
 
@@ -821,9 +822,9 @@ const PORTRAIT = {
     },
 
     namedDialogueNameBox: {
-        width: 80,
-        height: 22,
-        offsetX: 50
+        width: 60,
+        height: 30,
+        offsetX: 200
     },
 
     backButton: {
@@ -945,10 +946,8 @@ const PORTRAIT = {
         textYPosition: 60
     },
 
-    categoryButton: {
-        iconScale: 0.5,
-        buttonScale: 0.5 * 2,
-    },
+
+    
 
     applyMakeUpPanel: {
         x: 0,
@@ -1036,11 +1035,11 @@ const PORTRAIT = {
     cutscene2: {
         glitterParticles: {
             drifting: {
-                speedx: { min: 40, max: 80 },
+                speedx: { min: 0, max: 1 },
                 speedy: { min: -5, max: 5 },
-                lifespan: { min: 3000, max: 5000 },
+                lifespan: { min: 1000, max: 2000 },
                 scale: { start: 0.12, end: 0 },
-                quantity: 8,
+                quantity: 6,
                 frequency: 100
             },
             sparkle: {

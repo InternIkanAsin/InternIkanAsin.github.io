@@ -1,6 +1,6 @@
 // Costume Data Class
 import { costumeData } from '../Outfit Data/CostumeData.js'
-
+import { orientation } from '../ScreenOrientationUtils.js';
 // UI Buttons Class
 import UIButton, { OutfitButton, ItemPanelButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
@@ -167,7 +167,7 @@ export class DressUpManager {
             }
 
         );
-        lepasOutfitButton.setSize(150, 200);
+        lepasOutfitButton.setSize(150, 200).setDepth(15);
         allButtonContainersForPanel.push(lepasOutfitButton.container ? lepasOutfitButton.container : lepasOutfitButton);
 
 
@@ -224,11 +224,15 @@ export class DressUpManager {
         }
 
         const gridConfig = layout.grid;
-        
+        const columns = gridConfig.columns > 0 ? gridConfig.columns : 4
+        const numItems = allButtonContainersForPanel.length;
+        console.log('[DEBUG] numItems:', numItems, 'columns:', gridConfig.columns);
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: gridConfig.columns,
-            row: Math.ceil(allButtonContainersForPanel.length / gridConfig.columns),
-            space: gridConfig.space,
+            
+            row: Math.max(1, Math.ceil(numItems / columns)),
+            
+            space: gridConfig.space || {},
             align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
@@ -244,11 +248,12 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
+        scene.input.topOnly = false;
         if (outfitType === 'Dress') {
             if (scene.selectedCategory.previous) scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;
         }
-
+        
         if (outfitType === 'Outer') {
             if (!scene.areOutersLoaded) {
                 scene.UIManager.showLoadingOverlay('Loading Outers...');
@@ -388,6 +393,7 @@ export class DressUpManager {
                 // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
 
+                
 
                 // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
@@ -421,6 +427,25 @@ export class DressUpManager {
                 } else {
                     panel.setT(0);
                 }
+
+                //const categoryPanel = scene.categorySidePanel; // Pastikan kita mendapatkan panel yang benar
+                //if (!categoryPanel) return;
+//
+                //if (orientation.isPortrait && categoryPanel.isOverflow) {
+                //    categoryPanel.setT(1);
+                //
+                //    const needsAnimation = !scene.animatedCategories.has(outfitType); // atau makeUpType
+                //    if (needsAnimation) {
+                //        scene.animatedCategories.add(outfitType); // atau makeUpType
+                //        scene.tweens.add({
+                //            targets: categoryPanel, // <-- PASTIKAN TARGETNYA INI
+                //            t: 0,
+                //            duration: 500,
+                //            ease: 'Cubic.easeInOut',
+                //            delay: 300
+                //        });
+                //    }
+                //} 
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));

@@ -1,14 +1,13 @@
 //General Button Class
 import { MakeUpButton, ItemPanelButton } from '../UI/UIButton.js'
-
 // MakeUp Data
 import { makeUpData } from '../Makeup Data/MakeUpData.js'
-
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
-
+import { orientation } from '../ScreenOrientationUtils.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
+
 
 export class MakeUpManager {
     constructor(scene, AudioManager) {
@@ -164,7 +163,7 @@ export class MakeUpManager {
                 }
             );
 
-            lepasButton.setSize(150, 200);
+            lepasButton.setSize(150, 200).setDepth(15);;
             allButtonContainersForPanel.push(lepasButton.container ? lepasButton.container : lepasButton);
         }
 
@@ -213,10 +212,15 @@ export class MakeUpManager {
             scene.MiniGameManager.innerSizer.clear(true);
         }
         const gridConfig = layout.grid;
+        const columns = gridConfig.columns > 0 ? gridConfig.columns : 4
+        const numItems = allButtonContainersForPanel.length;
+        console.log('[DEBUG] numItems:', numItems, 'columns:', gridConfig.columns);
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: gridConfig.columns,
-            row: Math.ceil(allButtonContainersForPanel.length / gridConfig.columns),
-            space: gridConfig.space,
+            
+            row: Math.max(1, Math.ceil(numItems / columns)),
+            
+            space: gridConfig.space || {},
             align: 'center',
         });
 
@@ -256,7 +260,7 @@ export class MakeUpManager {
             }
             return false;
         };
-
+        scene.input.topOnly = false;
 
         let isLoading = false;
         if (makeUpType === 'Eyebrows') {
@@ -384,6 +388,8 @@ export class MakeUpManager {
                 } else {
                     panel.setT(0);
                 }
+
+                
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
