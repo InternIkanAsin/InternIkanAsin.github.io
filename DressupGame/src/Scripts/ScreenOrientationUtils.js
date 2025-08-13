@@ -476,11 +476,11 @@ const LANDSCAPE = {
         glitterParticles: {
             // Konfigurasi untuk glitter yang melayang
             drifting: {
-                speedX: { min: -10, max: 10 },
+                speedX: { min: -100, max: 0 },
                 speedY: { min: -20, max: -40 },
                 lifespan: { min: 5000, max: 10000 },
                 scale: { start: 0.1, end: 0 },
-                quantity: 2,
+                quantity: 8,
                 frequency: 500
             },
             // Konfigurasi untuk kilauan statis
@@ -592,7 +592,7 @@ const PORTRAIT = {
     CisiniLogo: {
         x: (720 / 4) * 3 / 1.5,
         y: 1280 * 0.25,
-        scale: 0.8,
+        scale: 0.7,
         depth: 5
     },
 
@@ -1035,11 +1035,11 @@ const PORTRAIT = {
     cutscene2: {
         glitterParticles: {
             drifting: {
-                speedx: { min: 40, max: 80 },
+                speedx: { min: 0, max: 1 },
                 speedy: { min: -5, max: 5 },
-                lifespan: { min: 3000, max: 5000 },
+                lifespan: { min: 1000, max: 2000 },
                 scale: { start: 0.12, end: 0 },
-                quantity: 8,
+                quantity: 6,
                 frequency: 100
             },
             sparkle: {

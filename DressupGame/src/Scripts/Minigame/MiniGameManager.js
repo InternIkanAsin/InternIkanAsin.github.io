@@ -688,8 +688,22 @@ export class MiniGameManager {
         });
 
         // Panggil layout() untuk menata tombol di dalam sizer.
-        categorySizer.layout();
-        scene.categorySidePanel = categorySizer;
+        scene.categorySidePanel = scene.rexUI.add.scrollablePanel({
+            x: 800,
+            y: catLayout.y,
+            width: 1500,   
+            height: catLayout.height, 
+            
+            panel: {
+                child: categorySizer,
+                align: 'center'
+            },
+
+            scrollMode: 1,
+            scroller: false,
+            mouseWheelScroller: true,
+
+        }).layout().setDepth(10);
 
         // 2. Buat Panel Item (di bawah, scroll vertikal) - KODE INI SUDAH BENAR
         this.buttonGrid = scene.rexUI.add.gridSizer({

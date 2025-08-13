@@ -248,11 +248,12 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
+        scene.input.topOnly = false;
         if (outfitType === 'Dress') {
             if (scene.selectedCategory.previous) scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;
         }
-        scene.input.topOnly = false;
+        
         if (outfitType === 'Outer') {
             if (!scene.areOutersLoaded) {
                 scene.UIManager.showLoadingOverlay('Loading Outers...');
@@ -427,25 +428,24 @@ export class DressUpManager {
                     panel.setT(0);
                 }
 
-                const categoryPanel = scene.categorySidePanel;
-                if (!categoryPanel) return;
-
-                
-                if (orientation.isPortrait && categoryPanel.isOverflow) {
-                    categoryPanel.setT(1); 
-                
-                    const needsAnimation = !scene.animatedCategories.has(outfitType);
-                    if (needsAnimation) {
-                        scene.animatedCategories.add(outfitType);
-                        scene.tweens.add({
-                            targets: categoryPanel,
-                            t: 0, 
-                            duration: 500,
-                            ease: 'Cubic.easeInOut',
-                            delay: 300
-                        });
-                    }
-                }
+                //const categoryPanel = scene.categorySidePanel; // Pastikan kita mendapatkan panel yang benar
+                //if (!categoryPanel) return;
+//
+                //if (orientation.isPortrait && categoryPanel.isOverflow) {
+                //    categoryPanel.setT(1);
+                //
+                //    const needsAnimation = !scene.animatedCategories.has(outfitType); // atau makeUpType
+                //    if (needsAnimation) {
+                //        scene.animatedCategories.add(outfitType); // atau makeUpType
+                //        scene.tweens.add({
+                //            targets: categoryPanel, // <-- PASTIKAN TARGETNYA INI
+                //            t: 0,
+                //            duration: 500,
+                //            ease: 'Cubic.easeInOut',
+                //            delay: 300
+                //        });
+                //    }
+                //} 
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
