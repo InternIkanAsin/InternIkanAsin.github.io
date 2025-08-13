@@ -1,6 +1,6 @@
 // Costume Data Class
 import { costumeData } from '../Outfit Data/CostumeData.js'
-
+import { orientation } from '../ScreenOrientationUtils.js';
 // UI Buttons Class
 import UIButton, { OutfitButton, ItemPanelButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
@@ -167,7 +167,7 @@ export class DressUpManager {
             }
 
         );
-        lepasOutfitButton.setSize(150, 200);
+        lepasOutfitButton.setSize(150, 200).setDepth(15);
         allButtonContainersForPanel.push(lepasOutfitButton.container ? lepasOutfitButton.container : lepasOutfitButton);
 
 
@@ -252,7 +252,7 @@ export class DressUpManager {
             if (scene.selectedCategory.previous) scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;
         }
-
+        scene.input.topOnly = false;
         if (outfitType === 'Outer') {
             if (!scene.areOutersLoaded) {
                 scene.UIManager.showLoadingOverlay('Loading Outers...');
@@ -392,6 +392,7 @@ export class DressUpManager {
                 // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
 
+                
 
                 // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
@@ -424,6 +425,26 @@ export class DressUpManager {
                     panel.setT(1);
                 } else {
                     panel.setT(0);
+                }
+
+                const categoryPanel = scene.categorySidePanel;
+                if (!categoryPanel) return;
+
+                
+                if (orientation.isPortrait && categoryPanel.isOverflow) {
+                    categoryPanel.setT(1); 
+                
+                    const needsAnimation = !scene.animatedCategories.has(outfitType);
+                    if (needsAnimation) {
+                        scene.animatedCategories.add(outfitType);
+                        scene.tweens.add({
+                            targets: categoryPanel,
+                            t: 0, 
+                            duration: 500,
+                            ease: 'Cubic.easeInOut',
+                            delay: 300
+                        });
+                    }
                 }
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();

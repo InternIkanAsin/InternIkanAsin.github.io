@@ -338,8 +338,11 @@ const LANDSCAPE = {
     },
 
     categoryButton: {
+        width: 650,
+        height: 510,
         iconScale: 0.5,
-        buttonScale: 0.6 * 2
+        buttonScale: 0.6 * 2,
+        popOutY: -20
     },
     makeUpButton: {
         iconLockedX: 68,
@@ -536,43 +539,41 @@ const PORTRAIT = {
         finish: { x: 70, y: 610 }
     },
 
-    // Tata letak untuk bar kategori horizontal di atas panel item
     categoryBar: {
-        x: PORTRAIT_CENTERX,
-        y: PORTRAIT_HEIGHT * 0.72,
-        width: PORTRAIT_WIDTH,
-        height: 140,
-        columns: 5, // 5 kategori per baris
-        space: { column: 10 }
+        x: PORTRAIT_CENTERX - 50,
+        y: PORTRAIT_HEIGHT * 0.75,
+
+        width: 140, 
+        height: PORTRAIT_WIDTH, 
+
+        columns: 5,
+        space: { column: 200 }
     },
 
-    // Tata letak untuk panel item di bagian bawah layar
     bottomPanel: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_HEIGHT * 0.89,
         width: PORTRAIT_WIDTH,
-        height: 300, // Beri sedikit lebih banyak ruang
+        height: 300, 
         space: { top: 20, bottom: 20, left: 20, right: 20, panel: 10 }
     },
 
-    // Konfigurasi untuk grid item di dalam panel bawah
     grid: {
-        columns: 4, // 4 kolom untuk portrait
+        columns: 4, 
         space: { column: 20, row: 30 }
     },
 
-    // Properti khusus untuk animasi CategoryButton di portrait
     categoryButton: {
+        width: 510,
+        height: 650,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
-        popOutY: -20 // Seberapa jauh tombol "pop out" ke atas saat dipilih
+        popOutY: -20 
     },
 
     muteButton: {
-        // Posisi untuk Cutscene 1, Selection, dan Cutscene 2
         default: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 },
-        // Posisi khusus saat berada di dalam Minigame
-        minigame: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 } // Di portrait, posisinya mungkin sama
+        minigame: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 }
     },
 
     playerCharacter: {
@@ -945,10 +946,8 @@ const PORTRAIT = {
         textYPosition: 60
     },
 
-    categoryButton: {
-        iconScale: 0.5,
-        buttonScale: 0.5 * 2,
-    },
+
+    
 
     applyMakeUpPanel: {
         x: 0,

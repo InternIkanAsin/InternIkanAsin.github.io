@@ -1,14 +1,13 @@
 //General Button Class
 import { MakeUpButton, ItemPanelButton } from '../UI/UIButton.js'
-
 // MakeUp Data
 import { makeUpData } from '../Makeup Data/MakeUpData.js'
-
 import AssetLoader from '../AssetLoader.js';
 import { unlockManager } from '../Save System/UnlockManager.js';
-
+import { orientation } from '../ScreenOrientationUtils.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
+
 
 export class MakeUpManager {
     constructor(scene, AudioManager) {
@@ -261,7 +260,7 @@ export class MakeUpManager {
             }
             return false;
         };
-
+        scene.input.topOnly = false;
 
         let isLoading = false;
         if (makeUpType === 'Eyebrows') {
@@ -388,6 +387,40 @@ export class MakeUpManager {
                     panel.setT(1);
                 } else {
                     panel.setT(0);
+                }
+
+                const categoryPanel = scene.categorySidePanel;
+                if (!categoryPanel) return;
+
+                // --- TAMBAHKAN LOGIKA AUTO-SCROLL DI SINI ---
+                if (orientation.isPortrait && categoryPanel.isOverflow) {
+                    categoryPanel.setT(1); // Paksa ke paling kanan
+                
+                    const needsAnimation = !scene.animatedCategories.has(makeUpType);
+                    if (needsAnimation) {
+                        scene.animatedCategories.add(makeUpType);
+                        scene.tweens.add({
+                            targets: categoryPanel,
+                            t: 0, // Animasikan kembali ke kiri
+                            duration: 500,
+                            ease: 'Cubic.easeInOut',
+                            delay: 300
+                        });
+                    }
+                } else if (!orientation.isPortrait && categoryPanel.isOverflow) {
+                    // Ini adalah logika landscape yang sudah ada, kita pastikan tetap benar
+                    categoryPanel.setT(1);
+                    const needsAnimation = !scene.animatedCategories.has(makeUpType);
+                    if (needsAnimation) {
+                        scene.animatedCategories.add(makeUpType);
+                        scene.tweens.add({
+                            targets: categoryPanel,
+                            t: 0,
+                            duration: 400,
+                            ease: 'Cubic.easeInOut',
+                            delay: 300
+                        });
+                    }
                 }
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();

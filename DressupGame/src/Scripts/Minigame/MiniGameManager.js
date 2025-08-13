@@ -691,7 +691,6 @@ export class MiniGameManager {
         categorySizer.layout();
         scene.categorySidePanel = categorySizer;
 
-
         // 2. Buat Panel Item (di bawah, scroll vertikal) - KODE INI SUDAH BENAR
         this.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
@@ -703,12 +702,12 @@ export class MiniGameManager {
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
-            scrollMode: 0,
-            background: scene.add.nineslice(0, 0, 'sidePanel', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
+            scrollMode: 0,  
+            background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
             panel: { child: this.innerSizer },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space
-        }).layout().setDepth(10);
+        }).layout().setDepth(11);
     }
 
     setUpSidePanel_Landscape(scene) {
