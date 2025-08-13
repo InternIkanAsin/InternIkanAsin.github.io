@@ -28,7 +28,7 @@ export class DialogueManager {
         const nameBoxX = layout.dialogueBox.x - (layout.dialogueBox.width / 2) + 150;
         const nameBoxY = layout.dialogueBox.y - (layout.dialogueBox.height / 2) - 10;
 
-        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '',  nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1,1).setDepth(100).setScale(4);
+        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '', nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1, 1).setDepth(100).setScale(4);
         this.nameText = this.scene.add.text(nameBoxX, nameBoxY - 10, '', {
             fontSize: '50px',
             fill: '#00000',
@@ -49,7 +49,7 @@ export class DialogueManager {
         // Terapkan ukuran dan posisi dinamis ke kotak dialog
         this.dialogueBox.setPosition(boxLayout.x, boxLayout.y);
         this.dialogueBox.setDisplaySize(boxLayout.width, boxLayout.height);
-        
+
         // Terapkan posisi dan word-wrap dinamis ke teks
         this.dialogueText.setPosition(textLayout.x, textLayout.y);
         this.dialogueText.setAlign('left')

@@ -979,7 +979,7 @@ const PORTRAIT = {
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 40, right: 40, top: 40, bottom: 50
+            left: 128, right: 128, top: 68, bottom: 64
         }
     },
 
@@ -992,7 +992,7 @@ const PORTRAIT = {
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 40, right: 40, top: 40, bottom: 50
+            left: 128, right: 128, top: 68, bottom: 64
         }
     },
 
