@@ -492,6 +492,18 @@ const LANDSCAPE = {
                 frequency: 200
             }
         }
+    },
+
+    endingPanel: {
+        confettiBurst: {
+            speed: { min: 400, max: 700 }, 
+            angle: { min: 210, max: 330 }, 
+            scale: { start: 2, end: 0 },   
+            lifespan: 3000,                
+            gravityY: 400,                 
+            quantity: 100,                 
+            blendMode: 'NORMAL'
+        }
     }
 };
 const PORTRAIT_WIDTH = 720;
@@ -1049,6 +1061,18 @@ const PORTRAIT = {
                 quantity: 1,
                 frequency: 250
             }
+        }
+    },
+
+    endingPanel: {
+        confettiBurst: {
+            speed: { min: 350, max: 600 },
+            angle: { min: 210, max: 330 },
+            scale: { start: 1.6, end: 0 }, 
+            lifespan: 3000,
+            gravityY: 400,
+            quantity: 80, 
+            blendMode: 'NORMAL'
         }
     }
 

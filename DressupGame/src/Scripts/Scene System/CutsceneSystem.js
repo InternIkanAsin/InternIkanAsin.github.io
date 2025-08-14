@@ -211,7 +211,7 @@ export class CutsceneSystem {
                 this.scene.leftCurtain.setDepth(152);
                 this.scene.rightCurtain.setDepth(152);
                 this.scene.TweeningUtils.closeCurtains();
-
+                this.cleanupEmitters();
                 this.selectedDialogue = null;
 
             }, dialogueConfig);

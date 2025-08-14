@@ -1164,29 +1164,45 @@ export class MiniGameManager {
 
         const confettiKeys = _createConfettiTextures(this.scene);
 
-        // --- INI ADALAH PERUBAHAN KUNCI ---
-        // Alih-alih satu emitter, kita buat satu emitter untuk setiap kunci warna.
         if (confettiKeys && confettiKeys.length > 0) {
+            const burstConfig = layout.endingPanel.confettiBurst;
+            const allEmitters = [];
+            const screenHeight = this.scene.scale.height;
+            const screenWidth = this.scene.scale.width;
 
+            // Emitter dari KIRI, menyebar ke KANAN
             confettiKeys.forEach(key => {
-
-                // Buat emitter terpisah untuk setiap warna confetti
-                const confettiEmitter = this.scene.add.particles(0, 0, key, { // Perhatikan: hanya satu 'key' di sini
-                    emitZone: {
-                        source: new Phaser.Geom.Line(0, -50, this.scene.scale.width, -50),
-                        type: 'random',
-                        // Kurangi kuantitas karena kita punya banyak emitter
-                        quantity: 8
-                    },
-                    lifespan: 4000,
-                    speedY: { min: 150, max: 300 },
-                    gravityY: 100,
-                    scale: { start: 1.2, end: 0.25 },
-                    rotate: { start: 0, end: 720 },
-                    frequency: 100,
+                allEmitters.push(this.scene.add.particles(-50, screenHeight / 2, key, {
+                    ...burstConfig,
+                    angle: { min: -60, max: 60 }, // Menyebar ke kanan
+                    emitting: false
+                }).setDepth(152));
+            });
+        
+            // Emitter dari KANAN, menyebar ke KIRI
+            confettiKeys.forEach(key => {
+                allEmitters.push(this.scene.add.particles(screenWidth + 50, screenHeight / 2, key, {
+                    ...burstConfig,
+                    angle: { min: 120, max: 240 }, // Menyebar ke kiri
+                    emitting: false
+                }).setDepth(152));
+            });
+        
+            const triggerBurst = () => {
+                allEmitters.forEach(emitter => {
+                    // Karena kita sekarang punya DUA KALI LEBIH BANYAK emitter (kiri & kanan),
+                    // kita bagi dua jumlah partikel per ledakan agar totalnya tetap sama.
+                    emitter.explode(burstConfig.quantity / 2); 
                 });
-                confettiEmitter.setDepth(150);
-
+            };
+        
+            triggerBurst(); // Ledakan pertama
+        
+            // Simpan timer
+            this.endingPanelTimer = this.scene.time.addEvent({
+                delay: 3000,
+                callback: triggerBurst,
+                loop: true
             });
         }
 
