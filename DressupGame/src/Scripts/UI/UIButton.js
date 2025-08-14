@@ -296,9 +296,9 @@ export class CategoryButton extends BaseButton {
         ).setDepth(100).setInteractive().setScale(0.35);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
         const icon = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame)
-            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6);
+            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.4);
         const iconSelected = scene.add.image(0, 0, textureIconSelected.atlas, textureIconSelected.frame)
-            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.6).setVisible(false);
+            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.4).setVisible(false);
         super(scene, x, y, [button, buttonHighlighted, icon, iconSelected]);
 
 
@@ -422,7 +422,7 @@ export class CategoryButton extends BaseButton {
             });
         }
 
-        this.button.setTexture('yellowButton');
+        this.button.setTexture('yellowIconSelected');
         this.iconSelected.setVisible(true);
         this.icon.setVisible(false);
     }

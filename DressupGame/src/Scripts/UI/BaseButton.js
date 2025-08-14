@@ -9,23 +9,23 @@ export class BaseButton extends Phaser.GameObjects.Container {
 
     addHoverEffect(target, AudioManager = null) {
         target.on("pointerover", () => {
-            target.setAlpha(0.7);
-            AudioManager?.playSFX?.("hoverButton");
+           
+            target.setTint(0xAAAAAA);
         });
 
         target.on("pointerout", () => {
-            target.setAlpha(1);
+            target.clearTint();
         });
     }
 
     addClickEffect(target, AudioManager = null) {
         target.on("pointerdown", () => {
-            target.setAlpha(0.5);
+            target.setTint(0x777777);
             AudioManager?.playSFX?.("buttonClick");
         });
 
         target.on("pointerup", () => {
-            target.setAlpha(1);
+            target.clearTint();
         });
     }
 }
