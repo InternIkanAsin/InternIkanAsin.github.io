@@ -623,7 +623,7 @@ const PORTRAIT = {
         height: 630,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
-        popOutY: -20
+        popOutY: -50 
     },
 
     muteButton: {
@@ -840,16 +840,15 @@ const PORTRAIT = {
     },
 
     minigameFinishButton: {
-        x: 90,
-        y: 620,
+        x: 115,
+        y: 550,
+        scale: 0.14 * 2,
         useNineSlice: true,
         textOffsetX: 0,
-        texture: 'readyButtonIcon',
+        texture: 'yellowButton',
         width: 600,
         height: 150,
-        textSize: 60,
-        iconScale: 0.32,
-        buttonScale: 0.3
+        iconScale: 0.2 * 2
     },
     //Dialogue System
     dialogueBox: {
@@ -886,17 +885,25 @@ const PORTRAIT = {
     },
 
     backButton: {
-        x: PORTRAIT_WIDTH - 220,
+        x: PORTRAIT_WIDTH * 0.74,
         y: 70,
-        scale: 0.22,
-        iconScale: 0.22
+        scale: 0.11 * 2,
+        iconScale: 0.1 * 2
     },
 
     removeAllButton: {
-        x: 80,
-        y: 465,
-        buttonScale: 0.24,
-        iconScale: 0.24
+        x: 100,
+        y: 380,
+        buttonScale: 0.11 * 2,
+        iconScale:  0.1 * 2
+    },
+
+    purpleLines: {
+        offsetX: -80,
+        scale: 0.25, 
+        randomize: { y: 250 },
+        removeAll: { y: 380 },
+        finish:    { y: 550 }
     },
 
     //Category Buttons
@@ -1073,10 +1080,10 @@ const PORTRAIT = {
     },
 
     randomizeButton: {
-        x: 80,
-        y: 325,
-        buttonScale: 0.24,
-        iconScale: 0.24
+        x: 100,
+        y: 250,
+        scale: 0.11 * 2,
+        iconScale: 0.155 * 2
     },
 
     particleSizeAdjustments: {

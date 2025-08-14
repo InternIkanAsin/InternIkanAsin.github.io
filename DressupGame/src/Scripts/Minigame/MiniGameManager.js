@@ -81,21 +81,35 @@ export class MiniGameManager {
         scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 110, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
 
         if (orientation.isPortrait) {
-            const commonBtnConfig = {
-                textureButton: 'blueButton',
-                buttonWidth: 75,
-                buttonHeight: 75,
-                iconYPosition: -5,
-                buttonScale: 0.4
-            };
+            const randomizeLayout = layout.randomizeButton;
+            const lineLayout = layout.purpleLines;
+            const removeAllLayout = layout.removeAllButton;
+            const finishLayout = layout.minigameFinishButton;
+            scene.purpleLine1 = scene.add.image(
+                randomizeLayout.x + lineLayout.offsetX, 
+                lineLayout.randomize.y, 
+                'buttonIcon2Highlighted'
+            ).setScale(lineLayout.scale).setDepth(99); 
+        
+            scene.purpleLine2 = scene.add.image(
+                removeAllLayout.x + lineLayout.offsetX, 
+                lineLayout.removeAll.y, 
+                'buttonIcon2Highlighted'
+            ).setScale(lineLayout.scale).setDepth(99);
+        
+            scene.purpleLine3 = scene.add.image(
+                finishLayout.x + lineLayout.offsetX -15, 
+                lineLayout.finish.y, 
+                'buttonIcon2Highlighted'
+            ).setScale(lineLayout.scale).setDepth(99);
 
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
-                ...commonBtnConfig,
-                x: layout.randomizeButton.x,
-                y: layout.randomizeButton.y,
+                x: randomizeLayout.x,
+                y: randomizeLayout.y,
+                textureButton: 'blueButton',
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
-                iconScale: layout.randomizeButton.iconScale,
-                buttonScale: layout.randomizeButton.buttonScale,
+                iconScale: randomizeLayout.iconScale,
+                buttonScale: randomizeLayout.scale,
                 callback: () => {
                     if (scene.state === GameState.MAKEUP) {
                         scene.MakeUpManager.removeAllMakeup();
@@ -136,14 +150,14 @@ export class MiniGameManager {
                 buttonScale: layout.removeAllButton.buttonScale,
             }).setDepth(99);
 
+            
             scene.finishButton = new UIButton(scene, this.AudioManager, {
-                ...commonBtnConfig,
-                textureButton: 'yellowButton',
-                x: layout.minigameFinishButton.x,
-                y: layout.minigameFinishButton.y,
-                textureIcon: { atlas: 'Icon_spritesheet', frame: 'tickMark' }, // Menggunakan frame dari atlas jika ada, atau 'tickMark' jika terpisah
-                iconScale: layout.minigameFinishButton.iconScale,
-                buttonScale: layout.minigameFinishButton.buttonScale,
+                x: finishLayout.x,
+                y: finishLayout.y,
+                textureButton: finishLayout.texture,
+                textureIcon: 'tickMark',
+                iconScale: finishLayout.iconScale,
+                buttonScale: finishLayout.scale,
                 callback: () => {
                     scene.finishButton.disableInteractive();
                     if (scene.state === GameState.DRESSUP) {
@@ -715,8 +729,8 @@ export class MiniGameManager {
             panelWidth = Math.min(targetViewport * 100, categoryWidth - 40);
         }
         const scrollPanel = scene.rexUI.add.scrollablePanel({
-            x: catLayout.x + 100,
-            y: catLayout.y - 120,
+            x: catLayout.x + 100 ,
+            y: catLayout.y - 80,
             width: panelWidth + 400,
             height: catLayout.height - 500,
             scrollMode: 1,
@@ -752,7 +766,7 @@ export class MiniGameManager {
             width: panelLayout.width, height: panelLayout.height,
             scrollMode: 0,
             background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
-            panel: { child: this.innerSizer, mask: { padding: { top: - 35 } } },
+            panel: { child: this.innerSizer, mask: { padding: { top: - 35 } }, inputHitArea: false },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space,
             mask: { padding: { bottom: 1000 } }
