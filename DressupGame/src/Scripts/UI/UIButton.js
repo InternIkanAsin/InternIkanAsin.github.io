@@ -766,8 +766,8 @@ export class OutfitButton extends BaseButton {
 export class MakeUpButton extends BaseButton {
     static selectedMakeUp = {};
     static DEPTH_VALUES = {
-        "Pupil": 2, "Eyeshadow": 1.9, "Eyeliner": 2.2, "Blush": 1.9,
-        "Eyebrows": 2.4, "Eyelashes": 2.5, "Lips": 2.6, "Sticker": 2.7
+        "Pupil": 4, "Eyeshadow": 1.9, "Eyeliner": 5, "Blush": 1.9,
+        "Eyebrows": 2.4, "Eyelashes": 6, "Lips": 2.6, "Sticker": 2.7
     };
 
     constructor(scene, name, makeupType, x, y, textureAnime, textureButton, textureIcon, AudioManager, isLocked = false) {
@@ -1070,7 +1070,7 @@ export class MakeUpButton extends BaseButton {
                 } else {
 
                     console.log(`[MakeUpButton] Unequipping completed colorable ${name}`);
-                    if (makeupType === 'Lips') {
+                    if (makeupType === 'Lips' || makeupType === 'Eyeshadow') {
 
                     } else if (this.displayedMakeUp && typeof this.displayedMakeUp.destroy === 'function') {
 
