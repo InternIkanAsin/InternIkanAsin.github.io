@@ -191,8 +191,8 @@ class Main extends Phaser.Scene {
         const centerY = scene.scale.height / 2;
         scene.UIManager.setupScene(scene);
 
-        const targetDrapeWidth = 1080;
-        const targetDrapeHeight = 1080;
+        const targetDrapeWidth = layout.drapes.width;
+        const targetDrapeHeight = layout.drapes.height;
 
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);

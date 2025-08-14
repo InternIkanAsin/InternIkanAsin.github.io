@@ -170,6 +170,8 @@ const LANDSCAPE = {
     //Tirai
     drapes: {
         displayHeight: null,
+        width: 1080,
+        height: 1080,
         closed: {
             leftX: (1920 / 2) / 2 + 50,
             rightX: 1920 - ((1920 / 2) / 2 + 50)
@@ -737,7 +739,8 @@ const PORTRAIT = {
     //Tirai gede
     drapes: {
         displayHeight: 1280,
-
+        width: 1080,
+        height: PORTRAIT_HEIGHT,
         closed: {
             leftX: 180,
             rightX: PORTRAIT_WIDTH - 180
