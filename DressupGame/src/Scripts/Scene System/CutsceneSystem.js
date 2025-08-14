@@ -1,6 +1,5 @@
-import { layout } from '../ScreenOrientationUtils.js';
 import UIButton from '../UI/UIButton.js';
-//Bachelor Dialogues Class
+import { orientation, layout } from '../ScreenOrientationUtils.js';
 import { bachelorDialoguesContainer, initializeBachelorDialogue } from '../Bachelor/bachelorDialogues.js';
 
 export class CutsceneSystem {
@@ -20,6 +19,12 @@ export class CutsceneSystem {
         // Gunakan nilai dari csLayout
         scene.phoneBackground = this.scene.add.image(csLayout.phoneBackground.x, csLayout.phoneBackground.y, 'phoneBackground').setDisplaySize(csLayout.phoneBackground.width, csLayout.phoneBackground.height);
         scene.phone = this.scene.add.image(csLayout.phone.x, csLayout.phone.y, 'phone').setScale(csLayout.phone.scale).setDepth(101);
+        if (orientation.isPortrait) {
+            scene.pinkBg = scene.add.image(width / 2, height / 2, 'cutscene1PinkBg')
+                .setDisplaySize(width, height + 100)
+                .setDepth(layout.cutsceneBG.depth + 0.5)
+                .setVisible(false);
+        }
 
         scene.nameText = this.scene.add.text(csLayout.nameText.x, csLayout.nameText.y, bachelorName, {
             fontSize: csLayout.nameText.fontSize, // Gunakan fontSize dari layout
@@ -79,6 +84,14 @@ export class CutsceneSystem {
     }
 
     acceptCall(bachelorChoice, bachelorName, datePlace) {
+        if (orientation.isPortrait) {
+            this._acceptCallPortrait(bachelorChoice, bachelorName, datePlace);
+        } else {
+            this._acceptCallLandscape(bachelorChoice, bachelorName, datePlace);
+        }
+    }
+
+    _acceptCallLandscape(bachelorChoice, bachelorName, datePlace) {
         const scene = this.scene;
         const callStatusText = 'Calling...';
         scene.callStatus.setText(callStatusText);
@@ -105,13 +118,94 @@ export class CutsceneSystem {
                     const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
 
                     scene.DialogueManager.showDialogue(bachelorDialogue, () => {
-                        scene.cameras.main.fadeOut(2000);
+                        
                         scene.SceneManager.TransitionCutscene1();
                     });
                 });
             }
         })
     }
+
+    _acceptCallPortrait(bachelorChoice, bachelorName, datePlace) {
+        const scene = this.scene;
+        const callStatusText = 'Calling...';
+        scene.callStatus.setText(callStatusText);
+        
+        const onCallLayout = layout.cutscene1.onCall;
+
+        // 1. Munculkan background pink
+        if (scene.pinkBg) {
+            scene.pinkBg.setVisible(true);
+        }
+
+        // 2. Animasikan background telepon
+        scene.tweens.add({
+            targets: scene.phoneBackground,
+            scaleY: onCallLayout.phoneBackgroundShrinkY,
+            duration: 500,
+            ease: 'Sine.easeInOut'
+        });
+
+        // 3. Animasikan hilangnya UI panggilan
+        scene.tweens.add({
+            targets: [scene.bachelorProfile, scene.acceptCallButton],
+            alpha: 0,
+            duration: 250,
+            ease: 'Sine.easeInOut',
+            onComplete: () => {
+                scene.acceptCallButton?.destroy();
+                scene.bachelorProfile?.destroy();
+            }
+        });
+        
+        // 4. Animasikan teks ke posisi baru
+        scene.tweens.add({ targets: scene.nameText, y: onCallLayout.nameTextY, duration: 500, ease: 'Sine.easeInOut' });
+        scene.tweens.add({ targets: scene.callStatus, y: onCallLayout.callStatusY, duration: 500, ease: 'Sine.easeInOut' });
+
+        // 5. Buat tombol tutup telepon
+        scene.endCallGimmick = scene.add.image(
+            onCallLayout.endCallButton.x,
+            onCallLayout.endCallButton.y,
+            'endCallIcon'
+        ).setScale(1).setDepth(102).setAlpha(0); // Set skala ke 1
+
+        scene.tweens.add({
+            targets: scene.endCallGimmick,
+            alpha: 1,
+            delay: 500,
+            duration: 300
+        });
+
+        // 6. Atur posisi bachelor & dialog
+        bachelorChoice.setPosition(onCallLayout.bachelorSprite.x, onCallLayout.bachelorSprite.y);
+        bachelorChoice.setScale(onCallLayout.bachelorSprite.scale);
+        
+        const dm = scene.DialogueManager;
+        const dialogueBoxLayout = onCallLayout.dialogueBox;
+        const dialogueTextLayout = onCallLayout.dialogueText;
+        dm.dialogueBox.setPosition(dialogueBoxLayout.x, dialogueBoxLayout.y).setDisplaySize(dialogueBoxLayout.width, dialogueBoxLayout.height);
+        dm.dialogueText.setPosition(dialogueTextLayout.x, dialogueTextLayout.y).setWordWrapWidth(dialogueTextLayout.wordWrap);
+
+        // 7. Tampilkan bachelor dan dialog
+        scene.tweens.add({
+            targets: bachelorChoice,
+            alpha: 1,
+            delay: 300,
+            duration: 1000,
+            ease: 'Sine.easeInOut',
+            onComplete: () => {
+                scene.time.delayedCall(500, () => {
+                    const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
+                    dm.showDialogue(bachelorDialogue, () => {
+                        
+                        scene.SceneManager.TransitionCutscene1();
+                        
+                    });
+                });
+            }
+        });
+    }
+
     initiateCutscene2(bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
         const scene = this.scene;

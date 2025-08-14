@@ -70,7 +70,8 @@ export default class AssetLoader {
     scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');
     scene.load.image('buttonIconLocked', 'Asset/UI/Button_Icon_Locked.png');
     scene.load.image('lockIcon', 'Asset/UI/Icon_Locked.png');
-
+    scene.load.image('cutscene1PinkBg', "Asset/UI/New/kotak merah di belakang.png"); 
+    scene.load.image('endCallIcon', "Asset/UI/New/hang_up.png");
 
     scene.load.image('dressButtonIcon', 'Asset/UI/Wardrobe_Icon.png');
     scene.load.image('makeUpButtonIcon', 'Asset/UI/Makeup_Icon.png');

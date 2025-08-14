@@ -19,7 +19,8 @@ export class SceneManager {
             this.scene.profileBorder?.destroy();
             this.scene.profileInside?.destroy();
             this.scene.acceptCallButton?.destroy();
-
+            this.scene.endCallGimmick?.destroy();
+            this.scene.pinkBg?.destroy();
             if (typeof this.scene.createSelectionScreen === 'function') {
                 this.scene.createSelectionScreen();
             }
