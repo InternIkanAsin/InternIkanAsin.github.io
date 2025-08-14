@@ -111,13 +111,14 @@ const LANDSCAPE = {
     minigameFinishButton: {
         x: 140,
         y: 525 + (75 * 1.6) + 100,
-        scale: 0.4,
         useNineSlice: false,
         textOffsetX: 5,
         texture: 'readyButtonIcon',
         width: 200,
         height: 150,
-        textSize: 45
+        textSize: 45,
+        iconScale: 0.32,
+        buttonScale: 0.3
     },
 
     // character position
@@ -272,7 +273,9 @@ const LANDSCAPE = {
     finishButton: {
         x: 1920 / 2,
         y: 1080 - 200,
-        textSize: 60
+        textSize: 60,
+        iconScale: 0.6,
+        buttonScale: 0.7,
     },
 
     //Dialogue System
@@ -496,12 +499,12 @@ const LANDSCAPE = {
 
     endingPanel: {
         confettiBurst: {
-            speed: { min: 400, max: 700 }, 
-            angle: { min: 210, max: 330 }, 
-            scale: { start: 2, end: 0 },   
-            lifespan: 3000,                
-            gravityY: 400,                 
-            quantity: 100,                 
+            speed: { min: 400, max: 700 },
+            angle: { min: 210, max: 330 },
+            scale: { start: 2, end: 0 },
+            lifespan: 3000,
+            gravityY: 400,
+            quantity: 100,
             blendMode: 'NORMAL'
         }
     }
@@ -548,17 +551,17 @@ const PORTRAIT = {
             // Posisi Y baru untuk teks setelah diangkat
             nameTextY: PORTRAIT_HEIGHT * 0.1,
             callStatusY: PORTRAIT_HEIGHT * 0.18,
-            
+
             // Konfigurasi untuk background telepon yang menciut
             phoneBackgroundShrinkY: 1.5, // Menciut menjadi 80% dari tinggi aslinya
-            
+
             // Posisi baru untuk bachelor full-body
             bachelorSprite: {
                 x: PORTRAIT_CENTERX,
                 y: PORTRAIT_HEIGHT * 0.5, // Lebih tinggi dari sebelumnya
                 scale: 0.65
             },
-            
+
             // Posisi untuk dialog
             dialogueBox: {
                 x: PORTRAIT_CENTERX,
@@ -581,17 +584,17 @@ const PORTRAIT = {
     },
 
     actionButtons: {
-        randomize: { x: 70, y: 350 },
-        removeAll: { x: 70, y: 480 },
-        finish: { x: 70, y: 610 }
+        randomize: { x: 80, y: 325 },
+        removeAll: { x: 80, y: 465 },
+        finish: { x: 90, y: 620, iconScale: 0.32, buttonScale: 0.3 }
     },
 
     categoryBar: {
         x: PORTRAIT_CENTERX - 50,
         y: PORTRAIT_HEIGHT * 0.75,
 
-        width: 140, 
-        height: PORTRAIT_WIDTH, 
+        width: 140,
+        height: PORTRAIT_WIDTH,
 
         columns: 5,
         space: { column: 200 }
@@ -601,12 +604,12 @@ const PORTRAIT = {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_HEIGHT * 0.89,
         width: PORTRAIT_WIDTH,
-        height: 300, 
+        height: 300,
         space: { top: 20, bottom: 20, left: 60, right: 0, panel: 10 }
     },
 
     grid: {
-        columns: 4, 
+        columns: 4,
         space: { column: 20, row: 30 }
     },
 
@@ -619,8 +622,8 @@ const PORTRAIT = {
     },
 
     muteButton: {
-        default: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 },
-        minigame: { x: PORTRAIT_WIDTH - 60, y: 70, scale: 0.22 }
+        default: { x: PORTRAIT_WIDTH - 80, y: 70, scale: 0.22 },
+        minigame: { x: PORTRAIT_WIDTH - 80, y: 70, scale: 0.22 }
     },
 
     playerCharacter: {
@@ -826,7 +829,9 @@ const PORTRAIT = {
     finishButton: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_HEIGHT - 200,
-        textSize: 60
+        textSize: 60,
+        iconScale: 0.32,
+        buttonScale: 0.3,
     },
 
     minigameFinishButton: {
@@ -1003,7 +1008,7 @@ const PORTRAIT = {
     },
 
 
-    
+
 
     applyMakeUpPanel: {
         x: 0,
@@ -1112,10 +1117,10 @@ const PORTRAIT = {
         confettiBurst: {
             speed: { min: 350, max: 600 },
             angle: { min: 210, max: 330 },
-            scale: { start: 1.6, end: 0 }, 
+            scale: { start: 1.6, end: 0 },
             lifespan: 3000,
             gravityY: 400,
-            quantity: 80, 
+            quantity: 80,
             blendMode: 'NORMAL'
         }
     }
