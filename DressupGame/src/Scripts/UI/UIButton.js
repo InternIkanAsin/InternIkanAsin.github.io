@@ -70,9 +70,10 @@ export default class UIButton extends BaseButton {
 
     }
     resetVisuals() {
-        this.setAlpha(1);
+         this.setAlpha(1); 
         if (this.button) {
             this.button.setAlpha(1);
+            this.button.clearTint();         
         }
         console.log("[UIButton] Visuals reset.");
     }
