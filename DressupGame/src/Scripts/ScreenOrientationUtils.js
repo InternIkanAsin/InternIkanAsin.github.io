@@ -531,8 +531,8 @@ const PORTRAIT = {
 
     cutscene1: {
         // Di portrait, kita buat telepon lebih besar dan lebih ke tengah
-        phone: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY + 80, scale: 1.3 },
-        phoneBackground: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.2, width: 580, height: 1100 }, // Lebih ramping dan tinggi
+        phone: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY + 80, scale: 5 },
+        phoneBackground: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1, width: 720, height: 1280 }, // Lebih ramping dan tinggi
         profilePic: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 0.7, scale: 1.1 },
         nameText: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.05, fontSize: '72px' }, // Font lebih besar
         callStatus: { x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY * 1.18, fontSize: '40px' },
@@ -540,8 +540,43 @@ const PORTRAIT = {
         scale: 0.4,
         bachelorSprite: {
             x: PORTRAIT_CENTERX * 1.0,
-            y: PORTRAIT_HEIGHT * 0.8,
+            y: PORTRAIT_HEIGHT * 0.3,
             scale: 0.9
+        },
+
+        onCall: {
+            // Posisi Y baru untuk teks setelah diangkat
+            nameTextY: PORTRAIT_HEIGHT * 0.1,
+            callStatusY: PORTRAIT_HEIGHT * 0.18,
+            
+            // Konfigurasi untuk background telepon yang menciut
+            phoneBackgroundShrinkY: 1.5, // Menciut menjadi 80% dari tinggi aslinya
+            
+            // Posisi baru untuk bachelor full-body
+            bachelorSprite: {
+                x: PORTRAIT_CENTERX,
+                y: PORTRAIT_HEIGHT * 0.5, // Lebih tinggi dari sebelumnya
+                scale: 0.65
+            },
+            
+            // Posisi untuk dialog
+            dialogueBox: {
+                x: PORTRAIT_CENTERX,
+                y: PORTRAIT_HEIGHT * 0.75, // Lebih tinggi dari biasanya
+                width: 1000,
+                height: 300
+            },
+            dialogueText: {
+                x: PORTRAIT_WIDTH / 15,
+                y: PORTRAIT_HEIGHT * 0.7, // Lebih tinggi dari biasanya
+                wordWrap: PORTRAIT_WIDTH - 80
+            },
+
+            // Posisi untuk tombol tutup telepon
+            endCallButton: {
+                x: PORTRAIT_CENTERX,
+                y: PORTRAIT_HEIGHT * 0.9
+            }
         }
     },
 
@@ -808,13 +843,13 @@ const PORTRAIT = {
     //Dialogue System
     dialogueBox: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_CENTERY * 1.65,
-        width: 540,
+        y: PORTRAIT_CENTERY * 1.35,
+        width: 640,
         height: 350
     },
     dialogueText: {
         x: PORTRAIT_WIDTH / 6,
-        y: PORTRAIT_CENTERY * 1.45,
+        y: PORTRAIT_CENTERY * 1.15,
         fontSize: 32,
         wordWrap: PORTRAIT_WIDTH - 240
     },
