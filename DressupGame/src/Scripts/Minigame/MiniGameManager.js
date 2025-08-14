@@ -76,10 +76,7 @@ export class MiniGameManager {
             buttonScale: layout.backButton.scale,
         }).setDepth(99);
 
-        scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 90, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
-        scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 90, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
-        scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 110, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
-
+        
         if (orientation.isPortrait) {
             const randomizeLayout = layout.randomizeButton;
             const lineLayout = layout.purpleLines;
@@ -175,6 +172,9 @@ export class MiniGameManager {
 
         } else {
 
+            scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 90, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+            scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 90, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+            scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 110, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
 
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.randomizeButton.x,
@@ -1136,38 +1136,7 @@ export class MiniGameManager {
         });
     }
 
-    //createConfettiTextures() {
-    //    const confettiColors = [0xffd700, 0xff69b4, 0x00bfff, 0x32cd32, 0xff4500, 0x9370db];
-    //    const textureKeys = [];
-    //    const sessionId = this.scene.gameSessionId;
-    //
-    //    console.log(`[Confetti Log] Creating textures for Session ID: ${sessionId} using createCanva`);
-    //
-    //    confettiColors.forEach(color => {
-    //        const key = `confetti_session${sessionId}_${color.toString(16)}`;
-    //        textureKeys.push(key);
-    //
-    //        // Buat tekstur kanvas kosong
-    //        const texture = this.scene.textures.createCanvas(key, 10, 20);
-    //        
-    //        // Dapatkan konteks 2D dari kanvas tekstur
-    //        const context = texture.getContext();
-    //        
-    //        // Konversi warna hex number menjadi string CSS (misal: '#ffd700')
-    //        const colorString = '#' + ('000000' + color.toString(16)).substr(-6);
-    //        
-    //        // Gambar persegi panjang berwarna di atas kanvas
-    //        context.fillStyle = colorString;
-    //        context.fillRect(0, 0, 10, 20);
-    //        
-    //        // PENTING: Refresh tekstur agar perubahan terlihat oleh WebGL
-    //        texture.refresh();
-    //        
-    //        console.log(`[Confetti Log]   -> Generated texture with key: '${key}' via Canvas`);
-    //    });
-    //
-    //    return textureKeys;
-    //}
+    
 
     createEndingPanel() {
         const centerX = this.scene.scale.width / 2;
@@ -1182,35 +1151,26 @@ export class MiniGameManager {
             const screenHeight = this.scene.scale.height;
             const screenWidth = this.scene.scale.width;
 
-            // Emitter dari KIRI, menyebar ke KANAN
             confettiKeys.forEach(key => {
-                allEmitters.push(this.scene.add.particles(-50, screenHeight / 2, key, {
+                allEmitters.push(this.scene.add.particles(screenWidth / 2, screenHeight, key, {
                     ...burstConfig,
-                    angle: { min: -60, max: 60 }, // Menyebar ke kanan
+                    
+                    angle: { min: 240, max: 300 }, 
+                    speed: { min: 400, max: 800 }, 
+                    gravityY: 400,
                     emitting: false
                 }).setDepth(152));
             });
-
-            // Emitter dari KANAN, menyebar ke KIRI
-            confettiKeys.forEach(key => {
-                allEmitters.push(this.scene.add.particles(screenWidth + 50, screenHeight / 2, key, {
-                    ...burstConfig,
-                    angle: { min: 120, max: 240 }, // Menyebar ke kiri
-                    emitting: false
-                }).setDepth(152));
-            });
-
+        
             const triggerBurst = () => {
                 allEmitters.forEach(emitter => {
-                    // Karena kita sekarang punya DUA KALI LEBIH BANYAK emitter (kiri & kanan),
-                    // kita bagi dua jumlah partikel per ledakan agar totalnya tetap sama.
                     emitter.explode(burstConfig.quantity / 2);
                 });
             };
 
-            triggerBurst(); // Ledakan pertama
+            triggerBurst(); 
 
-            // Simpan timer
+            
             this.endingPanelTimer = this.scene.time.addEvent({
                 delay: 3000,
                 callback: triggerBurst,
