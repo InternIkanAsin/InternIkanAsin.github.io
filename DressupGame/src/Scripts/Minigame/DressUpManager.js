@@ -248,7 +248,7 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
-        scene.input.topOnly = false;
+        
         if (outfitType === 'Dress') {
             if (scene.selectedCategory.previous) scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;

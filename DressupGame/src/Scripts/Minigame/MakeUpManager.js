@@ -260,7 +260,7 @@ export class MakeUpManager {
             }
             return false;
         };
-        scene.input.topOnly = false;
+       
 
         let isLoading = false;
         if (makeUpType === 'Eyebrows') {

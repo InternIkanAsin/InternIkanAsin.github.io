@@ -57,8 +57,9 @@ const LANDSCAPE = {
     },
 
     outfit: {
+        
         positions: {
-            Dress: { x: 872 - 300, y: 646.5 },
+            Dress: { x: 872 - 300, y: 646.5  },
             Shirt: { x: 872.5 - 300, y: 439 },
             Outer: { x: 872.5 - 300, y: 479.5 },
             Lower: { x: 890 - 300, y: 740 },
@@ -527,15 +528,47 @@ const PORTRAIT = {
     // character position
     character: {
         x: 720 / 2 / 1.1,
-        y: 1280 / 2 / 0.9,
-        scale: 0.6,
+        y: 1280 / 2 / 0.9 - 280,
+        scale: 0.6 ,
         zoomInX: 720 / 2 * 1.05,
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
-
+        
         halfZoomX: PORTRAIT_CENTERX,
         halfZoomY: PORTRAIT_HEIGHT * 0.65,
         halfZoomScale: 1.0
+    },
+
+    //Face
+    face: {
+        zoomInFaceX: 720 / 2 * 0.95,
+        zoomInFaceY: 1280 / 2 / 1.2,
+        zoomInTargetFaceScale: 1,
+
+        zoomOutFaceX: 720 / 2 / 1.13,
+        zoomOutFaceY: 1280 / 2 / 1.79 - 280,
+        zoomOutTargetFaceScale: 0.3 ,
+
+        halfZoomFaceX: PORTRAIT_CENTERX - 16,
+        halfZoomFaceY: PORTRAIT_HEIGHT * 0.19,
+        halfZoomFaceScale: 0.5
+
+    },
+    //Hair
+    Hair: {
+
+        zoomInHairX: 720 / 2,
+        zoomInHairY: 1280 / 2 * 1.46,
+        zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
+
+        zoomOutHairX: 720 / 2 / 1.107,
+        zoomOutHairY: 1280 / 2 / 1.325 - 280,
+        zoomOutHairScale: 0.25 * 2 * 256 / 225 ,
+
+        halfZoomHairX: PORTRAIT_CENTERX - 5,
+        halfZoomHairY: PORTRAIT_HEIGHT * 0.345,
+        halfZoomHairScale: 0.8 * 256 / 225
+
     },
 
     cutscene1: {
@@ -611,7 +644,7 @@ const PORTRAIT = {
         y: PORTRAIT_HEIGHT * 0.89,
         width: PORTRAIT_WIDTH,
         height: 300,
-        space: { top: 20, bottom: 20, left: 60, right: 0, panel: 10 }
+        space: { top: 60, bottom: 20, left: 60, right: 0, panel: 10 }
     },
 
     grid: {
@@ -677,13 +710,14 @@ const PORTRAIT = {
     },
 
     outfit: {
+        offsety: 100,
         positions: {
-            Dress: { x: 327, y: 757.5 },
-            Shirt: { x: 327, y: 549 },
-            Outer: { x: 328.5, y: 590.5 },
-            Lower: { x: 342, y: 853 },
-            Socks: { x: 365.5, y: 878 },
-            Shoes: { x: 378, y: 1022 }
+            Dress: { x: 327, y: 757.5 - 280 },
+            Shirt: { x: 327, y: 549 - 280},
+            Outer: { x: 328.5, y: 590.5 - 280},
+            Lower: { x: 342, y: 853 - 280},
+            Socks: { x: 365.5, y: 878 - 280},
+            Shoes: { x: 378, y: 1022 - 280}
         },
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
@@ -778,37 +812,7 @@ const PORTRAIT = {
 
     },
 
-    //Face
-    face: {
-        zoomInFaceX: 720 / 2 * 0.95,
-        zoomInFaceY: 1280 / 2 / 1.2,
-        zoomInTargetFaceScale: 1,
-
-        zoomOutFaceX: 720 / 2 / 1.13,
-        zoomOutFaceY: 1280 / 2 / 1.79,
-        zoomOutTargetFaceScale: 0.3,
-
-        halfZoomFaceX: PORTRAIT_CENTERX - 16,
-        halfZoomFaceY: PORTRAIT_HEIGHT * 0.19,
-        halfZoomFaceScale: 0.5
-
-    },
-    //Hair
-    Hair: {
-
-        zoomInHairX: 720 / 2,
-        zoomInHairY: 1280 / 2 * 1.46,
-        zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
-
-        zoomOutHairX: 720 / 2 / 1.107,
-        zoomOutHairY: 1280 / 2 / 1.325,
-        zoomOutHairScale: 0.25 * 2 * 256 / 225,
-
-        halfZoomHairX: PORTRAIT_CENTERX - 5,
-        halfZoomHairY: PORTRAIT_HEIGHT * 0.345,
-        halfZoomHairScale: 0.8 * 256 / 225
-
-    },
+    
     // Side Panel
     sidePanel: {
         x: PORTRAIT_WIDTH - 300,

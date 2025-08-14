@@ -766,11 +766,27 @@ export class MiniGameManager {
             width: panelLayout.width, height: panelLayout.height,
             scrollMode: 0,
             background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
-            panel: { child: this.innerSizer, mask: { padding: { top: - 35 } }, inputHitArea: false },
+            panel: { 
+                child: this.innerSizer, 
+                inputHitArea: false 
+            },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space,
-            mask: { padding: { bottom: 1000 } }
         }).layout().setDepth(11);
+
+        const panelBounds = scene.sidePanel.getBounds();
+
+        // Pasang listener ke semua tombol di innerSizer
+        this.innerSizer.getChildren().forEach(child => {
+            if (!child.input) child.setInteractive({ useHandCursor: true });
+        
+            child.on('pointerdown', (pointer) => {
+                if (!Phaser.Geom.Rectangle.Contains(panelBounds, pointer.x, pointer.y)) {
+                    // Klik di luar area panel → blokir
+                    pointer.event.stopPropagation();
+                }
+            });
+        });
 
 
 
