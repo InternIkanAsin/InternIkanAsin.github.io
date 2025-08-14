@@ -30,7 +30,7 @@ const LANDSCAPE = {
         scale: 0.8,
         bachelorSprite: {
             // Nilai ini didasarkan pada kode Anda yang sudah ada
-            x: LANDSCAPE_CENTERX + 55,
+            x: LANDSCAPE_CENTERX + 20,
             y: LANDSCAPE_HEIGHT / 2 * 1.7, // y = 918
             scale: 1 // Skala container adalah 1, karena gambar di dalamnya sudah di-scale 2x
         }
