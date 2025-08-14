@@ -28,7 +28,7 @@ export class DialogueManager {
         const nameBoxX = layout.dialogueBox.x - (layout.dialogueBox.width / 2) + 150;
         const nameBoxY = layout.dialogueBox.y - (layout.dialogueBox.height / 2) - 10;
 
-        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '', nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1, 1).setDepth(100).setScale(4);
+        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '', nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1, 1).setDepth(100);
         this.nameText = this.scene.add.text(nameBoxX, nameBoxY - 10, '', {
             fontSize: '50px',
             fill: '#00000',
@@ -65,7 +65,7 @@ export class DialogueManager {
             // Reposisi kotak nama relatif terhadap kotak dialog BARU
             const nameBoxLayout = layout.namedDialogueNameBox;
             const nameBoxX = boxLayout.x - (boxLayout.width / 2) + nameBoxLayout.offsetX;
-            const nameBoxY = boxLayout.y - (boxLayout.height / 2) - 10;
+            const nameBoxY = boxLayout.y - (boxLayout.height / 2) - 10 / 1.2;
             this.dialogueNameBox.setPosition(nameBoxX, nameBoxY);
             this.nameText.setPosition(nameBoxX, nameBoxY - 10);
         }

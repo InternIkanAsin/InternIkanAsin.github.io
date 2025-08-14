@@ -70,7 +70,7 @@ export default class AssetLoader {
     scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');
     scene.load.image('buttonIconLocked', 'Asset/UI/Button_Icon_Locked.png');
     scene.load.image('lockIcon', 'Asset/UI/Icon_Locked.png');
-    scene.load.image('cutscene1PinkBg', "Asset/UI/New/kotak merah di belakang.png"); 
+    scene.load.image('cutscene1PinkBg', "Asset/UI/New/kotak merah di belakang.png");
     scene.load.image('endCallIcon', "Asset/UI/New/hang_up.png");
 
     scene.load.image('dressButtonIcon', 'Asset/UI/Wardrobe_Icon.png');
@@ -122,6 +122,7 @@ export default class AssetLoader {
     scene.load.image('crossMark', 'Asset/UI/New/Cross_Icon.png');
 
     scene.load.image('fingerCursor', 'Asset/UI/Finger_Icon.png');
+    scene.load.image('flowers', 'Asset/UI/New/Flower_Two.png');
 
     // cursor asset
     scene.load.image('LipstickCursor', "Asset/UI/New/lipstick.png");
@@ -173,6 +174,7 @@ export default class AssetLoader {
       'Asset/UI/New/Icon_Pressed_Spritesheet.png',
       'Asset/UI/New/Icon_Pressed_Spritesheet.json'
     );
+
   }
 
   static loadSceneAssets(scene) {
@@ -285,9 +287,10 @@ export default class AssetLoader {
       'Asset/Outfit/Shirt/Shirt_spritesheet.json'
     );
 
-
-
-
+    AssetLoader.loadShoes(scene);
+    AssetLoader.loadSocks(scene);
+    AssetLoader.loadOuter(scene);
+    AssetLoader.loadLower(scene);
 
 
     //Outfit Icons
@@ -446,8 +449,6 @@ export default class AssetLoader {
     //eyebrow (default)
     scene.load.atlas('eyebrow_spritesheet', "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.png", "Asset/makeup/MakeupAnime/eyebrow/normal/spritesheet.json");
 
-
-
     //icon makeup
     //Grup 1
     scene.load.atlas(
@@ -470,6 +471,14 @@ export default class AssetLoader {
       "Asset/ikon/Rambut/hair_spritesheet.json"
     );
 
+    AssetLoader.loadHair(scene);
+    AssetLoader.loadBlush(scene);
+    AssetLoader.loadEyeliner(scene);
+    AssetLoader.loadEyeShadow(scene);
+    AssetLoader.loadLip(scene);
+    AssetLoader.loadPupil(scene);
+    AssetLoader.loadEyebrow(scene);
+    AssetLoader.loadSticker(scene);
   }
 
 

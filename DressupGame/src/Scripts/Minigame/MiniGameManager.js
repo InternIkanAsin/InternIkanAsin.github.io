@@ -11,6 +11,7 @@ import { progressManager } from '../Save System/ProgressManager.js';
 import { GameState } from '../Main.js';
 
 import Phaser from 'phaser';
+import AssetLoader from '../AssetLoader.js';
 import { orientation } from '../ScreenOrientationUtils.js';
 import { layout } from '../ScreenOrientationUtils.js';
 import { lockedItemsManager } from '../Save System/LockedItemsManager.js';
@@ -76,27 +77,27 @@ export class MiniGameManager {
             buttonScale: layout.backButton.scale,
         }).setDepth(99);
 
-        
+
         if (orientation.isPortrait) {
             const randomizeLayout = layout.randomizeButton;
             const lineLayout = layout.purpleLines;
             const removeAllLayout = layout.removeAllButton;
             const finishLayout = layout.minigameFinishButton;
             scene.purpleLine1 = scene.add.image(
-                randomizeLayout.x + lineLayout.offsetX, 
-                lineLayout.randomize.y, 
-                'buttonIcon2Highlighted'
-            ).setScale(lineLayout.scale).setDepth(99); 
-        
-            scene.purpleLine2 = scene.add.image(
-                removeAllLayout.x + lineLayout.offsetX, 
-                lineLayout.removeAll.y, 
+                randomizeLayout.x + lineLayout.offsetX,
+                lineLayout.randomize.y,
                 'buttonIcon2Highlighted'
             ).setScale(lineLayout.scale).setDepth(99);
-        
+
+            scene.purpleLine2 = scene.add.image(
+                removeAllLayout.x + lineLayout.offsetX,
+                lineLayout.removeAll.y,
+                'buttonIcon2Highlighted'
+            ).setScale(lineLayout.scale).setDepth(99);
+
             scene.purpleLine3 = scene.add.image(
-                finishLayout.x + lineLayout.offsetX -15, 
-                lineLayout.finish.y, 
+                finishLayout.x + lineLayout.offsetX - 15,
+                lineLayout.finish.y,
                 'buttonIcon2Highlighted'
             ).setScale(lineLayout.scale).setDepth(99);
 
@@ -147,7 +148,7 @@ export class MiniGameManager {
                 buttonScale: layout.removeAllButton.buttonScale,
             }).setDepth(99);
 
-            
+
             scene.finishButton = new UIButton(scene, this.AudioManager, {
                 x: finishLayout.x,
                 y: finishLayout.y,
@@ -169,7 +170,6 @@ export class MiniGameManager {
                     }
                 }
             }).setDepth(99);
-
         } else {
 
             scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 90, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
@@ -190,7 +190,6 @@ export class MiniGameManager {
                         Object.keys(scene.makeUpButtons).forEach(makeUpType => {
                             const buttons = scene.makeUpButtons[makeUpType];
                             const randomIndex = Math.floor(Math.random() * buttons.length);
-                            console.log(buttons[randomIndex]);
                             buttons[randomIndex].toggleMakeUp();
                         });
                     } else if (scene.state === GameState.DRESSUP) {
@@ -249,6 +248,8 @@ export class MiniGameManager {
                 useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
                 buttonScale: layout.minigameFinishButton.buttonScale,
             }).setDepth(99);
+            scene.flower1 = scene.add.image(layout.minigameFinishButton.x + 60, layout.minigameFinishButton.y + 70, 'flowers').setScale(0.3).setDepth(99);
+            scene.flower1.angle = 90;
         }
 
         this.setupPanels(scene);
@@ -278,6 +279,9 @@ export class MiniGameManager {
         scene.purpleLine1?.destroy();
         scene.purpleLine2?.destroy();
         scene.purpleLine3?.destroy();
+        scene.flower1?.destroy();
+        scene.flower2?.destroy();
+        scene.flower3?.destroy();
         scene.statPanelContainer?.destroy();
         scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
@@ -729,7 +733,7 @@ export class MiniGameManager {
             panelWidth = Math.min(targetViewport * 100, categoryWidth - 40);
         }
         const scrollPanel = scene.rexUI.add.scrollablePanel({
-            x: catLayout.x + 100 ,
+            x: catLayout.x + 100,
             y: catLayout.y - 80,
             width: panelWidth + 400,
             height: catLayout.height - 500,
@@ -934,14 +938,11 @@ export class MiniGameManager {
         });
         this.scene.sidePanelMaskGraphics = maskGraphics;
 
-        // this.scene.sidePanel.getElement('slider.track').x -= 1000;
-        // this.scene.sidePanel.getElement('slider.thumb').x -= 1000;
-
-        // this.scene.sys.displayList.bringToTop(this.scene.sidePanel.getElement('slider.track'));
-        // this.scene.sys.displayList.bringToTop(this.scene.sidePanel.getElement('slider.thumb'));
-
         this.scene.sidePanel.layout();
 
+        scene.flower2 = scene.add.image(layout.sidePanel.x - 300, layout.sidePanel.y - 400, 'flowers').setScale(0.5).setDepth(99)
+        scene.flower2.angle = 180;
+        scene.flower3 = scene.add.image(layout.sidePanel.x - 300, layout.sidePanel.y + 400, 'flowers').setScale(0.5).setDepth(99)
 
 
         if (this.scene.state !== GameState.MAKEUP) return;
@@ -1152,7 +1153,7 @@ export class MiniGameManager {
         });
     }
 
-    
+
 
     createEndingPanel() {
         const centerX = this.scene.scale.width / 2;
@@ -1170,23 +1171,23 @@ export class MiniGameManager {
             confettiKeys.forEach(key => {
                 allEmitters.push(this.scene.add.particles(screenWidth / 2, screenHeight, key, {
                     ...burstConfig,
-                    
-                    angle: { min: 240, max: 300 }, 
-                    speed: { min: 400, max: 800 }, 
+
+                    angle: { min: 240, max: 300 },
+                    speed: { min: 400, max: 800 },
                     gravityY: 400,
                     emitting: false
                 }).setDepth(152));
             });
-        
+
             const triggerBurst = () => {
                 allEmitters.forEach(emitter => {
                     emitter.explode(burstConfig.quantity / 2);
                 });
             };
 
-            triggerBurst(); 
+            triggerBurst();
 
-            
+
             this.endingPanelTimer = this.scene.time.addEvent({
                 delay: 3000,
                 callback: triggerBurst,
