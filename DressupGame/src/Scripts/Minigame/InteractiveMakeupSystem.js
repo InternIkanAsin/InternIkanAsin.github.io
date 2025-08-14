@@ -60,12 +60,8 @@ export class InteractiveMakeupSystem {
                 cursorAssetKey = 'MascaraCursor';
                 break;
             case 'Blush':
-                // Untuk Blush, kita buat ulang kursor grafis lama sebagai fallback
-                this.customCursorGraphics = this.scene.add.graphics({ fillStyle: { color: 0xffffff, alpha: 0.5 } })
-                    .fillCircle(this.brushRadius, this.brushRadius, this.brushRadius)
-                    .setVisible(true)
-                    .setDepth(10000);
-                break;
+                cursorAssetKey = 'BlushCursor';
+            break;
         }
 
         if (cursorAssetKey) {
