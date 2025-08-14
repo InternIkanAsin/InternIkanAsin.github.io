@@ -695,34 +695,41 @@ export class MiniGameManager {
             }
         });
         categorySizer.layout();
-        console.log("CategorySizer width:", categorySizer.width, "Panel width:", catLayout.width + 1000);
-        scene.categorySidePanel = categorySizer;
-
         let categoryWidth = categorySizer.width;
-        const minScrollWidth = 200; // spasi kosong supaya bisa scroll
-        if (categoryWidth <= catLayout.width) {
-            categorySizer.add(scene.add.rectangle(1, 1, 1, 1, 0x000000, 0), { padding: { right: minScrollWidth } });
+
+        // 3) Tentukan viewport (lebar panel) — HARUS < lebar konten agar bisa scroll
+        //    - pakai lebar desain (catLayout.width) sebagai target viewport
+        //    - tapi jangan sampai >= konten (beri margin 40px)
+        const targetViewport = Math.max(200, catLayout.width);              // minimal 200 biar enak di-drag
+        let panelWidth = Math.min(targetViewport, categoryWidth - 40);      // PASTIKAN < konten
+
+        // Bila tombol sedikit sehingga categoryWidth < targetViewport + 40,
+        // tambahkan buffer kanan agar tetap ada ruang scroll.
+        if (panelWidth <= 0 || panelWidth >= categoryWidth) {
+            const bufferRight = Math.max(120, Math.floor((targetViewport * 0.5))); // buffer fleksibel
+            // tambah node kosong transparan sebagai "ekor"
+            categorySizer.add(
+                scene.add.rectangle(1, 1, 1, 1, 0x000000, 0).setAlpha(0),
+                { padding: { right: bufferRight } }
+            );
             categorySizer.layout();
             categoryWidth = categorySizer.width;
+            panelWidth = Math.min(targetViewport * 100, categoryWidth - 40);
         }
-
-        // 4. Tentukan panel width (jangan lebih besar dari konten)
-        const panelWidth = Math.min(catLayout.width + 1000, categoryWidth);
         const scrollPanel = scene.rexUI.add.scrollablePanel({
-            x: catLayout.x + 350,
+            x: catLayout.x + 100 ,
             y: catLayout.y -120,
-            width: panelWidth,
+            width: panelWidth + 400,
             height: catLayout.height -500,
             scrollMode: 1, 
             scrollDetectionMode: 0,
-            expand: false,
             panel: {
                 child: categorySizer,
                 mask: { padding: { top: 150, left: 150, bottom: 0, right: 20 } }
             },
             mouseWheelScroller: { speed: 1, focus: false },
-            clamplChildOX: false,
-            clamplChildOY: false,
+            clampChildOX: false,
+            
             
             slider: false
         }).setOrigin(0.5, 0).layout();
@@ -755,18 +762,7 @@ export class MiniGameManager {
 
         
 
-        // Debug a  rea konten (categorySizer)
-        scene.time.delayedCall(100, () => {
-            const bounds = categorySizer.getBounds();
-            scene.add.rectangle(
-                bounds.centerX,
-                bounds.centerY,
-                bounds.width,
-                bounds.height,
-                0xff0000,
-                0.3
-            ).setOrigin(0.5);
-        });
+        
 
         scrollPanel.setInteractive(
         new Phaser.Geom.Rectangle(
@@ -783,6 +779,10 @@ export class MiniGameManager {
                 Phaser.Geom.Rectangle.Contains
             );
         }
+        console.log(
+        `[Category Scroll Portrait] contentWidth=${categoryWidth}, panelWidth=${panelWidth}, ` +
+        `targetViewport=${targetViewport}`
+        );
     }
 
     setUpSidePanel_Landscape(scene) {

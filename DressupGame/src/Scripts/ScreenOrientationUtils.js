@@ -877,14 +877,14 @@ const PORTRAIT = {
     backButton: {
         x: PORTRAIT_WIDTH * 0.12,
         y: PORTRAIT_HEIGHT * 0.06,
-        scale: 0.22 * 1.5
+        scale: 0.16 * 2
     },
 
     removeAllButton: {
         x: 70,
         y: 250,
-        buttonScale: 0.8 * 2,
-        iconScale: 0.7 * 2
+        buttonScale: 0.16 * 2,
+        iconScale: 0.155 * 2
     },
 
     //Category Buttons
