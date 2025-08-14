@@ -227,7 +227,7 @@ export class CutsceneSystem {
         const particleConfig = layout.cutscene2?.glitterParticles;
 
         if (particleConfig) {
-            const driftingEmitterLeft = scene.add.particles(0, 0, 'particle_star', {
+            const driftingEmitterLeft = scene.add.particles(0, 0, 'Sparkle', {
             emitZone: { source: new Phaser.Geom.Line(-50, 0, -50, height), type: 'random', quantity: 15 },
             ...particleConfig.drifting,
             speedX: { min: 50, max: 100 }, 
@@ -236,7 +236,7 @@ export class CutsceneSystem {
         this.activeEmitters.push(driftingEmitterLeft);
 
         // Emitter "Glitter Melayang" dari Kanan
-        const driftingEmitterRight = scene.add.particles(0, 0, 'particle_star', {
+        const driftingEmitterRight = scene.add.particles(0, 0, 'Sparkle', {
             // PERBAIKAN: Gunakan 'Phaser.Geom.Line' dengan 'P' besar
             emitZone: { source: new Phaser.Geom.Line(width + 50, 0, width + 50, height), type: 'random', quantity: 40 },
             ...particleConfig.drifting,

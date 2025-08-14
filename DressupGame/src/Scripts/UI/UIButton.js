@@ -403,24 +403,20 @@ export class CategoryButton extends BaseButton {
             this.scene.selectedCategory.previous.deselectButton();
         }
 
-        
-        if (this.popTween) {
-            this.popTween.stop();
-        }
+        // Targetkan elemen visual DI DALAM container, bukan container itu sendiri
+        const visualElements = [this.button, this.icon, this.iconSelected];
 
         if (orientation.isPortrait) {
-            
-            this.popTween = this.scene.tweens.add({
-                targets: this,
-                y: this.y + layout.categoryButton.popOutY, 
+            this.scene.tweens.add({
+                targets: visualElements,
+                y: layout.categoryButton.popOutY, // Bergerak relatif di dalam container
                 duration: 100,
                 ease: 'Power2'
             });
         } else {
-            
-            this.popTween = this.scene.tweens.add({
-                targets: this,
-                x: this.originalX - 40,
+            this.scene.tweens.add({
+                targets: visualElements,
+                x: -40, // Bergerak relatif di dalam container
                 duration: 100,
                 ease: 'Power2'
             });
@@ -431,33 +427,21 @@ export class CategoryButton extends BaseButton {
         this.icon.setVisible(false);
     }
 
+    // --- GANTI SELURUH FUNGSI INI ---
     deselectButton() {
         if (!this.isSelected) return;
         this.isSelected = false;
-
         
-        if (this.popTween) {
-            this.popTween.stop();
-        }
-        
-        if (orientation.isPortrait) {
-            
-            this.popTween = this.scene.tweens.add({
-                targets: this,
-                y: this.y - layout.categoryButton.popOutY, 
-                duration: 100,
-                ease: 'Power2'
-            });
+        const visualElements = [this.button, this.icon, this.iconSelected];
 
-        } else {
-            
-            this.popTween = this.scene.tweens.add({
-                targets: this,
-                x: this.originalX,
-                duration: 100,
-                ease: 'Power2'
-            });
-        }
+        // Animasikan elemen visual kembali ke posisi 0,0 (tengah container)
+        this.scene.tweens.add({
+            targets: visualElements,
+            x: 0,
+            y: 0,
+            duration: 100,
+            ease: 'Power2'
+        });
         
         this.button.setTexture('blueButton');
         this.iconSelected.setVisible(false);

@@ -26,7 +26,7 @@ class PreloaderScene extends Phaser.Scene {
     preload() {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
-        const PAUSE_FOR_TESTING = true;
+        const PAUSE_FOR_TESTING = false;
         this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
         this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 

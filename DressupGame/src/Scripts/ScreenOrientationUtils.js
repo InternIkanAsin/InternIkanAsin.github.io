@@ -117,8 +117,8 @@ const LANDSCAPE = {
         width: 200,
         height: 150,
         textSize: 45,
-        iconScale: 0.32,
-        buttonScale: 0.3
+        iconScale: 0.32 * 2,
+        buttonScale: 0.3 * 1.3
     },
 
     // character position
@@ -482,8 +482,8 @@ const LANDSCAPE = {
                 speedX: { min: -100, max: 0 },
                 speedY: { min: -20, max: -40 },
                 lifespan: { min: 5000, max: 10000 },
-                scale: { start: 0.1, end: 0 },
-                quantity: 8,
+                scale: { start: 0.25, end: 0 },
+                quantity: 12,
                 frequency: 500
             },
             // Konfigurasi untuk kilauan statis
@@ -630,12 +630,12 @@ const PORTRAIT = {
 
         container: { x: LANDSCAPE_WIDTH * 0.1, y: LANDSCAPE_HEIGHT * 1.05, scale: 1.3 },
         parts: {
-            body: { x: 0, y: 0, scale: 0.6 }, // 0.6 (skala asli) / 0.65 (skala container)
-            hairBack: { x: -4.6, y: -225, scale: 0.6 }, // Skala: ~0.568 / 0.65
-            shirt: { x: -2, y: -160, scale: 0.6 }, // Skala: 0.6 / 0.65
-            lower: { x: 0, y: 200, scale: 0.65 }, // Skala: 1.2 / 0.65
-            faceContainer: { x: -14, y: -357, scale: 0.315 }, // Skala: 0.3 / 0.65
-            hairFront: { x: -4.6, y: -225, scale: 0.6 }
+            body: { x: 20, y: 0, scale: 0.6 }, // 0.6 (skala asli) / 0.65 (skala container)
+            hairBack: { x: 15.4, y: -225, scale: 0.6 }, // Skala: ~0.568 / 0.65
+            shirt: { x: 18, y: -160, scale: 0.6 }, // Skala: 0.6 / 0.65
+            lower: { x: 20, y: 200, scale: 0.65 }, // Skala: 1.2 / 0.65
+            faceContainer: { x: 6, y: -357, scale: 0.315 }, // Skala: 0.3 / 0.65
+            hairFront: { x: 15.4, y: -225, scale: 0.6 }
         }
     },
 
@@ -880,7 +880,7 @@ const PORTRAIT = {
     },
 
     backButton: {
-        x: PORTRAIT_WIDTH * 0.74,
+        x: PORTRAIT_WIDTH * 0.70,
         y: 70,
         scale: 0.11 * 2,
         iconScale: 0.1 * 2
@@ -973,7 +973,7 @@ const PORTRAIT = {
         buttonScale: 0.6 * 2,
         lockedIconBgScale: 0.4,
         lockedIconScale: 1.3,
-        textYPosition: 60,
+        textYPosition: 100,
         textSize: '20px'
     },
 
@@ -985,7 +985,7 @@ const PORTRAIT = {
         buttonScale: 0.6 * 2,
         lockedIconBgScale: 0.4,
         lockedIconScale: 1.3,
-        textYPosition: 60,
+        textYPosition: 100,
         textSize: '20px'
     },
 

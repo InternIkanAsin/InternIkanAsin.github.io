@@ -81,6 +81,8 @@ export default class AssetLoader {
     scene.load.image('backButtonIcon', 'Asset/UI/Back_Button_Released.png');
     scene.load.image('backButtonIconPressed', 'Asset/UI/Back_Button_Pressed.png');
     scene.load.image('yellowIcon', 'Asset/UI/Yellow_Button.png');
+    scene.load.image('WhiteEffect', "Asset/UI/New/White_Effect.png");
+    scene.load.image('Sparkle', "Asset/UI/New/Sparkle white circle.png");
 
     scene.load.image('stitchedButtonIcon', 'Asset/UI/Stitched_Button.png');
     scene.load.image('stitchedButtonIconYellow', 'Asset/UI/Yellow_Stitched_Button.png');
