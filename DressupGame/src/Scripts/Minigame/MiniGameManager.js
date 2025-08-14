@@ -76,8 +76,11 @@ export class MiniGameManager {
             buttonScale: layout.backButton.scale,
         }).setDepth(99);
 
+        scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 90, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+        scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 90, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+        scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 110, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+
         if (orientation.isPortrait) {
-            const btnLayout = layout.actionButtons;
             const commonBtnConfig = {
                 textureButton: 'blueButton',
                 buttonWidth: 75,
@@ -88,10 +91,11 @@ export class MiniGameManager {
 
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 ...commonBtnConfig,
-                x: btnLayout.randomize.x,
-                y: btnLayout.randomize.y,
+                x: layout.randomizeButton.x,
+                y: layout.randomizeButton.y,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'Random_Box_Icon.png' },
-                iconScale: 0.5,
+                iconScale: layout.randomizeButton.iconScale,
+                buttonScale: layout.randomizeButton.buttonScale,
                 callback: () => {
                     if (scene.state === GameState.MAKEUP) {
                         scene.MakeUpManager.removeAllMakeup();
@@ -135,10 +139,11 @@ export class MiniGameManager {
             scene.finishButton = new UIButton(scene, this.AudioManager, {
                 ...commonBtnConfig,
                 textureButton: 'yellowButton',
-                x: btnLayout.finish.x,
-                y: btnLayout.finish.y,
+                x: layout.minigameFinishButton.x,
+                y: layout.minigameFinishButton.y,
                 textureIcon: { atlas: 'Icon_spritesheet', frame: 'tickMark' }, // Menggunakan frame dari atlas jika ada, atau 'tickMark' jika terpisah
-                iconScale: 0.6,
+                iconScale: layout.minigameFinishButton.iconScale,
+                buttonScale: layout.minigameFinishButton.buttonScale,
                 callback: () => {
                     scene.finishButton.disableInteractive();
                     if (scene.state === GameState.DRESSUP) {
@@ -154,14 +159,9 @@ export class MiniGameManager {
                 }
             }).setDepth(99);
 
-            // Hapus garis-garis yang tidak ada di mockup portrait
-            scene.purpleLine1?.destroy();
-            scene.purpleLine2?.destroy();
-            scene.purpleLine3?.destroy();
-
         } else {
 
-            scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 100, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
+
             scene.randomizeButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.randomizeButton.x,
                 y: layout.randomizeButton.y,
@@ -188,7 +188,6 @@ export class MiniGameManager {
                 buttonScale: layout.randomizeButton.scale
             }).setDepth(99);
 
-            scene.purpleLine2 = scene.add.image(layout.removeAllButton.x - 100, layout.removeAllButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             const btnLayout = layout.actionButtons;
             scene.removeAllButton = new UIButton(scene, scene.AudioManager, {
                 x: layout.removeAllButton.x,
@@ -210,7 +209,6 @@ export class MiniGameManager {
                 buttonScale: layout.removeAllButton.buttonScale,
             }).setDepth(100);;
 
-            scene.purpleLine3 = scene.add.image(layout.minigameFinishButton.x - 120, layout.minigameFinishButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
             scene.finishButton = new UIButton(scene, this.AudioManager, {
                 x: layout.minigameFinishButton.x,
                 y: layout.minigameFinishButton.y,
@@ -219,7 +217,7 @@ export class MiniGameManager {
                 buttonHeight: layout.minigameFinishButton.height,
                 textureIcon: 'tickMark',
                 iconYPosition: 0,
-                iconScale: 1,
+                iconScale: layout.minigameFinishButton.iconScale,
                 callback: () => {
                     scene.finishButton.disableInteractive();
                     if (scene.state === GameState.DRESSUP) {
@@ -235,7 +233,7 @@ export class MiniGameManager {
                 },
                 buttonText: '',
                 useNineSlice: layout.minigameFinishButton.useNineSlice !== false,
-                buttonScale: layout.minigameFinishButton.scale,
+                buttonScale: layout.minigameFinishButton.buttonScale,
             }).setDepth(99);
         }
 
@@ -710,10 +708,10 @@ export class MiniGameManager {
         const panelWidth = Math.min(catLayout.width + 1000, categoryWidth);
         const scrollPanel = scene.rexUI.add.scrollablePanel({
             x: catLayout.x + 350,
-            y: catLayout.y -120,
+            y: catLayout.y - 120,
             width: panelWidth,
-            height: catLayout.height -500,
-            scrollMode: 1, 
+            height: catLayout.height - 500,
+            scrollMode: 1,
             scrollDetectionMode: 0,
             expand: false,
             panel: {
@@ -723,23 +721,23 @@ export class MiniGameManager {
             mouseWheelScroller: { speed: 1, focus: false },
             clamplChildOX: false,
             clamplChildOY: false,
-            
+
             slider: false
         }).setOrigin(0.5, 0).layout();
-        
+
         scene.add.existing(scrollPanel);
-        
+
 
 
         // Panggil layout() untuk menata tombol di dalam sizer.
-        
+
 
         // 2. Buat Panel Item (di bawah, scroll vertikal) - KODE INI SUDAH BENAR
         this.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
             row: 1
         });
-        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20, left:30  } });
+        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20, left: 30 } });
         this.innerSizer.add(this.buttonGrid, { expand: true });
 
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
@@ -750,10 +748,10 @@ export class MiniGameManager {
             panel: { child: this.innerSizer, mask: { padding: { top: - 35 } } },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space,
-            mask: { padding: { bottom: 1000 } } 
+            mask: { padding: { bottom: 1000 } }
         }).layout().setDepth(11);
 
-        
+
 
         // Debug a  rea konten (categorySizer)
         scene.time.delayedCall(100, () => {
@@ -769,12 +767,12 @@ export class MiniGameManager {
         });
 
         scrollPanel.setInteractive(
-        new Phaser.Geom.Rectangle(
-            0, 0,
-            scrollPanel.width,
-            scrollPanel.height
-        ),
-        Phaser.Geom.Rectangle.Contains
+            new Phaser.Geom.Rectangle(
+                0, 0,
+                scrollPanel.width,
+                scrollPanel.height
+            ),
+            Phaser.Geom.Rectangle.Contains
         );
         const bg = scrollPanel.getElement('background');
         if (bg) {
@@ -1178,7 +1176,7 @@ export class MiniGameManager {
                     emitting: false
                 }).setDepth(152));
             });
-        
+
             // Emitter dari KANAN, menyebar ke KIRI
             confettiKeys.forEach(key => {
                 allEmitters.push(this.scene.add.particles(screenWidth + 50, screenHeight / 2, key, {
@@ -1187,17 +1185,17 @@ export class MiniGameManager {
                     emitting: false
                 }).setDepth(152));
             });
-        
+
             const triggerBurst = () => {
                 allEmitters.forEach(emitter => {
                     // Karena kita sekarang punya DUA KALI LEBIH BANYAK emitter (kiri & kanan),
                     // kita bagi dua jumlah partikel per ledakan agar totalnya tetap sama.
-                    emitter.explode(burstConfig.quantity / 2); 
+                    emitter.explode(burstConfig.quantity / 2);
                 });
             };
-        
+
             triggerBurst(); // Ledakan pertama
-        
+
             // Simpan timer
             this.endingPanelTimer = this.scene.time.addEvent({
                 delay: 3000,
