@@ -96,8 +96,8 @@ export default class AssetLoader {
     scene.load.image('readyButtonIconPressed', 'Asset/UI/Tombol_Ready_Pressed.png');
 
     scene.load.image('readyButtonIconPressed', 'Asset/UI/Tombol_Ready_Pressed.png');
-    scene.load.image('leftDrape', 'Asset/UI/Curtains_Released_Left.png');
-    scene.load.image('rightDrape', 'Asset/UI/Curtains_Released_Right.png');
+    scene.load.image('leftDrape', "Asset/UI/New/Curtains_Released_Left.png");
+    scene.load.image('rightDrape', "Asset/UI/New/Curtains_Released_Right.png");
     scene.load.image('leftCurtain', 'Asset/UI/New/Curtain_Tied_Left.png');
     scene.load.image('rightCurtain', 'Asset/UI/New/Curtain_Tied_Right.png');
     scene.load.image('leftCurtainUntied', 'Asset/UI/Curtain_Tied_Left_Mobile.png');

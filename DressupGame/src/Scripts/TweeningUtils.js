@@ -134,8 +134,8 @@ export default class TweenUtils {
         if (!scene.leftDrape || !scene.rightDrape) { return; }
 
 
-        const targetLeftX = (scene.scale.width * 0.25) - (scene.leftDrape.width);
-        const targetRightX = (scene.scale.width * 0.75) + (scene.rightDrape.width);
+        const targetLeftX = layout.drapes.halfway.leftX;
+        const targetRightX = layout.drapes.halfway.rightX;
 
         scene.tweens.add({
             targets: scene.leftDrape,

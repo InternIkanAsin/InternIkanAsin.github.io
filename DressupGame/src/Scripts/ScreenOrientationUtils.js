@@ -433,7 +433,7 @@ const LANDSCAPE = {
             left: 40, right: 40, top: 40, bottom: 50
         }
     },
-
+    
     restartButton: {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY + 350,
