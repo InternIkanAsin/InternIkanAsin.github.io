@@ -196,11 +196,11 @@ class Main extends Phaser.Scene {
 
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
-        
+
         // 3. Gunakan setDisplaySize untuk mengatur ukurannya secara eksplisit
         scene.leftDrape.setDisplaySize(targetDrapeWidth, targetDrapeHeight);
         scene.rightDrape.setDisplaySize(targetDrapeWidth, targetDrapeHeight);
-        
+
 
         scene.leftCurtain = scene.add.image(
             layout.curtain.closed.leftX,
@@ -466,6 +466,7 @@ const config = {
 };
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 
 if (isMobile) {
     config.scale.width = PORTRAIT_WIDTH;

@@ -70,10 +70,10 @@ export default class UIButton extends BaseButton {
 
     }
     resetVisuals() {
-         this.setAlpha(1); 
+        this.setAlpha(1);
         if (this.button) {
             this.button.setAlpha(1);
-            this.button.clearTint();         
+            this.button.clearTint();
         }
         console.log("[UIButton] Visuals reset.");
     }
@@ -156,8 +156,8 @@ export class ItemPanelButton extends BaseButton {
 
         const textLbl = scene.add.text(0, layout.itemPanelButton.textYPosition, labelText, {
             fontSize: labelSize,
-            fontFamily: 'pixelFont',
-            color: '#000000'
+            fontFamily: 'regularFont',
+            color: '#d6529c'
         }).setOrigin(0.5, 0.5);
 
 
@@ -432,7 +432,7 @@ export class CategoryButton extends BaseButton {
     deselectButton() {
         if (!this.isSelected) return;
         this.isSelected = false;
-        
+
         const visualElements = [this.button, this.icon, this.iconSelected];
 
         // Animasikan elemen visual kembali ke posisi 0,0 (tengah container)
@@ -443,7 +443,7 @@ export class CategoryButton extends BaseButton {
             duration: 100,
             ease: 'Power2'
         });
-        
+
         this.button.setTexture('blueButton');
         this.iconSelected.setVisible(false);
         this.icon.setVisible(true);

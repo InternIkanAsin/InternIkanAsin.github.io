@@ -1,4 +1,5 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -291,28 +292,28 @@ const LANDSCAPE = {
 
     dialogueText: {
         x: LANDSCAPE_WIDTH / 2.775,
-        y: LANDSCAPE_HEIGHT / 1.3,
+        y: LANDSCAPE_HEIGHT / 1.275,
         fontSize: 32,
         wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 1.45)
     },
 
     namedDialogueBox: {
         x: LANDSCAPE_CENTERX,
-        y: LANDSCAPE_CENTERY * 1.725,
+        y: LANDSCAPE_CENTERY * 1.725 / 1.2,
         width: 1200,
         height: 300
     },
 
     namedDialogueText: {
         x: LANDSCAPE_CENTERX * 0.45,
-        y: LANDSCAPE_HEIGHT / 1.25,
+        y: LANDSCAPE_HEIGHT / 1.275 / 1.225,
         fontSize: 32,
         wordWrap: 1000
     },
 
     namedDialogueNameBox: {
-        width: 70,
-        height: 25,
+        width: 280,
+        height: 100,
         offsetX: 220
     },
 
@@ -435,7 +436,7 @@ const LANDSCAPE = {
             left: 40, right: 40, top: 40, bottom: 50
         }
     },
-    
+
     restartButton: {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY + 350,
@@ -611,7 +612,7 @@ const PORTRAIT = {
         y: PORTRAIT_HEIGHT * 0.89,
         width: PORTRAIT_WIDTH,
         height: 300,
-        space: { top: 20, bottom: 20, left: 60, right: 0, panel: 10 }
+        space: { top: 30, bottom: 20, left: 60, right: 0, panel: 40 }
     },
 
     grid: {
@@ -624,7 +625,7 @@ const PORTRAIT = {
         height: 630,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
-        popOutY: -50 
+        popOutY: -50
     },
 
     muteButton: {
@@ -815,7 +816,7 @@ const PORTRAIT = {
         y: PORTRAIT_CENTERY,
         left: 120,
         right: 0,
-        top: 75,
+        top: 120,
         bottom: 30,
         panel: 40
     },
@@ -897,15 +898,15 @@ const PORTRAIT = {
         x: 100,
         y: 380,
         buttonScale: 0.11 * 2,
-        iconScale:  0.1 * 2
+        iconScale: 0.1 * 2
     },
 
     purpleLines: {
         offsetX: -80,
-        scale: 0.25, 
+        scale: 0.25,
         randomize: { y: 250 },
         removeAll: { y: 380 },
-        finish:    { y: 550 }
+        finish: { y: 550 }
     },
 
     //Category Buttons
