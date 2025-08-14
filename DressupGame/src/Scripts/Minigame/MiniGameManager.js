@@ -371,7 +371,7 @@ export class MiniGameManager {
             color: '#d6525f',
             align: 'center',
             lineSpacing: 10,
-            wordWrap: { width: this.scene.scale.width - 600 }
+            wordWrap: { width: layout.confirmationPanelText.wordWrap }
         }).setOrigin(0.5).setDepth(102);
 
         const yesButton = new UIButton(this.scene, this.AudioManager, {

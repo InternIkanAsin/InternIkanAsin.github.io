@@ -1,4 +1,5 @@
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 const isPortrait = isMobile;
 
 const LANDSCAPE_WIDTH = 1920;
@@ -445,6 +446,10 @@ const LANDSCAPE = {
         nineSliceConfig: {
             left: 40, right: 40, top: 40, bottom: 50
         }
+    },
+
+    confirmationPanelText: {
+        wordWrap: LANDSCAPE_WIDTH - 600
     },
 
     particleOffsets: {
@@ -1049,6 +1054,9 @@ const PORTRAIT = {
         }
     },
 
+    confirmationPanelText: {
+        wordWrap: PORTRAIT_WIDTH - 300
+    },
     particleOffsets: {
         Dress: { x: 0, y: -200 },
         Shirt: { x: 0, y: 0 },
