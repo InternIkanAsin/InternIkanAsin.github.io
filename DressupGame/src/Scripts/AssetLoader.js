@@ -107,6 +107,7 @@ export default class AssetLoader {
     scene.load.image('sidePanel', 'Asset/UI/New/Wardrobe_Base.png');
     scene.load.image('sidePanelPortrait', 'Asset/UI/New/Wardrobe_Base_portrait.png');
     scene.load.image('sidePanelLine', 'Asset/UI/Panel_Line.png');
+    scene.load.image('sidePanelDivider', 'Asset/UI/New/Wardrobe_Divider.png');
 
     scene.load.image('dressIcon', 'Asset/UI/Dress_Icon.png');
     scene.load.image('outerIcon', 'Asset/UI/Coat_Icon.png');

@@ -285,6 +285,7 @@ export class MiniGameManager {
         scene.statPanelContainer?.destroy();
         scene.applyMakeUpContainer?.destroy();
         scene.sidePanel?.destroy();
+        scene.panelDivider?.destroy();
         scene.categorySidePanel?.destroy();
         this.backButton?.destroy();
         scene.randomizeButton?.destroy();
@@ -940,10 +941,11 @@ export class MiniGameManager {
 
         this.scene.sidePanel.layout();
 
-        scene.flower2 = scene.add.image(layout.sidePanel.x - 300, layout.sidePanel.y - 400, 'flowers').setScale(0.5).setDepth(99)
-        scene.flower2.angle = 180;
-        scene.flower3 = scene.add.image(layout.sidePanel.x - 300, layout.sidePanel.y + 400, 'flowers').setScale(0.5).setDepth(99)
+        scene.panelDivider = scene.add.nineslice(layout.sidePanel.x - 350, layout.sidePanel.y, 'sidePanelDivider', '', 100, 1080, 60, 60, 40, 60).setDepth(99);
 
+        scene.flower2 = scene.add.image(layout.sidePanel.x - 325, layout.sidePanel.y - 400, 'flowers').setScale(0.5).setDepth(99)
+        scene.flower2.angle = 180;
+        scene.flower3 = scene.add.image(layout.sidePanel.x - 325, layout.sidePanel.y + 400, 'flowers').setScale(0.5).setDepth(99)
 
         if (this.scene.state !== GameState.MAKEUP) return;
         const categoryButtons = this.scene.state === GameState.MAKEUP ? this.scene.makeUpCategoryButtons : null;
@@ -1171,18 +1173,18 @@ export class MiniGameManager {
             confettiKeys.forEach(key => {
                 allEmitters.push(this.scene.add.particles(screenWidth / 2, screenHeight, key, {
                     ...burstConfig,
-                    rotate: { 
+                    rotate: {
                         onEmit: () => { return Math.random() * 360; } // Mulai dari sudut acak
                     },
-                    
-                    scaleX: { 
+
+                    scaleX: {
                         onEmit: () => { return (Math.random() > 0.5) ? 1 : -1; }, // Mulai dari sisi depan atau belakang
                         ease: 'Sine.easeInOut',
                         yoyo: true,
                         repeat: -1,
                         duration: Math.random() * 500 + 250 // Setiap partikel berputar dengan kecepatan berbeda
                     },
-                
+
                     // 3. Simulasi Rotasi Sumbu X (menipis)
                     // Ini akan membuat partikel terlihat "menipis" seolah berputar ke arah kita
                     scaleY: {
