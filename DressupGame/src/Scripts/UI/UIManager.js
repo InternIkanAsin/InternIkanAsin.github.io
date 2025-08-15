@@ -418,6 +418,8 @@ export class UIManager {
         scene.makeUpButton?.destroy();
         scene.makeUpTickMark?.destroy();
         scene.dressUpButton?.destroy();
+        scene.flower4?.destroy();
+        scene.flower5?.destroy();
         scene.dressUpTickMark?.destroy();
         scene.miniGameFinishButton?.destroy();
         scene.leftDrape?.destroy();

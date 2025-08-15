@@ -322,6 +322,8 @@ class Main extends Phaser.Scene {
             textColor: '#d6525f'
         });
 
+        this.flower4 = this.add.image(layout.finishButton.x - 200, layout.finishButton.y + 40, 'flowers').setScale(0.25).setDepth(99)
+        this.flower5 = this.add.image(layout.finishButton.x + 200, layout.finishButton.y - 40, 'flowers').setScale(0.25).setDepth(99)
     }
 
 
