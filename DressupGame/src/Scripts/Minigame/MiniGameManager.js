@@ -169,7 +169,7 @@ export class MiniGameManager {
                         this.showConfirmationPanel();
                     }
                 }
-            }).setDepth(99);
+            }).setDepth(99).setScale(3);
         } else {
 
             scene.purpleLine1 = scene.add.image(layout.randomizeButton.x - 90, layout.randomizeButton.y, 'buttonIcon2Highlighted').setScale(0.3).setDepth(99);
@@ -1171,7 +1171,27 @@ export class MiniGameManager {
             confettiKeys.forEach(key => {
                 allEmitters.push(this.scene.add.particles(screenWidth / 2, screenHeight, key, {
                     ...burstConfig,
-
+                    rotate: { 
+                        onEmit: () => { return Math.random() * 360; } // Mulai dari sudut acak
+                    },
+                    
+                    scaleX: { 
+                        onEmit: () => { return (Math.random() > 0.5) ? 1 : -1; }, // Mulai dari sisi depan atau belakang
+                        ease: 'Sine.easeInOut',
+                        yoyo: true,
+                        repeat: -1,
+                        duration: Math.random() * 500 + 250 // Setiap partikel berputar dengan kecepatan berbeda
+                    },
+                
+                    // 3. Simulasi Rotasi Sumbu X (menipis)
+                    // Ini akan membuat partikel terlihat "menipis" seolah berputar ke arah kita
+                    scaleY: {
+                        onEmit: () => { return (Math.random() > 0.5) ? 1 : -1; }, // Mulai dari sisi depan atau belakang
+                        ease: 'Sine.easeInOut',
+                        yoyo: true,
+                        repeat: -1,
+                        duration: Math.random() * 500 + 250
+                    },
                     angle: { min: 240, max: 300 },
                     speed: { min: 400, max: 800 },
                     gravityY: 400,
