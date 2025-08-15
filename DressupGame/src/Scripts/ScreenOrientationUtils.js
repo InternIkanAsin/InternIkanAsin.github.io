@@ -313,9 +313,10 @@ const LANDSCAPE = {
     },
 
     namedDialogueNameBox: {
-        width: 280,
-        height: 100,
-        offsetX: 220
+        width: 280 * 1,
+        height: 100 * 1.2,
+        offsetX: 220,
+        nineslice: {left: 40, right: 40, top: 40, bottom: 40},
     },
 
     backButton: {
@@ -888,7 +889,8 @@ const PORTRAIT = {
     namedDialogueNameBox: {
         width: 60,
         height: 30,
-        offsetX: 200
+        offsetX: 200,
+        nineslice: {left: 3, right: 3, top: 3, bottom: 3},
     },
 
     backButton: {

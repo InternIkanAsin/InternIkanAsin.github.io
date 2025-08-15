@@ -28,12 +28,12 @@ export class DialogueManager {
         const nameBoxX = layout.dialogueBox.x - (layout.dialogueBox.width / 2) + 150;
         const nameBoxY = layout.dialogueBox.y - (layout.dialogueBox.height / 2) - 10;
 
-        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '', nameBoxLayout.width, nameBoxLayout.height, 1, 1, 1, 1).setDepth(100);
-        this.nameText = this.scene.add.text(nameBoxX, nameBoxY - 10, '', {
+        this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '', nameBoxLayout.width, nameBoxLayout.height, nameBoxLayout.nineslice.left, nameBoxLayout.nineslice.right, nameBoxLayout.nineslice.top, nameBoxLayout.nineslice.bottom).setDepth(100).setScale(1);;
+        this.nameText = this.scene.add.text(nameBoxX, 100, '', {
             fontSize: '50px',
             fill: '#00000',
             fontFamily: 'regularFont'
-        }).setDepth(101).setOrigin(0.5, 0.5);
+        }).setDepth(101).setOrigin(0.5, 0.3);
 
         this.hide();
     }
