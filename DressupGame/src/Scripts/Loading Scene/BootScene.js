@@ -70,7 +70,7 @@ class BootScene extends Phaser.Scene {
         //loading bar
         this.load.image('loading_frame', "Asset/UI/New/Loading_Bar.png");
         this.load.image('loading_fill', "Asset/UI/New/Loading_Bar_Gradient.png");
-        this.load.image('loading_fill_pattern', "Asset/UI/New/Loading_Bar_Pattern.png");
+        this.load.image('loading_fill_pattern', "Asset/UI/New/Pattern_Hati.png");
         //bachelor pp
         this.load.image('PP_Angga', "Asset/Character/profile picture/PP Angga.png");
         this.load.image('PP_Azril', "Asset/Character/profile picture/PP Azril.png");
