@@ -472,7 +472,7 @@ export default class AssetLoader {
     );
 
     AssetLoader.loadHair(scene);
-    AssetLoader.loadEyeliner(scene);
+    AssetLoader.loadEyelash(scene);
     AssetLoader.loadPupil(scene);
     AssetLoader.loadEyebrow(scene);
     AssetLoader.loadSticker(scene);
