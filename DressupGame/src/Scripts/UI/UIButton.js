@@ -289,16 +289,23 @@ export class GeneralButton extends BaseButton {
 
 export class CategoryButton extends BaseButton {
     constructor(scene, AudioManager, x, y, name, categoryType = null, textureButton, textureButtonHighlighted, textureIcon, textureIconSelected, onClick) {
-        const btnLayout = layout.categoryButton;
+        const isMakeup = scene.state === GameState.MAKEUP;
+        const btnLayout = isMakeup ? layout.makeUpCategoryButton : layout.dressUpCategoryButton;
+
+        // 2. Buat elemen visual menggunakan properti dari layout yang benar
         const button = scene.add.nineslice(0, 0, textureButton, '',
             btnLayout.width, btnLayout.height,
-            20, 20, 20, 20 // Nilai corner cut bisa disesuaikan
+            20, 20, 20, 20
         ).setDepth(100).setInteractive().setScale(0.35);
+        
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
-        const icon = scene.add.image(-12, 0, textureIcon.atlas, textureIcon.frame)
-            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.4);
-        const iconSelected = scene.add.image(0, 0, textureIconSelected.atlas, textureIconSelected.frame)
-            .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.4).setVisible(false);
+
+        // Gunakan iconOffsetY dari layout
+        const icon = scene.add.image(btnLayout.iconOffsetX, btnLayout.iconOffsetY, textureIcon.atlas, textureIcon.frame)
+            .setScale(btnLayout.iconScale); 
+        
+        const iconSelected = scene.add.image(0, btnLayout.iconOffsetY, textureIconSelected.atlas, textureIconSelected.frame)
+            .setScale(btnLayout.iconScale).setVisible(false);
         super(scene, x, y, [button, buttonHighlighted, icon, iconSelected]);
 
 
@@ -316,7 +323,8 @@ export class CategoryButton extends BaseButton {
         this.originalY = y;
         this.isSelected = false;
         this.popTween = null;
-
+        this.iconInitialX = icon.x;
+        this.iconInitialY = icon.y;
         console.log(this.isSelected);
         this.addHoverEffect(button, AudioManager);
 
@@ -403,20 +411,20 @@ export class CategoryButton extends BaseButton {
             this.scene.selectedCategory.previous.deselectButton();
         }
 
-        // Targetkan elemen visual DI DALAM container, bukan container itu sendiri
+        
         const visualElements = [this.button, this.icon, this.iconSelected];
 
         if (orientation.isPortrait) {
             this.scene.tweens.add({
                 targets: visualElements,
-                y: layout.categoryButton.popOutY, // Bergerak relatif di dalam container
+                y: layout.categoryButton.popOutY,
                 duration: 100,
                 ease: 'Power2'
             });
         } else {
             this.scene.tweens.add({
                 targets: visualElements,
-                x: -40, // Bergerak relatif di dalam container
+                x: -40, 
                 duration: 100,
                 ease: 'Power2'
             });
@@ -427,22 +435,29 @@ export class CategoryButton extends BaseButton {
         this.icon.setVisible(false);
     }
 
-    // --- GANTI SELURUH FUNGSI INI ---
+    
     deselectButton() {
         if (!this.isSelected) return;
         this.isSelected = false;
-
-        const visualElements = [this.button, this.icon, this.iconSelected];
-
-        // Animasikan elemen visual kembali ke posisi 0,0 (tengah container)
+        
+        
         this.scene.tweens.add({
-            targets: visualElements,
+            targets: this.button,
             x: 0,
             y: 0,
             duration: 100,
             ease: 'Power2'
         });
 
+        
+        this.scene.tweens.add({
+            targets: [this.icon, this.iconSelected],
+            x: this.iconInitialX, 
+            y: this.iconInitialY, 
+            duration: 100,
+            ease: 'Power2'
+        });
+        
         this.button.setTexture('blueButton');
         this.iconSelected.setVisible(false);
         this.icon.setVisible(true);

@@ -26,7 +26,7 @@ class PreloaderScene extends Phaser.Scene {
     preload() {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
-        const PAUSE_FOR_TESTING = false;
+        const PAUSE_FOR_TESTING = true;
         this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
         this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
 
@@ -147,11 +147,11 @@ class PreloaderScene extends Phaser.Scene {
             .setDisplaySize(layout.loadingBar.displayWidth, layout.loadingBar.displayHeight);
         
         
-        this.loadingFillPattern = this.add.tileSprite(frame.x, frame.y, 
-                layout.loadingBar.displayWidth, 
+        this.loadingFillPattern = this.add.tileSprite(frame.x, frame.y + 10, 
+                layout.loadingBar.displayWidth + 1000, 
                 layout.loadingBar.displayHeight, 
                 'loading_fill_pattern'
-            );
+            ).setScale(0.8);
         
         const maskGraphics = this.make.graphics();
         fill.setMask(maskGraphics.createGeometryMask());
