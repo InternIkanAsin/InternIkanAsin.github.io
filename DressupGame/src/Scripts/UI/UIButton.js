@@ -411,20 +411,20 @@ export class CategoryButton extends BaseButton {
             this.scene.selectedCategory.previous.deselectButton();
         }
 
-        // Targetkan elemen visual DI DALAM container, bukan container itu sendiri
+        
         const visualElements = [this.button, this.icon, this.iconSelected];
 
         if (orientation.isPortrait) {
             this.scene.tweens.add({
                 targets: visualElements,
-                y: layout.categoryButton.popOutY, // Bergerak relatif di dalam container
+                y: layout.categoryButton.popOutY,
                 duration: 100,
                 ease: 'Power2'
             });
         } else {
             this.scene.tweens.add({
                 targets: visualElements,
-                x: -40, // Bergerak relatif di dalam container
+                x: -40, 
                 duration: 100,
                 ease: 'Power2'
             });
@@ -435,12 +435,12 @@ export class CategoryButton extends BaseButton {
         this.icon.setVisible(false);
     }
 
-    // --- GANTI SELURUH FUNGSI INI ---
+    
     deselectButton() {
         if (!this.isSelected) return;
         this.isSelected = false;
         
-        // Tween tombol kembali ke 0,0
+        
         this.scene.tweens.add({
             targets: this.button,
             x: 0,
@@ -449,11 +449,11 @@ export class CategoryButton extends BaseButton {
             ease: 'Power2'
         });
 
-        // Tween IKON kembali ke posisi AWALNYA
+        
         this.scene.tweens.add({
             targets: [this.icon, this.iconSelected],
-            x: this.iconInitialX, // Gunakan posisi awal yang disimpan
-            y: this.iconInitialY, // Gunakan posisi awal yang disimpan
+            x: this.iconInitialX, 
+            y: this.iconInitialY, 
             duration: 100,
             ease: 'Power2'
         });
