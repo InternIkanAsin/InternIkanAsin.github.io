@@ -296,7 +296,7 @@ export class CategoryButton extends BaseButton {
             20, 20, 20, 20 // Nilai corner cut bisa disesuaikan
         ).setDepth(100).setInteractive().setScale(0.35);
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
-        const icon = scene.add.image(0, 0, textureIcon.atlas, textureIcon.frame)
+        const icon = scene.add.image(-12, 0, textureIcon.atlas, textureIcon.frame)
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.4);
         const iconSelected = scene.add.image(0, 0, textureIconSelected.atlas, textureIconSelected.frame)
             .setScale(scene.state === GameState.DRESSUP ? layout.categoryButton.iconScale : 0.4).setVisible(false);

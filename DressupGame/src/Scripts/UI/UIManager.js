@@ -22,10 +22,10 @@ export class UIManager {
      */
     setupScene(scene) {
         const bgLayout = layout.background;
-        scene.background = scene.add.image(bgLayout.x, bgLayout.y, 'newBackground').setOrigin(bgLayout.originX, bgLayout.originY).setScale(bgLayout.scale).setDisplaySize(this.scene.scale.width, this.scene.scale.height);
+        scene.background = scene.add.image(bgLayout.x, bgLayout.y, 'newBackground').setOrigin(bgLayout.originX, bgLayout.originY).setScale(bgLayout.scale).setDisplaySize(bgLayout.displayWidth, bgLayout.displayHeight);
         scene.body = scene.add.image(layout.character.x, layout.character.y, 'player').setScale(layout.character.scale).setOrigin(0.5).setDepth(1);
 
-        
+
 
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9).setRotation(Phaser.Math.DegToRad(0));

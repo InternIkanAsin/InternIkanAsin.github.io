@@ -43,7 +43,7 @@ export default class AssetLoader {
   static loadCutsceneAssets(scene) {
     scene.load.image('AnggaHangout1', 'Asset/Background/Pool.png');
     scene.load.image('AzrilHangout1', 'Asset/Background/Concert.jpg');
-    scene.load.image('IndraHangout1', 'Asset/Background/Cafe.jpg');
+    scene.load.image('IndraHangout1', 'Asset/Background/Cafe.png');
     scene.load.image('RezaHangout1', 'Asset/Background/Park.jpg');
     scene.load.image('KeenanHangout1', 'Asset/Background/Aquarium.jpg');
   }
@@ -100,8 +100,6 @@ export default class AssetLoader {
     scene.load.image('rightDrape', "Asset/UI/New/Curtains_Released_Right.png");
     scene.load.image('leftCurtain', 'Asset/UI/New/Curtain_Tied_Left.png');
     scene.load.image('rightCurtain', 'Asset/UI/New/Curtain_Tied_Right.png');
-    scene.load.image('leftCurtainUntied', 'Asset/UI/Curtain_Tied_Left_Mobile.png');
-    scene.load.image('rightCurtainUntied', 'Asset/UI/Curtain_Tied_Right_Mobile.png');
 
 
     scene.load.image('sidePanel', 'Asset/UI/New/Wardrobe_Base.png');
