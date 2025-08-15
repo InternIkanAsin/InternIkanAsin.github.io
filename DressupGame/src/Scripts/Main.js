@@ -334,7 +334,8 @@ class Main extends Phaser.Scene {
         this.state = gameState;
         console.log(`[Main.js] Transitioning to ${gameState} mode.`);
 
-
+        this.flower4?.destroy();
+        this.flower5?.destroy();
         this.TweeningUtils.closeDrapes(500, async () => {
             if (this.dressUpButton) this.dressUpButton.destroy();
             if (this.makeUpButton) this.makeUpButton.destroy();
