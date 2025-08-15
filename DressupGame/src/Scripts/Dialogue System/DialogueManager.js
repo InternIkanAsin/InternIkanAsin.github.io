@@ -17,7 +17,7 @@ export class DialogueManager {
     createDialogueUI(scene) {
         const { width, height } = this.scene.sys.game.config;
         const nameBoxLayout = layout.namedDialogueNameBox;
-        this.dialogueBox = this.scene.add.nineslice(layout.dialogueBox.x, layout.dialogueBox.y, 'dialogueBox', '', layout.dialogueBox.width, layout.dialogueBox.height, 128, 128, 64, 68).setDepth(100);
+        this.dialogueBox = this.scene.add.nineslice(layout.dialogueBox.x, layout.dialogueBox.y, 'dialogueBox2', '', layout.dialogueBox.width, layout.dialogueBox.height, 60, 60, 40, 60).setDepth(100);
         this.dialogueText = this.scene.add.text(layout.dialogueText.x, layout.dialogueText.y, 'Tristan is a very handsome man. He is the most amicable, loyal, attractive man i have ever met', {
             fontSize: layout.dialogueText.fontSize,
             fill: '#60292b',
@@ -31,7 +31,7 @@ export class DialogueManager {
         this.dialogueNameBox = this.scene.add.nineslice(nameBoxX, nameBoxY, 'blueButton2', '', nameBoxLayout.width, nameBoxLayout.height, nameBoxLayout.nineslice.left, nameBoxLayout.nineslice.right, nameBoxLayout.nineslice.top, nameBoxLayout.nineslice.bottom).setDepth(100).setScale(1);;
         this.nameText = this.scene.add.text(nameBoxX, 100, '', {
             fontSize: '50px',
-            fill: '#00000',
+            fill: '#60292b',
             fontFamily: 'regularFont'
         }).setDepth(101).setOrigin(0.5, 0.3);
 
@@ -48,7 +48,7 @@ export class DialogueManager {
 
         // Terapkan ukuran dan posisi dinamis ke kotak dialog
         this.dialogueBox.setPosition(boxLayout.x, boxLayout.y);
-        this.dialogueBox.setDisplaySize(boxLayout.width, boxLayout.height);
+        this.dialogueBox.width = boxLayout.width;
 
         // Terapkan posisi dan word-wrap dinamis ke teks
         this.dialogueText.setPosition(textLayout.x, textLayout.y);

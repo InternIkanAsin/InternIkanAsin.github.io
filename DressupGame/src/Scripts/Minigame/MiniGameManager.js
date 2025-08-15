@@ -1233,6 +1233,7 @@ export class MiniGameManager {
                 nextLevelButton.disableInteractive();
             },
             buttonText: 'Next Level',
+            buttonScale: 1.4,
             textSize: layout.nextLevelButton.textSize,
             textYPosition: 0,
             font: 'regularFont',
@@ -1249,6 +1250,7 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
+            buttonScale: 1.4,
             callback: () => {
                 this.handleGameEnd(true);
                 this.restartGame(true);

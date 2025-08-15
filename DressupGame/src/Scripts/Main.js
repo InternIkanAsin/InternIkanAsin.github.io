@@ -307,9 +307,9 @@ class Main extends Phaser.Scene {
         this.finishMiniGameButton = new UIButton(scene, this.AudioManager, {
             x: layout.finishButton.x,
             y: layout.finishButton.y,
-            textureButton: 'readyButtonIcon',
+            textureButton: 'YellowButton2',
             buttonWidth: 600,
-            buttonHeight: 150,
+            buttonHeight: 200,
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
@@ -319,6 +319,7 @@ class Main extends Phaser.Scene {
             textYPosition: 0,
             font: 'regularFont',
             useNineSlice: true,
+            nineSliceConfig: layout.finishButton.nineSliceConfig,
             textColor: '#d6525f'
         });
 

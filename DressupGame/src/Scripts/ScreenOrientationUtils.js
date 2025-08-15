@@ -285,6 +285,9 @@ const LANDSCAPE = {
         textSize: 60,
         iconScale: 0.6,
         buttonScale: 0.7,
+        nineSliceConfig: {
+            left: 60, right: 60, top: 40, bottom: 60
+        }
     },
 
     //Dialogue System
@@ -321,7 +324,7 @@ const LANDSCAPE = {
         width: 280 * 1,
         height: 100 * 1.2,
         offsetX: 220,
-        nineslice: {left: 40, right: 40, top: 40, bottom: 40},
+        nineslice: { left: 40, right: 40, top: 40, bottom: 40 },
     },
 
     backButton: {
@@ -434,9 +437,9 @@ const LANDSCAPE = {
     nextLevelButton: {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY + 100,
-        texture: 'YellowButton',
-        width: 1000,
-        height: 300,
+        texture: 'YellowButton2',
+        width: 500,
+        height: 150,
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
@@ -448,12 +451,12 @@ const LANDSCAPE = {
         x: LANDSCAPE_CENTERX,
         y: LANDSCAPE_CENTERY + 350,
         texture: 'blueButton2',
-        width: 700,
-        height: 300,
+        width: 350,
+        height: 125,
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 60, right: 60, top: 50, bottom: 60 ,
+            left: 60, right: 60, top: 50, bottom: 60,
         }
     },
 
@@ -899,7 +902,7 @@ const PORTRAIT = {
         width: 60,
         height: 30,
         offsetX: 200,
-        nineslice: {left: 3, right: 3, top: 3, bottom: 3},
+        nineslice: { left: 3, right: 3, top: 3, bottom: 3 },
     },
 
     backButton: {
