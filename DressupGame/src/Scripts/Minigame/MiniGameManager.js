@@ -380,7 +380,7 @@ export class MiniGameManager {
             ? 'Are you sure about the outfit you chose?'
             : 'Are you sure about the make up you chose?';
 
-        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', 690, 390, 128, 128, 64, 68)
+        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', 750, 390, 128, 128, 64, 68)
             .setDepth(101);
 
         const text = this.scene.add.text(0, -20, questionText, {
@@ -770,9 +770,9 @@ export class MiniGameManager {
             width: panelLayout.width, height: panelLayout.height,
             scrollMode: 0,
             background: scene.add.nineslice(0, 0, 'sidePanelPortrait', '', panelLayout.width, panelLayout.height, 20, 20, 20, 20),
-            panel: { 
-                child: this.innerSizer, 
-                inputHitArea: false 
+            panel: {
+                child: this.innerSizer,
+                inputHitArea: false
             },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space,
@@ -783,7 +783,7 @@ export class MiniGameManager {
         // Pasang listener ke semua tombol di innerSizer
         this.innerSizer.getChildren().forEach(child => {
             if (!child.input) child.setInteractive({ useHandCursor: true });
-        
+
             child.on('pointerdown', (pointer) => {
                 if (!Phaser.Geom.Rectangle.Contains(panelBounds, pointer.x, pointer.y)) {
                     // Klik di luar area panel → blokir

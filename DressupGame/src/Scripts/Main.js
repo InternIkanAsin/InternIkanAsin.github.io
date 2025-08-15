@@ -193,6 +193,8 @@ class Main extends Phaser.Scene {
 
         const targetDrapeWidth = layout.drapes.width;
         const targetDrapeHeight = layout.drapes.height;
+        const targetCurtainWidth = layout.curtain.displayWidth;
+        const targetCurtainHeight = layout.curtain.displayHeight;
 
         scene.leftDrape = scene.add.image(layout.drapes.closed.leftX, centerY, 'leftDrape').setDepth(101);
         scene.rightDrape = scene.add.image(layout.drapes.closed.rightX, centerY, 'rightDrape').setDepth(101);
@@ -213,6 +215,9 @@ class Main extends Phaser.Scene {
             centerY,
             layout.curtain.rightTexture
         ).setDepth(102);
+
+        scene.leftCurtain.setDisplaySize(targetCurtainWidth, targetCurtainHeight);
+        scene.rightCurtain.setDisplaySize(targetCurtainWidth, targetCurtainHeight);
 
         this.createSelectionButtons();
 
@@ -466,6 +471,7 @@ const config = {
 };
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = true;
 
 
 if (isMobile) {

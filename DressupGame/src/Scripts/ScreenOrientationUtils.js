@@ -1,4 +1,5 @@
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+//const isMobile = true;
 
 const isPortrait = isMobile;
 
@@ -157,7 +158,9 @@ const LANDSCAPE = {
         originY: 0.5,
         x: 1920 / 2,
         y: 1080 / 2,
-        scale: 0.6
+        scale: 0.6,
+        displayWidth: 1920,
+        displayHeight: 1080
     },
 
     //Background Cutscene
@@ -193,6 +196,8 @@ const LANDSCAPE = {
     curtain: {
         leftTexture: 'leftCurtain',
         rightTexture: 'rightCurtain',
+        displayWidth: 400,
+        displayHeight: 1080,
         closed: {
             leftX: (1920 / 2) / 4.8,
             rightX: 1920 - ((1920 / 2) / 4.8)
@@ -758,7 +763,9 @@ const PORTRAIT = {
         originY: 0.5,
         x: 0,
         y: 1280 / 2,
-        scale: 1280 / 1080
+        scale: 1280 / 1080,
+        displayWidth: 3000,
+        displayHeight: 2000
     },
 
     //Background Cutscene
@@ -794,11 +801,13 @@ const PORTRAIT = {
     },
     //tirai kelipet
     curtain: {
-        leftTexture: 'leftCurtainUntied',
-        rightTexture: 'rightCurtainUntied',
+        leftTexture: 'leftCurtain',
+        rightTexture: 'rightCurtain',
+        displayWidth: 400,
+        displayHeight: 1280,
         closed: {
-            leftX: (720 / 2) / 4.8,
-            rightX: 720 - ((720 / 2) / 4.8)
+            leftX: (720 / 2) / 4.8 - 100,
+            rightX: 720 - ((720 / 2) / 4.8) + 100
         },
 
         open: {
