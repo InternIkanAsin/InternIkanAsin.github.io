@@ -206,13 +206,13 @@ class Main extends Phaser.Scene {
             layout.curtain.closed.leftX,
             centerY,
             layout.curtain.leftTexture
-        ).setDepth(102).setScale(2);
+        ).setDepth(102);
 
         scene.rightCurtain = scene.add.image(
             layout.curtain.closed.rightX,
             centerY,
             layout.curtain.rightTexture
-        ).setDepth(102).setScale(2);
+        ).setDepth(102);
 
         this.createSelectionButtons();
 
