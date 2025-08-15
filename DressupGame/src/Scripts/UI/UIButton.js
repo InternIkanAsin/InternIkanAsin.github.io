@@ -62,8 +62,6 @@ export default class UIButton extends BaseButton {
 
         button.on("pointerup", () => {
             button.setTexture(textureButton);
-            if (icon) icon.y -= 5;
-
         });
 
 
@@ -297,13 +295,13 @@ export class CategoryButton extends BaseButton {
             btnLayout.width, btnLayout.height,
             20, 20, 20, 20
         ).setDepth(100).setInteractive().setScale(0.35);
-        
+
         const buttonHighlighted = scene.add.image(0, 0, textureButtonHighlighted).setVisible(false);
 
         // Gunakan iconOffsetY dari layout
         const icon = scene.add.image(btnLayout.iconOffsetX, btnLayout.iconOffsetY, textureIcon.atlas, textureIcon.frame)
-            .setScale(btnLayout.iconScale); 
-        
+            .setScale(btnLayout.iconScale);
+
         const iconSelected = scene.add.image(0, btnLayout.iconOffsetY, textureIconSelected.atlas, textureIconSelected.frame)
             .setScale(btnLayout.iconScale).setVisible(false);
         super(scene, x, y, [button, buttonHighlighted, icon, iconSelected]);
@@ -411,7 +409,7 @@ export class CategoryButton extends BaseButton {
             this.scene.selectedCategory.previous.deselectButton();
         }
 
-        
+
         const visualElements = [this.button, this.icon, this.iconSelected];
 
         if (orientation.isPortrait) {
@@ -424,7 +422,7 @@ export class CategoryButton extends BaseButton {
         } else {
             this.scene.tweens.add({
                 targets: visualElements,
-                x: -40, 
+                x: -40,
                 duration: 100,
                 ease: 'Power2'
             });
@@ -435,12 +433,12 @@ export class CategoryButton extends BaseButton {
         this.icon.setVisible(false);
     }
 
-    
+
     deselectButton() {
         if (!this.isSelected) return;
         this.isSelected = false;
-        
-        
+
+
         this.scene.tweens.add({
             targets: this.button,
             x: 0,
@@ -449,15 +447,15 @@ export class CategoryButton extends BaseButton {
             ease: 'Power2'
         });
 
-        
+
         this.scene.tweens.add({
             targets: [this.icon, this.iconSelected],
-            x: this.iconInitialX, 
-            y: this.iconInitialY, 
+            x: this.iconInitialX,
+            y: this.iconInitialY,
             duration: 100,
             ease: 'Power2'
         });
-        
+
         this.button.setTexture('blueButton');
         this.iconSelected.setVisible(false);
         this.icon.setVisible(true);
