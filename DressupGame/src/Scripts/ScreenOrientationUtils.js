@@ -360,6 +360,25 @@ const LANDSCAPE = {
         buttonScale: 0.6 * 2,
         popOutY: -20
     },
+
+    dressUpCategoryButton: {
+        width: 650,
+        height: 510,
+        iconScale: 0.5,
+        buttonScale: 0.6 * 2,
+        iconOffsetY: 0,
+        iconOffsetX: 0,
+        popOutY: -20 
+    },
+    makeUpCategoryButton: {
+        width: 650,
+        height: 510,
+        iconScale: 0.45,
+        buttonScale: 0.6 * 2,
+        iconOffsetX: -20,
+        iconOffsetY: -10,
+        popOutY: -20 
+    },
     makeUpButton: {
         iconLockedX: 68,
         iconLockedY: 64,
@@ -667,6 +686,26 @@ const PORTRAIT = {
         height: 630,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
+        iconOffsetY: 0,
+        popOutY: -50
+    },
+
+    dressUpCategoryButton: {
+        width: 510,
+        height: 630,
+        iconScale: 0.5,
+        buttonScale: 0.5 * 2,
+        iconOffsetY: 0,
+        iconOffsetX: 0,
+        popOutY: -50
+    },
+    makeUpCategoryButton: {
+        width: 510,
+        height: 630,
+        iconScale: 0.45,
+        buttonScale: 0.5 * 2,
+        iconOffsetX: 0,
+        iconOffsetY: -10,
         popOutY: -50
     },
 
