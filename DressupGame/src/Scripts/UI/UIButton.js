@@ -1068,7 +1068,7 @@ export class MakeUpButton extends BaseButton {
 
                     return;
                 } else {
-
+                    
                     console.log(`[MakeUpButton] Unequipping completed colorable ${name}`);
                     if (makeupType === 'Lips' || makeupType === 'Eyeshadow') {
 
@@ -1081,6 +1081,13 @@ export class MakeUpButton extends BaseButton {
                     return;
                 }
             } else {
+                if (makeupType === 'Eyeshadow') {
+                console.log("[Eyeshadow Fix] Preemptively resetting eyeshadow state...");
+                // Panggil _equipDefaultMakeUp untuk 'membersihkan' state
+                // sebelum memulai sesi mewarnai yang baru.
+                this._equipDefaultMakeUp('Eyeshadow', null);
+            }
+
                 if (scene.interactiveMakeupSystem?.isActive) {
                     scene.interactiveMakeupSystem.stopColoringSession(scene.interactiveMakeupSystem.activeMakeupType, true);
                 }
