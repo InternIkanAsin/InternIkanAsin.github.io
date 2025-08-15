@@ -434,7 +434,7 @@ const LANDSCAPE = {
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 40, right: 40, top: 40, bottom: 50
+            left: 60, right: 60, top: 40, bottom: 60
         }
     },
 
@@ -447,7 +447,7 @@ const LANDSCAPE = {
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 40, right: 40, top: 40, bottom: 50
+            left: 60, right: 60, top: 50, bottom: 60 ,
         }
     },
 
@@ -1051,7 +1051,7 @@ const PORTRAIT = {
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 128, right: 128, top: 68, bottom: 64
+            left: 128, right: 128, top: 70, bottom: 70
         }
     },
 
@@ -1064,7 +1064,7 @@ const PORTRAIT = {
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
-            left: 128, right: 128, top: 68, bottom: 64
+            left: 128, right: 128, top: 70, bottom: 70
         }
     },
 
