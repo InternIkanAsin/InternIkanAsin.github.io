@@ -358,26 +358,26 @@ const LANDSCAPE = {
         height: 510,
         iconScale: 0.5,
         buttonScale: 0.6 * 2,
-        popOutY: -20
+        popOutY: -50
     },
 
     dressUpCategoryButton: {
         width: 650,
-        height: 510,
+        height: 1000,
         iconScale: 0.5,
         buttonScale: 0.6 * 2,
         iconOffsetY: 0,
         iconOffsetX: 0,
-        popOutY: -20 
+        popOutY: -20
     },
     makeUpCategoryButton: {
         width: 650,
-        height: 510,
+        height: 1000,
         iconScale: 0.45,
         buttonScale: 0.6 * 2,
         iconOffsetX: -20,
         iconOffsetY: -10,
-        popOutY: -20 
+        popOutY: -20
     },
     makeUpButton: {
         iconLockedX: 68,
@@ -399,7 +399,9 @@ const LANDSCAPE = {
         lockedIconBgScale: 0.6,
         lockedIconScale: 1.6,
         textYPosition: 140,
-        textSize: '24px'
+        textSize: '24px',
+        outfitScale: 1,
+        outfitScale2: 1,
     },
     //Dressup Category
     dressUpCategoryButtons: {
@@ -557,8 +559,8 @@ const PORTRAIT = {
     // character position
     character: {
         x: 720 / 2 / 1.1,
-        y: 1280 / 2 / 0.9 - 280,
-        scale: 0.6,
+        y: 1280 / 2 / 0.9 - 280 * 0.85,
+        scale: 0.6 * 0.9,
         zoomInX: 720 / 2 * 1.05,
         zoomInY: 1280 / 2 * 2.6,
         zoomInScale: 1.9,
@@ -575,8 +577,8 @@ const PORTRAIT = {
         zoomInTargetFaceScale: 1,
 
         zoomOutFaceX: 720 / 2 / 1.13,
-        zoomOutFaceY: 1280 / 2 / 1.79 - 280,
-        zoomOutTargetFaceScale: 0.3,
+        zoomOutFaceY: 1280 / 2 / 1.79 - 280 * 0.72,
+        zoomOutTargetFaceScale: 0.3 * 0.85,
 
         halfZoomFaceX: PORTRAIT_CENTERX - 16,
         halfZoomFaceY: PORTRAIT_HEIGHT * 0.19,
@@ -591,8 +593,8 @@ const PORTRAIT = {
         zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
 
         zoomOutHairX: 720 / 2 / 1.107,
-        zoomOutHairY: 1280 / 2 / 1.325 - 280,
-        zoomOutHairScale: 0.25 * 2 * 256 / 225,
+        zoomOutHairY: 1280 / 2 / 1.325 - 280 * 0.78,
+        zoomOutHairScale: 0.25 * 2 * 256 / 225 * 0.89,
 
         halfZoomHairX: PORTRAIT_CENTERX - 5,
         halfZoomHairY: PORTRAIT_HEIGHT * 0.345,
@@ -619,23 +621,23 @@ const PORTRAIT = {
             nameTextY: PORTRAIT_HEIGHT * 0.1,
             callStatusY: PORTRAIT_HEIGHT * 0.18,
 
-            phoneBackgroundShrinkY: 1.5, 
+            phoneBackgroundShrinkY: 1.5,
 
             bachelorSprite: {
                 x: PORTRAIT_CENTERX,
-                y: PORTRAIT_HEIGHT * 0.5, 
+                y: PORTRAIT_HEIGHT * 0.5,
                 scale: 0.65
             },
 
             dialogueBox: {
                 x: PORTRAIT_CENTERX,
-                y: PORTRAIT_HEIGHT * 0.75, 
+                y: PORTRAIT_HEIGHT * 0.75,
                 width: 700,
                 height: 300
             },
             dialogueText: {
                 x: PORTRAIT_WIDTH / 15,
-                y: PORTRAIT_HEIGHT * 0.1, 
+                y: PORTRAIT_HEIGHT * 0.1,
                 wordWrap: PORTRAIT_WIDTH - 80
             },
 
@@ -682,26 +684,26 @@ const PORTRAIT = {
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
         iconOffsetY: 0,
-        popOutY: -50
+        popOutY: -20
     },
 
     dressUpCategoryButton: {
-        width: 510,
-        height: 630,
-        iconScale: 0.5,
-        buttonScale: 0.5 * 2,
-        iconOffsetY: 0,
+        width: 470,
+        height: 400,
+        iconScale: 0.35,
+        buttonScale: 0.5,
+        iconOffsetY: -10,
         iconOffsetX: 0,
-        popOutY: -50
+        popOutY: -1
     },
     makeUpCategoryButton: {
-        width: 510,
-        height: 630,
-        iconScale: 0.45,
+        width: 470,
+        height: 400,
+        iconScale: 0.3,
         buttonScale: 0.5 * 2,
         iconOffsetX: 0,
-        iconOffsetY: -10,
-        popOutY: -50
+        iconOffsetY: -15,
+        popOutY: -1
     },
 
     muteButton: {
@@ -756,12 +758,12 @@ const PORTRAIT = {
     outfit: {
         offsety: 100,
         positions: {
-            Dress: { x: 327, y: 757.5 - 280 },
-            Shirt: { x: 327, y: 549 - 280 },
-            Outer: { x: 328.5, y: 590.5 - 280 },
-            Lower: { x: 342, y: 853 - 280 },
-            Socks: { x: 365.5, y: 878 - 280 },
-            Shoes: { x: 378, y: 1022 - 280 }
+            Dress: { x: 327, y: 757.5 - 280 * 0.88 },
+            Shirt: { x: 327, y: 549 - 280 * 0.795 },
+            Outer: { x: 328.5, y: 590.5 - 280 * 0.82 },
+            Lower: { x: 342, y: 853 - 280 * 0.89 },
+            Socks: { x: 362.5, y: 878 - 280 * 0.89 },
+            Shoes: { x: 375, y: 1022 - 280 * 0.92 }
         },
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
@@ -800,9 +802,9 @@ const PORTRAIT = {
         originY: 0.5,
         x: 0,
         y: 1280 / 2,
-        scale: 1280 / 1080,
-        displayWidth: 3000,
-        displayHeight: 2000
+        scale: 0.1,
+        displayWidth: 1920,
+        displayHeight: 1280
     },
 
     //Background Cutscene
@@ -1034,7 +1036,9 @@ const PORTRAIT = {
         lockedIconBgScale: 0.4,
         lockedIconScale: 1.3,
         textYPosition: 100,
-        textSize: '20px'
+        textSize: '20px',
+        outfitScale: 0.89,
+        outfitScale2: 0.9,
     },
 
     makeUpButton: {

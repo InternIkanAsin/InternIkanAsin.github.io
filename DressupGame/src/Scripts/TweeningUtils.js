@@ -77,7 +77,7 @@ export default class TweenUtils {
             scene.muteButton.setPosition(mutePos.x, mutePos.y).setScale(mutePos.scale);
             scene.muteButton.setDepth(103);
             scene.createSelectionButtons();
-
+            scene.background.y = layout.background.y
             await this.zoomHalfway();
 
             this.openDrapesHalfway(1000);
@@ -159,7 +159,7 @@ export default class TweenUtils {
                 }
             }
         });
-        
+
     }
 
     openDrapesHalfway(duration = 1000) {

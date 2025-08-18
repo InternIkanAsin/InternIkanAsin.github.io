@@ -259,7 +259,7 @@ export class UIManager {
                     newOutfitImage.setDisplaySize(custom.width, custom.height);
                 } else {
 
-                    const defaultScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 : 1.2;
+                    const defaultScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 * layout.outfitButton.outfitScale : 1.2 * layout.outfitButton.outfitScale2;
                     newOutfitImage.setScale(defaultScale);
                 }
 

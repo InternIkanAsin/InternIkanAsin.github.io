@@ -83,6 +83,8 @@ export class MiniGameManager {
             const lineLayout = layout.purpleLines;
             const removeAllLayout = layout.removeAllButton;
             const finishLayout = layout.minigameFinishButton;
+
+            scene.background.y = layout.background.y / 1.5;
             scene.purpleLine1 = scene.add.image(
                 randomizeLayout.x + lineLayout.offsetX,
                 lineLayout.randomize.y,
@@ -1171,37 +1173,37 @@ export class MiniGameManager {
             const screenWidth = this.scene.scale.width;
 
             const confettiConfig = {
-            // Arah dasar ledakan
-            angle: { min: 240, max: 300 }, 
-            speedY: { min: -500, max: -900 },
-            speedX: { min: -150, max: 150 },
-            
-            lifespan: 6000,
-            gravityY: 350,
-            quantity: 100,  
-            
-            rotate: { 
-                onEmit: () => { return Math.random() * 360; } 
-            },
+                // Arah dasar ledakan
+                angle: { min: 240, max: 300 },
+                speedY: { min: -500, max: -900 },
+                speedX: { min: -150, max: 150 },
 
-            scaleX: { 
-            onEmit: () => { return (Math.random() * 4) - 2; } 
-            },
-            
-            scaleY: {
-                onEmit: () => { return (Math.random() * 4) - 2; }
-            },
+                lifespan: 6000,
+                gravityY: 350,
+                quantity: 100,
+
+                rotate: {
+                    onEmit: () => { return Math.random() * 360; }
+                },
+
+                scaleX: {
+                    onEmit: () => { return (Math.random() * 4) - 2; }
+                },
+
+                scaleY: {
+                    onEmit: () => { return (Math.random() * 4) - 2; }
+                },
                 emitting: false
             };
-       
 
-        
-        confettiKeys.forEach(key => {
-            allEmitters.push(
-                this.scene.add.particles(screenWidth / 2, screenHeight, key, confettiConfig)
-                    .setDepth(152)
-            );
-        });
+
+
+            confettiKeys.forEach(key => {
+                allEmitters.push(
+                    this.scene.add.particles(screenWidth / 2, screenHeight, key, confettiConfig)
+                        .setDepth(152)
+                );
+            });
 
             const triggerBurst = () => {
                 allEmitters.forEach(emitter => {

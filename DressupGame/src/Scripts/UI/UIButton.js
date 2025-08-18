@@ -528,9 +528,9 @@ export class OutfitButton extends BaseButton {
             this.baseScaleXAfterCustomSize = 1;
             this.baseScaleYAfterCustomSize = 1;
         } else if (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') {
-            this.dressUpViewScale = 0.6;
+            this.dressUpViewScale = 0.6 * layout.outfitButton.outfitScale;
         } else {
-            this.dressUpViewScale = 1.2;
+            this.dressUpViewScale = 1.2 * layout.outfitButton.outfitScale2;
         }
         this.offsetXInDressUpView = 0;
         this.offsetYInDressUpView = 0;
