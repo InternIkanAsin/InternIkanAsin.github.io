@@ -896,14 +896,13 @@ const PORTRAIT = {
     minigameFinishButton: {
         x: 115,
         y: 550,
-        scale: 0.14 * 2,
         useNineSlice: true,
         textOffsetX: 0,
         texture: 'yellowButton',
         width: 600,
         height: 150,
-        iconScale: 0.32 * 1,
-        buttonScale: 0.3 * 0.5
+        iconScale: 0.32 * 0.7,
+        buttonScale: 0.3 * 0.3
     },
     //Dialogue System
     dialogueBox: {

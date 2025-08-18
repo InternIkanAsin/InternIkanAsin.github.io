@@ -155,7 +155,7 @@ export class MiniGameManager {
                 textureButton: finishLayout.texture,
                 textureIcon: 'tickMark',
                 iconScale: finishLayout.iconScale,
-                buttonScale: finishLayout.scale,
+                buttonScale: finishLayout.buttonScale,
                 callback: () => {
                     scene.finishButton.disableInteractive();
                     if (scene.state === GameState.DRESSUP) {

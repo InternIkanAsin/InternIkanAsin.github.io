@@ -233,7 +233,6 @@ class Main extends Phaser.Scene {
                 // Untuk Portrait, buka tirai sepenuhnya
                 // Kita juga harus memberikan callback untuk mengaktifkan interaksi
                 this.TweeningUtils.openDrapesOnly(1000, () => {
-                    
                     this.MiniGameManager.enableInteraction();
                     
                 });
