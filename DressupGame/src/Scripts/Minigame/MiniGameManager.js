@@ -765,9 +765,10 @@ export class MiniGameManager {
             column: 1,
             row: 1
         });
-        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20, left: 30 } });
+        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 0, left: 30 } });
+        this.innerSizer.add(scene.rexUI.add.space(0, 0));
         this.innerSizer.add(this.buttonGrid, { expand: true });
-
+        
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
@@ -779,11 +780,13 @@ export class MiniGameManager {
             },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space,
-        }).layout().setDepth(11);
+        }).layout().setDepth(11).setT(0.1);
 
         const panelBounds = scene.sidePanel.getBounds();
-
-        // Pasang listener ke semua tombol di innerSizer
+        scene.time.delayedCall(1000, () => {
+            scene.sidePanel.setT(0.03);  // scroll ke atas sedikit
+        });
+        //// Pasang listener ke semua tombol di innerSizer
         this.innerSizer.getChildren().forEach(child => {
             if (!child.input) child.setInteractive({ useHandCursor: true });
 
@@ -847,7 +850,7 @@ export class MiniGameManager {
             space: { top: 70, left: 0 }
         });
 
-        this.innerSizer.add(this.buttonGrid, 0, 'center', {}, true);
+        this.innerSizer.add(this.buttonGrid, 0, 'center', {}, false);
 
 
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({

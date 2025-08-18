@@ -232,7 +232,10 @@ export class DressUpManager {
             
             row: Math.max(1, Math.ceil(numItems / columns)),
             
-            space: gridConfig.space || {},
+            space: { 
+                ...gridConfig.space, 
+                bottom: 150          
+            },
             align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
@@ -415,17 +418,31 @@ export class DressUpManager {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
                 const panel = scene.sidePanel;
-                if (!scene.animatedCategories.has(outfitType)) panel.setT(1);
-                else panel.setT(0);
+                if (panel && panel.isOverflow) {
+                    const needsAnimation = !scene.animatedCategories.has(outfitType);
+                    if (needsAnimation) {
+                        scene.animatedCategories.add(outfitType);
+                        panel.setT(1); // Mulai dari bawah/kanan
 
-                if (!panel) return;
+                        const targetScrollPosition = orientation.isPortrait ? 0.02 : 0; // Target berbeda untuk portrait
 
-                const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(outfitType);
-
-                if (needsAnimation) {
-                    panel.setT(1);
-                } else {
-                    panel.setT(0);
+                        scene.tweens.add({
+                            targets: panel,
+                            t: targetScrollPosition,
+                            duration: 800,
+                            ease: 'Cubic.easeInOut',
+                            delay: 300,
+                            onComplete: () => {
+                                panel.setT(targetScrollPosition);
+                            }
+                        });
+                    }
+                    else {
+                        // JIKA TIDAK PERLU ANIMASI, LANGSUNG ATUR POSISI SCROLL
+                        const targetScrollPosition = orientation.isPortrait ? 0.02 : 0;
+                        panel.setT(targetScrollPosition);
+                    }
+            
                 }
 
 

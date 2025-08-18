@@ -220,7 +220,10 @@ export class MakeUpManager {
             
             row: Math.max(1, Math.ceil(numItems / columns)),
             
-            space: gridConfig.space || {},
+            space: { 
+                ...gridConfig.space, 
+                bottom: 150          
+            },
             align: 'center',
         });
 
@@ -378,16 +381,31 @@ export class MakeUpManager {
                     scene.MiniGameManager.updatePanelLayout(30, 100, 30);
                 }
                 const panel = scene.sidePanel;
-                panel.setT(1);
-                if (!panel) return;
+                if (panel && panel.isOverflow) {
+                    const needsAnimation = !scene.animatedCategories.has(makeUpType);
+                    if (needsAnimation) {
+                        scene.animatedCategories.add(makeUpType);
+                        panel.setT(1); // Mulai dari bawah/kanan
 
-                const needsAnimation = panel.isOverflow && !scene.animatedCategories.has(makeUpType);
+                        const targetScrollPosition = orientation.isPortrait ? 0.1 : 0; // Target berbeda untuk portrait
 
-                if (needsAnimation) {
-                    panel.setT(1);
-                } else {
-                    panel.setT(0);
+                        scene.tweens.add({
+                            targets: panel,
+                            t: targetScrollPosition,
+                            duration: 800,
+                            ease: 'Cubic.easeInOut',
+                            delay: 300,
+                            onComplete: () => {
+                                panel.setT(targetScrollPosition);
+                            }
+                        });
+                    }
+                    else {
+                    const targetScrollPosition = orientation.isPortrait ? 0.02 : 0;
+                    panel.setT(targetScrollPosition);
+                    }
                 }
+                
 
                 
 
