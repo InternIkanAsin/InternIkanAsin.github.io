@@ -232,7 +232,10 @@ export class DressUpManager {
             
             row: Math.max(1, Math.ceil(numItems / columns)),
             
-            space: gridConfig.space || {},
+            space: { 
+                ...gridConfig.space, 
+                bottom: 150          
+    },
             align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);

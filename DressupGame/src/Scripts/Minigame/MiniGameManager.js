@@ -845,7 +845,7 @@ export class MiniGameManager {
             space: { top: 70, left: 0 }
         });
 
-        this.innerSizer.add(this.buttonGrid, 0, 'center', {}, true);
+        this.innerSizer.add(this.buttonGrid, 0, 'center', {}, false);
 
 
         this.scene.sidePanel = this.scene.rexUI.add.scrollablePanel({

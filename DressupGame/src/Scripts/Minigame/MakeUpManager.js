@@ -220,7 +220,10 @@ export class MakeUpManager {
             
             row: Math.max(1, Math.ceil(numItems / columns)),
             
-            space: gridConfig.space || {},
+            space: { 
+                ...gridConfig.space, 
+                bottom: 150          
+            },
             align: 'center',
         });
 
