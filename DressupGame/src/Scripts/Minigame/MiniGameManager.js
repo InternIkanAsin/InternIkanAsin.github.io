@@ -1170,36 +1170,38 @@ export class MiniGameManager {
             const screenHeight = this.scene.scale.height;
             const screenWidth = this.scene.scale.width;
 
-            confettiKeys.forEach(key => {
-                allEmitters.push(this.scene.add.particles(screenWidth / 2, screenHeight, key, {
-                    ...burstConfig,
-                    rotate: {
-                        onEmit: () => { return Math.random() * 360; } // Mulai dari sudut acak
-                    },
+            const confettiConfig = {
+            // Arah dasar ledakan
+            angle: { min: 240, max: 300 }, 
+            speedY: { min: -500, max: -900 },
+            speedX: { min: -150, max: 150 },
+            
+            lifespan: 6000,
+            gravityY: 350,
+            quantity: 100,  
+            
+            rotate: { 
+                onEmit: () => { return Math.random() * 360; } 
+            },
 
-                    scaleX: {
-                        onEmit: () => { return (Math.random() > 0.5) ? 1 : -1; }, // Mulai dari sisi depan atau belakang
-                        ease: 'Sine.easeInOut',
-                        yoyo: true,
-                        repeat: -1,
-                        duration: Math.random() * 500 + 250 // Setiap partikel berputar dengan kecepatan berbeda
-                    },
+            scaleX: { 
+            onEmit: () => { return (Math.random() * 4) - 2; } 
+            },
+            
+            scaleY: {
+                onEmit: () => { return (Math.random() * 4) - 2; }
+            },
+                emitting: false
+            };
+       
 
-                    // 3. Simulasi Rotasi Sumbu X (menipis)
-                    // Ini akan membuat partikel terlihat "menipis" seolah berputar ke arah kita
-                    scaleY: {
-                        onEmit: () => { return (Math.random() > 0.5) ? 1 : -1; }, // Mulai dari sisi depan atau belakang
-                        ease: 'Sine.easeInOut',
-                        yoyo: true,
-                        repeat: -1,
-                        duration: Math.random() * 500 + 250
-                    },
-                    angle: { min: 240, max: 300 },
-                    speed: { min: 400, max: 800 },
-                    gravityY: 400,
-                    emitting: false
-                }).setDepth(152));
-            });
+        
+        confettiKeys.forEach(key => {
+            allEmitters.push(
+                this.scene.add.particles(screenWidth / 2, screenHeight, key, confettiConfig)
+                    .setDepth(152)
+            );
+        });
 
             const triggerBurst = () => {
                 allEmitters.forEach(emitter => {
@@ -1211,7 +1213,7 @@ export class MiniGameManager {
 
 
             this.endingPanelTimer = this.scene.time.addEvent({
-                delay: 3000,
+                delay: 6000,
                 callback: triggerBurst,
                 loop: true
             });
