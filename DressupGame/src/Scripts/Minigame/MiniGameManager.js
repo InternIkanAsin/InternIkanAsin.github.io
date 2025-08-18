@@ -763,9 +763,10 @@ export class MiniGameManager {
             column: 1,
             row: 1
         });
-        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 20, left: 30 } });
+        this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 0, left: 30 } });
+        this.innerSizer.add(scene.rexUI.add.space(0, 0));
         this.innerSizer.add(this.buttonGrid, { expand: true });
-
+        
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
@@ -780,7 +781,9 @@ export class MiniGameManager {
         }).layout().setDepth(11);
 
         const panelBounds = scene.sidePanel.getBounds();
-
+        scene.time.delayedCall(1000, () => {
+            scene.sidePanel.setT(1);  // scroll ke atas sedikit
+        });
         // Pasang listener ke semua tombol di innerSizer
         this.innerSizer.getChildren().forEach(child => {
             if (!child.input) child.setInteractive({ useHandCursor: true });
