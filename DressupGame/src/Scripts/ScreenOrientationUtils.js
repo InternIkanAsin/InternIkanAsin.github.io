@@ -902,7 +902,8 @@ const PORTRAIT = {
         texture: 'yellowButton',
         width: 600,
         height: 150,
-        iconScale: 0.2 * 2
+        iconScale: 0.32 * 1,
+        buttonScale: 0.3 * 0.5
     },
     //Dialogue System
     dialogueBox: {

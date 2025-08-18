@@ -129,6 +129,39 @@ export default class TweenUtils {
         });
     }
 
+    openDrapesOnly(duration = 500, onComplete = null) {
+        const scene = this.scene;
+        if (!scene.leftDrape || !scene.rightDrape) {
+            console.error("Drapes not found on scene!");
+            if (onComplete) onComplete();
+            return;
+        }
+
+
+
+        scene.tweens.add({
+            targets: scene.leftDrape,
+            x: layout.drapes.open.leftX,
+            duration: duration,
+            ease: 'Power2',
+            onComplete: () => {
+
+            }
+        });
+        scene.tweens.add({
+            targets: scene.rightDrape,
+            x: layout.drapes.open.rightX,
+            duration: duration,
+            ease: 'Power2',
+            onComplete: () => {
+                if (onComplete) {
+                    onComplete();
+                }
+            }
+        });
+        
+    }
+
     openDrapesHalfway(duration = 1000) {
         const scene = this.scene;
         if (!scene.leftDrape || !scene.rightDrape) { return; }
