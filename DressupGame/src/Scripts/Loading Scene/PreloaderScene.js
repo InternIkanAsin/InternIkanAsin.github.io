@@ -147,11 +147,11 @@ class PreloaderScene extends Phaser.Scene {
             .setDisplaySize(layout.loadingBar.displayWidth, layout.loadingBar.displayHeight);
         
         
-        this.loadingFillPattern = this.add.tileSprite(frame.x, frame.y + 10, 
-                layout.loadingBar.displayWidth + 1000, 
-                layout.loadingBar.displayHeight, 
+        this.loadingFillPattern = this.add.tileSprite(frame.x, frame.y - 15, 
+                layout.loadingBar.displayWidth + 10000, 
+                layout.loadingBar.displayHeight + 1000, 
                 'loading_fill_pattern'
-            ).setScale(0.8);
+            ).setScale(0.5);
         
         const maskGraphics = this.make.graphics();
         fill.setMask(maskGraphics.createGeometryMask());

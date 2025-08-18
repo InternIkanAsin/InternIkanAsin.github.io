@@ -108,7 +108,7 @@ const LANDSCAPE = {
 
     percentText: {
         yOffset: 0, // Relatif terhadap pusat bar
-        style: { font: '42px regularFont', fill: '#FFFFFF' }
+        style: { font: '42px regularFont', fill: '#64384f', stroke: '#FFFFFF', strokeThickness: 6 }
     },
 
     minigameFinishButton: {
@@ -750,7 +750,7 @@ const PORTRAIT = {
 
     percentText: {
         yOffset: 0, // Relatif terhadap pusat bar
-        style: { font: '42px regularFont', fill: '#FFFFFF' }
+        style: { font: '42px regularFont', fill: '#64384f', stroke: '#FFFFFF', strokeThickness: 6 }
     },
 
     outfit: {
