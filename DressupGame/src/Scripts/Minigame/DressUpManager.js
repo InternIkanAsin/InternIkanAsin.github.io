@@ -437,6 +437,12 @@ export class DressUpManager {
                             }
                         });
                     }
+                    else {
+                        // JIKA TIDAK PERLU ANIMASI, LANGSUNG ATUR POSISI SCROLL
+                        const targetScrollPosition = orientation.isPortrait ? 0.02 : 0;
+                        panel.setT(targetScrollPosition);
+                    }
+            
                 }
 
 

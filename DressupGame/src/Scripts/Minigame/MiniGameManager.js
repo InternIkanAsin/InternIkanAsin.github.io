@@ -778,13 +778,13 @@ export class MiniGameManager {
             },
             scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
             space: panelLayout.space,
-        }).layout().setDepth(11);
+        }).layout().setDepth(11).setT(0.1);
 
         const panelBounds = scene.sidePanel.getBounds();
         scene.time.delayedCall(1000, () => {
-            scene.sidePanel.setT(1);  // scroll ke atas sedikit
+            scene.sidePanel.setT(0.03);  // scroll ke atas sedikit
         });
-        // Pasang listener ke semua tombol di innerSizer
+        //// Pasang listener ke semua tombol di innerSizer
         this.innerSizer.getChildren().forEach(child => {
             if (!child.input) child.setInteractive({ useHandCursor: true });
 

@@ -386,9 +386,9 @@ export class MakeUpManager {
                     if (needsAnimation) {
                         scene.animatedCategories.add(makeUpType);
                         panel.setT(1); // Mulai dari bawah/kanan
-                    
+
                         const targetScrollPosition = orientation.isPortrait ? 0.1 : 0; // Target berbeda untuk portrait
-                        
+
                         scene.tweens.add({
                             targets: panel,
                             t: targetScrollPosition,
@@ -400,7 +400,12 @@ export class MakeUpManager {
                             }
                         });
                     }
+                    else {
+                    const targetScrollPosition = orientation.isPortrait ? 0.02 : 0;
+                    panel.setT(targetScrollPosition);
+                    }
                 }
+                
 
                 
 
