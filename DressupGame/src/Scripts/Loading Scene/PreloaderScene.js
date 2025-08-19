@@ -13,13 +13,15 @@ class PreloaderScene extends Phaser.Scene {
 
         this.preloaderData = data;
     }
-    loadFont(name, url) {
+    loadFont(name, url, onReady) {
         const newFont = new FontFace(name, `url(${url})`);
         newFont.load().then(function (loaded) {
             document.fonts.add(loaded);
             console.log(`Font "${name}" has been loaded.`);
+            onReady();
         }).catch(function (error) {
             console.error(`Failed to load font "${name}":`, error);
+            onReady();
         });
     }
 
@@ -27,8 +29,19 @@ class PreloaderScene extends Phaser.Scene {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
         const PAUSE_FOR_TESTING = false;
-        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf');
-        this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf');
+        let assetsReady = false;
+        let fontsReady = false;
+        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf', () => { /* Font ini cepat, tidak perlu gate */ });
+        this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf', () => {
+            fontsReady = true;
+            startGameIfReady();
+        });
+         const startGameIfReady = () => {
+            if (assetsReady && fontsReady) {
+                console.log("Assets and Fonts are ready. Starting MainScene.");
+                this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+            }
+        };
 
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const bg = this.add.image(width / 2, height / 2, 'minigame_background_preload');

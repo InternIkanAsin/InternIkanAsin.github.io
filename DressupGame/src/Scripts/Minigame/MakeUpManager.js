@@ -29,8 +29,8 @@ export class MakeUpManager {
                 const isItemGloballyLocked = lockedItemsManager.isItemLocked(name);
                 const isCurrentlyLocked = isItemGloballyLocked && !unlockManager.isItemUnlocked(name);
 
-                const button = new MakeUpButton(scene, name, makeUpType, -100, -100, textureAnime, textureButton, textureIcon, scene.AudioManager, isCurrentlyLocked);
-
+                const button = new MakeUpButton(scene, name, makeUpType, -1000, -1000, textureAnime, textureButton, textureIcon, scene.AudioManager, isCurrentlyLocked);
+                
                 button.setSize(150, 200);
                 button.setData('instance', button);
 
