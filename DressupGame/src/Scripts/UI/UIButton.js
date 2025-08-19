@@ -549,6 +549,7 @@ export class OutfitButton extends BaseButton {
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
+            pointer.event.stopPropagation();
         });
         buttonBg.on("pointerup", (pointer) => {
             buttonBg.setAlpha(1);
@@ -834,12 +835,14 @@ export class MakeUpButton extends BaseButton {
         const tapThreshold = 10;
 
 
-        buttonBg.on("pointerdown", (pointer) => {
+        buttonBg.on("pointerdown", (pointer) => { 
             buttonBg.setAlpha(0.5);
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
-
+            
+            // Sekarang ini dijamin akan bekerja
+            pointer.event.stopPropagation();
         });
 
         buttonBg.on("pointerup", (pointer) => {

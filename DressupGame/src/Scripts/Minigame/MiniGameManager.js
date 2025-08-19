@@ -1,5 +1,5 @@
 //UI Button Class
-import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from '../UI/UIButton.js'
+import UIButton, { OutfitButton, GeneralButton, CategoryButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
 
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
@@ -270,7 +270,7 @@ export class MiniGameManager {
         const scene = this.scene;
         console.log("[MiniGameManager] Clearing Minigame UI for selection screen transition.");
 
-
+        this.scene.topBlocker?.destroy()
         scene.backToSelectionButton?.destroy();
         scene.removeAllButton?.destroy();
 
@@ -752,9 +752,9 @@ export class MiniGameManager {
 
             slider: false
         }).setOrigin(0.5, 0).layout();
-
+        
         scene.add.existing(scrollPanel);
-
+        scene.scrollPanel = scrollPanel;
 
 
         // Panggil layout() untuk menata tombol di dalam sizer.
@@ -782,26 +782,79 @@ export class MiniGameManager {
             space: panelLayout.space,
         }).layout().setDepth(11).setT(0.1);
 
-        const panelBounds = scene.sidePanel.getBounds();
-        scene.time.delayedCall(1000, () => {
-            scene.sidePanel.setT(0.03);  // scroll ke atas sedikit
-        });
-        //// Pasang listener ke semua tombol di innerSizer
-        this.innerSizer.getChildren().forEach(child => {
-            if (!child.input) child.setInteractive({ useHandCursor: true });
+        const maskBounds = new Phaser.Geom.Rectangle(
+            scene.sidePanel.x - scene.sidePanel.width * scene.sidePanel.originX,
+            scene.sidePanel.y - scene.sidePanel.height * scene.sidePanel.originY + 300,
+            scene.sidePanel.width,
+            scene.sidePanel.height
+        );
+        const catBounds = scene.scrollPanel.getBounds();
 
-            child.on('pointerdown', (pointer) => {
-                if (!Phaser.Geom.Rectangle.Contains(panelBounds, pointer.x, pointer.y)) {
-                    // Klik di luar area panel → blokir
-                    pointer.event.stopPropagation();
+        
+        const topBlocker = scene.add.rectangle(
+            catBounds.centerX - 30,
+            catBounds.centerY - 60,
+            catBounds.width + 150,
+            catBounds.height,
+            0xff0000, 0 
+        )
+        .setInteractive()
+        .setDepth(100); 
+
+        
+        topBlocker.on('pointerdown', (pointer, localX, localY, event) => {
+        
+            
+            const hitObjects = scene.input.hitTestPointer(pointer);
+
+            let allowEvent = false;
+
+            
+            for (const hit of hitObjects) {
+                let parent = hit.parentContainer;
+                while (parent) {
+                    if (parent instanceof CategoryButton) {
+                        
+                        parent.button.emit('pointerdown', pointer);
+                        parent.button.emit('pointerup', pointer);
+                        allowEvent = true;
+                        break;
+                    }
+                    parent = parent.parentContainer;
                 }
-            });
+                if (hit === scene.scrollPanel || scene.scrollPanel.getByName?.(hit) || hit.isInTouchingPanel) {
+                    allowEvent = true;
+                }
+            
+                if (allowEvent) break;
+            }
+
+            if (!allowEvent) {
+                event.stopPropagation();
+            }
         });
 
+        
+        scene.topBlocker = topBlocker;
+    
+
+    
+    
+    
+    
 
 
 
-
+        scene.add.rectangle(
+            maskBounds.x + maskBounds.width/2,
+            maskBounds.y + maskBounds.height/2 + 300,
+            maskBounds.width,
+            maskBounds.height,
+            0x00ff00,
+            0.3
+        ).setDepth(99999999)
+    
+    
         scrollPanel.setInteractive(
             new Phaser.Geom.Rectangle(
                 0, 0,
