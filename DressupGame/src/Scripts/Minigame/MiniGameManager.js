@@ -1,5 +1,5 @@
 //UI Button Class
-import UIButton, { OutfitButton, GeneralButton, MakeUpButton } from '../UI/UIButton.js'
+import UIButton, { OutfitButton, GeneralButton, CategoryButton } from '../UI/UIButton.js'
 import { SaveManager } from '../Save System/SaveManager.js';
 
 import { createMakeUpCategoryButtons, createDressUpCategoryButtons, createDummyButtons, disableCategoryButtonsInteraction, enableCategoryButtonsInteraction } from './MiniGameCategoryButtons.js'
@@ -270,7 +270,7 @@ export class MiniGameManager {
         const scene = this.scene;
         console.log("[MiniGameManager] Clearing Minigame UI for selection screen transition.");
 
-
+        this.scene.topBlocker?.destroy()
         scene.backToSelectionButton?.destroy();
         scene.removeAllButton?.destroy();
 
@@ -690,8 +690,6 @@ export class MiniGameManager {
         const catLayout = layout.categoryBar;
         const panelLayout = layout.bottomPanel;
         scene.input.topOnly = false;
-
-        // 1. Buat Bar Kategori MENGGUNAKAN SIZER HORIZONTAL (JAUH LEBIH STABIL)
         const categoryButtons = scene.state === GameState.DRESSUP ? scene.dressUpCategoryButtons : scene.makeUpCategoryButtons;
 
         if (!Array.isArray(categoryButtons) || categoryButtons.length === 0) {
@@ -699,34 +697,29 @@ export class MiniGameManager {
             return;
         }
 
-        // Gunakan Sizer, bukan GridSizer. Ini adalah komponen yang tepat untuk satu baris.
         const categorySizer = scene.rexUI.add.sizer({
             x: catLayout.x,
             y: catLayout.y,
-            orientation: 'x', // 'x' berarti horizontal
+            orientation: 'x', 
             space: { item: catLayout.space.column }
         }).setDepth(11);
 
         categoryButtons.forEach(btn => {
             if (btn) {
-                // Cukup tambahkan tombol ke sizer.
                 categorySizer.add(btn, { padding: { left: 5, right: 5 } });
             }
         });
         categorySizer.layout();
         let categoryWidth = categorySizer.width;
 
-        // 3) Tentukan viewport (lebar panel) — HARUS < lebar konten agar bisa scroll
-        //    - pakai lebar desain (catLayout.width) sebagai target viewport
-        //    - tapi jangan sampai >= konten (beri margin 40px)
-        const targetViewport = Math.max(200, catLayout.width);              // minimal 200 biar enak di-drag
-        let panelWidth = Math.min(targetViewport, categoryWidth - 40);      // PASTIKAN < konten
+        
+        const targetViewport = Math.max(200, catLayout.width);              
+        let panelWidth = Math.min(targetViewport, categoryWidth - 40);      
 
-        // Bila tombol sedikit sehingga categoryWidth < targetViewport + 40,
-        // tambahkan buffer kanan agar tetap ada ruang scroll.
+        
         if (panelWidth <= 0 || panelWidth >= categoryWidth) {
-            const bufferRight = Math.max(120, Math.floor((targetViewport * 0.5))); // buffer fleksibel
-            // tambah node kosong transparan sebagai "ekor"
+            const bufferRight = Math.max(120, Math.floor((targetViewport * 0.5))); 
+            
             categorySizer.add(
                 scene.add.rectangle(1, 1, 1, 1, 0x000000, 0).setAlpha(0),
                 { padding: { right: bufferRight } }
@@ -752,15 +745,14 @@ export class MiniGameManager {
 
             slider: false
         }).setOrigin(0.5, 0).layout();
-
+        
         scene.add.existing(scrollPanel);
+        scene.scrollPanel = scrollPanel;
 
 
+        
 
-        // Panggil layout() untuk menata tombol di dalam sizer.
-
-
-        // 2. Buat Panel Item (di bawah, scroll vertikal) - KODE INI SUDAH BENAR
+        
         this.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
             row: 1
@@ -768,6 +760,10 @@ export class MiniGameManager {
         this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 0, left: 30 } });
         this.innerSizer.add(scene.rexUI.add.space(0, 0));
         this.innerSizer.add(this.buttonGrid, { expand: true });
+        scene.panelDivider = scene.add.nineslice(layout.sidePanel.x - 60, layout.sidePanel.y + 380, 'sidePanelDividerPortrait', '', 720, 90, 60, 60, 40, 60).setDepth(99);
+
+        scene.flower2 = scene.add.image(layout.sidePanel.x - 325, layout.sidePanel.y + 395, 'flowers').setScale(0.27).setDepth(99)
+        scene.flower2.angle = 270;
         
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
@@ -782,26 +778,93 @@ export class MiniGameManager {
             space: panelLayout.space,
         }).layout().setDepth(11).setT(0.1);
 
-        const panelBounds = scene.sidePanel.getBounds();
-        scene.time.delayedCall(1000, () => {
-            scene.sidePanel.setT(0.03);  // scroll ke atas sedikit
-        });
-        //// Pasang listener ke semua tombol di innerSizer
-        this.innerSizer.getChildren().forEach(child => {
-            if (!child.input) child.setInteractive({ useHandCursor: true });
+        const maskBounds = new Phaser.Geom.Rectangle(
+            scene.sidePanel.x - scene.sidePanel.width * scene.sidePanel.originX,
+            scene.sidePanel.y - scene.sidePanel.height * scene.sidePanel.originY + 300,
+            scene.sidePanel.width,
+            scene.sidePanel.height
+        );
+        const catBounds = scene.scrollPanel.getBounds();
 
-            child.on('pointerdown', (pointer) => {
-                if (!Phaser.Geom.Rectangle.Contains(panelBounds, pointer.x, pointer.y)) {
-                    // Klik di luar area panel → blokir
-                    pointer.event.stopPropagation();
+        
+        const topBlocker = scene.add.rectangle(
+            catBounds.centerX - 30,
+            catBounds.centerY - 10,
+            catBounds.width + 150,
+            catBounds.height,
+            0xff0000, 0 
+        )
+        .setInteractive()
+        .setDepth(100); 
+
+        let activeButton = null;
+        topBlocker.on('pointerdown', (pointer, localX, localY, event) => {
+            
+            const hitObjects = scene.input.hitTestPointer(pointer);
+            
+            let targetButton = null;
+            let allowEvent = false;
+            for (const hit of hitObjects) {
+                let parent = hit.parentContainer;
+                while (parent) {
+                    if (parent instanceof CategoryButton) {
+                        targetButton = parent;
+                        break;
+                    }
+                    parent = parent.parentContainer;
+                }
+                if (targetButton) break;
+                if (hit === scene.scrollPanel || scene.scrollPanel.contains?.(hit)) {
+                    allowEvent = true;
+                    break;
+                }
+            }
+        
+            if (targetButton) {
+                
+                activeButton = targetButton;
+                activeButton.button.emit('pointerdown', pointer);
+            } else {
+                        allowEvent = true; 
+                    if (!allowEvent) {
+                        event.stopPropagation();
+                    }
                 }
             });
+
+        
+        topBlocker.on('pointerup', (pointer) => {
+            
+            if (activeButton) {
+                activeButton.button.emit('pointerup', pointer);
+            }
+            
+            activeButton = null;
         });
 
+        
+        topBlocker.on('pointerout', (pointer) => {
+            
+            if (activeButton && activeButton.button) {
+                activeButton.button.clearTint();
+                
+                activeButton.button.emit('pointerout', pointer);
+            }
+            activeButton = null;
+        });
+        
+        scene.topBlocker = topBlocker;
 
-
-
-
+        scene.add.rectangle(
+            maskBounds.x + maskBounds.width/2,
+            maskBounds.y + maskBounds.height/2 + 300,
+            maskBounds.width,
+            maskBounds.height,
+            0x00ff00,
+            0.3
+        ).setDepth(99999999)
+    
+    
         scrollPanel.setInteractive(
             new Phaser.Geom.Rectangle(
                 0, 0,

@@ -312,85 +312,80 @@ export class CategoryButton extends BaseButton {
         this.button = button;
         this.icon = icon;
         this.iconSelected = iconSelected;
-        this.pointerDownPos = { x: 0, y: 0 };
-        this.isDragging = false;
-        this.isSelected = false;
-        const tapThreshold = 10;
-
         this.originalX = x;
         this.originalY = y;
-        this.isSelected = false;
-        this.popTween = null;
         this.iconInitialX = icon.x;
         this.iconInitialY = icon.y;
-        console.log(this.isSelected);
+        this.isSelected = false;
+        
+        const tapThreshold = 10;
+        let pointerDownPos = { x: 0, y: 0 };
+        let isDragging = false;
+        
+
         this.addHoverEffect(button, AudioManager);
 
-
         button.on("pointerdown", (pointer) => {
-            button.setAlpha(0.5);
-            this.pointerDownPos.x = pointer.x;
-            this.pointerDownPos.y = pointer.y;
-            this.isDragging = false;
+            this.button.setTint(0x777777);
+            
+            pointerDownPos.x = pointer.x;
+            pointerDownPos.y = pointer.y;
+            isDragging = false;
 
+            // Gunakan event dari pointer, ini lebih aman
+            if (pointer.event) {
+                pointer.event.stopPropagation();
+            }
         });
 
         button.on("pointerup", (pointer) => {
-            button.setAlpha(1);
-
-
-            if (!button.input || !button.active) {
-                this.isDragging = false;
-                return;
-            }
-
-            const dx = Math.abs(pointer.x - this.pointerDownPos.x);
-            const dy = Math.abs(pointer.y - this.pointerDownPos.y);
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-
-            if (distance <= tapThreshold && !this.isDragging && !scene.isCategoryLocked) {
-
-
-                scene.isCategoryLocked = true;
-                console.log("Category buttons LOCKED.");
-
-
-                if (this.onClickCallback) {
-                    this.onClickCallback();
-                    this.AudioManager?.playSFX?.("buttonClick");
+            if (this.button.input.enabled) {
+                if (pointer.isOver) {
+                    this.button.setTint(0xAAAAAA);
+                } else {
+                    this.button.clearTint();
                 }
-
-
-                scene.time.delayedCall(300, () => {
-                    scene.isCategoryLocked = false;
-                    console.log("Category buttons UNLOCKED.");
-                });
             }
-            this.isDragging = false;
-        });
 
-
-        button.on("pointerout", () => {
-            if (button.input && button.input.isDown) {
-                button.setAlpha(1);
-            }
-            this.isDragging = false;
-        });
-
-
-        button.on("pointermove", (pointer) => {
-            if (button.input && button.input.isDown) {
-                const dx = Math.abs(pointer.x - this.pointerDownPos.x);
-                const dy = Math.abs(pointer.y - this.pointerDownPos.y);
+            if (!isDragging) {
+                const dx = Math.abs(pointer.x - pointerDownPos.x);
+                const dy = Math.abs(pointer.y - pointerDownPos.y);
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance > tapThreshold) {
-                    this.isDragging = true;
-                    button.parentContainer?.emit('drag', pointer);
+
+                if (distance <= tapThreshold && !scene.isCategoryLocked) {
+                    scene.isCategoryLocked = true;
+                    this.AudioManager?.playSFX?.("buttonClick");
+
+                    if (this.onClickCallback) {
+                        this.onClickCallback();
+                    }
+
+                    scene.time.delayedCall(300, () => {
+                        scene.isCategoryLocked = false;
+                    });
+                }
+            }
+            isDragging = false;
+        });
+
+        button.on("pointerout", (pointer) => {
+            if (button.input.isDown) {
+                isDragging = true;
+            }
+            if (!pointer.isDown) {
+                this.button.clearTint();
+            }
+        });
+        
+        button.on("pointermove", (pointer) => {
+            if (button.input.isDown && !isDragging) {
+                const dx = Math.abs(pointer.x - pointerDownPos.x);
+                const dy = Math.abs(pointer.y - pointerDownPos.y);
+                if (Math.sqrt(dx * dx + dy * dy) > tapThreshold) {
+                    isDragging = true;
                 }
             }
         });
-
     }
 
     disableInteractive() {
@@ -549,6 +544,7 @@ export class OutfitButton extends BaseButton {
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
+            pointer.event.stopPropagation();
         });
         buttonBg.on("pointerup", (pointer) => {
             buttonBg.setAlpha(1);
@@ -834,12 +830,14 @@ export class MakeUpButton extends BaseButton {
         const tapThreshold = 10;
 
 
-        buttonBg.on("pointerdown", (pointer) => {
+        buttonBg.on("pointerdown", (pointer) => { 
             buttonBg.setAlpha(0.5);
             this.pointerDownPos.x = pointer.x;
             this.pointerDownPos.y = pointer.y;
             this.isDragging = false;
-
+            
+            // Sekarang ini dijamin akan bekerja
+            pointer.event.stopPropagation();
         });
 
         buttonBg.on("pointerup", (pointer) => {
