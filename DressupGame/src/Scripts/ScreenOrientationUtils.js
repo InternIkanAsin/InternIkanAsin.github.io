@@ -656,7 +656,7 @@ const PORTRAIT = {
 
     categoryBar: {
         x: PORTRAIT_CENTERX - 50,
-        y: PORTRAIT_HEIGHT * 0.75,
+        y: PORTRAIT_HEIGHT * 0.73,
 
         width: 140,
         height: PORTRAIT_WIDTH,
