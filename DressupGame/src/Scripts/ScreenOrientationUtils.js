@@ -363,7 +363,7 @@ const LANDSCAPE = {
 
     dressUpCategoryButton: {
         width: 650,
-        height: 1000,
+        height: 510,
         iconScale: 0.5,
         buttonScale: 0.6 * 2,
         iconOffsetY: 0,
@@ -372,7 +372,7 @@ const LANDSCAPE = {
     },
     makeUpCategoryButton: {
         width: 650,
-        height: 1000,
+        height: 510,
         iconScale: 0.45,
         buttonScale: 0.6 * 2,
         iconOffsetX: -20,
