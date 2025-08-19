@@ -1,7 +1,7 @@
 import { MakeUpButton } from '../UI/UIButton.js'; // For updating selectedMakeUp
 import { defaultMakeUpSkins, outlineMap } from '../Makeup Data/MakeUpData.js'; // For reverting
 import { layout } from '../ScreenOrientationUtils.js';
-
+import { orientation } from '../ScreenOrientationUtils.js';
 
 export class InteractiveMakeupSystem {
     constructor(scene) {
@@ -61,7 +61,7 @@ export class InteractiveMakeupSystem {
                 break;
             case 'Blush':
                 cursorAssetKey = 'BlushCursor';
-            break;
+                break;
         }
 
         if (cursorAssetKey) {
@@ -264,31 +264,33 @@ export class InteractiveMakeupSystem {
             .setScale(1.2);
 
         scene.tutorialTimeline = scene.add.timeline();
+        let makeupOffset;
+        makeupOffset = orientation.isPortrait ? 0 : 300;
 
         const makeupPaths = {
             'Eyeliner': [
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 3 }
             ],
             'Eyeshadow': [
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 3 }
             ],
             'Lips': [
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 3 }
             ],
             'Blush': [
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 2.4 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 2.2 },
-                { x: scene.scale.width / 1.7 - 300, y: scene.scale.height / 3.2 },
-                { x: scene.scale.width / 2.2 - 300, y: scene.scale.height / 3 }
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 2.4 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 2.2 },
+                { x: scene.scale.width / 1.7 - makeupOffset, y: scene.scale.height / 3.2 },
+                { x: scene.scale.width / 2.2 - makeupOffset, y: scene.scale.height / 3 }
             ]
         };
 

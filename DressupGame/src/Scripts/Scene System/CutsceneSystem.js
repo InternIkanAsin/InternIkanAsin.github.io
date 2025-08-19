@@ -10,7 +10,7 @@ export class CutsceneSystem {
     initiateCutscene1(bachelorChoice, bachelorName, datePlace) {
         const { width, height } = this.scene.sys.game.config;
         const scene = this.scene;
-        
+
         // --- AMBIL KONFIGURASI LAYOUT UNTUK CUTSCENE 1 ---
         const csLayout = layout.cutscene1;
 
@@ -32,7 +32,7 @@ export class CutsceneSystem {
             fontFamily: 'regularFont',
             wordWrap: { width: width - 120 }
         }).setOrigin(0.5, 0.5);
-        
+
         scene.callStatus = this.scene.add.text(csLayout.callStatus.x, csLayout.callStatus.y, 'Incoming Call...', {
             fontSize: csLayout.callStatus.fontSize, // Gunakan fontSize dari layout
             fill: '#60292b',
@@ -43,7 +43,7 @@ export class CutsceneSystem {
         const bachelorProfileKey = `PP_${bachelorName}`;
         // Gunakan nilai dari csLayout
         scene.bachelorProfile = this.scene.add.image(csLayout.profilePic.x, csLayout.profilePic.y, bachelorProfileKey).setScale(csLayout.profilePic.scale);
-        
+
         scene.acceptCallButton = new UIButton(scene, scene.AudioManager, {
             x: csLayout.acceptButton.x, // Gunakan posisi dari layout
             y: csLayout.acceptButton.y,
@@ -54,6 +54,7 @@ export class CutsceneSystem {
             iconYPosition: -10,
             iconScale: csLayout.acceptButton.scale * 2,
             callback: () => {
+                scene.acceptCallButton.disableInteractive();
                 this.acceptCall(bachelorChoice, bachelorName, datePlace);
             },
             buttonText: '',
@@ -69,10 +70,10 @@ export class CutsceneSystem {
             yoyo: true,
             repeat: -1
         });
-        
+
         scene.add.existing(bachelorChoice);
 
-        
+
         bachelorChoice.setPosition(csLayout.bachelorSprite.x, csLayout.bachelorSprite.y);
         bachelorChoice.setScale(csLayout.bachelorSprite.scale);
 
@@ -118,7 +119,7 @@ export class CutsceneSystem {
                     const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
 
                     scene.DialogueManager.showDialogue(bachelorDialogue, () => {
-                        
+
                         scene.SceneManager.TransitionCutscene1();
                     });
                 });
@@ -130,7 +131,7 @@ export class CutsceneSystem {
         const scene = this.scene;
         const callStatusText = 'Calling...';
         scene.callStatus.setText(callStatusText);
-        
+
         const onCallLayout = layout.cutscene1.onCall;
 
         // 1. Munculkan background pink
@@ -157,7 +158,7 @@ export class CutsceneSystem {
                 scene.bachelorProfile?.destroy();
             }
         });
-        
+
         // 4. Animasikan teks ke posisi baru
         scene.tweens.add({ targets: scene.nameText, y: onCallLayout.nameTextY, duration: 500, ease: 'Sine.easeInOut' });
         scene.tweens.add({ targets: scene.callStatus, y: onCallLayout.callStatusY, duration: 500, ease: 'Sine.easeInOut' });
@@ -179,7 +180,7 @@ export class CutsceneSystem {
         // 6. Atur posisi bachelor & dialog
         bachelorChoice.setPosition(onCallLayout.bachelorSprite.x, onCallLayout.bachelorSprite.y);
         bachelorChoice.setScale(onCallLayout.bachelorSprite.scale);
-        
+
         const dm = scene.DialogueManager;
         const dialogueBoxLayout = onCallLayout.dialogueBox;
         const dialogueTextLayout = onCallLayout.dialogueText;
@@ -197,9 +198,9 @@ export class CutsceneSystem {
                 scene.time.delayedCall(500, () => {
                     const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
                     dm.showDialogue(bachelorDialogue, () => {
-                        
+
                         scene.SceneManager.TransitionCutscene1();
-                        
+
                     });
                 });
             }
@@ -228,22 +229,22 @@ export class CutsceneSystem {
 
         if (particleConfig) {
             const driftingEmitterLeft = scene.add.particles(0, 0, 'Sparkle', {
-            emitZone: { source: new Phaser.Geom.Line(-50, 0, -50, height), type: 'random', quantity: 15 },
-            ...particleConfig.drifting,
-            speedX: { min: 50, max: 100 }, 
-            blendMode: 'ADD'
-        }).setDepth(100);
-        this.activeEmitters.push(driftingEmitterLeft);
+                emitZone: { source: new Phaser.Geom.Line(-50, 0, -50, height), type: 'random', quantity: 15 },
+                ...particleConfig.drifting,
+                speedX: { min: 50, max: 100 },
+                blendMode: 'ADD'
+            }).setDepth(100);
+            this.activeEmitters.push(driftingEmitterLeft);
 
-        // Emitter "Glitter Melayang" dari Kanan
-        const driftingEmitterRight = scene.add.particles(0, 0, 'Sparkle', {
-            // PERBAIKAN: Gunakan 'Phaser.Geom.Line' dengan 'P' besar
-            emitZone: { source: new Phaser.Geom.Line(width + 50, 0, width + 50, height), type: 'random', quantity: 40 },
-            ...particleConfig.drifting,
-            speedX: { min: -100, max: -50 },
-            blendMode: 'ADD'
-        }).setDepth(100);
-        this.activeEmitters.push(driftingEmitterRight);
+            // Emitter "Glitter Melayang" dari Kanan
+            const driftingEmitterRight = scene.add.particles(0, 0, 'Sparkle', {
+                // PERBAIKAN: Gunakan 'Phaser.Geom.Line' dengan 'P' besar
+                emitZone: { source: new Phaser.Geom.Line(width + 50, 0, width + 50, height), type: 'random', quantity: 40 },
+                ...particleConfig.drifting,
+                speedX: { min: -100, max: -50 },
+                blendMode: 'ADD'
+            }).setDepth(100);
+            this.activeEmitters.push(driftingEmitterRight);
 
             // 2. Emitter untuk "Kilauan Statis"
             const sparkleEmitter = scene.add.particles(0, 0, 'particle_star', {
@@ -294,8 +295,8 @@ export class CutsceneSystem {
         this.scene.AudioManager.playMusic('cutsceneMusic2');
         this.scene.AudioManager.fadeInMusic('cutsceneMusic2');
         const dialogueConfig = {
-            style: 'named', 
-            showName: true  
+            style: 'named',
+            showName: true
         };
 
         this.scene.cameras.main.once('camerafadeincomplete', () => {
@@ -313,23 +314,23 @@ export class CutsceneSystem {
     }
 
     cleanupEmitters() {
-    // 1. Periksa apakah array 'activeEmitters' ada sebelum mencoba menggunakannya.
-    if (!this.activeEmitters) {
-        console.log("[CutsceneSystem] No active emitters to clean up.");
-        return; // Keluar dari fungsi jika tidak ada apa-apa.
-    }
-
-    // 2. Jika array ada, lanjutkan seperti biasa.
-    console.log(`[CutsceneSystem] Cleaning up ${this.activeEmitters.length} active emitter(s).`);
-    this.activeEmitters.forEach(emitter => {
-        if (emitter && emitter.active) {
-            emitter.destroy();
+        // 1. Periksa apakah array 'activeEmitters' ada sebelum mencoba menggunakannya.
+        if (!this.activeEmitters) {
+            console.log("[CutsceneSystem] No active emitters to clean up.");
+            return; // Keluar dari fungsi jika tidak ada apa-apa.
         }
-    });
 
-    // 3. Reset array menjadi kosong.
-    this.activeEmitters = [];
-}
+        // 2. Jika array ada, lanjutkan seperti biasa.
+        console.log(`[CutsceneSystem] Cleaning up ${this.activeEmitters.length} active emitter(s).`);
+        this.activeEmitters.forEach(emitter => {
+            if (emitter && emitter.active) {
+                emitter.destroy();
+            }
+        });
+
+        // 3. Reset array menjadi kosong.
+        this.activeEmitters = [];
+    }
 
 
 

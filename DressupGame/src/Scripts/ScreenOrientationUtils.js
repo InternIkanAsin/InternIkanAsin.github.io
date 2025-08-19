@@ -481,7 +481,9 @@ const LANDSCAPE = {
         }
     },
 
-    confirmationPanelText: {
+    confirmationPanel: {
+        width: 750,
+        height: 390,
         wordWrap: LANDSCAPE_WIDTH - 600
     },
 
@@ -762,25 +764,29 @@ const PORTRAIT = {
             Shirt: { x: 327, y: 549 - 280 * 0.795 },
             Outer: { x: 328.5, y: 590.5 - 280 * 0.82 },
             Lower: { x: 342, y: 853 - 280 * 0.89 },
-            Socks: { x: 362.5, y: 878 - 280 * 0.89 },
-            Shoes: { x: 375, y: 1022 - 280 * 0.92 }
+            Socks: { x: 361.5, y: 878 - 280 * 0.92 },
+            Shoes: { x: 374, y: 1022 - 280 * 0.95 }
         },
         customSizes: {
-            'Corset dress': { width: 944, height: 900 },
-            'Red heart white mini dress': { width: 944, height: 900 },
-            'Holiday dress': { width: 944, height: 900 },
-            'Grey jacket': { width: 555, height: 565 }
+            'Corset dress': { width: 944 * 0.89, height: 900 * 0.89 },
+            'Red heart white mini dress': { width: 944 * 0.89, height: 900 * 0.89 },
+            'Holiday dress': { width: 944 * 0.89, height: 900 * 0.89 },
+            'Grey jacket': { width: 555 * 0.89, height: 565 * 0.89 }
         },
         manualOffsets: {
+            'Red heart white mini dress': { x: -5, y: 0 },
             'Pink set': { x: 0, y: 0 },
-            'White Shirt': { x: 0, y: -40 },
-            'Mini A-line skirt': { x: -15, y: 20 },
-            'Asymmetrical mini skirt': { x: -15, y: 20 },
-            'High waist mini skirt': { x: -15, y: 20 },
-            'Pleated A line skirt': { x: -15, y: 20 },
-            'Denim ruffled skirt': { x: -15, y: 20 },
-            'Jewelled skirt': { x: -15, y: 20 },
-            'Dark grey skirt': { x: -15, y: 20 },
+            'White Shirt': { x: -2, y: -1 },
+            'Mini A-line skirt': { x: -15, y: 10 },
+            'Asymmetrical mini skirt': { x: -15, y: 17 },
+            'High waist mini skirt': { x: -15, y: 17 },
+            'Pleated A line skirt': { x: -15, y: 17 },
+            'Denim ruffled skirt': { x: -15, y: 17 },
+            'Jewelled skirt': { x: -15, y: 17 },
+            'Dark grey skirt': { x: -15, y: 17 },
+            'Wide jeans with ribbons': { x: 0, y: -3 },
+            'Green sport jacket': { x: 0, y: -34 },
+            'Grey jacket': { x: 0, y: 3 },
         }
     },
 
@@ -834,8 +840,8 @@ const PORTRAIT = {
         },
 
         halfway: {
-            leftX: (720 * 0.25) - 600,
-            rightX: (720 * 0.75) + 600
+            leftX: (720 * 0.25) - 800,
+            rightX: (720 * 0.75) + 800
         }
     },
     //tirai kelipet
@@ -1120,8 +1126,10 @@ const PORTRAIT = {
         }
     },
 
-    confirmationPanelText: {
-        wordWrap: PORTRAIT_WIDTH - 300
+    confirmationPanel: {
+        width: 690,
+        height: 390,
+        wordWrap: PORTRAIT_WIDTH - 200
     },
     particleOffsets: {
         Dress: { x: 0, y: -200 },

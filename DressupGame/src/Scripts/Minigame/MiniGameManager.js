@@ -383,7 +383,7 @@ export class MiniGameManager {
             ? 'Are you sure about the outfit you chose?'
             : 'Are you sure about the make up you chose?';
 
-        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', 750, 390, 128, 128, 64, 68)
+        const panel = this.scene.add.nineslice(0, 0, 'dialogueBox', '', layout.confirmationPanel.width, layout.confirmationPanel.height, 128, 128, 64, 68)
             .setDepth(101);
 
         const text = this.scene.add.text(0, -20, questionText, {
@@ -392,7 +392,7 @@ export class MiniGameManager {
             color: '#d6525f',
             align: 'center',
             lineSpacing: 10,
-            wordWrap: { width: layout.confirmationPanelText.wordWrap }
+            wordWrap: { width: layout.confirmationPanel.wordWrap }
         }).setOrigin(0.5).setDepth(102);
 
         const yesButton = new UIButton(this.scene, this.AudioManager, {
@@ -700,7 +700,7 @@ export class MiniGameManager {
         const categorySizer = scene.rexUI.add.sizer({
             x: catLayout.x,
             y: catLayout.y,
-            orientation: 'x', 
+            orientation: 'x',
             space: { item: catLayout.space.column }
         }).setDepth(11);
 
@@ -712,14 +712,14 @@ export class MiniGameManager {
         categorySizer.layout();
         let categoryWidth = categorySizer.width;
 
-        
-        const targetViewport = Math.max(200, catLayout.width);              
-        let panelWidth = Math.min(targetViewport, categoryWidth - 40);      
 
-        
+        const targetViewport = Math.max(200, catLayout.width);
+        let panelWidth = Math.min(targetViewport, categoryWidth - 40);
+
+
         if (panelWidth <= 0 || panelWidth >= categoryWidth) {
-            const bufferRight = Math.max(120, Math.floor((targetViewport * 0.5))); 
-            
+            const bufferRight = Math.max(120, Math.floor((targetViewport * 0.5)));
+
             categorySizer.add(
                 scene.add.rectangle(1, 1, 1, 1, 0x000000, 0).setAlpha(0),
                 { padding: { right: bufferRight } }
@@ -745,14 +745,14 @@ export class MiniGameManager {
 
             slider: false
         }).setOrigin(0.5, 0).layout();
-        
+
         scene.add.existing(scrollPanel);
         scene.scrollPanel = scrollPanel;
 
 
-        
 
-        
+
+
         this.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
             row: 1
@@ -764,7 +764,7 @@ export class MiniGameManager {
 
         scene.flower2 = scene.add.image(layout.sidePanel.x - 325, layout.sidePanel.y + 395, 'flowers').setScale(0.27).setDepth(99)
         scene.flower2.angle = 270;
-        
+
         scene.sidePanel = scene.rexUI.add.scrollablePanel({
             x: panelLayout.x, y: panelLayout.y,
             width: panelLayout.width, height: panelLayout.height,
@@ -786,22 +786,22 @@ export class MiniGameManager {
         );
         const catBounds = scene.scrollPanel.getBounds();
 
-        
+
         const topBlocker = scene.add.rectangle(
             catBounds.centerX - 30,
             catBounds.centerY - 10,
             catBounds.width + 150,
             catBounds.height,
-            0xff0000, 0 
+            0xff0000, 0
         )
-        .setInteractive()
-        .setDepth(100); 
+            .setInteractive()
+            .setDepth(100);
 
         let activeButton = null;
         topBlocker.on('pointerdown', (pointer, localX, localY, event) => {
-            
+
             const hitObjects = scene.input.hitTestPointer(pointer);
-            
+
             let targetButton = null;
             let allowEvent = false;
             for (const hit of hitObjects) {
@@ -819,52 +819,52 @@ export class MiniGameManager {
                     break;
                 }
             }
-        
+
             if (targetButton) {
-                
+
                 activeButton = targetButton;
                 activeButton.button.emit('pointerdown', pointer);
             } else {
-                        allowEvent = true; 
-                    if (!allowEvent) {
-                        event.stopPropagation();
-                    }
+                allowEvent = true;
+                if (!allowEvent) {
+                    event.stopPropagation();
                 }
-            });
+            }
+        });
 
-        
+
         topBlocker.on('pointerup', (pointer) => {
-            
+
             if (activeButton) {
                 activeButton.button.emit('pointerup', pointer);
             }
-            
+
             activeButton = null;
         });
 
-        
+
         topBlocker.on('pointerout', (pointer) => {
-            
+
             if (activeButton && activeButton.button) {
                 activeButton.button.clearTint();
-                
+
                 activeButton.button.emit('pointerout', pointer);
             }
             activeButton = null;
         });
-        
+
         scene.topBlocker = topBlocker;
 
         scene.add.rectangle(
-            maskBounds.x + maskBounds.width/2,
-            maskBounds.y + maskBounds.height/2 + 300,
+            maskBounds.x + maskBounds.width / 2,
+            maskBounds.y + maskBounds.height / 2 + 300,
             maskBounds.width,
             maskBounds.height,
             0x00ff00,
             0.3
         ).setDepth(99999999)
-    
-    
+
+
         scrollPanel.setInteractive(
             new Phaser.Geom.Rectangle(
                 0, 0,
