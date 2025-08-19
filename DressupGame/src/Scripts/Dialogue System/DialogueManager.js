@@ -65,7 +65,7 @@ export class DialogueManager {
             // Reposisi kotak nama relatif terhadap kotak dialog BARU
             const nameBoxLayout = layout.namedDialogueNameBox;
             const nameBoxX = boxLayout.x - (boxLayout.width / 2) + nameBoxLayout.offsetX;
-            const nameBoxY = boxLayout.y - (boxLayout.height / 2) - 10 / 1.2;
+            const nameBoxY = boxLayout.y - (boxLayout.height / 2) - 10 / 1.2 + nameBoxLayout.offsetY;
             this.dialogueNameBox.setPosition(nameBoxX, nameBoxY);
             this.nameText.setPosition(nameBoxX, nameBoxY - 10);
         }

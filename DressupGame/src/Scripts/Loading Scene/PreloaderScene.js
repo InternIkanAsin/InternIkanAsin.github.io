@@ -201,6 +201,8 @@ class PreloaderScene extends Phaser.Scene {
             poki.runWhenInitialized(() => {
                 poki.gameLoadingFinished();
                 console.log("[Poki SDK] gameLoadingFinished() has been fired.");
+                assetsReady = true;
+                startGameIfReady();
             });
             
            

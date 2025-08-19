@@ -324,6 +324,7 @@ const LANDSCAPE = {
         width: 280 * 1,
         height: 100 * 1.2,
         offsetX: 220,
+        offsetY: 0,
         nineslice: { left: 40, right: 40, top: 40, bottom: 40 },
     },
 
@@ -465,7 +466,8 @@ const LANDSCAPE = {
         useNineSlice: true,
         nineSliceConfig: {
             left: 60, right: 60, top: 40, bottom: 60
-        }
+        },
+        buttonScale: 1.4
     },
 
     restartButton: {
@@ -478,7 +480,8 @@ const LANDSCAPE = {
         useNineSlice: true,
         nineSliceConfig: {
             left: 60, right: 60, top: 50, bottom: 60,
-        }
+        },
+        buttonScale: 1.4
     },
 
     confirmationPanel: {
@@ -682,7 +685,7 @@ const PORTRAIT = {
 
     categoryButton: {
         width: 510,
-        height: 630,
+        height: 1000,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
         iconOffsetY: 0,
@@ -691,7 +694,7 @@ const PORTRAIT = {
 
     dressUpCategoryButton: {
         width: 470,
-        height: 400,
+        height: 500,
         iconScale: 0.35,
         buttonScale: 0.5,
         iconOffsetY: -10,
@@ -700,7 +703,7 @@ const PORTRAIT = {
     },
     makeUpCategoryButton: {
         width: 470,
-        height: 400,
+        height: 500,
         iconScale: 0.3,
         buttonScale: 0.5 * 2,
         iconOffsetX: 0,
@@ -934,17 +937,18 @@ const PORTRAIT = {
     },
 
     namedDialogueText: {
-        x: PORTRAIT_WIDTH * 0.05,
-        y: PORTRAIT_CENTERY * 1.3,
+        x: PORTRAIT_WIDTH * 0.05 + 20,
+        y: PORTRAIT_CENTERY * 1.3 - 60,
         fontSize: 32,
-        wordWrap: PORTRAIT_WIDTH - 60
+        wordWrap: PORTRAIT_WIDTH - 90
     },
 
     namedDialogueNameBox: {
-        width: 60,
-        height: 30,
+        width: 280 * 0.8,
+        height: 120 * 0.8,
         offsetX: 200,
-        nineslice: { left: 3, right: 3, top: 3, bottom: 3 },
+        offsetY: - 25,
+        nineslice: { left: 40, right: 40, top: 40, bottom: 40 },
     },
 
     backButton: {
@@ -1103,27 +1107,29 @@ const PORTRAIT = {
     nextLevelButton: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_CENTERY + 100,
-        texture: 'YellowButton',
-        width: 1000,
-        height: 300,
+        texture: 'YellowButton2',
+        width: 500 * 1.5,
+        height: 150 * 1.5,
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
             left: 128, right: 128, top: 70, bottom: 70
-        }
+        },
+        buttonScale: 0.8
     },
 
     restartButton: {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_CENTERY + 350,
         texture: 'blueButton2',
-        width: 700,
-        height: 300,
+        width: 350 * 1.5,
+        height: 125 * 1.5,
         textSize: 90,
         useNineSlice: true,
         nineSliceConfig: {
             left: 128, right: 128, top: 70, bottom: 70
-        }
+        },
+        buttonScale: 0.8
     },
 
     confirmationPanel: {
@@ -1174,7 +1180,7 @@ const PORTRAIT = {
                 speedx: { min: 0, max: 1 },
                 speedy: { min: -5, max: 5 },
                 lifespan: { min: 1000, max: 2000 },
-                scale: { start: 0.12, end: 0 },
+                scale: { start: 0.25, end: 0 },
                 quantity: 6,
                 frequency: 100
             },

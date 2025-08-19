@@ -690,6 +690,7 @@ export class MiniGameManager {
         const catLayout = layout.categoryBar;
         const panelLayout = layout.bottomPanel;
         scene.input.topOnly = false;
+
         const categoryButtons = scene.state === GameState.DRESSUP ? scene.dressUpCategoryButtons : scene.makeUpCategoryButtons;
 
         if (!Array.isArray(categoryButtons) || categoryButtons.length === 0) {
@@ -1325,7 +1326,7 @@ export class MiniGameManager {
                 nextLevelButton.disableInteractive();
             },
             buttonText: 'Next Level',
-            buttonScale: 1.4,
+            buttonScale: layout.nextLevelButton.buttonScale,
             textSize: layout.nextLevelButton.textSize,
             textYPosition: 0,
             font: 'regularFont',
@@ -1342,7 +1343,7 @@ export class MiniGameManager {
             textureIcon: '',
             iconYPosition: 0,
             iconScale: 1.5,
-            buttonScale: 1.4,
+            buttonScale: layout.restartButton.buttonScale,
             callback: () => {
                 this.handleGameEnd(true);
                 this.restartGame(true);
