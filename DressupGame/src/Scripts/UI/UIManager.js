@@ -38,11 +38,11 @@ export class UIManager {
         const hairFrontFX = scene.hairFront.postFX.addGlow();
         hairFrontFX.outerStrength = 0.5;
 
-        scene.eyeshadows = scene.add.image(layout.MakeupPosition.Eyeshadow.x, layout.MakeupPosition.Eyeshadow.y, 'eyeshadownormaldefault').setScale(layout.MakeupPosition.Eyeshadow.scale * 2).setDepth(2);
-        scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(layout.MakeupPosition.Pupil.scale * 2).setDepth(2);
-        scene.lips = scene.add.image(layout.MakeupPosition.Lips.x, layout.MakeupPosition.Lips.y, 'LipNormalDefault').setScale(layout.MakeupPosition.Lips.scale * 2).setDepth(2);
-        scene.eyebrows = scene.add.image(layout.MakeupPosition.Eyebrows.x, layout.MakeupPosition.Eyebrows.y, 'EyebrowNormalDefault').setScale(layout.MakeupPosition.Eyebrows.scale * 2).setDepth(2);
-        scene.eyelashes = scene.add.image(layout.MakeupPosition.Eyelashes.x, layout.MakeupPosition.Eyelashes.y, 'EyelashesNormalDefault').setScale(layout.MakeupPosition.Eyelashes.scale * 2).setDepth(2);
+        scene.eyeshadows = scene.add.image(layout.MakeupPosition.Eyeshadow.x, layout.MakeupPosition.Eyeshadow.y, 'eyeshadownormaldefault').setScale(layout.MakeupPosition.Eyeshadow.scale * 2).setDepth(1.9);
+        scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(layout.MakeupPosition.Pupil.scale * 2).setDepth(4);
+        scene.lips = scene.add.image(layout.MakeupPosition.Lips.x, layout.MakeupPosition.Lips.y, 'LipNormalDefault').setScale(layout.MakeupPosition.Lips.scale * 2).setDepth(2.6);
+        scene.eyebrows = scene.add.image(layout.MakeupPosition.Eyebrows.x, layout.MakeupPosition.Eyebrows.y, 'EyebrowNormalDefault').setScale(layout.MakeupPosition.Eyebrows.scale * 2).setDepth(2.4);
+        scene.eyelashes = scene.add.image(layout.MakeupPosition.Eyelashes.x, layout.MakeupPosition.Eyelashes.y, 'EyelashesNormalDefault').setScale(layout.MakeupPosition.Eyelashes.scale * 2).setDepth(6);
         scene.faceContainer = scene.add.container(layout.face.zoomOutFaceX, layout.face.zoomOutFaceY, [scene.pupils, scene.lips, scene.eyebrows, scene.eyelashes, scene.eyeshadows]).setDepth(2).setScale(0.3).setRotation(Phaser.Math.DegToRad(0));
 
         // --- PEMUATAN DINAMIS (SEKARANG AKAN BERFUNGSI) ---

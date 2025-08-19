@@ -1208,6 +1208,10 @@ export class MakeUpButton extends BaseButton {
                         }
                         if (scene.faceContainer) {
                             scene.faceContainer.add(newImage);
+                            scene.time.delayedCall(1, () => {
+                            scene.faceContainer.sort('depth');
+                            console.log(`[MakeUpButton] Depth sorted for faceContainer after toggling ${makeupType}.`);
+                        });
                         }
                         break;
                     default: return;
