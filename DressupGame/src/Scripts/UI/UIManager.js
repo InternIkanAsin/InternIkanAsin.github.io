@@ -86,8 +86,8 @@ export class UIManager {
             console.log('All saved assets loaded!');
 
             // Di sini, `this` akan merujuk ke instance UIManager karena .bind(this)
-            this.restoreSavedOutfits(scene);
-            this.restoreSavedMakeup(scene);
+            this.makeupRestored = this.restoreSavedMakeup(scene);
+            this.outfitRestored = this.restoreSavedOutfits(scene);
         }.bind(this));
 
         // 4. Mulai pemuatan jika ada
@@ -225,53 +225,55 @@ export class UIManager {
     }
     restoreSavedOutfits(scene) {
         console.log("[UIManager] Applying restored outfits to the character.");
+        return new Promise((resolve) => {
+            Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
+                if (!equippedOutfit?.current) return;
 
-        Object.entries(OutfitButton.selectedOutfits).forEach(([outfitType, equippedOutfit]) => {
-            if (!equippedOutfit?.current) return;
-
-            const { name, textureAnime } = equippedOutfit.current;
-            const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
-            const outfitCustomSizes = layout.outfit.customSizes;
-            const usesCustomSize = !!outfitCustomSizes[name];
-            if (usesCustomSize) {
-                const custom = outfitCustomSizes[name];
-                this.dressUpViewDisplayWidth = custom.width;
-                this.dressUpViewDisplayHeight = custom.height;
-            }
-
-            if (textureAnime && scene.textures.exists(textureAnime.atlas)) {
-                const outfitPositions = layout.outfit.positions;
+                const { name, textureAnime } = equippedOutfit.current;
+                const depthValues = { "Socks": 1, "Shoes": 2, "Lower": 3, "Shirt": 4, "Outer": 6, "Dress": 5 };
                 const outfitCustomSizes = layout.outfit.customSizes;
-                const outfitManualOffsets = layout.outfit.manualOffsets;
-
-                const basePosition = outfitPositions[outfitType] || { x: 0, y: 0 };
-                const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
-                const finalX = basePosition.x + manualOffset.x;
-                const finalY = basePosition.y + manualOffset.y;
-
-                const newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame)
-                    .setDepth(depthValues[outfitType] || 1);
-
                 const usesCustomSize = !!outfitCustomSizes[name];
                 if (usesCustomSize) {
-
                     const custom = outfitCustomSizes[name];
-                    newOutfitImage.setDisplaySize(custom.width, custom.height);
-                } else {
-
-                    const defaultScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 * layout.outfitButton.outfitScale : 1.2 * layout.outfitButton.outfitScale2;
-                    newOutfitImage.setScale(defaultScale);
+                    this.dressUpViewDisplayWidth = custom.width;
+                    this.dressUpViewDisplayHeight = custom.height;
                 }
 
-                scene[outfitType] = newOutfitImage;
-                equippedOutfit.current.displayedOutfit = newOutfitImage;
+                if (textureAnime && scene.textures.exists(textureAnime.atlas)) {
+                    const outfitPositions = layout.outfit.positions;
+                    const outfitCustomSizes = layout.outfit.customSizes;
+                    const outfitManualOffsets = layout.outfit.manualOffsets;
 
-                newOutfitImage.setData({
-                    baseWorldOutfitX: finalX, baseWorldOutfitY: finalY,
-                    initialScaleX: newOutfitImage.scaleX, initialScaleY: newOutfitImage.scaleY,
-                    refBodyX: scene.body.x, refBodyY: scene.body.y, refBodyScale: scene.body.scale
-                });
-            }
+                    const basePosition = outfitPositions[outfitType] || { x: 0, y: 0 };
+                    const manualOffset = outfitManualOffsets[name] || { x: 0, y: 0 };
+                    const finalX = basePosition.x + manualOffset.x;
+                    const finalY = basePosition.y + manualOffset.y;
+
+                    const newOutfitImage = scene.add.image(finalX, finalY, textureAnime.atlas, textureAnime.frame)
+                        .setDepth(depthValues[outfitType] || 1);
+
+                    const usesCustomSize = !!outfitCustomSizes[name];
+                    if (usesCustomSize) {
+
+                        const custom = outfitCustomSizes[name];
+                        newOutfitImage.setDisplaySize(custom.width, custom.height);
+                    } else {
+
+                        const defaultScale = (outfitType === 'Dress' || outfitType === 'Outer' || outfitType === 'Shirt') ? 0.6 * layout.outfitButton.outfitScale : 1.2 * layout.outfitButton.outfitScale2;
+                        newOutfitImage.setScale(defaultScale);
+                    }
+
+                    scene[outfitType] = newOutfitImage;
+                    equippedOutfit.current.displayedOutfit = newOutfitImage;
+
+                    newOutfitImage.setData({
+                        baseWorldOutfitX: finalX, baseWorldOutfitY: finalY,
+                        initialScaleX: newOutfitImage.scaleX, initialScaleY: newOutfitImage.scaleY,
+                        refBodyX: scene.body.x, refBodyY: scene.body.y, refBodyScale: scene.body.scale
+                    });
+                }
+            });
+            resolve();
         });
     }
 
@@ -282,70 +284,73 @@ export class UIManager {
     restoreSavedMakeup(scene) {
         console.log("[UIManager] Applying restored makeup to the character.");
 
-        Object.entries(MakeUpButton.selectedMakeUp).forEach(([makeupType, equippedMakeup]) => {
-            if (!equippedMakeup?.current) return;
+        return new Promise((resolve) => {
+            Object.entries(MakeUpButton.selectedMakeUp).forEach(([makeupType, equippedMakeup]) => {
+                if (!equippedMakeup?.current) return;
 
-            const { name, textureAnime } = equippedMakeup.current;
-            let imageToUpdate;
+                const { name, textureAnime } = equippedMakeup.current;
+                let imageToUpdate;
 
-            switch (makeupType) {
-                case 'Lips':
-                    imageToUpdate = scene.lips;
+                switch (makeupType) {
+                    case 'Lips':
+                        imageToUpdate = scene.lips;
 
-                    if (typeof textureAnime === 'string') {
-                        imageToUpdate.setTexture(textureAnime);
-                    } else {
-                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
-                    }
-                    break;
-                case 'Eyebrows':
-                    imageToUpdate = scene.eyebrows;
-                    if (typeof textureAnime === 'string') {
-                        imageToUpdate.setTexture(textureAnime);
-                    } else {
-                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
-                    }
-                    break;
-                case 'Eyelashes':
-                    imageToUpdate = scene.eyelashes;
-                    if (typeof textureAnime === 'string') {
-                        imageToUpdate.setTexture(textureAnime);
-                    } else {
-                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
-                    }
-                    break;
-                case 'Pupil':
-                    imageToUpdate = scene.pupils;
-                    if (typeof textureAnime === 'string') {
-                        imageToUpdate.setTexture(textureAnime);
-                    } else {
-                        imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
-                    }
-                    break;
-                case 'Hair':
-                    imageToUpdate = [scene.hairBack, scene.hairFront];
+                        if (typeof textureAnime === 'string') {
+                            imageToUpdate.setTexture(textureAnime);
+                        } else {
+                            imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                        }
+                        break;
+                    case 'Eyebrows':
+                        imageToUpdate = scene.eyebrows;
+                        if (typeof textureAnime === 'string') {
+                            imageToUpdate.setTexture(textureAnime);
+                        } else {
+                            imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                        }
+                        break;
+                    case 'Eyelashes':
+                        imageToUpdate = scene.eyelashes;
+                        if (typeof textureAnime === 'string') {
+                            imageToUpdate.setTexture(textureAnime);
+                        } else {
+                            imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                        }
+                        break;
+                    case 'Pupil':
+                        imageToUpdate = scene.pupils;
+                        if (typeof textureAnime === 'string') {
+                            imageToUpdate.setTexture(textureAnime);
+                        } else {
+                            imageToUpdate.setTexture(textureAnime.atlas, textureAnime.frame);
+                        }
+                        break;
+                    case 'Hair':
+                        imageToUpdate = [scene.hairBack, scene.hairFront];
 
-                    scene.hairBack.setTexture(textureAnime.back.atlas || textureAnime.back, textureAnime.back.frame || null);
-                    scene.hairFront.setTexture(textureAnime.front.atlas || textureAnime.front, textureAnime.front.frame || null);
-                    break;
-                case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
-                    if (equippedMakeup.current.isDefault) break;
-                    const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
-                    imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
-                        .setScale(0.55 * 2)
-                        .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
-                    scene.faceContainer.add(imageToUpdate);
-                    break;
+                        scene.hairBack.setTexture(textureAnime.back.atlas || textureAnime.back, textureAnime.back.frame || null);
+                        scene.hairFront.setTexture(textureAnime.front.atlas || textureAnime.front, textureAnime.front.frame || null);
+                        break;
+                    case 'Blush': case 'Eyeliner': case 'Eyeshadow': case 'Sticker':
+                        if (equippedMakeup.current.isDefault) break;
+                        const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
+                        imageToUpdate = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null)
+                            .setScale(0.55 * 2)
+                            .setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
+                        scene.faceContainer.add(imageToUpdate);
+                        break;
+                }
+
+                if (imageToUpdate) {
+                    equippedMakeup.current.displayedMakeUp = imageToUpdate;
+                }
+            });
+
+            if (scene.faceContainer) {
+                scene.faceContainer.sort('depth');
             }
-
-            if (imageToUpdate) {
-                equippedMakeup.current.displayedMakeUp = imageToUpdate;
-            }
+            resolve();
         });
-
-        if (scene.faceContainer) {
-            scene.faceContainer.sort('depth');
-        }
     }
 
     /**

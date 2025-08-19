@@ -229,19 +229,24 @@ class Main extends Phaser.Scene {
 
             this.TweeningUtils.zoomHalfway().then(() => {
 
-                if (orientation.isPortrait) {
-                    // Untuk Portrait, buka tirai sepenuhnya
-                    // Kita juga harus memberikan callback untuk mengaktifkan interaksi
-                    this.TweeningUtils.openDrapesOnly(1000, () => {
-                        this.MiniGameManager.enableInteraction();
+                Promise.all([
+                    this.UIManager.makeupRestored,
+                    this.UIManager.outfitRestored
+                ]).then(() => {
+                    if (orientation.isPortrait) {
+                        // Untuk Portrait, buka tirai sepenuhnya
+                        // Kita juga harus memberikan callback untuk mengaktifkan interaksi
+                        this.TweeningUtils.openDrapesOnly(1000, () => {
+                            this.MiniGameManager.enableInteraction();
 
-                    });
-                } else {
-                    // Untuk Landscape, tetap gunakan perilaku lama (buka setengah)
-                    // Fungsi ini sudah memiliki onComplete untuk enableInteraction di dalamnya
-                    this.TweeningUtils.openDrapesHalfway(1000);
+                        });
+                    } else {
+                        // Untuk Landscape, tetap gunakan perilaku lama (buka setengah)
+                        // Fungsi ini sudah memiliki onComplete untuk enableInteraction di dalamnya
+                        this.TweeningUtils.openDrapesHalfway(1000);
+                    }
+                });
 
-                }
             });
         });
     }
