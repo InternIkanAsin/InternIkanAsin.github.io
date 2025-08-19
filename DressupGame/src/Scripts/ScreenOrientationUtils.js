@@ -680,7 +680,7 @@ const PORTRAIT = {
 
     categoryButton: {
         width: 510,
-        height: 630,
+        height: 1000,
         iconScale: 0.5,
         buttonScale: 0.5 * 2,
         iconOffsetY: 0,
@@ -689,7 +689,7 @@ const PORTRAIT = {
 
     dressUpCategoryButton: {
         width: 470,
-        height: 400,
+        height: 500,
         iconScale: 0.35,
         buttonScale: 0.5,
         iconOffsetY: -10,
@@ -698,7 +698,7 @@ const PORTRAIT = {
     },
     makeUpCategoryButton: {
         width: 470,
-        height: 400,
+        height: 500,
         iconScale: 0.3,
         buttonScale: 0.5 * 2,
         iconOffsetX: 0,
