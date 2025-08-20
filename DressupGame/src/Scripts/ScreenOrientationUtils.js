@@ -912,7 +912,7 @@ const PORTRAIT = {
         texture: 'yellowButton',
         width: 600,
         height: 150,
-        iconScale: 0.32 * 0.7,
+        iconScale: 0.32 * 6 / 13,
         buttonScale: 0.3 * 0.3
     },
     //Dialogue System
@@ -962,7 +962,7 @@ const PORTRAIT = {
         x: 100,
         y: 380,
         buttonScale: 0.11 * 2,
-        iconScale: 0.1 * 2
+        iconScale: 0.155 * 1.375
     },
 
     purpleLines: {
@@ -1156,7 +1156,7 @@ const PORTRAIT = {
         x: 100,
         y: 250,
         scale: 0.11 * 2,
-        iconScale: 0.155 * 2
+        iconScale: 0.155 * 1.375
     },
 
     particleSizeAdjustments: {
