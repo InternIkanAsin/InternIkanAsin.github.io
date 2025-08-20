@@ -775,7 +775,7 @@ export class MiniGameManager {
                 child: this.innerSizer,
                 inputHitArea: false
             },
-            scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
+            scroller: { slider: false },
             space: panelLayout.space,
         }).layout().setDepth(11).setT(0.1);
 
