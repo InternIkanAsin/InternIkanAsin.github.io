@@ -38,7 +38,7 @@ class LockedItemsManager {
             groupedCostumes[c.outfitType].push(c);
         });
         Object.values(groupedCostumes).forEach(costumes => {
-            const numToLock = Math.round(costumes.length / 3);
+            const numToLock = Math.ceil(costumes.length / 2);
             for (let i = 0; i < numToLock; i++) {
                 const randomIndex = Math.floor(Math.random() * costumes.length);
                 if (!this.lockedItems.has(costumes[randomIndex].name)) {
