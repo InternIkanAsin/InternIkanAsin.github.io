@@ -826,7 +826,7 @@ export class MiniGameManager {
                 activeButton = targetButton;
                 activeButton.button.emit('pointerdown', pointer);
             } else if (!(hitObjects.includes(scene.scrollPanel) || hitObjects.some(h => scene.scrollPanel.contains?.(h)))) {
-                // kalau bukan button & bukan scrollPanel, baru block
+                
                 event.stopPropagation();
             }
         });
