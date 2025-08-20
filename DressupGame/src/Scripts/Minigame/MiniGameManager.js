@@ -775,7 +775,7 @@ export class MiniGameManager {
                 child: this.innerSizer,
                 inputHitArea: false
             },
-            scroller: { slider: { thumb: scene.add.image(0, 0, 'yellowIcon').setDisplaySize(20, 50) } },
+            scroller: { slider: false },
             space: panelLayout.space,
         }).layout().setDepth(11).setT(0.1);
 
@@ -1240,26 +1240,27 @@ export class MiniGameManager {
             const screenWidth = this.scene.scale.width;
 
             const confettiConfig = {
-                // Arah dasar ledakan
-                angle: { min: 240, max: 300 },
-                speedY: { min: -500, max: -900 },
-                speedX: { min: -150, max: 150 },
+                angle: { min: 240, max: 300 }, 
+                speed: { min: 400, max: 800 }, 
 
-                lifespan: 6000,
+                
+                lifespan: 5000,
                 gravityY: 350,
-                quantity: 100,
 
-                rotate: {
-                    onEmit: () => { return Math.random() * 360; }
+                
+                 rotate: { start: -720, end: 720, random: true },
+
+                
+                scaleX: { 
+                    onEmit: () => { return (Math.random() * 4) - 2; } 
                 },
-
-                scaleX: {
-                    onEmit: () => { return (Math.random() * 4) - 2; }
-                },
-
+            
+                
                 scaleY: {
-                    onEmit: () => { return (Math.random() * 4) - 2; }
+                    onEmit: () => { return 2; } 
                 },
+
+                
                 emitting: false
             };
 
@@ -1282,7 +1283,7 @@ export class MiniGameManager {
 
 
             this.endingPanelTimer = this.scene.time.addEvent({
-                delay: 6000,
+                delay: 5000,
                 callback: triggerBurst,
                 loop: true
             });
