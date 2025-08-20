@@ -1,5 +1,5 @@
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 
 const isPortrait = isMobile;
 
@@ -582,7 +582,7 @@ const PORTRAIT = {
         zoomInTargetFaceScale: 1,
 
         zoomOutFaceX: 720 / 2 / 1.13,
-        zoomOutFaceY: 1280 / 2 / 1.79 - 280 * 0.721,
+        zoomOutFaceY: 1280 / 2 / 1.79 - 280 * 0.73,
         zoomOutTargetFaceScale: 0.3 * 0.9,
 
         halfZoomFaceX: PORTRAIT_CENTERX - 16,
