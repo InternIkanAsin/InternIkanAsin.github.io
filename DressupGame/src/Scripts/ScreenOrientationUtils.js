@@ -39,7 +39,7 @@ const LANDSCAPE = {
     },
 
     CisiniLogo: {
-        x: (1920 / 4) * 1.8,
+        x: (1920 / 4) * 1.8 - 100,
         y: 1080 * 0.35,
         scale: 1,
         depth: 5
@@ -667,7 +667,7 @@ const PORTRAIT = {
         height: PORTRAIT_WIDTH,
 
         columns: 5,
-        space: { column: 200 }
+        space: { column: 170 }
     },
 
     bottomPanel: {
