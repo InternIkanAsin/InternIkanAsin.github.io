@@ -1230,57 +1230,45 @@ export class MiniGameManager {
 
         const confettiKeys = _createConfettiTextures(this.scene);
 
+        // --- GANTI SELURUH BLOK PARTIKEL DENGAN INI ---
         if (confettiKeys && confettiKeys.length > 0) {
-            const burstConfig = layout.endingPanel.confettiBurst;
-            const allEmitters = [];
-            const screenHeight = this.scene.scale.height;
-            const screenWidth = this.scene.scale.width;
-
-            const confettiConfig = {
-                angle: { min: 240, max: 300 }, 
-                speed: { min: 400, max: 800 }, 
-
-                
-                lifespan: 5000,
-                gravityY: 350,
-
-                
-                 rotate: { start: -720, end: 720, random: true },
-
-                
-                scaleX: { 
-                    onEmit: () => { return (Math.random() * 4) - 2; } 
-                },
             
+            // 1. Buat sebuah Group untuk mengelola partikel kita
+            // Ini akan membantu kita mengelola dan menggunakan kembali partikel (object pooling)
+            if (!this.scene.confettiGroup) {
+                 this.scene.confettiGroup = this.scene.add.group({
+                    classType: ConfettiParticle,
+                    maxSize: 200, // Batasi jumlah partikel untuk performa
+                    runChildUpdate: true // PENTING: Ini akan memanggil 'preUpdate' di setiap anak
+                });
                 
-                scaleY: {
-                    onEmit: () => { return 2; } 
-                },
-
-                
-                emitting: false
-            };
-
-
-
-            confettiKeys.forEach(key => {
-                allEmitters.push(
-                    this.scene.add.particles(screenWidth / 2, screenHeight, key, confettiConfig)
-                        .setDepth(152)
-                );
-            });
+            }
 
             const triggerBurst = () => {
-                allEmitters.forEach(emitter => {
-                    emitter.explode(burstConfig.quantity / 2);
-                });
-            };
+            const quantity = 150;
+            for (let i = 0; i < quantity; i++) {
+                const randomKey = Phaser.Utils.Array.GetRandom(confettiKeys);
+                const particle = this.scene.confettiGroup.get(centerX, this.scene.scale.height + 20);
 
+                if (particle) {
+                    // Hitung kecepatan secara manual
+                    const angleRad = Phaser.Math.DegToRad(Phaser.Math.Between(230, 310));
+                    const speed = Phaser.Math.Between(500, 1000);
+                     particle.setDepth(152);
+                    const velocityX = Math.cos(angleRad) * speed;
+                    const velocityY = Math.sin(angleRad) * speed;
+                    
+                    particle.launch(velocityX, velocityY);
+                    particle.setTexture(randomKey);
+                }
+            }
+            
+        };
+            
             triggerBurst();
 
-
             this.endingPanelTimer = this.scene.time.addEvent({
-                delay: 5000,
+                delay: 2500,
                 callback: triggerBurst,
                 loop: true
             });
@@ -1430,5 +1418,64 @@ export class MiniGameManager {
             this.scene.scene.start('BootScene');
 
         });
+    }
+}
+
+
+const GRAVITY = 600;
+
+export class ConfettiParticle extends Phaser.GameObjects.Image {
+    constructor(scene, x, y, texture) {
+        super(scene, x, y, texture);
+    }
+
+    // Fungsi ini akan dipanggil untuk "menembakkan" partikel
+    launch(vx, vy) {
+        this.setActive(true);
+        this.setVisible(true);
+
+        // Fisika dasar
+        this.velocityX = vx;
+        this.velocityY = vy;
+        this.lifespan = 3000; // 3 detik
+
+        // --- INILAH KUNCI ROTASI ACAK ---
+        
+        // 1. Kecepatan & Arah Rotasi Z (Putaran dasar)
+        // Kecepatan acak antara -360 dan 360 derajat per detik
+        this.zRotationSpeed = Phaser.Math.FloatBetween(-360, 360);
+
+        // 2. Kecepatan & Arah Rotasi Y (Flip Horizontal)
+        this.yFlipSpeed = Phaser.Math.FloatBetween(0.5, 1.5); // Seberapa cepat ia membalik
+        this.yFlipDirection = (Math.random() > 0.5) ? 1 : -1; // Arah balik awal
+
+        // 3. Kecepatan & Arah Rotasi X (Flip Vertikal)
+        this.xFlipSpeed = Phaser.Math.FloatBetween(0.5, 1.5);
+        this.xFlipDirection = (Math.random() > 0.5) ? 1 : -1;
+    }
+
+    // 'preUpdate' adalah fungsi bawaan Phaser yang berjalan setiap frame
+    preUpdate(time, delta) {
+        
+
+        this.lifespan -= delta;
+        if (this.lifespan <= 0) {
+            this.setActive(false);
+            this.setVisible(false);
+            return;
+        }
+        
+        this.velocityY += GRAVITY * (delta / 1000);
+        this.x += this.velocityX * (delta / 1000);
+        this.y += this.velocityY * (delta / 1000);
+        
+        this.angle += this.zRotationSpeed * (delta / 1000);
+
+        // Gunakan fungsi sinus untuk efek bolak-balik (yoyo)
+        const timeInSeconds = time * 0.001;
+        this.scaleX = Math.sin(timeInSeconds * this.yFlipSpeed) * 2 * this.yFlipDirection;
+        this.scaleY = Math.sin(timeInSeconds * this.xFlipSpeed) * 2 * this.xFlipDirection;
+
+        this.alpha = Phaser.Math.Clamp(this.lifespan / 500, 0, 1);
     }
 }

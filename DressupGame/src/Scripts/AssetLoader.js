@@ -21,6 +21,7 @@ export default class AssetLoader {
     AssetLoader.loadRexUIPlugin(scene);
     AssetLoader.loadSceneAssets(scene);
     AssetLoader.loadBachelorAssets(scene);
+    AssetLoader.loadParticlePlugin(scene);
   }
 
   static loadDressUpAssets(scene) {
@@ -57,7 +58,13 @@ export default class AssetLoader {
     scene.load.plugin('rexbbcodetextplugin',
       "Asset/Plugin/rexbbcodetextplugin.min.js",
       true);
+
+    
   }
+
+  static loadParticlePlugin(scene) {
+    scene.load.plugin('PhaserParticles', 'src/Scripts/Plugin/phaser-particles.min.js', true);
+}
   static loadUIAssets(scene) {
     scene.load.image('dialogueBox', 'Asset/UI/New/Box_Dialog.png');
     scene.load.image('dialogueBox2', 'Asset/UI/New/Box_Dialog_2.png');
