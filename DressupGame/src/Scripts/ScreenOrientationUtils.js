@@ -101,7 +101,8 @@ const LANDSCAPE = {
             { key: 'PP_Keenan_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 100 }
         ],
         checkmarkOffset: { x: 30, y: 30 },
-        checkmarkScale: 0.5
+        checkmarkScale: 0.5,
+        activeOutline: { thickness: 6, thicknessOffset: 15, color: 0xFFD700 }
     },
 
     loadingBar: {
@@ -568,6 +569,7 @@ const LANDSCAPE = {
             ],
             activeOutline: {
                 thickness: 1,
+                thicknessOffset: 15,
                 color: 0xFFD700
             },
             checkmarkOffset: { x: 40, y: 40 },
@@ -768,7 +770,7 @@ const PORTRAIT = {
             { key: 'PP_Indra', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
             { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
         ],
-        activeOutline: { thickness: 10, color: 0xFFD700 }, 
+        activeOutline: { thickness: 10, color: 0xFFD700 },
         checkmarkOffset: { x: 50, y: 50 },
         checkmarkScale: 0.5
     },
@@ -1234,14 +1236,15 @@ const PORTRAIT = {
             scale: 0.6, // Sedikit lebih kecil dari di preloader
             // Posisi di sekitar tengah layar
             positions: [
-                { key: 'PP_Azril',  x: PORTRAIT_CENTERX + 150 - 50,       y: PORTRAIT_CENTERY - 300 },
-                { key: 'PP_Angga',  x: PORTRAIT_CENTERX - 50, y: PORTRAIT_CENTERY - 300 },
-                { key: 'PP_Reza',   x: PORTRAIT_CENTERX + 150 + 75 -50, y: PORTRAIT_CENTERY - 150},
-                { key: 'PP_Indra',  x: PORTRAIT_CENTERX - 75 - 50,  y: PORTRAIT_CENTERY - 150 },
-                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 75 - 50,  y: PORTRAIT_CENTERY - 150 }
+                { key: 'PP_Azril', x: PORTRAIT_CENTERX + 150 - 50, y: PORTRAIT_CENTERY - 300 },
+                { key: 'PP_Angga', x: PORTRAIT_CENTERX - 50, y: PORTRAIT_CENTERY - 300 },
+                { key: 'PP_Reza', x: PORTRAIT_CENTERX + 150 + 75 - 50, y: PORTRAIT_CENTERY - 150 },
+                { key: 'PP_Indra', x: PORTRAIT_CENTERX - 75 - 50, y: PORTRAIT_CENTERY - 150 },
+                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 75 - 50, y: PORTRAIT_CENTERY - 150 }
             ],
             activeOutline: {
                 thickness: 5,
+                thicknessOffset: 15,
                 color: 0xFFD700
             },
             checkmarkOffset: { x: 40, y: 40 },

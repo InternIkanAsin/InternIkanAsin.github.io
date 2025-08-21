@@ -2,6 +2,7 @@ import UIButton from '../UI/UIButton.js';
 import { orientation, layout } from '../ScreenOrientationUtils.js';
 import { bachelorDialoguesContainer, initializeBachelorDialogue } from '../Bachelor/bachelorDialogues.js';
 import { bachelorProgressManager } from '../Save System/BachelorProgressManager.js';
+import PreloaderScene from '../Loading Scene/PreloaderScene.js';
 export class CutsceneSystem {
     constructor(scene) {
         this.scene = scene;
@@ -78,6 +79,8 @@ export class CutsceneSystem {
         if (!orientation.isPortrait) {
             const ppLayout = layout.bachelorPps;
             scene.bachelorPP = scene.bachelorPP || {};
+            const currentBachelor = bachelorName;
+
             ppLayout.positions.forEach(ppData => {
                 let bachelorName = ppData.key.split("_")[1];
                 scene.bachelorPP[bachelorName] = scene.add.image(ppData.x, ppData.y, ppData.key)
@@ -94,13 +97,20 @@ export class CutsceneSystem {
                 const ppData = ppLayout.positions.find(p => p.key === ppKey);
 
                 if (ppData) {
-                    console.log(`[PreloaderScene] Adding checkmark for ${bachelorName}`);
                     scene.bachelorPP[bachelorName].setTexture(newPPKey);
-                    scene.bachelorPP[`${bachelorName}_checkmark`] = scene.add.image(
-                        ppData.x + checkmarkOffset.x,
-                        ppData.y + checkmarkOffset.y,
-                        'tickMark'
-                    ).setScale(checkmarkScale).setDepth(1); // Beri depth agar di atas PP
+                    if (currentBachelor === bachelorName) {
+                        scene.add.circle(
+                            ppData.x, ppData.y - 1,
+                            (256 / 2) * ppLayout.scale + ppLayout.activeOutline.thickness - ppLayout.activeOutline.thicknessOffset,
+                            ppLayout.activeOutline.color
+                        ).setDepth(-1);
+                    } else if (chosenHistory.includes(bachelorName)) {
+                        scene.bachelorPP[`${bachelorName}_checkmark`] = scene.add.image(
+                            ppData.x + checkmarkOffset.x,
+                            ppData.y + checkmarkOffset.y,
+                            'tickMark'
+                        ).setScale(checkmarkScale).setDepth(1); // Beri depth agar di atas PP
+                    }
                 }
             });
         }
