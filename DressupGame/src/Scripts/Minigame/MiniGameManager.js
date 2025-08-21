@@ -9,7 +9,7 @@ import { progressManager } from '../Save System/ProgressManager.js';
 
 //Game State Class
 import { GameState } from '../Main.js';
-
+import { ConfettiParticle } from '../FX/ConfettiParticle.js'
 import Phaser from 'phaser';
 import AssetLoader from '../AssetLoader.js';
 import { orientation } from '../ScreenOrientationUtils.js';
@@ -21,17 +21,11 @@ function _createConfettiTextures(scene) {
     const textureKeys = [];
 
     confettiColors.forEach(color => {
-        // Kita tetap butuh kunci, tapi kunci ini hanya "hidup" selama scene ini aktif.
         const key = `confetti_local_${color.toString(16)}`;
         textureKeys.push(key);
-
-        // Periksa apakah tekstur dari scene SEBELUMNYA masih ada di manajer global,
-        // dan hapus jika ada untuk menghindari konflik.
         if (scene.textures.exists(key)) {
             scene.textures.remove(key);
         }
-
-        // Gunakan metode createCanvas yang paling stabil.
         const texture = scene.textures.createCanvas(key, 10, 20);
         if (texture) {
             const context = texture.getContext();
@@ -41,10 +35,9 @@ function _createConfettiTextures(scene) {
             texture.refresh();
         }
     });
-
-    console.log('[Confetti] Self-contained textures created:', textureKeys);
     return textureKeys;
 }
+
 
 export class MiniGameManager {
     constructor(scene, AudioManager) {
@@ -275,9 +268,20 @@ export class MiniGameManager {
         scene.removeAllButton?.destroy();
 
         scene.finishButton?.destroy();
-
+        if (this.endingPanelTimer) {
+            this.endingPanelTimer.destroy();
+            this.endingPanelTimer = null; // Penting untuk membersihkan referensi
+            console.log("[MiniGameManager] Ending panel timer destroyed.");
+        }
+        if (this.scene.confettiGroup) {
+            this.scene.confettiGroup.destroy(true); // 'true' akan menghancurkan semua anak di dalamnya juga
+            this.scene.confettiGroup = null;
+            console.log("[MiniGameManager] Confetti group destroyed.");
+        }
         scene.finishButton = null;
-
+        if (this.scene.confettiKeys) {
+            this.scene.confettiKeys = null;
+        }
         scene.purpleLine1?.destroy();
         scene.purpleLine2?.destroy();
         scene.purpleLine3?.destroy();
@@ -1228,48 +1232,61 @@ export class MiniGameManager {
         const centerY = this.scene.scale.height / 2;
         this.scene.darkOverlay.setVisible(true);
 
-        const confettiKeys = _createConfettiTextures(this.scene);
+        if (this.endingPanelTimer) {
+            this.endingPanelTimer.destroy();
+            this.endingPanelTimer = null; // Set ke null
+        }
 
-        // --- GANTI SELURUH BLOK PARTIKEL DENGAN INI ---
-        if (confettiKeys && confettiKeys.length > 0) {
-            
-            // 1. Buat sebuah Group untuk mengelola partikel kita
-            // Ini akan membantu kita mengelola dan menggunakan kembali partikel (object pooling)
+        
+        // 1. Buat tekstur dan SIMPAN kuncinya ke properti scene. Ini adalah sumber kebenaran kita.
+        this.scene.confettiKeys = _createConfettiTextures(this.scene);
+
+        if (this.scene.confettiKeys && this.scene.confettiKeys.length > 0) {
+
             if (!this.scene.confettiGroup) {
                  this.scene.confettiGroup = this.scene.add.group({
                     classType: ConfettiParticle,
-                    maxSize: 200, // Batasi jumlah partikel untuk performa
-                    runChildUpdate: true // PENTING: Ini akan memanggil 'preUpdate' di setiap anak
+                    maxSize: 200,
+                    runChildUpdate: true
                 });
-                
             }
 
+            // 2. Buat fungsi burst yang TIDAK menerima argumen
             const triggerBurst = () => {
-            const quantity = 150;
-            for (let i = 0; i < quantity; i++) {
-                const randomKey = Phaser.Utils.Array.GetRandom(confettiKeys);
-                const particle = this.scene.confettiGroup.get(centerX, this.scene.scale.height + 20);
+                const quantity = 150;
+                // Selalu ambil kunci dari this.scene.confettiKeys.
+                const confettiKeys = this.scene.confettiKeys;
 
-                if (particle) {
-                    // Hitung kecepatan secara manual
-                    const angleRad = Phaser.Math.DegToRad(Phaser.Math.Between(230, 310));
-                    const speed = Phaser.Math.Between(500, 1000);
-                     particle.setDepth(152);
-                    const velocityX = Math.cos(angleRad) * speed;
-                    const velocityY = Math.sin(angleRad) * speed;
-                    
-                    particle.launch(velocityX, velocityY);
-                    particle.setTexture(randomKey);
+                if (!confettiKeys || confettiKeys.length === 0) {
+                    console.error("[triggerBurst] confettiKeys not found on scene.");
+                    return;
                 }
-            }
-            
-        };
-            
+
+                for (let i = 0; i < quantity; i++) {
+                    const randomKey = Phaser.Utils.Array.GetRandom(confettiKeys);
+                    const particle = this.scene.confettiGroup.get(centerX, this.scene.scale.height + 20);
+
+                    if (particle) {
+                        particle.setDepth(152);
+                        const angleRad = Phaser.Math.DegToRad(Phaser.Math.Between(230, 310));
+                        const speed = Phaser.Math.Between(500, 1000);
+                        const velocityX = Math.cos(angleRad) * speed;
+                        const velocityY = Math.sin(angleRad) * speed;
+
+                        particle.launch(velocityX, velocityY);
+                        particle.setTexture(randomKey);
+                    }
+                }
+            };
+
+            // 3. Panggil pertama kali tanpa argumen
             triggerBurst();
 
+            // 4. Buat timer tanpa 'args'
             this.endingPanelTimer = this.scene.time.addEvent({
                 delay: 2500,
                 callback: triggerBurst,
+                callbackScope: this, // callbackScope penting agar 'this' di dalam callback benar
                 loop: true
             });
         }
@@ -1387,12 +1404,8 @@ export class MiniGameManager {
         lockedItemsManager.clearLockedItems();
         console.log("Save data has been cleared on game end.");
         if (isRestart) {
-
             this.scene.registry.set('chosenBachelorNameForRestart', this.scene.chosenBachelorName);
         } else {
-
-            this.scene.registry.set('lastBachelorName', this.scene.chosenBachelorName);
-
             this.scene.registry.remove('chosenBachelorNameForRestart');
         }
 
@@ -1422,60 +1435,3 @@ export class MiniGameManager {
 }
 
 
-const GRAVITY = 600;
-
-export class ConfettiParticle extends Phaser.GameObjects.Image {
-    constructor(scene, x, y, texture) {
-        super(scene, x, y, texture);
-    }
-
-    // Fungsi ini akan dipanggil untuk "menembakkan" partikel
-    launch(vx, vy) {
-        this.setActive(true);
-        this.setVisible(true);
-
-        // Fisika dasar
-        this.velocityX = vx;
-        this.velocityY = vy;
-        this.lifespan = 3000; // 3 detik
-
-        // --- INILAH KUNCI ROTASI ACAK ---
-        
-        // 1. Kecepatan & Arah Rotasi Z (Putaran dasar)
-        // Kecepatan acak antara -360 dan 360 derajat per detik
-        this.zRotationSpeed = Phaser.Math.FloatBetween(-360, 360);
-
-        // 2. Kecepatan & Arah Rotasi Y (Flip Horizontal)
-        this.yFlipSpeed = Phaser.Math.FloatBetween(0.5, 1.5); // Seberapa cepat ia membalik
-        this.yFlipDirection = (Math.random() > 0.5) ? 1 : -1; // Arah balik awal
-
-        // 3. Kecepatan & Arah Rotasi X (Flip Vertikal)
-        this.xFlipSpeed = Phaser.Math.FloatBetween(0.5, 1.5);
-        this.xFlipDirection = (Math.random() > 0.5) ? 1 : -1;
-    }
-
-    // 'preUpdate' adalah fungsi bawaan Phaser yang berjalan setiap frame
-    preUpdate(time, delta) {
-        
-
-        this.lifespan -= delta;
-        if (this.lifespan <= 0) {
-            this.setActive(false);
-            this.setVisible(false);
-            return;
-        }
-        
-        this.velocityY += GRAVITY * (delta / 1000);
-        this.x += this.velocityX * (delta / 1000);
-        this.y += this.velocityY * (delta / 1000);
-        
-        this.angle += this.zRotationSpeed * (delta / 1000);
-
-        // Gunakan fungsi sinus untuk efek bolak-balik (yoyo)
-        const timeInSeconds = time * 0.001;
-        this.scaleX = Math.sin(timeInSeconds * this.yFlipSpeed) * 2 * this.yFlipDirection;
-        this.scaleY = Math.sin(timeInSeconds * this.xFlipSpeed) * 2 * this.xFlipDirection;
-
-        this.alpha = Phaser.Math.Clamp(this.lifespan / 500, 0, 1);
-    }
-}

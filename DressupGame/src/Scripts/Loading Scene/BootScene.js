@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { SaveManager } from '../Save System/SaveManager.js';
+import { bachelorProgressManager } from '../Save System/BachelorProgressManager.js';
 class BootScene extends Phaser.Scene {
     constructor() {
         super({ key: 'BootScene' });
@@ -29,20 +30,26 @@ class BootScene extends Phaser.Scene {
                 console.log(`[BootScene] Found saved bachelor: ${chosenBachelorName}`);
             } else {
 
-                const lastBachelor = this.registry.get('lastBachelorName');
-                let candidateNames = allBachelorNames;
+                let availableBachelors = bachelorProgressManager.getAvailableBachelors(allBachelorNames);
 
-                if (lastBachelor) {
-
-                    candidateNames = allBachelorNames.filter(name => name !== lastBachelor);
-                    console.log(`[BootScene] Excluding last bachelor: ${lastBachelor}. Candidates are:`, candidateNames);
-
-                    this.registry.remove('lastBachelorName');
+                // 2. Cek apakah semua bachelor sudah pernah dipilih
+                if (bachelorProgressManager.haveAllBachelorsBeenChosen(allBachelorNames)) {
+                    // Jika ya, sistem kembali ke mode acak penuh
+                    console.log("[BootScene] All bachelors have been chosen. Resetting to full random selection for this session.");
+                    availableBachelors = allBachelorNames;
+                } else {
+                    // Jika TIDAK, gunakan daftar yang belum dipilih
+                    console.log("[BootScene] Selecting from available (not yet chosen) bachelors.");
                 }
-
-                let currentIndex = Math.floor(Math.random() * candidateNames.length);
-                chosenBachelorName = candidateNames[currentIndex];
-                console.log(`[BootScene] Randomly selected new bachelor: ${chosenBachelorName}`);
+                
+                // 3. Pilih satu secara acak dari daftar yang tersedia
+                const randomIndex = Math.floor(Math.random() * availableBachelors.length);
+                chosenBachelorName = availableBachelors[randomIndex];
+                
+                // 4. Tambahkan bachelor yang baru terpilih ke dalam riwayat
+                bachelorProgressManager.addBachelorToHistory(chosenBachelorName);
+                             console.log(`[BootScene] Randomly selected new bachelor: ${chosenBachelorName}`);
+                // --- AKHIR PERGANTIAN BLOK ---
             }
         }
         //const chosenBachelorAssets = bachelorPreloadData[chosenBachelorName];
