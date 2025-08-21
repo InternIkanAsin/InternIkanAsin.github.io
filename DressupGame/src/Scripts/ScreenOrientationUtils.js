@@ -92,12 +92,12 @@ const LANDSCAPE = {
     },
 
     bachelorPps: {
-        scale: 0.5,
+        scale: 0.6,
         positions: [
-            { key: 'PP_Azril_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 600 },
-            { key: 'PP_Angga_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 475 },
-            { key: 'PP_Reza_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 350 },
-            { key: 'PP_Indra_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 225 },
+            { key: 'PP_Azril_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 640 },
+            { key: 'PP_Angga_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 505 },
+            { key: 'PP_Reza_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 370 },
+            { key: 'PP_Indra_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 235 },
             { key: 'PP_Keenan_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 100 }
         ],
         checkmarkOffset: { x: 30, y: 30 },
@@ -557,21 +557,21 @@ const LANDSCAPE = {
             blendMode: 'NORMAL'
         },
         bachelorPps: {
-            scale: 0.6, // Sedikit lebih kecil dari di preloader
+            scale: 0.8, // Sedikit lebih kecil dari di preloader
             // Posisi di sekitar tengah layar
             positions: [
-                { key: 'PP_Azril', x: LANDSCAPE_CENTERX, y: LANDSCAPE_CENTERY - 150 },
-                { key: 'PP_Angga', x: LANDSCAPE_CENTERX - 150, y: LANDSCAPE_CENTERY },
-                { key: 'PP_Reza', x: LANDSCAPE_CENTERX + 150, y: LANDSCAPE_CENTERY },
-                { key: 'PP_Indra', x: LANDSCAPE_CENTERX - 75, y: LANDSCAPE_CENTERY + 150 },
-                { key: 'PP_Keenan', x: LANDSCAPE_CENTERX + 75, y: LANDSCAPE_CENTERY + 150 }
+                { key: 'PP_Azril', x: LANDSCAPE_CENTERX - 400, y: LANDSCAPE_CENTERY - 150 },
+                { key: 'PP_Angga', x: LANDSCAPE_CENTERX - 200, y: LANDSCAPE_CENTERY - 150 },
+                { key: 'PP_Reza', x: LANDSCAPE_CENTERX, y: LANDSCAPE_CENTERY - 150 },
+                { key: 'PP_Indra', x: LANDSCAPE_CENTERX + 200, y: LANDSCAPE_CENTERY - 150 },
+                { key: 'PP_Keenan', x: LANDSCAPE_CENTERX + 400, y: LANDSCAPE_CENTERY - 150 }
             ],
             activeOutline: {
-                thickness: 12,
+                thickness: 1,
                 color: 0xFFD700
             },
             checkmarkOffset: { x: 40, y: 40 },
-            checkmarkScale: 0.45
+            checkmarkScale: 0.8
         }
     }
 };
