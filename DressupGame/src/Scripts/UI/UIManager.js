@@ -194,7 +194,7 @@ export class UIManager {
         const emitZone = {
             source: new Phaser.Geom.Rectangle(0, 0, particleBounds.width, particleBounds.height),
             type: 'random',
-            quantity: 100
+            quantity: 150
         };
 
         // 5. Buat Particle Emitter di posisi pojok kiri atas rectangle
