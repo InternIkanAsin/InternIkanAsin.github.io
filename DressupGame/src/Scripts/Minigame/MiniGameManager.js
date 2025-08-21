@@ -1292,104 +1292,49 @@ export class MiniGameManager {
         }
         const panelElements = [];
 
-        Object.values(scene.bachelorPP).forEach(bachelorProfile => {
-            bachelorProfile.setVisible(true);
+        const ppLayout = layout.endingPanel.bachelorPps;
+        const chosenHistory = bachelorProgressManager.loadHistory();
+        const currentBachelor = this.scene.chosenBachelorName;
+
+        ppLayout.positions.forEach(ppData => {
+            const bachelorName = ppData.key.replace('PP_', '');
+            let textureKey = '';
+            let showOutline = false;
+            let showCheckmark = false;
+
+            if (bachelorName === currentBachelor) {
+                textureKey = ppData.key;
+                showOutline = true;
+            } else if (chosenHistory.includes(bachelorName)) {
+                textureKey = ppData.key;
+                showCheckmark = true;
+            } else {
+                textureKey = `${ppData.key}_Grey`;
+            }
+
+            // Tambahkan elemen ke array untuk dimasukkan ke container nanti
+            if (showOutline) {
+                const outlineConfig = ppLayout.activeOutline;
+                const outline = this.scene.add.circle(
+                    ppData.x, ppData.y,
+                    (256 / 2) * ppLayout.scale + outlineConfig.thickness,
+                    outlineConfig.color
+                );
+                panelElements.push(outline);
+            }
+
+            const ppImage = this.scene.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
+            panelElements.push(ppImage);
+
+            if (showCheckmark) {
+                const checkmark = this.scene.add.image(
+                    ppData.x + ppLayout.checkmarkOffset.x,
+                    ppData.y + ppLayout.checkmarkOffset.y,
+                    'tickMark'
+                ).setScale(ppLayout.checkmarkScale).setDepth(1);
+                panelElements.push(checkmark);
+            }
         });
-        if (orientation.isPortrait) {
-            // --- LOGIKA BARU UNTUK PORTRAIT ---
-
-            const ppLayout = layout.endingPanel.bachelorPps;
-            const chosenHistory = bachelorProgressManager.loadHistory();
-            const currentBachelor = this.scene.chosenBachelorName;
-
-            ppLayout.positions.forEach(ppData => {
-                const bachelorName = ppData.key.replace('PP_', '');
-                let textureKey = '';
-                let showOutline = false;
-                let showCheckmark = false;
-
-                if (bachelorName === currentBachelor) {
-                    textureKey = ppData.key;
-                    showOutline = true;
-                } else if (chosenHistory.includes(bachelorName)) {
-                    textureKey = ppData.key;
-                    showCheckmark = true;
-                } else {
-                    textureKey = `${ppData.key}_gray`;
-                }
-
-                // Tambahkan elemen ke array untuk dimasukkan ke container nanti
-                if (showOutline) {
-                    const outlineConfig = ppLayout.activeOutline;
-                    const outline = this.scene.add.circle(
-                        ppData.x, ppData.y,
-                        (256 / 2) * ppLayout.scale + outlineConfig.thickness,
-                        outlineConfig.color
-                    );
-                    panelElements.push(outline);
-                }
-
-                const ppImage = this.scene.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
-                panelElements.push(ppImage);
-
-                if (showCheckmark) {
-                    const checkmark = this.scene.add.image(
-                        ppData.x + ppLayout.checkmarkOffset.x,
-                        ppData.y + ppLayout.checkmarkOffset.y,
-                        'tickMark'
-                    ).setScale(ppLayout.checkmarkScale).setDepth(1);
-                    panelElements.push(checkmark);
-                }
-            });
-
-        } else {
-            const victoryBox = this.scene.add.nineslice(
-                centerX,
-                centerY - 250,
-                'BoxVictory',
-                null,
-                this.scene.scale.width,
-                170,
-                50, 50, 40, 40
-            ).setAlpha(0);
-
-            const victoryTextStyle = {
-                fontSize: '96px',
-                fontFamily: 'regularFont',
-                color: '#d6525f',
-                stroke: '#ffffff',
-                strokeThickness: 8
-            };
-
-            const victoryText = this.scene.add.text(centerX + 100, centerY - 250, 'VICTORY!', victoryTextStyle)
-                .setOrigin(0.5)
-                .setAlpha(0);
-
-            const container = this.scene.add.container(0, 0, [
-                victoryBox,
-                victoryText,
-                nextLevelButton,
-                restartButton
-            ]).setDepth(151);
-
-            this.activeConfirmationPanel = container;
-
-            this.scene.tweens.add({
-                targets: victoryBox,
-                alpha: 1,
-                duration: 500,
-                ease: 'Sine.easeInOut'
-            });
-
-            this.scene.tweens.add({
-                targets: victoryText,
-                alpha: 1,
-                x: centerX,
-                duration: 700,
-                ease: 'Power2',
-                delay: 200
-            });
-        }
 
 
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
