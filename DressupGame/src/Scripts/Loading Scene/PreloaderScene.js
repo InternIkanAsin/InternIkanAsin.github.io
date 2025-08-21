@@ -50,11 +50,10 @@ class PreloaderScene extends Phaser.Scene {
                     console.log("--- PRELOADER TEST MODE: Loading complete. Click screen to continue. ---");
                     this.add.text(width / 2, height - 50, 'Click to Continue', {
                         font: '32px Arial', fill: '#000000'
-                    }).setOrigin(0.5).setDepth(100)
-                      .setInteractive() // Jadikan interaktif agar bisa diklik
-                      .on('pointerdown', () => {
-                          this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
-                      });
+                    }).setOrigin(0.5).setDepth(100);
+                    this.input.once('pointerdown', () => {
+                        this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+                    });
                 } else {
                     this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
                 }
