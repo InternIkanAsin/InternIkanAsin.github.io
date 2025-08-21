@@ -134,69 +134,49 @@ class PreloaderScene extends Phaser.Scene {
 
         if (isMobile) {
             // 1. Dapatkan semua data yang kita butuhkan
+            const ppLayout = layout.bachelorPps;
             const chosenHistory = bachelorProgressManager.loadHistory();
             const currentBachelor = this.preloaderData.bachelorName;
 
-            // 2. Loop melalui SEMUA kemungkinan posisi PP yang didefinisikan di layout
+            // --- GANTI SELURUH BLOK ppLayout.positions.forEach DENGAN INI ---
             ppLayout.positions.forEach(ppData => {
-                // Ekstrak nama bachelor dari kunci PP (misal: "PP_Angga" -> "Angga")
+
+                // Sekarang ppData.key adalah kunci dasar, misal: "PP_Angga"
                 const bachelorName = ppData.key.replace('PP_', '');
 
-                let textureKey = '';
+                let textureToUse = '';
                 let showOutline = false;
                 let showCheckmark = false;
             
-                // 3. Tentukan state untuk setiap bachelor
+                // Tentukan state untuk bachelor ini
                 if (bachelorName === currentBachelor) {
-                    // Ini adalah bachelor yang aktif di sesi ini
-                    textureKey = ppData.key; // Versi berwarna
+                    textureToUse = ppData.key; // Gunakan PP berwarna
                     showOutline = true;
-                    showCheckmark = false;
                 } else if (chosenHistory.includes(bachelorName)) {
-                    // Ini adalah bachelor dari sesi sebelumnya
-                    textureKey = ppData.key; // Versi berwarna
-                    showOutline = false;
+                    textureToUse = ppData.key; // Gunakan PP berwarna
                     showCheckmark = true;
                 } else {
-                    // Ini adalah bachelor yang belum pernah dipilih
-                    textureKey = `${ppData.key}_gray`; // Versi abu-abu
-                    showOutline = false;
-                    showCheckmark = false;
+                    textureToUse = `${ppData.key}_Grey`; // Gunakan PP abu-abu
                 }
             
-                // 4. Gambar elemen-elemennya
-
-                // Gambar Outline Kuning jika diperlukan
-                if (showOutline) {
-                    const outlineConfig = layout.bachelorPps.activeOutline;
+                // Gambar Outline jika perlu
+                if (showOutline && ppLayout.activeOutline) {
                     this.add.circle(
-                        ppData.x, 
-                        ppData.y, 
-                        // Hitung radius: (lebar gambar PP / 2) * skala + ketebalan outline
-                        (256 / 2) * ppLayout.scale + outlineConfig.thickness - 20,
-                        outlineConfig.color
+                        ppData.x, ppData.y,
+                        (256 / 2) * ppLayout.scale + ppLayout.activeOutline.thickness - 20,
+                        ppLayout.activeOutline.color
                     );
                 }
-
-                const checkmarkOffset = (layout.bachelorPps && layout.bachelorPps.checkmarkOffset) 
-                    ? layout.bachelorPps.checkmarkOffset 
-                    : { x: 50, y: 50 }; 
-
-                const checkmarkScale = (layout.bachelorPps && layout.bachelorPps.checkmarkScale)
-                    ? layout.bachelorPps.checkmarkScale
-                    : 0.5; 
             
-                // Gambar Foto Profil
-                this.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
+                // Gambar Foto Profil dengan kunci yang sudah benar
+                this.add.image(ppData.x, ppData.y, textureToUse).setScale(ppLayout.scale);
             
-                // Gambar Tanda Centang jika diperlukan
+                // Gambar Tanda Centang jika perlu
                 if (showCheckmark) {
-                    
+                    const offset = ppLayout.checkmarkOffset;
                     this.add.image(
-                        ppData.x + checkmarkOffset.x, 
-                        ppData.y + checkmarkOffset.y, 
-                        'tickMark'
-                    ).setScale(checkmarkScale).setDepth(1);
+                        ppData.x + offset.x, ppData.y + offset.y, 'tickMark'
+                    ).setScale(ppLayout.checkmarkScale).setDepth(1);
                 }
             });
 

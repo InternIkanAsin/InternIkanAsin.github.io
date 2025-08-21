@@ -762,12 +762,15 @@ const PORTRAIT = {
     bachelorPps: {
         scale: 0.7,
         positions: [
-            { key: 'PP_Azril_Grey', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
-            { key: 'PP_Angga_Grey', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
-            { key: 'PP_Reza_Grey', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
-            { key: 'PP_Indra_Grey', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
-            { key: 'PP_Keenan_Grey', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
-        ]
+            { key: 'PP_Azril', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Angga', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Reza', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Indra', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
+        ],
+        activeOutline: { thickness: 10, color: 0xFFD700 }, 
+        checkmarkOffset: { x: 50, y: 50 },
+        checkmarkScale: 0.5
     },
 
     loadingBar: {

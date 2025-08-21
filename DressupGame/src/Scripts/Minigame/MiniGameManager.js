@@ -1291,10 +1291,12 @@ export class MiniGameManager {
             });
         }
         const panelElements = [];
-
-        Object.values(scene.bachelorPP).forEach(bachelorProfile => {
+        if (!orientation.isPortrait){
+            Object.values(scene.bachelorPP).forEach(bachelorProfile => {
             bachelorProfile.setVisible(true);
         });
+        }
+        
         if (orientation.isPortrait) {
             // --- LOGIKA BARU UNTUK PORTRAIT ---
 
@@ -1315,7 +1317,7 @@ export class MiniGameManager {
                     textureKey = ppData.key;
                     showCheckmark = true;
                 } else {
-                    textureKey = `${ppData.key}_gray`;
+                    textureKey = `${ppData.key}_Grey`;
                 }
 
                 // Tambahkan elemen ke array untuk dimasukkan ke container nanti
