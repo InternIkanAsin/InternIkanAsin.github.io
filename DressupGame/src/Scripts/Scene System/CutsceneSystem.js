@@ -1,7 +1,7 @@
 import UIButton from '../UI/UIButton.js';
 import { orientation, layout } from '../ScreenOrientationUtils.js';
 import { bachelorDialoguesContainer, initializeBachelorDialogue } from '../Bachelor/bachelorDialogues.js';
-
+import { bachelorProgressManager } from '../Save System/BachelorProgressManager.js';
 export class CutsceneSystem {
     constructor(scene) {
         this.scene = scene;
@@ -73,7 +73,37 @@ export class CutsceneSystem {
 
         scene.add.existing(bachelorChoice);
 
+        //Add Bachelor Status (Only in landscape)
 
+        if (!orientation.isPortrait) {
+            const ppLayout = layout.bachelorPps;
+            scene.bachelorPP = scene.bachelorPP || {};
+            ppLayout.positions.forEach(ppData => {
+                let bachelorName = ppData.key.split("_")[1];
+                scene.bachelorPP[bachelorName] = scene.add.image(ppData.x, ppData.y, ppData.key)
+                    .setScale(ppLayout.scale);
+            });
+
+            const chosenHistory = bachelorProgressManager.loadHistory();
+            const checkmarkOffset = layout.bachelorPps.checkmarkOffset;
+            const checkmarkScale = layout.bachelorPps.checkmarkScale;
+            console.log(chosenHistory);
+            chosenHistory.forEach(bachelorName => {
+                const ppKey = `PP_${bachelorName}_Grey`;
+                const newPPKey = `PP_${bachelorName}`;
+                const ppData = ppLayout.positions.find(p => p.key === ppKey);
+
+                if (ppData) {
+                    console.log(`[PreloaderScene] Adding checkmark for ${bachelorName}`);
+                    scene.bachelorPP[bachelorName].setTexture(newPPKey);
+                    scene.bachelorPP[`${bachelorName}_checkmark`] = scene.add.image(
+                        ppData.x + checkmarkOffset.x,
+                        ppData.y + checkmarkOffset.y,
+                        'tickMark'
+                    ).setScale(checkmarkScale).setDepth(1); // Beri depth agar di atas PP
+                }
+            });
+        }
         bachelorChoice.setPosition(csLayout.bachelorSprite.x, csLayout.bachelorSprite.y);
         bachelorChoice.setScale(csLayout.bachelorSprite.scale);
 
@@ -119,7 +149,6 @@ export class CutsceneSystem {
                     const bachelorDialogue = bachelorDialoguesContainer[bachelorName][datePlace].getDialogue();
 
                     scene.DialogueManager.showDialogue(bachelorDialogue, () => {
-
                         scene.SceneManager.TransitionCutscene1();
                     });
                 });

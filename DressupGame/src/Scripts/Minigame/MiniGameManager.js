@@ -1237,14 +1237,14 @@ export class MiniGameManager {
             this.endingPanelTimer = null; // Set ke null
         }
 
-        
+
         // 1. Buat tekstur dan SIMPAN kuncinya ke properti scene. Ini adalah sumber kebenaran kita.
         this.scene.confettiKeys = _createConfettiTextures(this.scene);
 
         if (this.scene.confettiKeys && this.scene.confettiKeys.length > 0) {
 
             if (!this.scene.confettiGroup) {
-                 this.scene.confettiGroup = this.scene.add.group({
+                this.scene.confettiGroup = this.scene.add.group({
                     classType: ConfettiParticle,
                     maxSize: 200,
                     runChildUpdate: true
@@ -1292,9 +1292,12 @@ export class MiniGameManager {
         }
         const panelElements = [];
 
+        Object.values(scene.bachelorPP).forEach(bachelorProfile => {
+            bachelorProfile.setVisible(true);
+        });
         if (orientation.isPortrait) {
             // --- LOGIKA BARU UNTUK PORTRAIT ---
-            
+
             const ppLayout = layout.endingPanel.bachelorPps;
             const chosenHistory = bachelorProgressManager.loadHistory();
             const currentBachelor = this.scene.chosenBachelorName;
@@ -1387,7 +1390,7 @@ export class MiniGameManager {
                 delay: 200
             });
         }
-        
+
 
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.nextLevelButton.x,
@@ -1438,7 +1441,7 @@ export class MiniGameManager {
         }).setDepth(151).setScale(0);
 
         panelElements.push(nextLevelButton, restartButton);
-        
+
         const container = this.scene.add.container(0, 0, panelElements).setDepth(151);
         this.activeConfirmationPanel = container;
 

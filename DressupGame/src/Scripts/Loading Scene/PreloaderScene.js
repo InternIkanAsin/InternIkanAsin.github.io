@@ -1,7 +1,7 @@
 import AssetLoader from '../AssetLoader.js';
 import { layout, orientation } from '../ScreenOrientationUtils.js';
 import Phaser from 'phaser';
-import { bachelorProgressManager } from '../Save System/BachelorProgressManager.js'; 
+import { bachelorProgressManager } from '../Save System/BachelorProgressManager.js';
 
 import { MuteButton } from '../UI/UIButton.js'; // <-- Impor kelas baru
 class PreloaderScene extends Phaser.Scene {
@@ -31,11 +31,10 @@ class PreloaderScene extends Phaser.Scene {
         const height = this.cameras.main.height;
         let PAUSE_FOR_TESTING = false;
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (isMobile){
+        if (isMobile) {
             PAUSE_FOR_TESTING = true;
         }
-        else 
-        {
+        else {
             PAUSE_FOR_TESTING = false;
         }
         let assetsReady = false;
@@ -44,7 +43,7 @@ class PreloaderScene extends Phaser.Scene {
         const startGameIfReady = () => {
             if (assetsReady && fontsReady) {
                 console.log("Assets and Fonts are ready. Starting MainScene.");
-                
+
                 // Logika PAUSE_FOR_TESTING dipindahkan ke sini agar lebih terpusat
                 if (PAUSE_FOR_TESTING) {
                     console.log("--- PRELOADER TEST MODE: Loading complete. Click screen to continue. ---");
@@ -60,7 +59,7 @@ class PreloaderScene extends Phaser.Scene {
             }
         };
 
-        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf', () => {}); // Tidak perlu gate
+        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf', () => { }); // Tidak perlu gate
         this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf', () => {
             fontsReady = true;
             startGameIfReady();
@@ -76,11 +75,10 @@ class PreloaderScene extends Phaser.Scene {
         }
 
         // Mute button
-        if(isMobile)
-        {
+        if (isMobile) {
             this.muteButton = new MuteButton(this, width * 0.9, height * 0.07, 0.22);
         }
-        else{
+        else {
             this.muteButton = new MuteButton(this, width * 0.05, height * 0.1, 0.28);
         }
 
@@ -90,7 +88,7 @@ class PreloaderScene extends Phaser.Scene {
 
         // 1. Buat Container utama untuk seluruh karakter
         const playerContainer = this.add.container(playerLayout.container.x, playerLayout.container.y);
-        
+
         // 2. Buat Container untuk wajah
         const faceContainer = this.add.container(playerLayout.parts.faceContainer.x, playerLayout.parts.faceContainer.y);
         faceContainer.setScale(playerLayout.parts.faceContainer.scale);
@@ -132,85 +130,48 @@ class PreloaderScene extends Phaser.Scene {
 
 
 
-       const ppLayout = layout.bachelorPps;
+        const ppLayout = layout.bachelorPps;
 
         if (isMobile) {
-            // 1. Dapatkan semua data yang kita butuhkan
+            console.log("Using Portrait layout for Bachelor PPs.");
+            this.bachelorPP = this.bachelorPP || {};
+            ppLayout.positions.forEach(ppData => {
+                let bachelorName = ppData.key.split("_")[1];
+                this.bachelorPP[bachelorName] = this.add.image(ppData.x, ppData.y, ppData.key)
+                    .setScale(ppLayout.scale);
+            });
+
+            // --- 2. TAMBAHKAN LOGIKA CENTANG DI SINI ---
+            console.log("[PreloaderScene] Checking for chosen bachelors...");
             const chosenHistory = bachelorProgressManager.loadHistory();
             const currentBachelor = this.preloaderData.bachelorName;
 
-            // 2. Loop melalui SEMUA kemungkinan posisi PP yang didefinisikan di layout
-            ppLayout.positions.forEach(ppData => {
-                // Ekstrak nama bachelor dari kunci PP (misal: "PP_Angga" -> "Angga")
-                const bachelorName = ppData.key.replace('PP_', '');
+            chosenHistory.forEach(bachelorName => {
+                const ppKey = `PP_${bachelorName}_Grey`;
+                const newPPKey = `PP_${bachelorName}`;
+                const ppData = ppLayout.positions.find(p => p.key === ppKey);
 
-                let textureKey = '';
-                let showOutline = false;
-                let showCheckmark = false;
-            
-                // 3. Tentukan state untuk setiap bachelor
-                if (bachelorName === currentBachelor) {
-                    // Ini adalah bachelor yang aktif di sesi ini
-                    textureKey = ppData.key; // Versi berwarna
-                    showOutline = true;
-                    showCheckmark = false;
-                } else if (chosenHistory.includes(bachelorName)) {
-                    // Ini adalah bachelor dari sesi sebelumnya
-                    textureKey = ppData.key; // Versi berwarna
-                    showOutline = false;
-                    showCheckmark = true;
-                } else {
-                    // Ini adalah bachelor yang belum pernah dipilih
-                    textureKey = `${ppData.key}_gray`; // Versi abu-abu
-                    showOutline = false;
-                    showCheckmark = false;
-                }
-            
-                // 4. Gambar elemen-elemennya
-
-                // Gambar Outline Kuning jika diperlukan
-                if (showOutline) {
-                    const outlineConfig = layout.bachelorPps.activeOutline;
-                    this.add.circle(
-                        ppData.x, 
-                        ppData.y, 
-                        // Hitung radius: (lebar gambar PP / 2) * skala + ketebalan outline
-                        (256 / 2) * ppLayout.scale + outlineConfig.thickness - 20,
-                        outlineConfig.color
-                    );
-                }
-
-                const checkmarkOffset = (layout.bachelorPps && layout.bachelorPps.checkmarkOffset) 
-                    ? layout.bachelorPps.checkmarkOffset 
-                    : { x: 50, y: 50 }; 
-
-                const checkmarkScale = (layout.bachelorPps && layout.bachelorPps.checkmarkScale)
-                    ? layout.bachelorPps.checkmarkScale
-                    : 0.5; 
-            
-                // Gambar Foto Profil
-                this.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
-            
-                // Gambar Tanda Centang jika diperlukan
-                if (showCheckmark) {
-                    
+                if (ppData) {
+                    console.log(`[PreloaderScene] Adding checkmark for ${bachelorName}`);
+                    this.bachelorPP[bachelorName].setTexture(newPPKey);
                     this.add.image(
-                        ppData.x + checkmarkOffset.x, 
-                        ppData.y + checkmarkOffset.y, 
+                        ppData.x + checkmarkOffset.x,
+                        ppData.y + checkmarkOffset.y,
                         'tickMark'
                     ).setScale(checkmarkScale).setDepth(1);
                 }
             });
-        } else {   
+
+        } else {
             // JALANKAN LOGIKA LANDSCAPE: Buat baris horizontal
             console.log("Using Landscape layout for Bachelor PPs.");
 
             const bachelorPPs = ['PP_Azril', 'PP_Angga', 'PP_Reza', 'PP_Indra', 'PP_Keenan'];
-            
+
             // Perbaikan: Gunakan ppLayout.spacing dan ppLayout.xOffset
             const totalPpsWidth = (bachelorPPs.length - 1) * ppLayout.spacing;
             const startX = (width / 2) - (totalPpsWidth / 2) + (ppLayout.xOffset || 0);
-        
+
             bachelorPPs.forEach((key, index) => {
                 // Perbaikan: Gunakan ppLayout.spacing dan ppLayout.y
                 this.add.image(startX + (index * ppLayout.spacing), ppLayout.y, key)
@@ -218,12 +179,12 @@ class PreloaderScene extends Phaser.Scene {
                     .setScale(ppLayout.scale);
             });
         }
-       
 
-        
+
+
         const barY = layout.loadingBar.y;
-        
-        
+
+
         const frame = this.add.nineslice(
             width / 2,                                  // x
             barY,                                       // y
@@ -236,14 +197,14 @@ class PreloaderScene extends Phaser.Scene {
         );
         const fill = this.add.image(frame.x, frame.y, 'loading_fill')
             .setDisplaySize(layout.loadingBar.displayWidth, layout.loadingBar.displayHeight);
-        
-        
-        this.loadingFillPattern = this.add.tileSprite(frame.x, frame.y - 15, 
-                layout.loadingBar.displayWidth + 10000, 
-                layout.loadingBar.displayHeight + 1000, 
-                'loading_fill_pattern'
-            ).setScale(0.5);
-        
+
+
+        this.loadingFillPattern = this.add.tileSprite(frame.x, frame.y - 15,
+            layout.loadingBar.displayWidth + 10000,
+            layout.loadingBar.displayHeight + 1000,
+            'loading_fill_pattern'
+        ).setScale(0.5);
+
         const maskGraphics = this.make.graphics();
         fill.setMask(maskGraphics.createGeometryMask());
         this.loadingFillPattern.setMask(maskGraphics.createGeometryMask());
@@ -255,9 +216,9 @@ class PreloaderScene extends Phaser.Scene {
             style: layout.percentText.style
         }).setOrigin(0.5);
 
-        
+
         this.load.on('progress', (value) => {
-            
+
             const fillWidth = fill.displayWidth;
             const fillHeight = fill.displayHeight;
             const offsetX = layout.loadingBar.fillOffset.x;
@@ -266,9 +227,9 @@ class PreloaderScene extends Phaser.Scene {
             maskGraphics.clear();
             maskGraphics.fillStyle(0xffffff);
             maskGraphics.fillRoundedRect(
-                fill.x - (fillWidth / 2) + offsetX, 
-                fill.y - (fillHeight / 2) + offsetY, 
-                (fillWidth - offsetX * 2) * value, 
+                fill.x - (fillWidth / 2) + offsetX,
+                fill.y - (fillHeight / 2) + offsetY,
+                (fillWidth - offsetX * 2) * value,
                 fillHeight - offsetY * 2,
                 cornerRadius // <-- Tambahkan parameter radius di sini
             );
@@ -288,7 +249,7 @@ class PreloaderScene extends Phaser.Scene {
 
     }
 
-    
+
 
     update() {
         if (this.loadingFillPattern) {
