@@ -1320,7 +1320,7 @@ export class MiniGameManager {
                     const outlineConfig = ppLayout.activeOutline;
                     const outline = this.scene.add.circle(
                         ppData.x, ppData.y,
-                        (256 / 2) * ppLayout.scale + outlineConfig.thickness,
+                        (256 / 2) * ppLayout.scale + outlineConfig.thickness-10,
                         outlineConfig.color
                     );
                     panelElements.push(outline);
