@@ -1231,14 +1231,14 @@ const PORTRAIT = {
             scale: 0.6, // Sedikit lebih kecil dari di preloader
             // Posisi di sekitar tengah layar
             positions: [
-                { key: 'PP_Azril', x: PORTRAIT_CENTERX, y: PORTRAIT_CENTERY - 150 },
-                { key: 'PP_Angga', x: PORTRAIT_CENTERX - 150, y: PORTRAIT_CENTERY },
-                { key: 'PP_Reza', x: PORTRAIT_CENTERX + 150, y: PORTRAIT_CENTERY },
-                { key: 'PP_Indra', x: PORTRAIT_CENTERX - 75, y: PORTRAIT_CENTERY + 150 },
-                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 75, y: PORTRAIT_CENTERY + 150 }
+                { key: 'PP_Azril',  x: PORTRAIT_CENTERX + 150 - 50,       y: PORTRAIT_CENTERY - 300 },
+                { key: 'PP_Angga',  x: PORTRAIT_CENTERX - 50, y: PORTRAIT_CENTERY - 300 },
+                { key: 'PP_Reza',   x: PORTRAIT_CENTERX + 150 + 75 -50, y: PORTRAIT_CENTERY - 150},
+                { key: 'PP_Indra',  x: PORTRAIT_CENTERX - 75 - 50,  y: PORTRAIT_CENTERY - 150 },
+                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 75 - 50,  y: PORTRAIT_CENTERY - 150 }
             ],
             activeOutline: {
-                thickness: 12,
+                thickness: 5,
                 color: 0xFFD700
             },
             checkmarkOffset: { x: 40, y: 40 },

@@ -1336,7 +1336,6 @@ export class MiniGameManager {
             }
         });
 
-
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.nextLevelButton.x,
             y: layout.nextLevelButton.y,
