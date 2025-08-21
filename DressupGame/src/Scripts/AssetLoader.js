@@ -21,7 +21,7 @@ export default class AssetLoader {
     AssetLoader.loadRexUIPlugin(scene);
     AssetLoader.loadSceneAssets(scene);
     AssetLoader.loadBachelorAssets(scene);
-    
+
   }
 
   static loadDressUpAssets(scene) {
@@ -59,10 +59,10 @@ export default class AssetLoader {
       "Asset/Plugin/rexbbcodetextplugin.min.js",
       true);
 
-    
+
   }
 
-  
+
   static loadUIAssets(scene) {
     scene.load.image('dialogueBox', 'Asset/UI/New/Box_Dialog.png');
     scene.load.image('dialogueBox2', 'Asset/UI/New/Box_Dialog_2.png');
@@ -218,14 +218,13 @@ export default class AssetLoader {
     scene.load.image('KeenanNeutral', 'Asset/Character/ekspresi/keenan/Keenan_expression_normal.png');
     scene.load.image('RezaNeutral', 'Asset/Character/ekspresi/reza/Reza_expression_normal.png');
 
-
-
     //Happy Expression
     scene.load.image('AnggaHappy', 'Asset/Character/ekspresi/angga/Angga_Senang.png');
     scene.load.image('AzrilHappy', 'Asset/Character/ekspresi/Azril/Azril_Senang.png');
     scene.load.image('IndraHappy', 'Asset/Character/ekspresi/indra/Indra_Senang.png');
     scene.load.image('KeenanHappy', 'Asset/Character/ekspresi/keenan/Keenan_Senang.png');
     scene.load.image('RezaHappy', 'Asset/Character/ekspresi/reza/Reza_Senang.png');
+
   }
 
   static loadShoes(scene) {

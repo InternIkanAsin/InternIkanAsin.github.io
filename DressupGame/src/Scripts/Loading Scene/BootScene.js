@@ -41,20 +41,20 @@ class BootScene extends Phaser.Scene {
                     // Jika TIDAK, gunakan daftar yang belum dipilih
                     console.log("[BootScene] Selecting from available (not yet chosen) bachelors.");
                 }
-                
+
                 // 3. Pilih satu secara acak dari daftar yang tersedia
                 const randomIndex = Math.floor(Math.random() * availableBachelors.length);
                 chosenBachelorName = availableBachelors[randomIndex];
-                
+
                 // 4. Tambahkan bachelor yang baru terpilih ke dalam riwayat
                 bachelorProgressManager.addBachelorToHistory(chosenBachelorName);
-                             console.log(`[BootScene] Randomly selected new bachelor: ${chosenBachelorName}`);
+                console.log(`[BootScene] Randomly selected new bachelor: ${chosenBachelorName}`);
                 // --- AKHIR PERGANTIAN BLOK ---
             }
         }
         //const chosenBachelorAssets = bachelorPreloadData[chosenBachelorName];
         this.registry.set('chosenBachelorName', chosenBachelorName);
-        
+
         this.preloaderData = {
             bachelorName: chosenBachelorName,
             //bachelorAssets: bachelorPreloadData[chosenBachelorName],
@@ -70,7 +70,7 @@ class BootScene extends Phaser.Scene {
         this.load.image('player_pupils_preload', "Asset/makeup/MakeupAnime/pupil/normal/mc_pupil blue_normal.png");
         this.load.image('player_eyelashes_preload', "Asset/makeup/MakeupAnime/eyeleashes/normal/mc_el default_normal.png");
         this.load.image('eyeshadownormaldefault', "Asset/makeup/MakeupAnime/eyeshadow/normal/mc_es default_normal.png");
-        this.load.image('player_shirt_preload', "Asset/Outfit/Dress/baju_02.png"); 
+        this.load.image('player_shirt_preload', "Asset/Outfit/Dress/baju_02.png");
         this.load.image('player_lower_preload', "Asset/Outfit/Lower/rok_hangout.png");
         //logo
         this.load.image('logo_cisini', "Asset/UI/New/LogoDressup.png");
@@ -84,12 +84,19 @@ class BootScene extends Phaser.Scene {
         this.load.image('PP_Indra', "Asset/Character/profile picture/PP Indra.png");
         this.load.image('PP_Reza', "Asset/Character/profile picture/PP Reza.png");
         this.load.image('PP_Keenan', "Asset/Character/profile picture/PP Keenan.png");
+
+        this.load.image('PP_Angga_Grey', "Asset/Character/profile picture/AnggaPPgray.png");
+        this.load.image('PP_Azril_Grey', "Asset/Character/profile picture/AzrilPPgray.png");
+        this.load.image('PP_Indra_Grey', "Asset/Character/profile picture/IndraPPgray.png");
+        this.load.image('PP_Reza_Grey', "Asset/Character/profile picture/RezaPPgray.png");
+        this.load.image('PP_Keenan_Grey', "Asset/Character/profile picture/KeenanPPgray.png");
+
         //tickmark untuk bachelorpp
         this.load.image('tickMark', 'Asset/UI/Checkmark.png');
         //mute button
         this.load.atlas('iconAtlas', 'Asset/UI/New/Icon_Spritesheet.png', 'Asset/UI/New/Icon_Spritesheet.json');
         this.load.image('button_kuning', "Asset/UI/New/Btn_Kuning2.png");
-        
+
         //this.load.image(chosenBachelorAssets.fullbodyKey, chosenBachelorAssets.fullbodyPath);
         //this.load.image(chosenBachelorAssets.expressionKey, chosenBachelorAssets.expressionPath);
     }

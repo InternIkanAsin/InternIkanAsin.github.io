@@ -1237,14 +1237,14 @@ export class MiniGameManager {
             this.endingPanelTimer = null; // Set ke null
         }
 
-        
+
         // 1. Buat tekstur dan SIMPAN kuncinya ke properti scene. Ini adalah sumber kebenaran kita.
         this.scene.confettiKeys = _createConfettiTextures(this.scene);
 
         if (this.scene.confettiKeys && this.scene.confettiKeys.length > 0) {
 
             if (!this.scene.confettiGroup) {
-                 this.scene.confettiGroup = this.scene.add.group({
+                this.scene.confettiGroup = this.scene.add.group({
                     classType: ConfettiParticle,
                     maxSize: 200,
                     runChildUpdate: true
@@ -1291,27 +1291,9 @@ export class MiniGameManager {
             });
         }
 
-        const victoryBox = this.scene.add.nineslice(
-            centerX,
-            centerY - 250,
-            'BoxVictory',
-            null,
-            this.scene.scale.width,
-            170,
-            50, 50, 40, 40
-        ).setAlpha(0);
-
-        const victoryTextStyle = {
-            fontSize: '96px',
-            fontFamily: 'regularFont',
-            color: '#d6525f',
-            stroke: '#ffffff',
-            strokeThickness: 8
-        };
-
-        const victoryText = this.scene.add.text(centerX + 100, centerY - 250, 'VICTORY!', victoryTextStyle)
-            .setOrigin(0.5)
-            .setAlpha(0);
+        Object.values(scene.bachelorPP).forEach(bachelorProfile => {
+            bachelorProfile.setVisible(true);
+        });
 
         const nextLevelButton = new UIButton(this.scene, this.AudioManager, {
             x: layout.nextLevelButton.x,

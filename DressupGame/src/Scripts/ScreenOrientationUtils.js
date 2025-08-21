@@ -92,10 +92,16 @@ const LANDSCAPE = {
     },
 
     bachelorPps: {
-        y: LANDSCAPE_HEIGHT * 0.7,
-        scale: 0.9,
-        spacing: 200,
-        xOffset: -270
+        scale: 0.5,
+        positions: [
+            { key: 'PP_Azril_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 600 },
+            { key: 'PP_Angga_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 475 },
+            { key: 'PP_Reza_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 350 },
+            { key: 'PP_Indra_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 225 },
+            { key: 'PP_Keenan_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 100 }
+        ],
+        checkmarkOffset: { x: 30, y: 30 },
+        checkmarkScale: 0.5
     },
 
     loadingBar: {
@@ -739,11 +745,11 @@ const PORTRAIT = {
     bachelorPps: {
         scale: 0.7,
         positions: [
-            { key: 'PP_Azril', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
-            { key: 'PP_Angga', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
-            { key: 'PP_Reza', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
-            { key: 'PP_Indra', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
-            { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
+            { key: 'PP_Azril_Grey', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Angga_Grey', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
+            { key: 'PP_Reza_Grey', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Indra_Grey', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
+            { key: 'PP_Keenan_Grey', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
         ]
     },
 
