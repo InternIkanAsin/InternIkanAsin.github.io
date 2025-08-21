@@ -310,7 +310,7 @@ const LANDSCAPE = {
         x: LANDSCAPE_WIDTH / 2.775 - 15,
         y: LANDSCAPE_HEIGHT / 1.275 - 15,
         fontSize: 32,
-        wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 1.45)
+        wordWrap: LANDSCAPE_WIDTH - (LANDSCAPE_WIDTH / 1.45) - 30
     },
 
     namedDialogueBox: {
@@ -954,7 +954,7 @@ const PORTRAIT = {
         x: PORTRAIT_WIDTH / 13,
         y: PORTRAIT_CENTERY * 1.17,
         fontSize: 32,
-        wordWrap: PORTRAIT_WIDTH - 150
+        wordWrap: PORTRAIT_WIDTH - 180
     },
 
     namedDialogueBox: {
