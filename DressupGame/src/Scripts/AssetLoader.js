@@ -71,7 +71,16 @@ export default class AssetLoader {
     scene.load.image('YellowButton', "Asset/UI/New/Btn_Kuning.png");
     scene.load.image('YellowButton2', "Asset/UI/New/Btn_Kuning_2.png");
     scene.load.image('BoxVictory', "Asset/UI/New/Box_Victory.png");
-
+    scene.load.image('PP_Angga', "Asset/Character/profile picture/PP Angga.png");
+    scene.load.image('PP_Azril', "Asset/Character/profile picture/PP Azril.png");
+    scene.load.image('PP_Indra', "Asset/Character/profile picture/PP Indra.png");
+    scene.load.image('PP_Reza', "Asset/Character/profile picture/PP Reza.png");
+    scene.load.image('PP_Keenan', "Asset/Character/profile picture/PP Keenan.png");
+    scene.load.image('PP_Angga_gray', "Asset/Character/profile picture/AnggaPPgray.png");
+    scene.load.image('PP_Azril_gray', "Asset/Character/profile picture/AzrilPPgray.png");
+    scene.load.image('PP_Indra_gray', "Asset/Character/profile picture/IndraPPGray.png");
+    scene.load.image('PP_Reza_gray', "Asset/Character/profile picture/RezaPPgray.png");
+    scene.load.image('PP_Keenan_gray', "Asset/Character/profile picture/KeenanPPgray.png");
     //New Assets
     scene.load.image('buttonIcon', 'Asset/UI/Button_Released.png');
     scene.load.image('buttonIconPressed', 'Asset/UI/Button_Pressed.png');

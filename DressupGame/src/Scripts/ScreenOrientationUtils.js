@@ -549,6 +549,23 @@ const LANDSCAPE = {
             gravityY: 400,
             quantity: 100,
             blendMode: 'NORMAL'
+        },
+        bachelorPps: {
+            scale: 0.6, // Sedikit lebih kecil dari di preloader
+            // Posisi di sekitar tengah layar
+            positions: [
+                { key: 'PP_Azril',  x: LANDSCAPE_CENTERX,       y: LANDSCAPE_CENTERY - 150 },
+                { key: 'PP_Angga',  x: LANDSCAPE_CENTERX - 150, y: LANDSCAPE_CENTERY },
+                { key: 'PP_Reza',   x: LANDSCAPE_CENTERX + 150, y: LANDSCAPE_CENTERY },
+                { key: 'PP_Indra',  x: LANDSCAPE_CENTERX - 75,  y: LANDSCAPE_CENTERY + 150 },
+                { key: 'PP_Keenan', x: LANDSCAPE_CENTERX + 75,  y: LANDSCAPE_CENTERY + 150 }
+            ],
+            activeOutline: {
+                thickness: 12,
+                color: 0xFFD700
+            },
+            checkmarkOffset: { x: 40, y: 40 },
+            checkmarkScale: 0.45
         }
     }
 };
@@ -1208,6 +1225,23 @@ const PORTRAIT = {
             gravityY: 400,
             quantity: 80,
             blendMode: 'NORMAL'
+        },
+        bachelorPps: {
+            scale: 0.6, // Sedikit lebih kecil dari di preloader
+            // Posisi di sekitar tengah layar
+            positions: [
+                { key: 'PP_Azril',  x: PORTRAIT_CENTERX,       y: PORTRAIT_CENTERY - 150 },
+                { key: 'PP_Angga',  x: PORTRAIT_CENTERX - 150, y: PORTRAIT_CENTERY },
+                { key: 'PP_Reza',   x: PORTRAIT_CENTERX + 150, y: PORTRAIT_CENTERY },
+                { key: 'PP_Indra',  x: PORTRAIT_CENTERX - 75,  y: PORTRAIT_CENTERY + 150 },
+                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 75,  y: PORTRAIT_CENTERY + 150 }
+            ],
+            activeOutline: {
+                thickness: 12,
+                color: 0xFFD700
+            },
+            checkmarkOffset: { x: 40, y: 40 },
+            checkmarkScale: 0.45
         }
     }
 
