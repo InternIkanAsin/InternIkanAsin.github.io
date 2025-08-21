@@ -91,7 +91,7 @@ const LANDSCAPE = {
         }
     },
 
-    bachelorPps: {
+        bachelorPps: {
         scale: 0.6,
         positions: [
             { key: 'PP_Azril_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 640 },
@@ -100,6 +100,28 @@ const LANDSCAPE = {
             { key: 'PP_Indra_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 235 },
             { key: 'PP_Keenan_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 100 }
         ],
+        checkmarkOffset: { x: 30, y: 30 },
+        checkmarkScale: 0.5,
+        activeOutline: { thickness: 6, thicknessOffset: 15, color: 0xFFD700 }
+    },
+
+    bachelorPps_loading: {
+        scale: 0.8, // Buat sedikit lebih besar agar terlihat jelas
+        
+        // Properti untuk tata letak horizontal
+        y: LANDSCAPE_HEIGHT * 0.7, // Posisi Y di bagian bawah layar
+        spacing: 200,             // Jarak antar PP
+        xOffset: -270,               // Offset horizontal tambahan jika perlu
+
+        // Definisikan kunci dasar saja, tanpa posisi. Posisi akan dihitung secara dinamis.
+        positions: [
+            { key: 'PP_Azril' },
+            { key: 'PP_Angga' },
+            { key: 'PP_Reza' },
+            { key: 'PP_Indra' },
+            { key: 'PP_Keenan' }
+        ],
+        // Properti di bawah ini tidak digunakan oleh landscape, tapi tidak masalah jika ada
         checkmarkOffset: { x: 30, y: 30 },
         checkmarkScale: 0.5,
         activeOutline: { thickness: 6, thicknessOffset: 15, color: 0xFFD700 }

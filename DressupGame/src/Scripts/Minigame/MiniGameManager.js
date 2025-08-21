@@ -1299,29 +1299,23 @@ export class MiniGameManager {
         ppLayout.positions.forEach(ppData => {
             const bachelorName = ppData.key.replace('PP_', '');
             let textureKey = '';
-            let showOutline = false;
             let showCheckmark = false;
 
             if (bachelorName === currentBachelor) {
+                // Bachelor sesi ini -> berwarna + centang
                 textureKey = ppData.key;
-                showOutline = true;
+                showCheckmark = true;
             } else if (chosenHistory.includes(bachelorName)) {
+                // Bachelor sesi sebelumnya -> berwarna + centang
                 textureKey = ppData.key;
                 showCheckmark = true;
             } else {
+                // Bachelor yang belum pernah dipilih -> abu-abu
                 textureKey = `${ppData.key}_Grey`;
             }
 
-            // Tambahkan elemen ke array untuk dimasukkan ke container nanti
-            if (showOutline) {
-                const outlineConfig = ppLayout.activeOutline;
-                const outline = this.scene.add.circle(
-                    ppData.x, ppData.y,
-                    (256 / 2) * ppLayout.scale + outlineConfig.thickness - outlineConfig.thicknessOffset,
-                    outlineConfig.color
-                );
-                panelElements.push(outline);
-            }
+            
+        
 
             const ppImage = this.scene.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
             panelElements.push(ppImage);
