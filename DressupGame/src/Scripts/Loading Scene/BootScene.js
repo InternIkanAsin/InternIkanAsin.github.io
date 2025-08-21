@@ -84,6 +84,12 @@ class BootScene extends Phaser.Scene {
         this.load.image('PP_Indra', "Asset/Character/profile picture/PP Indra.png");
         this.load.image('PP_Reza', "Asset/Character/profile picture/PP Reza.png");
         this.load.image('PP_Keenan', "Asset/Character/profile picture/PP Keenan.png");
+        this.load.image('PP_Angga_gray', "Asset/Character/profile picture/AnggaPPgray.png");
+        this.load.image('PP_Azril_gray', "Asset/Character/profile picture/AzrilPPgray.png");
+        this.load.image('PP_Indra_gray', "Asset/Character/profile picture/IndraPPGray.png");
+        this.load.image('PP_Reza_gray', "Asset/Character/profile picture/RezaPPgray.png");
+        this.load.image('PP_Keenan_gray', "Asset/Character/profile picture/KeenanPPgray.png");
+
         //tickmark untuk bachelorpp
         this.load.image('tickMark', 'Asset/UI/Checkmark.png');
         //mute button

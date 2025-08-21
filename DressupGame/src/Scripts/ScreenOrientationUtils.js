@@ -744,7 +744,12 @@ const PORTRAIT = {
             { key: 'PP_Reza', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.62 },
             { key: 'PP_Indra', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.62 },
             { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
-        ]
+        ],
+
+        activeOutline: {
+            thickness: 15, 
+            color: 0xFFD700
+        }
     },
 
     loadingBar: {

@@ -135,36 +135,72 @@ class PreloaderScene extends Phaser.Scene {
        const ppLayout = layout.bachelorPps;
 
         if (isMobile) {
-             console.log("Using Portrait layout for Bachelor PPs.");
-            
-            ppLayout.positions.forEach(ppData => {
-                this.add.image(ppData.x, ppData.y, ppData.key)
-                    .setScale(ppLayout.scale);
-            });
-            
-            // --- 2. TAMBAHKAN LOGIKA CENTANG DI SINI ---
-            console.log("[PreloaderScene] Checking for chosen bachelors...");
+            // 1. Dapatkan semua data yang kita butuhkan
             const chosenHistory = bachelorProgressManager.loadHistory();
-            console.log("[PreloaderScene] History:", chosenHistory);
+            const currentBachelor = this.preloaderData.bachelorName;
 
-            // Definisikan properti centang di layout agar mudah diubah
-            const checkmarkOffset = layout.bachelorPps.checkmarkOffset || { x: 50, y: 50 };
-            const checkmarkScale = layout.bachelorPps.checkmarkScale || 0.5;
+            // 2. Loop melalui SEMUA kemungkinan posisi PP yang didefinisikan di layout
+            ppLayout.positions.forEach(ppData => {
+                // Ekstrak nama bachelor dari kunci PP (misal: "PP_Angga" -> "Angga")
+                const bachelorName = ppData.key.replace('PP_', '');
 
-            chosenHistory.forEach(bachelorName => {
-                const ppKey = `PP_${bachelorName}`;
-                const ppData = ppLayout.positions.find(p => p.key === ppKey);
+                let textureKey = '';
+                let showOutline = false;
+                let showCheckmark = false;
+            
+                // 3. Tentukan state untuk setiap bachelor
+                if (bachelorName === currentBachelor) {
+                    // Ini adalah bachelor yang aktif di sesi ini
+                    textureKey = ppData.key; // Versi berwarna
+                    showOutline = true;
+                    showCheckmark = false;
+                } else if (chosenHistory.includes(bachelorName)) {
+                    // Ini adalah bachelor dari sesi sebelumnya
+                    textureKey = ppData.key; // Versi berwarna
+                    showOutline = false;
+                    showCheckmark = true;
+                } else {
+                    // Ini adalah bachelor yang belum pernah dipilih
+                    textureKey = `${ppData.key}_gray`; // Versi abu-abu
+                    showOutline = false;
+                    showCheckmark = false;
+                }
+            
+                // 4. Gambar elemen-elemennya
 
-                if (ppData) {
-                    console.log(`[PreloaderScene] Adding checkmark for ${bachelorName}`);
+                // Gambar Outline Kuning jika diperlukan
+                if (showOutline) {
+                    const outlineConfig = layout.bachelorPps.activeOutline;
+                    this.add.circle(
+                        ppData.x, 
+                        ppData.y, 
+                        // Hitung radius: (lebar gambar PP / 2) * skala + ketebalan outline
+                        (256 / 2) * ppLayout.scale + outlineConfig.thickness - 20,
+                        outlineConfig.color
+                    );
+                }
+
+                const checkmarkOffset = (layout.bachelorPps && layout.bachelorPps.checkmarkOffset) 
+                    ? layout.bachelorPps.checkmarkOffset 
+                    : { x: 50, y: 50 }; 
+
+                const checkmarkScale = (layout.bachelorPps && layout.bachelorPps.checkmarkScale)
+                    ? layout.bachelorPps.checkmarkScale
+                    : 0.5; 
+            
+                // Gambar Foto Profil
+                this.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
+            
+                // Gambar Tanda Centang jika diperlukan
+                if (showCheckmark) {
+                    
                     this.add.image(
                         ppData.x + checkmarkOffset.x, 
                         ppData.y + checkmarkOffset.y, 
                         'tickMark'
-                    ).setScale(checkmarkScale).setDepth(1); // Beri depth agar di atas PP
+                    ).setScale(checkmarkScale).setDepth(1);
                 }
             });
-
         } else {   
             // JALANKAN LOGIKA LANDSCAPE: Buat baris horizontal
             console.log("Using Landscape layout for Bachelor PPs.");
