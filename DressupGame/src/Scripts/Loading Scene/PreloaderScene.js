@@ -1,6 +1,7 @@
 import AssetLoader from '../AssetLoader.js';
-import { layout } from '../ScreenOrientationUtils.js';
+import { layout, orientation } from '../ScreenOrientationUtils.js';
 import Phaser from 'phaser';
+import { bachelorProgressManager } from '../Save System/BachelorProgressManager.js'; 
 
 import { MuteButton } from '../UI/UIButton.js'; // <-- Impor kelas baru
 class PreloaderScene extends Phaser.Scene {
@@ -28,22 +29,44 @@ class PreloaderScene extends Phaser.Scene {
     preload() {
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
-        const PAUSE_FOR_TESTING = false;
+        let PAUSE_FOR_TESTING = false;
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile){
+            PAUSE_FOR_TESTING = true;
+        }
+        else 
+        {
+            PAUSE_FOR_TESTING = false;
+        }
         let assetsReady = false;
         let fontsReady = false;
-        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf', () => { /* Font ini cepat, tidak perlu gate */ });
+
+        const startGameIfReady = () => {
+            if (assetsReady && fontsReady) {
+                console.log("Assets and Fonts are ready. Starting MainScene.");
+                
+                // Logika PAUSE_FOR_TESTING dipindahkan ke sini agar lebih terpusat
+                if (PAUSE_FOR_TESTING) {
+                    console.log("--- PRELOADER TEST MODE: Loading complete. Click screen to continue. ---");
+                    this.add.text(width / 2, height - 50, 'Click to Continue', {
+                        font: '32px Arial', fill: '#000000'
+                    }).setOrigin(0.5).setDepth(100)
+                      .setInteractive() // Jadikan interaktif agar bisa diklik
+                      .on('pointerdown', () => {
+                          this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+                      });
+                } else {
+                    this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
+                }
+            }
+        };
+
+        this.loadFont('pixelFont', 'Asset/Font/Pixellari.ttf', () => {}); // Tidak perlu gate
         this.loadFont('regularFont', 'Asset/Font/sourcesanspro-bold.ttf', () => {
             fontsReady = true;
             startGameIfReady();
         });
-         const startGameIfReady = () => {
-            if (assetsReady && fontsReady) {
-                console.log("Assets and Fonts are ready. Starting MainScene.");
-                this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
-            }
-        };
 
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const bg = this.add.image(width / 2, height / 2, 'minigame_background_preload');
         if (isMobile) {
             const scale = height / 1080;
@@ -113,14 +136,34 @@ class PreloaderScene extends Phaser.Scene {
        const ppLayout = layout.bachelorPps;
 
         if (isMobile) {
-            // JALANKAN LOGIKA PORTRAIT: Gunakan posisi x, y yang spesifik
-            console.log("Using Portrait layout for Bachelor PPs.");
+             console.log("Using Portrait layout for Bachelor PPs.");
             
-            // Perbaikan: Gunakan ppLayout.positions
             ppLayout.positions.forEach(ppData => {
                 this.add.image(ppData.x, ppData.y, ppData.key)
-                    // Perbaikan: Gunakan ppLayout.scale
                     .setScale(ppLayout.scale);
+            });
+            
+            // --- 2. TAMBAHKAN LOGIKA CENTANG DI SINI ---
+            console.log("[PreloaderScene] Checking for chosen bachelors...");
+            const chosenHistory = bachelorProgressManager.loadHistory();
+            console.log("[PreloaderScene] History:", chosenHistory);
+
+            // Definisikan properti centang di layout agar mudah diubah
+            const checkmarkOffset = layout.bachelorPps.checkmarkOffset || { x: 50, y: 50 };
+            const checkmarkScale = layout.bachelorPps.checkmarkScale || 0.5;
+
+            chosenHistory.forEach(bachelorName => {
+                const ppKey = `PP_${bachelorName}`;
+                const ppData = ppLayout.positions.find(p => p.key === ppKey);
+
+                if (ppData) {
+                    console.log(`[PreloaderScene] Adding checkmark for ${bachelorName}`);
+                    this.add.image(
+                        ppData.x + checkmarkOffset.x, 
+                        ppData.y + checkmarkOffset.y, 
+                        'tickMark'
+                    ).setScale(checkmarkScale).setDepth(1); // Beri depth agar di atas PP
+                }
             });
 
         } else {   
@@ -204,24 +247,6 @@ class PreloaderScene extends Phaser.Scene {
                 assetsReady = true;
                 startGameIfReady();
             });
-            
-           
-            if (PAUSE_FOR_TESTING) {
-                // Jika mode tes aktif, jangan mulai scene baru.
-                // Tampilkan pesan dan tunggu klik.
-                console.log("--- PRELOADER TEST MODE: Loading complete. Click screen to continue. ---");
-                const continueText = this.add.text(width / 2, height - 50, 'Click to Continue', {
-                    font: '32px Arial',
-                    fill: '#000000'
-                }).setOrigin(0.5).setDepth(100);
-                
-                this.input.once('pointerdown', () => {
-                    this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
-                });
-            } else {
-                // Jika mode tes nonaktif, langsung mulai scene berikutnya seperti biasa.
-                this.scene.start('MainScene', { bachelorName: this.preloaderData.bachelorName });
-            }
         });
         AssetLoader.loadGame(this);
         AssetLoader.loadMiniGame(this);
