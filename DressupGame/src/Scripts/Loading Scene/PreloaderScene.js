@@ -144,11 +144,7 @@ class PreloaderScene extends Phaser.Scene {
             // --- 2. TAMBAHKAN LOGIKA CENTANG DI SINI ---
             console.log("[PreloaderScene] Checking for chosen bachelors...");
             const chosenHistory = bachelorProgressManager.loadHistory();
-            console.log("[PreloaderScene] History:", chosenHistory);
-
-            // Definisikan properti centang di layout agar mudah diubah
-            const checkmarkOffset = layout.bachelorPps.checkmarkOffset || { x: 50, y: 50 };
-            const checkmarkScale = layout.bachelorPps.checkmarkScale || 0.5;
+            const currentBachelor = this.preloaderData.bachelorName;
 
             chosenHistory.forEach(bachelorName => {
                 const ppKey = `PP_${bachelorName}_Grey`;
@@ -162,7 +158,7 @@ class PreloaderScene extends Phaser.Scene {
                         ppData.x + checkmarkOffset.x,
                         ppData.y + checkmarkOffset.y,
                         'tickMark'
-                    ).setScale(checkmarkScale).setDepth(1); // Beri depth agar di atas PP
+                    ).setScale(checkmarkScale).setDepth(1);
                 }
             });
 
