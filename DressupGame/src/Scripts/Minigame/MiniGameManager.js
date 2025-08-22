@@ -908,7 +908,7 @@ export class MiniGameManager {
         });
 
 
-        const sidePanel = this.scene.add.image(0, 0, 'sidePanel').setDepth(10).setScale(1.5);
+        const sidePanel = this.scene.add.image(0, 0, 'loading_frame').setDepth(10).setScale(1.5);
 
         this.innerSizer = scene.rexUI.add.sizer({
             orientation: 0,

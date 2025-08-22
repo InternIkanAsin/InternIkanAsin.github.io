@@ -90,6 +90,7 @@ class BootScene extends Phaser.Scene {
         this.load.image('PP_Indra_Grey', "Asset/Character/profile picture/IndraPPgray.png");
         this.load.image('PP_Reza_Grey', "Asset/Character/profile picture/RezaPPgray.png");
         this.load.image('PP_Keenan_Grey', "Asset/Character/profile picture/KeenanPPgray.png");
+        this.load.image('PP_Selected', 'Asset/UI/New/PP_Selected.png');
 
         //tickmark untuk bachelorpp
         this.load.image('tickMark', 'Asset/UI/Checkmark.png');

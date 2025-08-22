@@ -99,11 +99,7 @@ export class CutsceneSystem {
                 if (ppData) {
                     scene.bachelorPP[bachelorName].setTexture(newPPKey);
                     if (currentBachelor === bachelorName) {
-                        scene.add.circle(
-                            ppData.x, ppData.y - 1,
-                            (256 / 2) * ppLayout.scale + ppLayout.activeOutline.thickness - ppLayout.activeOutline.thicknessOffset,
-                            ppLayout.activeOutline.color
-                        ).setDepth(-1);
+                        scene.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
                     } else if (chosenHistory.includes(bachelorName)) {
                         scene.bachelorPP[`${bachelorName}_checkmark`] = scene.add.image(
                             ppData.x + checkmarkOffset.x,

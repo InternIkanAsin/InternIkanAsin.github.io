@@ -147,7 +147,7 @@ class PreloaderScene extends Phaser.Scene {
                 let textureToUse = '';
                 let showOutline = false;
                 let showCheckmark = false;
-            
+
                 // Tentukan state untuk bachelor ini
                 if (bachelorName === currentBachelor) {
                     textureToUse = ppData.key; // Gunakan PP berwarna
@@ -158,19 +158,15 @@ class PreloaderScene extends Phaser.Scene {
                 } else {
                     textureToUse = `${ppData.key}_Grey`; // Gunakan PP abu-abu
                 }
-            
+
                 // Gambar Outline jika perlu
                 if (showOutline && ppLayout.activeOutline) {
-                    this.add.circle(
-                        ppData.x, ppData.y,
-                        (256 / 2) * ppLayout.scale + ppLayout.activeOutline.thickness - 20,
-                        ppLayout.activeOutline.color
-                    );
+                    this.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
                 }
-            
+
                 // Gambar Foto Profil dengan kunci yang sudah benar
                 this.add.image(ppData.x, ppData.y, textureToUse).setScale(ppLayout.scale);
-            
+
                 // Gambar Tanda Centang jika perlu
                 if (showCheckmark) {
                     const offset = ppLayout.checkmarkOffset;

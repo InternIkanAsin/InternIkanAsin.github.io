@@ -93,6 +93,7 @@ const LANDSCAPE = {
 
     bachelorPps: {
         scale: 0.6,
+        selectedBorderScale: 0.5,
         positions: [
             { key: 'PP_Azril_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 640 },
             { key: 'PP_Angga_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 505 },
@@ -255,15 +256,15 @@ const LANDSCAPE = {
     },
     // Side Panel
     sidePanel: {
-        x: 1920 - 400,
+        x: 1920 - 500,
         y: 1080 / 2,
         left: 220,
         right: 0,
         top: 120,
         bottom: 0,
         panel: 30,
-        width: 800,
-        height: 1080
+        width: 900,
+        height: 1100
     },
     categorySidePanel: {
         left: 0,
@@ -763,6 +764,7 @@ const PORTRAIT = {
 
     bachelorPps: {
         scale: 0.7,
+        selectedBorderScale: 0.6,
         positions: [
             { key: 'PP_Azril', x: PORTRAIT_WIDTH * 0.85, y: PORTRAIT_HEIGHT * 0.50 },
             { key: 'PP_Angga', x: PORTRAIT_WIDTH * 0.63, y: PORTRAIT_HEIGHT * 0.50 },
