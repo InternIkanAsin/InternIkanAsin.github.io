@@ -176,21 +176,18 @@ class PreloaderScene extends Phaser.Scene {
                 }
             });
 
-        } else {
-            // JALANKAN LOGIKA LANDSCAPE: Buat baris horizontal
-            console.log("Using Landscape layout for Bachelor PPs.");
-
-            const bachelorPPs = ['PP_Azril', 'PP_Angga', 'PP_Reza', 'PP_Indra', 'PP_Keenan'];
-
-            // Perbaikan: Gunakan ppLayout.spacing dan ppLayout.xOffset
+        } else {          
+            const ppLayout = layout.bachelorPps_loading; // Ambil konfigurasi
+            const bachelorPPs = ppLayout.positions.map(p => p.key); // Dapatkan array kunci: ['PP_Azril', ...]
             const totalPpsWidth = (bachelorPPs.length - 1) * ppLayout.spacing;
-            const startX = (width / 2) - (totalPpsWidth / 2) + (ppLayout.xOffset || 0);
+            const startX = (this.cameras.main.width / 2) - (totalPpsWidth / 2) + (ppLayout.xOffset || 0);
 
             bachelorPPs.forEach((key, index) => {
-                // Perbaikan: Gunakan ppLayout.spacing dan ppLayout.y
-                this.add.image(startX + (index * ppLayout.spacing), ppLayout.y, key)
-                    // Perbaikan: Gunakan ppLayout.scale
-                    .setScale(ppLayout.scale);
+                this.add.image(
+                    startX + (index * ppLayout.spacing), 
+                    ppLayout.y, 
+                    key
+                ).setScale(ppLayout.scale);
             });
         }
 

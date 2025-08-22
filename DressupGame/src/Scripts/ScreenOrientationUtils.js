@@ -91,7 +91,7 @@ const LANDSCAPE = {
         }
     },
 
-    bachelorPps: {
+        bachelorPps: {
         scale: 0.6,
         selectedBorderScale: 0.5,
         positions: [
@@ -101,6 +101,28 @@ const LANDSCAPE = {
             { key: 'PP_Indra_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 235 },
             { key: 'PP_Keenan_Grey', x: LANDSCAPE_WIDTH - 100, y: LANDSCAPE_HEIGHT - 100 }
         ],
+        checkmarkOffset: { x: 30, y: 30 },
+        checkmarkScale: 0.5,
+        activeOutline: { thickness: 6, thicknessOffset: 15, color: 0xFFD700 }
+    },
+
+    bachelorPps_loading: {
+        scale: 0.8, // Buat sedikit lebih besar agar terlihat jelas
+        
+        // Properti untuk tata letak horizontal
+        y: LANDSCAPE_HEIGHT * 0.7, // Posisi Y di bagian bawah layar
+        spacing: 200,             // Jarak antar PP
+        xOffset: -270,               // Offset horizontal tambahan jika perlu
+
+        // Definisikan kunci dasar saja, tanpa posisi. Posisi akan dihitung secara dinamis.
+        positions: [
+            { key: 'PP_Azril' },
+            { key: 'PP_Angga' },
+            { key: 'PP_Reza' },
+            { key: 'PP_Indra' },
+            { key: 'PP_Keenan' }
+        ],
+        // Properti di bawah ini tidak digunakan oleh landscape, tapi tidak masalah jika ada
         checkmarkOffset: { x: 30, y: 30 },
         checkmarkScale: 0.5,
         activeOutline: { thickness: 6, thicknessOffset: 15, color: 0xFFD700 }
@@ -1136,11 +1158,11 @@ const PORTRAIT = {
 
     nextLevelButton: {
         x: PORTRAIT_CENTERX,
-        y: PORTRAIT_CENTERY + 100,
+        y: PORTRAIT_CENTERY + 150,
         texture: 'YellowButton2',
-        width: 500 * 1.5,
-        height: 150 * 1.5,
-        textSize: 90,
+        width: 500 * 1.3,
+        height: 150 * 1.35,
+        textSize: 90 * 0.9,
         useNineSlice: true,
         nineSliceConfig: {
             left: 128, right: 128, top: 70, bottom: 70
@@ -1152,9 +1174,9 @@ const PORTRAIT = {
         x: PORTRAIT_CENTERX,
         y: PORTRAIT_CENTERY + 350,
         texture: 'blueButton2',
-        width: 350 * 1.5,
-        height: 125 * 1.5,
-        textSize: 90,
+        width: 350 * 1.3,
+        height: 125 * 1.3,
+        textSize: 90 * 0.9,
         useNineSlice: true,
         nineSliceConfig: {
             left: 128, right: 128, top: 70, bottom: 70
@@ -1235,14 +1257,14 @@ const PORTRAIT = {
             blendMode: 'NORMAL'
         },
         bachelorPps: {
-            scale: 0.6, // Sedikit lebih kecil dari di preloader
+            scale: 0.7, // Sedikit lebih kecil dari di preloader
             // Posisi di sekitar tengah layar
             positions: [
-                { key: 'PP_Azril', x: PORTRAIT_CENTERX + 150 - 50, y: PORTRAIT_CENTERY - 300 },
-                { key: 'PP_Angga', x: PORTRAIT_CENTERX - 50, y: PORTRAIT_CENTERY - 300 },
-                { key: 'PP_Reza', x: PORTRAIT_CENTERX + 150 + 75 - 50, y: PORTRAIT_CENTERY - 150 },
-                { key: 'PP_Indra', x: PORTRAIT_CENTERX - 75 - 50, y: PORTRAIT_CENTERY - 150 },
-                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 75 - 50, y: PORTRAIT_CENTERY - 150 }
+                { key: 'PP_Azril', x: PORTRAIT_CENTERX + 150 - 80 + 10, y: PORTRAIT_CENTERY - 300 + 100 },
+                { key: 'PP_Angga', x: PORTRAIT_CENTERX - 80 - 10, y: PORTRAIT_CENTERY - 300 + 100 },
+                { key: 'PP_Reza', x: PORTRAIT_CENTERX  + 75 - 80, y: PORTRAIT_CENTERY - 150 + 100 },
+                { key: 'PP_Indra', x: PORTRAIT_CENTERX - 75 - 80 - 20, y: PORTRAIT_CENTERY - 150 + 100 },
+                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 150 + 75 - 80 + 20, y: PORTRAIT_CENTERY - 150 + 100}
             ],
             activeOutline: {
                 thickness: 5,
