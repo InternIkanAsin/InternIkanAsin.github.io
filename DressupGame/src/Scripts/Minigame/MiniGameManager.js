@@ -1011,11 +1011,11 @@ export class MiniGameManager {
 
         this.scene.sidePanel.layout();
 
-        scene.panelDivider = scene.add.nineslice(layout.sidePanel.x - 350, layout.sidePanel.y, 'sidePanelDivider', '', 100, 1080, 60, 60, 40, 60).setDepth(99);
+        scene.panelDivider = scene.add.nineslice(layout.sidePanel.x - 450, layout.sidePanel.y, 'sidePanelDivider', '', 100, 1080, 60, 60, 40, 60).setDepth(99);
 
-        scene.flower2 = scene.add.image(layout.sidePanel.x - 325, layout.sidePanel.y - 400, 'flowers').setScale(0.5).setDepth(99)
+        scene.flower2 = scene.add.image(layout.sidePanel.x - 425, layout.sidePanel.y - 400, 'flowers').setScale(0.5).setDepth(99)
         scene.flower2.angle = 180;
-        scene.flower3 = scene.add.image(layout.sidePanel.x - 325, layout.sidePanel.y + 400, 'flowers').setScale(0.5).setDepth(99)
+        scene.flower3 = scene.add.image(layout.sidePanel.x - 425, layout.sidePanel.y + 400, 'flowers').setScale(0.5).setDepth(99)
 
         if (this.scene.state !== GameState.MAKEUP) return;
         const categoryButtons = this.scene.state === GameState.MAKEUP ? this.scene.makeUpCategoryButtons : null;
@@ -1314,8 +1314,8 @@ export class MiniGameManager {
                 textureKey = `${ppData.key}_Grey`;
             }
 
-            
-        
+
+
 
             const ppImage = this.scene.add.image(ppData.x, ppData.y, textureKey).setScale(ppLayout.scale);
             panelElements.push(ppImage);

@@ -91,7 +91,7 @@ const LANDSCAPE = {
         }
     },
 
-        bachelorPps: {
+    bachelorPps: {
         scale: 0.6,
         selectedBorderScale: 0.5,
         positions: [
@@ -108,7 +108,7 @@ const LANDSCAPE = {
 
     bachelorPps_loading: {
         scale: 0.8, // Buat sedikit lebih besar agar terlihat jelas
-        
+
         // Properti untuk tata letak horizontal
         y: LANDSCAPE_HEIGHT * 0.7, // Posisi Y di bagian bawah layar
         spacing: 200,             // Jarak antar PP
@@ -278,9 +278,9 @@ const LANDSCAPE = {
     },
     // Side Panel
     sidePanel: {
-        x: 1920 - 500,
+        x: 1920 - 300,
         y: 1080 / 2,
-        left: 220,
+        left: 170,
         right: 0,
         top: 120,
         bottom: 0,
@@ -1262,9 +1262,9 @@ const PORTRAIT = {
             positions: [
                 { key: 'PP_Azril', x: PORTRAIT_CENTERX + 150 - 80 + 10, y: PORTRAIT_CENTERY - 300 + 100 },
                 { key: 'PP_Angga', x: PORTRAIT_CENTERX - 80 - 10, y: PORTRAIT_CENTERY - 300 + 100 },
-                { key: 'PP_Reza', x: PORTRAIT_CENTERX  + 75 - 80, y: PORTRAIT_CENTERY - 150 + 100 },
+                { key: 'PP_Reza', x: PORTRAIT_CENTERX + 75 - 80, y: PORTRAIT_CENTERY - 150 + 100 },
                 { key: 'PP_Indra', x: PORTRAIT_CENTERX - 75 - 80 - 20, y: PORTRAIT_CENTERY - 150 + 100 },
-                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 150 + 75 - 80 + 20, y: PORTRAIT_CENTERY - 150 + 100}
+                { key: 'PP_Keenan', x: PORTRAIT_CENTERX + 150 + 75 - 80 + 20, y: PORTRAIT_CENTERY - 150 + 100 }
             ],
             activeOutline: {
                 thickness: 5,
