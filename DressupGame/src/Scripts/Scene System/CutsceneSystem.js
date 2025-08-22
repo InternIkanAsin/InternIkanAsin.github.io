@@ -100,6 +100,7 @@ export class CutsceneSystem {
                     scene.bachelorPP[bachelorName].setTexture(newPPKey);
                     if (currentBachelor === bachelorName) {
                         scene.bachelorPPBorder = scene.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
+                        scene.chatBubble = scene.add.image(ppData.x - 125, ppData.y, 'ChatBubble').setDepth(1).setScale(ppLayout.selectedBorderScale);
                     } else if (chosenHistory.includes(bachelorName)) {
                         scene.bachelorPP[`${bachelorName}_checkmark`] = scene.add.image(
                             ppData.x + checkmarkOffset.x,

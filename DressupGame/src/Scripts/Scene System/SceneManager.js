@@ -23,6 +23,7 @@ export class SceneManager {
             this.scene.endCallGimmick?.destroy();
             this.scene.pinkBg?.destroy();
             this.scene.bachelorPPBorder?.destroy();
+            this.scene.chatBubble?.destroy();
             if (!orientation.isPortrait) {
                 Object.values(this.scene.bachelorPP).forEach(bachelorProfile => {
                     bachelorProfile.setVisible(false);
