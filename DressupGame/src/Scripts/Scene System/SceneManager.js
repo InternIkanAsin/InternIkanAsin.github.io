@@ -22,12 +22,13 @@ export class SceneManager {
             this.scene.acceptCallButton?.destroy();
             this.scene.endCallGimmick?.destroy();
             this.scene.pinkBg?.destroy();
-            if(!orientation.isPortrait){
+            this.scene.bachelorPPBorder?.destroy();
+            if (!orientation.isPortrait) {
                 Object.values(this.scene.bachelorPP).forEach(bachelorProfile => {
-                bachelorProfile.setVisible(false);
-            });
+                    bachelorProfile.setVisible(false);
+                });
             }
-            
+
             if (typeof this.scene.createSelectionScreen === 'function') {
                 this.scene.createSelectionScreen();
             }

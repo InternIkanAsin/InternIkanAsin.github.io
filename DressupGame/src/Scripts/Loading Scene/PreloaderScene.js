@@ -161,7 +161,7 @@ class PreloaderScene extends Phaser.Scene {
 
                 // Gambar Outline jika perlu
                 if (showOutline && ppLayout.activeOutline) {
-                    this.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
+                    this.bachelorPPBorder = this.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
                 }
 
                 // Gambar Foto Profil dengan kunci yang sudah benar
@@ -176,7 +176,7 @@ class PreloaderScene extends Phaser.Scene {
                 }
             });
 
-        } else {          
+        } else {
             const ppLayout = layout.bachelorPps_loading; // Ambil konfigurasi
             const bachelorPPs = ppLayout.positions.map(p => p.key); // Dapatkan array kunci: ['PP_Azril', ...]
             const totalPpsWidth = (bachelorPPs.length - 1) * ppLayout.spacing;
@@ -184,8 +184,8 @@ class PreloaderScene extends Phaser.Scene {
 
             bachelorPPs.forEach((key, index) => {
                 this.add.image(
-                    startX + (index * ppLayout.spacing), 
-                    ppLayout.y, 
+                    startX + (index * ppLayout.spacing),
+                    ppLayout.y,
                     key
                 ).setScale(ppLayout.scale);
             });
