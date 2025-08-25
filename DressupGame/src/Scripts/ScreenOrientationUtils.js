@@ -269,9 +269,9 @@ const LANDSCAPE = {
         zoomInHairY: 1080 / 2 * 1.553,
         zoomInTargetHairScale: 1.6 * 256 / 225,
 
-        zoomOutHairX: 1920 / 2 / 1.103 - 300,
-        zoomOutHairY: 1080 / 2 / 1.45,
-        zoomOutHairScale: 0.5 * 256 / 225,
+        zoomOutHairX: 1920 / 2 / 1.103 - 301.5,
+        zoomOutHairY: 1080 / 2 / 1.45 + 2,
+        zoomOutHairScale: 0.61,
 
         halfZoomHairX: LANDSCAPE_CENTERX - 8,
         halfZoomHairY: LANDSCAPE_HEIGHT / 1.81 + 2,
