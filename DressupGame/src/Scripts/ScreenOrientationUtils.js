@@ -70,12 +70,13 @@ const LANDSCAPE = {
         },
         customSizes: {
             'Corset dress': { width: 944, height: 900 },
-            'Red heart white mini dress': { width: 944, height: 900 },
+            'Red heart white mini dress': { width: 944 * 0.93, height: 900 },
             'Holiday dress': { width: 944, height: 900 },
             'Grey jacket': { width: 555, height: 565 }
         },
         manualOffsets: {
             'Pink set': { x: 1, y: 0 },
+            //'Red heart white mini dress': { x: -10, Y: 0},
             'Grey jacket': { x: 2, y: 0 },
             'White Shirt': { x: 0, y: 0 },
             'Mini A-line skirt': { x: -18, y: 20 },
@@ -272,9 +273,9 @@ const LANDSCAPE = {
         zoomOutHairY: 1080 / 2 / 1.45,
         zoomOutHairScale: 0.5 * 256 / 225,
 
-        halfZoomHairX: LANDSCAPE_CENTERX - 5,
-        halfZoomHairY: LANDSCAPE_HEIGHT * 0.5415,
-        halfZoomHairScale: 0.8 * 256 / 225
+        halfZoomHairX: LANDSCAPE_CENTERX - 5 -1,
+        halfZoomHairY: LANDSCAPE_HEIGHT * 0.5415 + 9,
+        halfZoomHairScale: 0.85 * 256 / 225
 
     },
     // Side Panel
@@ -646,13 +647,13 @@ const PORTRAIT = {
         zoomInHairY: 1280 / 2 * 1.46,
         zoomInTargetHairScale: 0.8 * 2 * 256 / 225,
 
-        zoomOutHairX: 720 / 2 / 1.107,
-        zoomOutHairY: 1280 / 2 / 1.325 - 280 * 0.78,
-        zoomOutHairScale: 0.25 * 2 * 256 / 225 * 0.89,
+        zoomOutHairX: 720 / 2 / 1.107 - 1,
+        zoomOutHairY: 1280 / 2 / 1.325 - 280 * 0.78 + 8,
+        zoomOutHairScale: 0.27 * 2 * 256 / 225 * 0.89,
 
-        halfZoomHairX: PORTRAIT_CENTERX - 5,
-        halfZoomHairY: PORTRAIT_HEIGHT * 0.345,
-        halfZoomHairScale: 0.8 * 256 / 225
+        halfZoomHairX: PORTRAIT_CENTERX - 5 -1,
+        halfZoomHairY: PORTRAIT_HEIGHT * 0.345 + 9,
+        halfZoomHairScale: 0.85 * 256 / 225
 
     },
 
