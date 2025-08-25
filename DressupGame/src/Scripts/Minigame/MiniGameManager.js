@@ -262,7 +262,7 @@ export class MiniGameManager {
             scene.tweens.add({
                 targets: scene.scrollPanel,
                 t: 0,
-                duration: 500,
+                duration: 1000,
                 ease: 'Sine.easeInOut'
             })
         }
