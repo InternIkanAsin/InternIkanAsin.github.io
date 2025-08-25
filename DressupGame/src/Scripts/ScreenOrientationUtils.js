@@ -87,7 +87,8 @@ const LANDSCAPE = {
             'Dark grey skirt': { x: -15, y: 20 },
             'Strapped open shoes': { x: 0, y: -5 },
             'Red opened shoe': { x: 0, y: -5 },
-            'Green sport jacket': { x: 0, y: -40 }
+            'Green sport jacket': { x: 0, y: -40 },
+            'Purple v-neck': {x: 0, y: 0},
         }
     },
 
@@ -816,7 +817,7 @@ const PORTRAIT = {
         offsety: 100,
         positions: {
             Dress: { x: 327, y: 757.5 - 280 * 0.88 },
-            Shirt: { x: 327, y: 549 - 280 * 0.795 },
+            Shirt: { x: 327 + 1, y: 549 - 280 * 0.795 + 1 },
             Outer: { x: 328.5, y: 590.5 - 280 * 0.82 },
             Lower: { x: 342, y: 853 - 280 * 0.89 },
             Socks: { x: 361.5, y: 878 - 280 * 0.92 },
@@ -824,14 +825,14 @@ const PORTRAIT = {
         },
         customSizes: {
             'Corset dress': { width: 944 * 0.89, height: 900 * 0.89 },
-            'Red heart white mini dress': { width: 944 * 0.89, height: 900 * 0.89 },
+            'Red heart white mini dress': { width: 944 * 0.93, height: 900 * 0.89 },
             'Holiday dress': { width: 944 * 0.89, height: 900 * 0.89 },
             'Grey jacket': { width: 555 * 0.89, height: 565 * 0.89 }
         },
         manualOffsets: {
-            'Red heart white mini dress': { x: -5, y: 0 },
+            'Red heart white mini dress': { x: -10, y: 0 },
             'Pink set': { x: 0, y: 0 },
-            'White Shirt': { x: -2, y: -1 },
+            'White Shirt': { x: 0, y: -1 },
             'Mini A-line skirt': { x: -15, y: 10 },
             'Asymmetrical mini skirt': { x: -15, y: 17 },
             'High waist mini skirt': { x: -15, y: 17 },
@@ -842,6 +843,8 @@ const PORTRAIT = {
             'Wide jeans with ribbons': { x: 0, y: -3 },
             'Green sport jacket': { x: 0, y: -34 },
             'Grey jacket': { x: 0, y: 3 },
+            
+            
         }
     },
 
