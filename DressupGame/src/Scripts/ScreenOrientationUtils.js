@@ -255,11 +255,11 @@ const LANDSCAPE = {
         zoomInTargetFaceScale: 1,
 
         zoomOutFaceX: 1920 / 2 / 1.115 - 300,
-        zoomOutFaceY: 1080 / 2 / 2.19,
-        zoomOutTargetFaceScale: 0.3,
+        zoomOutFaceY: 1080 / 2 / 2.19 - 4,
+        zoomOutTargetFaceScale: 0.33,
 
         halfZoomFaceX: LANDSCAPE_CENTERX - 22, // Sedikit offset dari tengah
-        halfZoomFaceY: LANDSCAPE_HEIGHT * 0.352 - 7 ,
+        halfZoomFaceY: LANDSCAPE_HEIGHT * 0.352 - 7,
         halfZoomFaceScale: 0.55
 
     },
@@ -636,7 +636,7 @@ const PORTRAIT = {
         zoomOutTargetFaceScale: 0.3 * 0.9,
 
         halfZoomFaceX: PORTRAIT_CENTERX - 16 - 5,
-        halfZoomFaceY: PORTRAIT_HEIGHT * 0.19 - 5 ,
+        halfZoomFaceY: PORTRAIT_HEIGHT * 0.19 - 5,
         halfZoomFaceScale: 0.5
 
     },
