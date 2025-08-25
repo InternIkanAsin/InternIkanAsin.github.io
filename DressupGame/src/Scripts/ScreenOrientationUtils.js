@@ -826,12 +826,12 @@ const PORTRAIT = {
         },
         customSizes: {
             'Corset dress': { width: 944 * 0.89, height: 900 * 0.89 },
-            'Red heart white mini dress': { width: 944 * 0.93, height: 900 * 0.89 },
+            'Red heart white mini dress': { width: 944 * 0.845, height: 900 * 0.89 },
             'Holiday dress': { width: 944 * 0.89, height: 900 * 0.89 },
             'Grey jacket': { width: 555 * 0.89, height: 565 * 0.89 }
         },
         manualOffsets: {
-            'Red heart white mini dress': { x: -10, y: 0 },
+            'Red heart white mini dress': { x: 0, y: 0 },
             'Pink set': { x: 0, y: 0 },
             'White Shirt': { x: 0, y: -1 },
             'Mini A-line skirt': { x: -15, y: 10 },
