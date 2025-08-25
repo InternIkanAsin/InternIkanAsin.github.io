@@ -100,7 +100,20 @@ export class CutsceneSystem {
                     scene.bachelorPP[bachelorName].setTexture(newPPKey);
                     if (currentBachelor === bachelorName) {
                         scene.bachelorPPBorder = scene.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
-                        scene.chatBubble = scene.add.image(ppData.x - 125, ppData.y, 'ChatBubble').setDepth(1).setScale(ppLayout.selectedBorderScale);
+                        const bubbleContainer = scene.add.container(0, 0);
+                        scene.chatBubble = scene.add.image(0, 0, 'ChatBubble')
+                            .setScale(ppLayout.selectedBorderScale);
+
+                        scene.chatBubbleText = scene.add.text(-5, -10, '...', {
+                            fontSize: '55px',
+                            fontFamily: 'regularFont',
+                            color: '#000000',
+                            align: 'center'
+                        }).setOrigin(0.5);
+
+                        bubbleContainer.add([scene.chatBubble, scene.chatBubbleText]);
+                        bubbleContainer.setPosition(ppData.x - 125, ppData.y);
+                        bubbleContainer.setDepth(2);
                     } else if (chosenHistory.includes(bachelorName)) {
                         scene.bachelorPP[`${bachelorName}_checkmark`] = scene.add.image(
                             ppData.x + checkmarkOffset.x,
