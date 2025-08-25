@@ -101,12 +101,11 @@ export class CutsceneSystem {
                     if (currentBachelor === bachelorName) {
                         scene.bachelorPPBorder = scene.add.image(ppData.x, ppData.y, 'PP_Selected').setDepth(1).setScale(ppLayout.selectedBorderScale);
                         const bubbleContainer = scene.add.container(0, 0);
-                        scene.chatBubble = scene.add.image(0, 0, 'ChatBubble')
-                            .setScale(ppLayout.selectedBorderScale);
+                        scene.chatBubble = scene.add.nineslice(-5, -5, 'ChatBubble', '', 125, 105, 8, 8, 9, 14);
 
-                        scene.chatBubbleText = scene.add.text(-5, -10, '...', {
-                            fontSize: '55px',
-                            fontFamily: 'regularFont',
+                        scene.chatBubbleText = scene.add.text(-10, -8, '...', {
+                            fontSize: '48px',
+                            fontFamily: 'pixelFont',
                             color: '#000000',
                             align: 'center'
                         }).setOrigin(0.5);
