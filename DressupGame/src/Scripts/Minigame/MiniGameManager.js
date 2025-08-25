@@ -709,17 +709,24 @@ export class MiniGameManager {
             space: { item: catLayout.space.column }
         }).setDepth(11);
 
-        categoryButtons.forEach(btn => {
+        categoryButtons.forEach((btn, index) => {
             if (btn) {
-                categorySizer.add(btn, { padding: { left: 5, right: 5 } });
+                const isLast = index === categoryButtons.length - 1;
+                categorySizer.add(btn, { 
+                    padding: { left: 5, right: isLast ? 100 : 5 } 
+                });
             }
         });
         categorySizer.layout();
         let categoryWidth = categorySizer.width;
-
+        if (categorySizer.width < catLayout.width) {
+            const buffer = catLayout.width - categorySizer.width + 50; // Tambah 50px ekstra
+            categorySizer.add(scene.add.zone(0, 0, buffer, 1));
+            categorySizer.layout();
+        }
 
         const targetViewport = Math.max(200, catLayout.width);
-        let panelWidth = Math.min(targetViewport, categoryWidth - 40);
+        let panelWidth = Math.min(targetViewport, categoryWidth + 1000);
 
 
         if (panelWidth <= 0 || panelWidth >= categoryWidth) {
@@ -727,11 +734,11 @@ export class MiniGameManager {
 
             categorySizer.add(
                 scene.add.rectangle(1, 1, 1, 1, 0x000000, 0).setAlpha(0),
-                { padding: { right: bufferRight } }
+                { padding: { right: 1000 } }
             );
             categorySizer.layout();
             categoryWidth = categorySizer.width;
-            panelWidth = Math.min(targetViewport * 100, categoryWidth - 40);
+            panelWidth = Math.min(targetViewport , categoryWidth);
         }
         const scrollPanel = scene.rexUI.add.scrollablePanel({
             x: catLayout.x + 100,
@@ -742,7 +749,7 @@ export class MiniGameManager {
             scrollDetectionMode: 0,
             panel: {
                 child: categorySizer,
-                mask: { padding: { top: 150, left: 150, bottom: 0, right: 20 } }
+                mask: { padding: { top: 150, left: 150, bottom: 0, right: 0 } }
             },
             mouseWheelScroller: { speed: 1, focus: false },
             clampChildOX: false,
@@ -1282,13 +1289,13 @@ export class MiniGameManager {
             // 3. Panggil pertama kali tanpa argumen
             triggerBurst();
 
-            // 4. Buat timer tanpa 'args'
-            this.endingPanelTimer = this.scene.time.addEvent({
-                delay: 2500,
-                callback: triggerBurst,
-                callbackScope: this, // callbackScope penting agar 'this' di dalam callback benar
-                loop: true
-            });
+            // 4. loop (uncomment to  turn on)
+            //this.endingPanelTimer = this.scene.time.addEvent({
+            //    delay: 2500,
+            //    callback: triggerBurst,
+            //    callbackScope: this, // callbackScope penting agar 'this' di dalam callback benar
+            //    loop: true
+            //});
         }
         const panelElements = [];
 
