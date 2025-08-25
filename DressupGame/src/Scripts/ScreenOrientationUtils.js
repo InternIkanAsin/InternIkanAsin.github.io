@@ -628,7 +628,7 @@ const PORTRAIT = {
     //Face
     face: {
         zoomInFaceX: 720 / 2 * 0.95,
-        zoomInFaceY: 1280 / 2 / 1.2,
+        zoomInFaceY: 1280 / 2 / 1.2 + 2,
         zoomInTargetFaceScale: 1,
 
         zoomOutFaceX: 720 / 2 / 1.13,
