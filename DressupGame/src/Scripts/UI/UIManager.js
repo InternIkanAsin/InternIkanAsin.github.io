@@ -31,12 +31,12 @@ export class UIManager {
         scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9).setRotation(Phaser.Math.DegToRad(0));
         scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7).setRotation(Phaser.Math.DegToRad(0));
 
-        scene.hairBack.postFX.setPadding(128);
-        const hairBackFX = scene.hairBack.postFX.addGlow();
-        hairBackFX.outerStrength = 0.5;
-        scene.hairFront.postFX.setPadding(128);
-        const hairFrontFX = scene.hairFront.postFX.addGlow();
-        hairFrontFX.outerStrength = 0.5;
+        // scene.hairBack.postFX.setPadding(128);
+        // const hairBackFX = scene.hairBack.postFX.addGlow();
+        // hairBackFX.outerStrength = 0.5;
+        // scene.hairFront.postFX.setPadding(128);
+        // const hairFrontFX = scene.hairFront.postFX.addGlow();
+        // hairFrontFX.outerStrength = 0.5;
 
         scene.eyeshadows = scene.add.image(layout.MakeupPosition.Eyeshadow.x, layout.MakeupPosition.Eyeshadow.y, 'eyeshadownormaldefault').setScale(layout.MakeupPosition.Eyeshadow.scale * 2).setDepth(1.9);
         scene.pupils = scene.add.image(layout.MakeupPosition.Pupil.x, layout.MakeupPosition.Pupil.y, 'PupilNormalBlue').setScale(layout.MakeupPosition.Pupil.scale * 2).setDepth(4);

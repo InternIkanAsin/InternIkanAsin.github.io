@@ -89,7 +89,7 @@ const LANDSCAPE = {
             'Strapped open shoes': { x: 0, y: -5 },
             'Red opened shoe': { x: 0, y: -5 },
             'Green sport jacket': { x: 0, y: -40 },
-            'Purple v-neck': {x: 0, y: 0},
+            'Purple v-neck': { x: 0, y: 0 },
         }
     },
 
@@ -258,8 +258,8 @@ const LANDSCAPE = {
         zoomOutFaceY: 1080 / 2 / 2.19,
         zoomOutTargetFaceScale: 0.3,
 
-        halfZoomFaceX: LANDSCAPE_CENTERX - 16, // Sedikit offset dari tengah
-        halfZoomFaceY: LANDSCAPE_HEIGHT * 0.355,
+        halfZoomFaceX: LANDSCAPE_CENTERX - 20, // Sedikit offset dari tengah
+        halfZoomFaceY: LANDSCAPE_HEIGHT * 0.352,
         halfZoomFaceScale: 0.5
 
     },
@@ -273,9 +273,9 @@ const LANDSCAPE = {
         zoomOutHairY: 1080 / 2 / 1.45,
         zoomOutHairScale: 0.5 * 256 / 225,
 
-        halfZoomHairX: LANDSCAPE_CENTERX - 5 -1,
-        halfZoomHairY: LANDSCAPE_HEIGHT * 0.5415 + 9,
-        halfZoomHairScale: 0.85 * 256 / 225
+        halfZoomHairX: LANDSCAPE_CENTERX - 8,
+        halfZoomHairY: LANDSCAPE_HEIGHT / 1.81 + 2,
+        halfZoomHairScale: 1.03
 
     },
     // Side Panel
@@ -651,7 +651,7 @@ const PORTRAIT = {
         zoomOutHairY: 1280 / 2 / 1.325 - 280 * 0.78 + 8,
         zoomOutHairScale: 0.27 * 2 * 256 / 225 * 0.89,
 
-        halfZoomHairX: PORTRAIT_CENTERX - 5 -1,
+        halfZoomHairX: PORTRAIT_CENTERX - 5 - 1,
         halfZoomHairY: PORTRAIT_HEIGHT * 0.345 + 9,
         halfZoomHairScale: 0.85 * 256 / 225
 
@@ -844,8 +844,8 @@ const PORTRAIT = {
             'Wide jeans with ribbons': { x: 0, y: -3 },
             'Green sport jacket': { x: 0, y: -34 },
             'Grey jacket': { x: 0, y: 3 },
-            
-            
+
+
         }
     },
 

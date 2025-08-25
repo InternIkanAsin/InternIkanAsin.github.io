@@ -87,6 +87,7 @@ export class DressUpManager {
 
         OutfitButton.clearAllOutfitHighlights(scene);
         console.log("[DressUpManager] All outfits removed.");
+        SaveManager.saveGame(scene);
     }
 
 
@@ -229,19 +230,19 @@ export class DressUpManager {
         console.log('[DEBUG] numItems:', numItems, 'columns:', gridConfig.columns);
         scene.MiniGameManager.buttonGrid = scene.rexUI.add.gridSizer({
             column: gridConfig.columns,
-            
+
             row: Math.max(1, Math.ceil(numItems / columns)),
-            
-            space: { 
-                ...gridConfig.space, 
-                bottom: 150          
+
+            space: {
+                ...gridConfig.space,
+                bottom: 150
             },
             align: 'center',
         });
         scene.MiniGameManager.innerSizer.add(scene.MiniGameManager.buttonGrid, 0, 'center', { expand: true }, true);
         allButtonContainersForPanel.forEach((btnContainer, index) => {
-            const rowIndex = Math.floor(index / gridConfig.columns); 
-            const columnIndex = index % gridConfig.columns; 
+            const rowIndex = Math.floor(index / gridConfig.columns);
+            const columnIndex = index % gridConfig.columns;
             btnContainer.setVisible(true);
             scene.MiniGameManager.buttonGrid.add(btnContainer, columnIndex, rowIndex, 'center', 0, true);
         });
@@ -251,12 +252,12 @@ export class DressUpManager {
     }
 
     displayDressUpButtons(outfitType, scene) {
-        
+
         if (outfitType === 'Dress') {
             if (scene.selectedCategory.previous) scene.selectedCategory.previous = scene.selectedCategory.current;
             scene.selectedCategory.current = scene.dressButton;
         }
-        
+
         if (outfitType === 'Outer') {
             if (!scene.areOutersLoaded) {
                 scene.UIManager.showLoadingOverlay('Loading Outers...');
@@ -396,7 +397,7 @@ export class DressUpManager {
                 // 3. Update the content of the panel with dress-up items
                 this.updateDressUpButtons(outfitType);
 
-                
+
 
                 // 4. Update selected button header text and icon
                 let iconKey = 'dressIcon';
@@ -442,10 +443,10 @@ export class DressUpManager {
                         const targetScrollPosition = orientation.isPortrait ? 0.02 : 0;
                         panel.setT(targetScrollPosition);
                     }
-            
+
                 }
 
-                
+
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
                 newButtons.forEach(btn => btn.setAlpha(0));
