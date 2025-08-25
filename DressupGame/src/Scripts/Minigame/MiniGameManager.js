@@ -257,6 +257,15 @@ export class MiniGameManager {
                 ease: 'Sine.easeInOut'
             })
         }
+
+        if (scene.scrollPanel) {
+            scene.tweens.add({
+                targets: scene.scrollPanel,
+                t: 0,
+                duration: 500,
+                ease: 'Sine.easeInOut'
+            })
+        }
     }
 
     clearMinigameUI() {
@@ -293,6 +302,7 @@ export class MiniGameManager {
         scene.sidePanel?.destroy();
         scene.panelDivider?.destroy();
         scene.categorySidePanel?.destroy();
+        scene.scrollPanel?.destroy();
         this.backButton?.destroy();
         scene.randomizeButton?.destroy();
         scene.dressUpCategoryButtons?.forEach(buttons => buttons.destroy());
@@ -312,6 +322,7 @@ export class MiniGameManager {
         scene.sidePanel = null;
         scene.categorySidePanel = null;
         this.backButton = null;
+        this.scrollPanel = null
 
     }
 
@@ -756,7 +767,7 @@ export class MiniGameManager {
 
 
             slider: false
-        }).setOrigin(0.5, 0).layout();
+        }).setOrigin(0.5, 0).layout().setT(1);;
 
         scene.add.existing(scrollPanel);
         scene.scrollPanel = scrollPanel;

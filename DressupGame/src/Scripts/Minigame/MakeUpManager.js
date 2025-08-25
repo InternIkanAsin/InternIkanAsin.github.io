@@ -406,7 +406,35 @@ export class MakeUpManager {
                     }
                 }
                 
+                 const categoryPanel = scene.scrollPanel; 
 
+                // 2. Jalankan hanya jika panelnya ada
+                if (categoryPanel) {
+
+                    // 3. Cek apakah kontennya bisa di-scroll
+                    const contentWidth = categoryPanel.getElement('panel').width;
+                    const panelWidth = categoryPanel.width;
+
+                    if (contentWidth > panelWidth) {
+                        const needsAnimation = !scene.animatedCategories.has(makeUpType); // atau makeUpType
+                    
+                        if (needsAnimation) {
+                            scene.animatedCategories.add(makeUpType); // atau makeUpType
+
+                            // 4. Paksa scroll ke ujung kanan (sama seperti landscape)
+                            categoryPanel.setT(0);
+
+                            // 5. Animasikan kembali ke ujung kiri (sama seperti landscape)
+                            scene.tweens.add({
+                                targets: categoryPanel,
+                                t: 1,
+                                duration: 800,
+                                ease: 'Cubic.easeInOut',
+                                delay: 300,
+                            });
+                        }
+                    }
+                }
                 
 
                 const newButtons = scene.MiniGameManager.buttonGrid.getAllChildren();
