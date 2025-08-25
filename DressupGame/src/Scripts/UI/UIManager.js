@@ -28,8 +28,8 @@ export class UIManager {
 
 
         const defaultHairTextures = defaultMakeUpSkins['Hair'];
-        scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(0.9).setRotation(Phaser.Math.DegToRad(0));
-        scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(0.5 * 256 / 225).setOrigin(0.5).setDepth(7).setRotation(Phaser.Math.DegToRad(0));
+        scene.hairBack = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.back).setScale(layout.Hair.zoomOutHairScale).setOrigin(0.5).setDepth(0.9).setRotation(Phaser.Math.DegToRad(0));
+        scene.hairFront = scene.add.image(layout.Hair.zoomOutHairX, layout.Hair.zoomOutHairY, defaultHairTextures.front).setScale(layout.Hair.zoomOutHairScale).setOrigin(0.5).setDepth(7).setRotation(Phaser.Math.DegToRad(0));
 
         // scene.hairBack.postFX.setPadding(128);
         // const hairBackFX = scene.hairBack.postFX.addGlow();
