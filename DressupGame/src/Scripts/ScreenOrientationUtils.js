@@ -1,5 +1,5 @@
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-//const isMobile = true;
+//const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = true;
 
 const isPortrait = isMobile;
 
@@ -994,14 +994,14 @@ const PORTRAIT = {
 
     namedDialogueText: {
         x: PORTRAIT_WIDTH * 0.05 + 20,
-        y: PORTRAIT_CENTERY * 1.3 - 60,
+        y: PORTRAIT_CENTERY * 1.3 - 40,
         fontSize: 32,
         wordWrap: PORTRAIT_WIDTH - 90
     },
 
     namedDialogueNameBox: {
-        width: 280 * 0.8,
-        height: 120 * 0.8,
+        width: 280,
+        height: 120,
         offsetX: 200,
         offsetY: - 25,
         nineslice: { left: 40, right: 40, top: 40, bottom: 40 },
