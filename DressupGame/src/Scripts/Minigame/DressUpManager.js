@@ -235,7 +235,7 @@ export class DressUpManager {
 
             space: {
                 ...gridConfig.space,
-                bottom: 150
+                bottom: gridConfig.bottomPadding
             },
             align: 'center',
         });

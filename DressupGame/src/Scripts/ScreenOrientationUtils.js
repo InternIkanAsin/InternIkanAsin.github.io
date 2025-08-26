@@ -13,7 +13,8 @@ const LANDSCAPE = {
 
     grid: {
         columns: 2,
-        space: { column: 110, row: 90 }
+        space: { column: 110, row: 90 },
+        bottomPadding: 150
     },
 
     muteButton: {
@@ -730,7 +731,8 @@ const PORTRAIT = {
 
     grid: {
         columns: 4,
-        space: { column: 20, row: 30 }
+        space: { column: 20, row: 30 },
+        bottomPadding: 30
     },
 
     categoryButton: {
