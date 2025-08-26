@@ -96,7 +96,7 @@ export default class AssetLoader {
     scene.load.image('stitchedButtonIconYellow', 'Asset/UI/Yellow_Stitched_Button.png');
     scene.load.image('StitchedButtonWithoutStitchIcon', "Asset/UI/Stitched_Button_WithoutStitch.png")
 
-    scene.load.image('removeDressIcon', 'Asset/UI/Undress_All_Icon.png');
+    scene.load.image('IDressIcon', 'Asset/UI/Undress_All_Icon.png');
     scene.load.image('removeMakeUpIcon', 'Asset/UI/Remove_All_MakeUp_Icon.png');
 
     scene.load.image('readyButtonIcon', 'Asset/UI/Tombol_Ready_Released.png');
@@ -166,8 +166,6 @@ export default class AssetLoader {
 
     scene.load.image('yellowButton', 'Asset/UI/New/Btn_Kuning2.png');
     scene.load.image('blueButton', 'Asset/UI/New/Btn_Biru2.png');
-    scene.load.image('exitIcon', 'Asset/UI/New/Exit_Button.png');
-    scene.load.image('removeIcon', 'Asset/UI/New/Remove_Button.png');
     scene.load.image('blueButton2', "Asset/UI/New/Btn_Biru.png");
 
     scene.load.atlas(
