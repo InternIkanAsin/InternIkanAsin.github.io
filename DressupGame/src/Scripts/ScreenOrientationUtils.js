@@ -637,7 +637,7 @@ const PORTRAIT = {
 
         halfZoomFaceX: PORTRAIT_CENTERX - 16 - 5,
         halfZoomFaceY: PORTRAIT_HEIGHT * 0.19 - 5,
-        halfZoomFaceScale: 0.5
+        halfZoomFaceScale: 0.55
 
     },
     //Hair

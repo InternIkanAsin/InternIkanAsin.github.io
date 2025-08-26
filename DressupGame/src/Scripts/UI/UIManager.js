@@ -486,7 +486,7 @@ export class UIManager {
         scene.hairBack?.destroy();
         scene.faceContainer?.destroy();
         scene.background?.destroy();
-
+        
         scene.AudioManager?.fadeOutMusic('minigameMusic', 500);
         console.log("[UIManager] Minigame Scene Cleared.");
     }
