@@ -797,8 +797,8 @@ const PORTRAIT = {
             { key: 'PP_Keenan', x: PORTRAIT_WIDTH * 0.74, y: PORTRAIT_HEIGHT * 0.74 }
         ],
         activeOutline: { thickness: 10, color: 0xFFD700 },
-        checkmarkOffset: { x: 50, y: 50 },
-        checkmarkScale: 0.5
+        checkmarkOffset: { x: 35, y: 50 },
+        checkmarkScale: 0.6
     },
 
     loadingBar: {

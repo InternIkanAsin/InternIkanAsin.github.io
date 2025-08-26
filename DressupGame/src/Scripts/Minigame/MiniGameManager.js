@@ -736,7 +736,7 @@ export class MiniGameManager {
             categorySizer.layout();
         }
 
-        const targetViewport = Math.max(200, catLayout.width);
+        const targetViewport = Math.max(200, catLayout.width + 100);
         let panelWidth = Math.min(targetViewport, categoryWidth + 1000);
 
 
