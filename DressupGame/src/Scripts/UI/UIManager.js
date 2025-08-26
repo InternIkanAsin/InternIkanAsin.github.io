@@ -419,7 +419,7 @@ export class UIManager {
         scene.removeAllButton?.destroy();
         scene.tipsButton?.destroy();
         scene.finishButton?.destroy();
-
+        scene.whiteEffect?.destroy();
         scene.makeUpButton?.destroy();
         scene.makeUpTickMark?.destroy();
         scene.dressUpButton?.destroy();

@@ -267,8 +267,10 @@ export class CutsceneSystem {
         this.scene.chosenBachelorExpression = bachelorExpression;
 
         this.scene.backgroundCutscene2 = this.scene.add.image(layout.cutsceneBG.x, layout.cutsceneBG.y, bachelorName + datePlace).setDepth(layout.cutsceneBG.depth).setDisplaySize(layout.cutsceneBG.width, layout.cutsceneBG.height);
-
-        console.log("Cutscene 2 Background created:", this.scene.backgroundCutscene2);
+        this.scene.whiteEffect = this.scene.add.image(width / 2, height / 2, 'WhiteEffect')
+        .setDisplaySize(width, height)
+        .setDepth(layout.cutsceneBG.depth + 0.1);
+        
 
         this.cleanupEmitters();
         this.activeEmitters = [];
