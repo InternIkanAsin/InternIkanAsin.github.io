@@ -795,14 +795,11 @@ export class MiniGameManager {
         scene.add.existing(scrollPanel);
         scene.scrollPanel = scrollPanel;
 
-
-
-
-
         this.buttonGrid = scene.rexUI.add.gridSizer({
             column: 1,
             row: 1
         });
+
         this.innerSizer = scene.rexUI.add.sizer({ orientation: 'y', space: { top: 0, left: 30 } });
         this.innerSizer.add(scene.rexUI.add.space(0, 0));
         this.innerSizer.add(this.buttonGrid, { expand: true });
@@ -884,7 +881,7 @@ export class MiniGameManager {
 
             activeButton = null;
         });
-
+        
 
         topBlocker.on('pointerout', (pointer) => {
 
