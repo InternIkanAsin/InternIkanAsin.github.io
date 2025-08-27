@@ -722,9 +722,30 @@ export class MiniGameManager {
 
         categoryButtons.forEach((btn, index) => {
             if (btn) {
+                
+                const baseW =
+                (btn.button && (btn.button.displayWidth || btn.button.width)) ||
+                btn.displayWidth || btn.width || 120;
+
+                const baseH =
+                (btn.button && (btn.button.displayHeight || btn.button.height)) ||
+                btn.displayHeight || btn.height || 120;
+                if (!btn.__cullHalo) {
+                    const haloWidth = baseW * 2;      // lebar bounds diperlebar 2x
+                    const haloHeight = baseH;         // tinggi cukup sama
+                    const halo = btn.scene.add.rectangle(0, 0, haloWidth, haloHeight, 0x000000, 0);
+                    halo.setOrigin(0.5);              // sejajarkan di tengah tombol
+                    // Jangan di-set visible=false, karena beberapa kalkulasi bounds mengabaikan yang invisible.
+                    // Biarkan alpha=0 (transparan), tidak interaktif, dan tidak punya efek visual.
+                    halo.name = '__cullHalo';
+                    btn.addAt(halo, 0);               // taruh paling belakang agar tidak nutup apa pun
+                    btn.__cullHalo = halo;
+                }
                 const isLast = index === categoryButtons.length - 1;
+                
                 categorySizer.add(btn, { 
-                    padding: { left: 5, right: isLast ? 100 : 5 } 
+                    align: 'left',
+                    padding: { left: 0, right: isLast ? 100 : 5 } 
                 });
             }
         });
@@ -760,7 +781,7 @@ export class MiniGameManager {
             scrollDetectionMode: 0,
             panel: {
                 child: categorySizer,
-                mask: { padding: { top: 150, left: 150, bottom: 0, right: 0 } }
+                mask: { padding: { top: 150, left: 200, bottom: 0, right: 0 } }
             },
             mouseWheelScroller: { speed: 1, focus: false },
             clampChildOX: false,
