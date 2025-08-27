@@ -731,14 +731,14 @@ export class MiniGameManager {
                 (btn.button && (btn.button.displayHeight || btn.button.height)) ||
                 btn.displayHeight || btn.height || 120;
                 if (!btn.__cullHalo) {
-                    const haloWidth = baseW * 2;      // lebar bounds diperlebar 2x
-                    const haloHeight = baseH;         // tinggi cukup sama
+                    const haloWidth = baseW * 2;      
+                    const haloHeight = baseH;         
                     const halo = btn.scene.add.rectangle(0, 0, haloWidth, haloHeight, 0x000000, 0);
-                    halo.setOrigin(0.5);              // sejajarkan di tengah tombol
-                    // Jangan di-set visible=false, karena beberapa kalkulasi bounds mengabaikan yang invisible.
-                    // Biarkan alpha=0 (transparan), tidak interaktif, dan tidak punya efek visual.
+                    halo.setOrigin(0.5);              
+                    
+                    
                     halo.name = '__cullHalo';
-                    btn.addAt(halo, 0);               // taruh paling belakang agar tidak nutup apa pun
+                    btn.addAt(halo, 0);               
                     btn.__cullHalo = halo;
                 }
                 const isLast = index === categoryButtons.length - 1;
@@ -752,7 +752,7 @@ export class MiniGameManager {
         categorySizer.layout();
         let categoryWidth = categorySizer.width;
         if (categorySizer.width < catLayout.width) {
-            const buffer = catLayout.width - categorySizer.width + 50; // Tambah 50px ekstra
+            const buffer = catLayout.width - categorySizer.width + 50; 
             categorySizer.add(scene.add.zone(0, 0, buffer, 1));
             categorySizer.layout();
         }
