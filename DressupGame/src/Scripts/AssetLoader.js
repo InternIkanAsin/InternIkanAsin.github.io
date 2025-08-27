@@ -15,6 +15,10 @@ export default class AssetLoader {
     AssetLoader.loadUIAssets(scene);
     AssetLoader.loadAudioAssets(scene);
     AssetLoader.loadCutsceneAssets(scene);
+    AssetLoader.loadLip(scene);
+    AssetLoader.loadEyeShadow(scene);
+    AssetLoader.loadBlush(scene);
+    AssetLoader.loadEyeliner(scene);
   }
 
   static loadMiniGame(scene) {
