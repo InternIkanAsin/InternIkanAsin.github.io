@@ -880,6 +880,112 @@ export class MakeUpButton extends BaseButton {
     disableInteractive() {
         if (this.button) this.button.disableInteractive();
     }
+    forceApplyMakeUp() {
+        const { scene, textureAnime, makeupType, name: buttonName } = this;
+        const currentGlobalEquippedInfo = MakeUpButton.selectedMakeUp[makeupType]?.current;
+
+        if (!scene.faceContainer && !['Hair'].includes(makeupType)) {
+            console.error("[Force Apply] Scene's faceContainer not defined.");
+            return;
+        }
+
+        // Jika item yang sama sudah terpasang, tidak perlu melakukan apa-apa.
+        if (currentGlobalEquippedInfo === this) {
+            return;
+        }
+
+        // 1. Hapus highlight dari semua tombol di kategori ini.
+        MakeUpButton.clearMakeupHighlightsForType(scene, makeupType);
+
+        // 2. Lepas item sebelumnya dari kategori yang sama.
+        if (currentGlobalEquippedInfo && currentGlobalEquippedInfo.displayedMakeUp) {
+            const prevType = currentGlobalEquippedInfo.makeupType || makeupType;
+            // Hanya hancurkan visual untuk item aditif/bisa diwarnai (non-persisten).
+            if (!['Lips', 'Eyebrows', 'Eyelashes', 'Pupil', 'Hair', 'Eyeshadow'].includes(prevType)) {
+                if (typeof currentGlobalEquippedInfo.displayedMakeUp.destroy === 'function') {
+                    currentGlobalEquippedInfo.displayedMakeUp.destroy();
+                }
+            }
+            if (currentGlobalEquippedInfo instanceof MakeUpButton) {
+                currentGlobalEquippedInfo.displayedMakeUp = null;
+            }
+        }
+        
+        // 3. Buat dan terapkan visual baru.
+        let newImage;
+        const pos = layout.MakeupPosition[makeupType] || { x: 0, y: 0 };
+
+        // Logika terpadu untuk semua jenis makeup
+        switch (makeupType) {
+            case 'Hair':
+                scene.hairBack.setTexture(textureAnime.back.atlas, textureAnime.back.frame);
+                scene.hairFront.setTexture(textureAnime.front.atlas, textureAnime.front.frame);
+                newImage = [scene.hairBack, scene.hairFront];
+                break;
+            case 'Eyebrows':
+                scene.eyebrows.setTexture(textureAnime.atlas, textureAnime.frame);
+                newImage = scene.eyebrows;
+                break;
+            case 'Eyelashes':
+                scene.eyelashes.setTexture(textureAnime.atlas, textureAnime.frame);
+                newImage = scene.eyelashes;
+                break;
+            case 'Pupil':
+                scene.pupils.setTexture(textureAnime.atlas, textureAnime.frame);
+                newImage = scene.pupils;
+                break;
+            case 'Lips':
+                scene.lips.setTexture(textureAnime);
+                newImage = scene.lips;
+                break;
+            case 'Eyeshadow':
+                scene.eyeshadows.setTexture(textureAnime);
+                newImage = scene.eyeshadows;
+                break;
+            // Untuk Blush, Eyeliner, dan Sticker, kita buat gambar baru.
+            case 'Blush':
+            case 'Eyeliner':
+            case 'Sticker':
+                newImage = scene.add.image(pos.x, pos.y, textureAnime.atlas || textureAnime, textureAnime.frame || null);
+                if (scene.faceContainer) {
+                    scene.faceContainer.add(newImage);
+                }
+                break;
+            default:
+                console.warn(`[Force Apply] Tipe makeup tidak dikenal: ${makeupType}`);
+                return;
+        }
+
+        if (!newImage) return;
+
+        // 4. Atur skala dan kedalaman (depth) yang benar.
+        const scale = (layout.MakeupPosition[makeupType]?.scale || 0.55) * 2;
+        if (Array.isArray(newImage)) { // Khusus untuk rambut
+             // Skala untuk rambut diatur oleh logika zoom, tidak perlu diubah di sini.
+        } else {
+            newImage.setScale(scale).setDepth(MakeUpButton.DEPTH_VALUES[makeupType] || 2.7);
+        }
+        
+        // 5. Perbarui state
+        this.displayedMakeUp = newImage;
+        MakeUpButton.selectedMakeUp[makeupType] = {
+            previous: currentGlobalEquippedInfo,
+            current: this
+        };
+        
+        // 6. Tampilkan feedback visual dan simpan.
+        if (this.highlightImage) this.highlightImage.setVisible(true);
+        if (scene.UIManager) {
+            const targetForGlitter = Array.isArray(newImage) ? newImage[1] : newImage; // Gunakan rambut depan untuk glitter
+            scene.UIManager.playGlitterExplosion(targetForGlitter, makeupType);
+        }
+        if (scene.faceContainer) {
+            scene.faceContainer.sort('depth');
+        }
+        if (scene.SaveManager) {
+            scene.SaveManager.saveGame(scene);
+        }
+    }
 
     setInteractive() {
         if (this.button) this.button.setInteractive();

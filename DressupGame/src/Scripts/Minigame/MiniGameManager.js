@@ -110,7 +110,8 @@ export class MiniGameManager {
                             const buttons = scene.makeUpButtons[makeUpType];
                             const randomIndex = Math.floor(Math.random() * buttons.length);
                             console.log(buttons[randomIndex]);
-                            buttons[randomIndex].toggleMakeUp();
+                            buttons[randomIndex].forceApplyMakeUp();
+                            //buttons[randomIndex].toggleMakeUp();
                         });
                     } else if (scene.state === GameState.DRESSUP) {
                         scene.DressUpManager.removeAllOutfits();
